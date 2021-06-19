@@ -8,6 +8,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
+    'plugin:react-hooks/recommended',
+    'plugin:jsx-a11y/recommended',
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -24,6 +26,21 @@ module.exports = {
       'error',
       {
         endOfLine: 'auto',
+      },
+    ],
+    'react/boolean-prop-naming': [
+      'error',
+      { rule: '^(is|has)[A-Z]([A-Za-z0-9]?)+', validateNested: true },
+    ],
+    'react/sort-comp': ['error'],
+    'react/sort-prop-types': [
+      'error',
+      {
+        callbacksLast: false,
+        ignoreCase: true,
+        noSortAlphabetically: false,
+        requiredFirst: false,
+        sortShapeProp: false,
       },
     ],
     'sort-imports': [
