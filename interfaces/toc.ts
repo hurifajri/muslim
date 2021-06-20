@@ -1,4 +1,4 @@
-interface ToC {
+interface Toc {
   doa: {
     id: number;
     title: string;
@@ -9,4 +9,4 @@ interface ToC {
   }[];
 }
 
-export default ToC;
+export default Toc;
