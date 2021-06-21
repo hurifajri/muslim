@@ -1,8 +1,8 @@
 // Eksternal
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
+import { Icon, IconProps } from '@chakra-ui/react';
 
-const Pray = (props): JSX.Element => (
+const Pray = (props: IconProps): JSX.Element => (
   <Icon viewBox="0 0 497 497" {...props}>
     <g>
       <path
