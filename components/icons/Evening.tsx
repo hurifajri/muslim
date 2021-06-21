@@ -1,8 +1,8 @@
 // Eksternal
-import { Icon } from '@chakra-ui/react';
 import React from 'react';
+import { Icon, IconProps } from '@chakra-ui/react';
 
-const Evening = (props): JSX.Element => (
+const Evening = (props: IconProps): JSX.Element => (
   <Icon viewBox="0 0 510 510" {...props}>
     <linearGradient id="lg1">
       <stop offset="0" stopColor="#814aa0" />
