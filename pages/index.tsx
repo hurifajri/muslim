@@ -4,6 +4,7 @@ import { AspectRatio, Box, Container, Flex, Text } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 // Internal
+import { colors } from '@/constants';
 import { useToc } from '@/hooks';
 
 const Home = (): ReactNode => {
@@ -30,7 +31,18 @@ const Home = (): ReactNode => {
         </Flex>
 
         {/* Main */}
-        <Flex as="main" direction="column" sx={{ gap: 30 }}>
+        <Flex as="main" direction="column" sx={{ gap: 15 }}>
+          {/* Doa */}
+          <Flex as="section" sx={{ gap: 15 }} wrap="wrap">
+            {doa.map(({ id, title }) => (
+              <AspectRatio flex={1} key={id} maxW="500px" ratio={1}>
+                <Box bgColor={colors[id]} borderRadius="35px">
+                  {title}
+                </Box>
+              </AspectRatio>
+            ))}
+          </Flex>
+
           {/* Dzikir */}
           <Flex as="section" sx={{ gap: 15 }} wrap="wrap">
             {dzikir.map(({ id, title }, index) => {
@@ -44,7 +56,7 @@ const Home = (): ReactNode => {
                   ratio={isLast ? 4 / 2 : 1}
                 >
                   <Box
-                    bgColor={isLast ? '#fff' : 'red'}
+                    bgColor={isLast ? 'white' : colors[id + 2]}
                     borderRadius="35px"
                     boxShadow={isLast ? 'lg' : 'none'}
                   >
@@ -53,17 +65,6 @@ const Home = (): ReactNode => {
                 </AspectRatio>
               );
             })}
-          </Flex>
-
-          {/* Doa */}
-          <Flex as="section" sx={{ gap: 15 }} wrap="wrap">
-            {doa.map(({ id, title }) => (
-              <AspectRatio flex={1} key={id} maxW="500px" ratio={1}>
-                <Box bgColor="red" borderRadius="35px">
-                  {title}
-                </Box>
-              </AspectRatio>
-            ))}
           </Flex>
         </Flex>
       </Container>
