@@ -16,7 +16,10 @@ import { useToc } from '@/hooks';
 import { Evening, Morning, Pray, Quran } from '@/components/icons';
 
 const Icons: TocIcons = {
-  evening: (
+  Pagi: (
+    <Morning position="absolute" bottom="10px" right="10px" h="45%" w="45%" />
+  ),
+  Petang: (
     <Evening
       position="absolute"
       bottom="10px"
@@ -26,19 +29,29 @@ const Icons: TocIcons = {
       sx={{ transform: 'scaleX(-1) rotate(-35deg)' }}
     />
   ),
-  morning: (
-    <Morning position="absolute" bottom="10px" right="10px" h="45%" w="45%" />
+  Quran: (
+    <Quran position="absolute" bottom="10px" right="10px" h="35%" w="35%" />
   ),
-  nabi: (
-    <Heading position="absolute" bottom="5px" right="10px">
+  Rasulullah: (
+    <Heading
+      position="absolute"
+      bottom="15px"
+      right="10px"
+      size="4xl"
+      sx={{
+        '@media screen and (max-width: 320px)': {
+          fontSize: '2.75rem',
+        },
+        '@media screen and (min-width: 321px) and (max-width: 375px)': {
+          fontSize: '3.5rem',
+        },
+      }}
+    >
       ﷺ
     </Heading>
   ),
-  pray: (
-    <Pray position="absolute" bottom="15px" right="-40px" h="45%" w="45%" />
-  ),
-  quran: (
-    <Quran position="absolute" bottom="10px" right="10px" h="35%" w="35%" />
+  'Setelah Solat': (
+    <Pray position="absolute" bottom="15px" right="-15px" h="45%" w="45%" />
   ),
 };
 
@@ -47,8 +60,6 @@ const Home = (): ReactNode => {
 
   if (isError) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
-
-  const { doa, dzikir } = contents;
 
   return (
     <Box bgColor="purple.50" height="100vh">
@@ -67,46 +78,15 @@ const Home = (): ReactNode => {
 
         {/* Main */}
         <Flex as="main" direction="column" sx={{ gap: 15 }}>
-          {/* Doa */}
           <Flex as="section" wrap="wrap" sx={{ gap: 15 }}>
-            {doa.map(item => {
-              const { bgColor, color, icon, id, title } = item;
-              return (
-                <AspectRatio key={id} flex={1} maxW="500px" ratio={1}>
-                  <Box bgColor={bgColor} borderRadius="35px">
-                    <Heading
-                      position="absolute"
-                      top="20px"
-                      left="20px"
-                      color={color}
-                      fontSize={['1.5rem', '2.1rem']}
-                      maxW="72%"
-                      sx={{
-                        '@media screen and (max-width: 374px)': {
-                          fontSize: '1.25rem',
-                        },
-                      }}
-                    >
-                      {title}
-                    </Heading>
-                    {Icons[icon]}
-                  </Box>
-                </AspectRatio>
-              );
-            })}
-          </Flex>
-
-          {/* Dzikir */}
-          <Flex as="section" sx={{ gap: 15 }} wrap="wrap">
-            {dzikir.map((item, index) => {
-              const { bgColor, color, icon, id, title } = item;
-              const isLast = index === dzikir.length - 1;
+            {contents.map((content, index) => {
+              const { bgColor, color, group, id, title } = content;
+              const isLast = index === contents.length - 1;
               return (
                 <AspectRatio
                   key={id}
-                  flex={isLast ? 2 : 1}
-                  flexBasis={isLast ? '100%' : 'auto'}
-                  maxW={isLast ? '500px' : '250px'}
+                  flex={isLast ? 4 : 1}
+                  flexBasis={isLast ? '100%' : '35%'}
                   ratio={isLast ? 4 / 2 : 1}
                 >
                   <Box
@@ -119,17 +99,22 @@ const Home = (): ReactNode => {
                       top="20px"
                       left="20px"
                       color={color}
-                      maxW="72%"
-                      size="md"
+                      size="xl"
                       sx={{
-                        '@media screen and (max-width: 374px)': {
+                        '@media screen and (max-width: 320px)': {
                           fontSize: '1.25rem',
                         },
+                        '@media screen and (min-width: 321px) and (max-width: 375px)':
+                          {
+                            fontSize: '1.5rem',
+                          },
                       }}
                     >
+                      {group}
+                      <br />
                       {title}
                     </Heading>
-                    {Icons[icon]}
+                    {Icons[title]}
                   </Box>
                 </AspectRatio>
               );
