@@ -17,27 +17,28 @@ import { Evening, Morning, Pray, Quran } from '@/components/icons';
 
 const Icons: TocIcons = {
   Pagi: (
-    <Morning position="absolute" bottom="10px" right="10px" h="45%" w="45%" />
+    <Morning position="absolute" bottom="8px" right="10px" h="43%" w="43%" />
   ),
   Petang: (
     <Evening
       position="absolute"
       bottom="10px"
       right="10px"
-      h="32%"
-      w="32%"
+      h="30%"
+      w="30%"
       sx={{ transform: 'scaleX(-1) rotate(-35deg)' }}
     />
   ),
   Quran: (
-    <Quran position="absolute" bottom="10px" right="10px" h="35%" w="35%" />
+    <Quran position="absolute" bottom="12px" right="15px" h="34%" w="34%" />
   ),
   Rasulullah: (
     <Heading
       position="absolute"
-      bottom="15px"
-      right="10px"
+      bottom="18px"
+      right="15px"
       size="4xl"
+      color="purple.200"
       sx={{
         '@media screen and (max-width: 320px)': {
           fontSize: '2.75rem',
@@ -45,13 +46,15 @@ const Icons: TocIcons = {
         '@media screen and (min-width: 321px) and (max-width: 375px)': {
           fontSize: '3.5rem',
         },
+        textShadow:
+          '0px 0px 0 rgb(79,-49,45),1px 1px 0 rgb(28,-100,0),2px 2px 0 rgb(-23,-151,0),3px 3px 0 rgb(-74,-202,0),4px 4px 0 rgb(-125,-253,0),5px 5px  0 rgb(-176,-304,0),6px 6px 5px rgba(235,235,235,0),6px 6px 1px rgba(235,235,235,0.5),0px 0px 5px rgba(235,235,235,.2);',
       }}
     >
       ﷺ
     </Heading>
   ),
   'Setelah Solat': (
-    <Pray position="absolute" bottom="15px" right="-15px" h="45%" w="45%" />
+    <Pray position="absolute" bottom="35px" right="-15px" h="45%" w="45%" />
   ),
 };
 
@@ -96,8 +99,8 @@ const Home = (): ReactNode => {
                   >
                     <Heading
                       position="absolute"
-                      top="20px"
-                      left="20px"
+                      top={isLast ? '50px' : '20px'}
+                      left={isLast ? '75px' : '20px'}
                       color={color}
                       size="xl"
                       sx={{
