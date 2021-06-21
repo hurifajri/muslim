@@ -11,6 +11,8 @@
     "moduleResolution": "node",
     "noEmit": true,
     "paths": {
+      "@/constants": ["constants"],
+      "@/constants/*": ["constants/*"],
       "@/data": ["data"],
       "@/data/*": ["data/*"],
       "@/hooks": ["hooks"],
