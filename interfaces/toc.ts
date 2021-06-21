@@ -1,18 +1,11 @@
-interface Toc {
-  doa: {
-    bgColor: string;
-    color: string;
-    icon: string;
-    id: number;
-    title: string;
-  }[];
-  dzikir: {
-    bgColor: string;
-    color: string;
-    icon: string;
-    id: number;
-    title: string;
-  }[];
+interface TocObject {
+  bgColor: string;
+  color: string;
+  group: string;
+  id: number;
+  title: string;
 }
+
+type Toc = Array<TocObject>;
 
 export default Toc;
