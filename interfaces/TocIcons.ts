@@ -1,5 +1,5 @@
 interface TocIcons {
-  [key: string]: JSX.Element;
+  [key: number]: JSX.Element;
 }
 
 export default TocIcons;
