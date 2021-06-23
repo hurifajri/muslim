@@ -16,46 +16,15 @@ import { useToc } from '@/hooks';
 import { Evening, Morning, Pray, Quran } from '@/components/icons';
 
 const Icons: TocIcons = {
-  Pagi: (
-    <Morning position="absolute" bottom="8px" right="10px" h="43%" w="43%" />
-  ),
-  Petang: (
-    <Evening
-      position="absolute"
-      bottom="10px"
-      right="10px"
-      h="30%"
-      w="30%"
-      sx={{ transform: 'scaleX(-1) rotate(-35deg)' }}
-    />
-  ),
-  Quran: (
-    <Quran position="absolute" bottom="12px" right="15px" h="34%" w="34%" />
-  ),
-  Rasulullah: (
-    <Heading
-      position="absolute"
-      bottom="18px"
-      right="15px"
-      size="4xl"
-      color="purple.200"
-      sx={{
-        '@media screen and (max-width: 320px)': {
-          fontSize: '2.75rem',
-        },
-        '@media screen and (min-width: 321px) and (max-width: 375px)': {
-          fontSize: '3.5rem',
-        },
-        textShadow:
-          '0px 0px 0 rgb(79,-49,45),1px 1px 0 rgb(28,-100,0),2px 2px 0 rgb(-23,-151,0),3px 3px 0 rgb(-74,-202,0),4px 4px 0 rgb(-125,-253,0),5px 5px  0 rgb(-176,-304,0),6px 6px 5px rgba(235,235,235,0),6px 6px 1px rgba(235,235,235,0.5),0px 0px 5px rgba(235,235,235,.2);',
-      }}
-    >
+  1: <Quran h="100%" w="100%" />,
+  2: (
+    <Heading fontSize={['6xl', '8xl']} lineHeight={0.6}>
       ﷺ
     </Heading>
   ),
-  'Setelah Solat': (
-    <Pray position="absolute" bottom="35px" right="-15px" h="45%" w="45%" />
-  ),
+  3: <Morning h="125%" w="100%" />,
+  4: <Evening h="100%" w="100%" />,
+  5: <Pray h="125%" w="100%" />,
 };
 
 const Home = (): ReactNode => {
@@ -83,7 +52,7 @@ const Home = (): ReactNode => {
         <Flex as="main" direction="column" sx={{ gap: 15 }}>
           <Flex as="section" wrap="wrap" sx={{ gap: 15 }}>
             {contents.map((content, index) => {
-              const { bgColor, color, group, id, title } = content;
+              const { bgColor, color, id, title } = content;
               const isLast = index === contents.length - 1;
               return (
                 <AspectRatio
@@ -92,33 +61,24 @@ const Home = (): ReactNode => {
                   flexBasis={isLast ? '100%' : '35%'}
                   ratio={isLast ? 4 / 2 : 1}
                 >
-                  <Box
+                  <Flex
                     bgColor={bgColor}
                     borderRadius="35px"
                     boxShadow={isLast ? 'lg' : 'none'}
+                    flexDirection="column"
+                    sx={{ gap: '10px' }}
                   >
+                    <Flex h={['50px', '75px']} alignItems="flex-end">
+                      {Icons[id]}
+                    </Flex>
                     <Heading
-                      position="absolute"
-                      top={isLast ? '50px' : '20px'}
-                      left={isLast ? '75px' : '20px'}
                       color={color}
-                      size="xl"
-                      sx={{
-                        '@media screen and (max-width: 320px)': {
-                          fontSize: '1.25rem',
-                        },
-                        '@media screen and (min-width: 321px) and (max-width: 375px)':
-                          {
-                            fontSize: '1.5rem',
-                          },
-                      }}
+                      fontSize={['lg', '2xl']}
+                      fontWeight="extrabold"
                     >
-                      {group}
-                      <br />
                       {title}
                     </Heading>
-                    {Icons[title]}
-                  </Box>
+                  </Flex>
                 </AspectRatio>
               );
             })}
