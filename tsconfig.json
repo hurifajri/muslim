@@ -20,7 +20,9 @@
       "@/interfaces": ["interfaces"],
       "@/interfaces/*": ["interfaces/*"],
       "@/public": ["public"],
-      "@/public/*": ["public/*"]
+      "@/public/*": ["public/*"],
+      "@/theme": ["theme"],
+      "@/theme/*": ["theme/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

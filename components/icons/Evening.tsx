@@ -3,7 +3,11 @@ import React from 'react';
 import { Icon, IconProps } from '@chakra-ui/react';
 
 const Evening = (props: IconProps): JSX.Element => (
-  <Icon viewBox="0 0 510 510" {...props}>
+  <Icon
+    viewBox="0 0 510 510"
+    sx={{ transform: 'scaleX(-1) rotate(-35deg)' }}
+    {...props}
+  >
     <linearGradient id="lg1">
       <stop offset="0" stopColor="#814aa0" />
       <stop offset=".4701" stopColor="#5b3374" />
