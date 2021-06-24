@@ -1,1 +1,1 @@
-export { default as useToc } from '@/hooks/useToc';
+export { default as useToday } from '@/hooks/useToday';
