@@ -1,6 +1,14 @@
 // Eksternal
 import Head from 'next/head';
-import { AspectRatio, Box, Container, Flex, Heading } from '@chakra-ui/react';
+import {
+  AspectRatio,
+  Box,
+  Container,
+  Flex,
+  Heading,
+  SkeletonText,
+  Text,
+} from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 // Internal
@@ -25,10 +33,8 @@ const Icons: TocIcons = {
 };
 
 const Home = (): ReactNode => {
-  const { today, isLoading, isError } = useToday();
-
-  if (isError) return <div>Failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
+  const { timings, today, isLoading, isError } = useToday();
+  const prayingTimes = Object.values(timings);
 
   return (
     <Box bgColor="purple.50" height="100vh">
@@ -44,26 +50,55 @@ const Home = (): ReactNode => {
         sx={{ gap: 30 }}
       >
         {/* Header */}
-        <Flex as="header" justify="space-between">
+        <Flex as="header" align="center" justify="space-between">
           <Box bgColor="white" borderRadius="20%" p=".75rem">
             <Menu h="25px" w="25px" />
           </Box>
-          <Flex direction="column" align="flex-end">
-            <Heading as="h1" fontSize={['md', 'lg']} fontWeight="extrabold">
-              {today.greg}
-            </Heading>
-            <Heading
-              as="h1"
-              color="#8273D3"
-              fontSize={['xs', 'sm']}
+          <SkeletonText
+            isLoaded={!isLoading}
+            noOfLines={2}
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-end"
+          >
+            <Text
+              fontSize={['sm', 'md']}
               fontWeight="extrabold"
+              textAlign="right"
+            >
+              {today.greg}
+            </Text>
+            <Text
+              color="#8273D3"
+              fontSize={['xx-small', 'xs']}
+              fontWeight="extrabold"
+              textAlign="right"
             >
               {today.hijri}
-            </Heading>
-          </Flex>
+            </Text>
+          </SkeletonText>
         </Flex>
         {/* Main */}
         <Flex as="main" direction="column" sx={{ gap: 40 }}>
+          {/* Praying Times */}
+          <AspectRatio flex={1} ratio={16 / 9}>
+            <Flex
+              as="section"
+              justify="space-evenly"
+              bgColor="white"
+              borderRadius="25px"
+              h="150px"
+              px=".5rem"
+              py=".25rem"
+              sx={{ gap: 20 }}
+            >
+              {prayingTimes.map(item => (
+                <Flex key={item} direction="column">
+                  <Text>{item}</Text>
+                </Flex>
+              ))}
+            </Flex>
+          </AspectRatio>
           {/* Dzikir */}
           <Flex as="section" sx={{ gap: 20 }}>
             {toc
@@ -81,14 +116,13 @@ const Home = (): ReactNode => {
                       <Flex align="flex-end" h={['50px', '75px']}>
                         {Icons[id]}
                       </Flex>
-                      <Heading
-                        as="h3"
+                      <Text
                         color={color}
                         fontSize={['sm', 'md']}
                         fontWeight="extrabold"
                       >
                         {title}
-                      </Heading>
+                      </Text>
                     </Flex>
                   </AspectRatio>
                 );
@@ -116,14 +150,13 @@ const Home = (): ReactNode => {
                         <Flex align="flex-end" h={['35px', '60px']}>
                           {Icons[id]}
                         </Flex>
-                        <Heading
-                          as="h3"
+                        <Text
                           color={color}
                           fontSize={['xs', 'sm']}
                           fontWeight="extrabold"
                         >
                           {title}
-                        </Heading>
+                        </Text>
                       </Flex>
                     </AspectRatio>
                   );
