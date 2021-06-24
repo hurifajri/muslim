@@ -1,39 +1,50 @@
+/* eslint-disable sort-keys */
+
 // Eksternal
 import useSWR from 'swr';
 
 // Internal
 import { Today } from '@/interfaces';
 
-const useToday = (): Today => {
-  const date = new Date();
+const useToday = (city = 'Jakarta'): Today => {
+  const currentDate = new Date();
 
   // Get current gregorian date
-  const greg = date.toLocaleDateString('id-ID', {
+  const greg = currentDate.toLocaleDateString('id-ID', {
     day: 'numeric',
     month: 'long',
     weekday: 'long',
     year: 'numeric',
   });
 
-  // Get current hijri date
-  // by converting current gregorian date
-  const [day, month, year] = [
-    date.getDate(),
-    date.getMonth() + 1,
-    date.getFullYear(),
-  ];
-
-  const BASE = 'https://api.aladhan.com';
+  // Get current hijri date and praying times
   const { data, error } = useSWR(
-    `${BASE}/v1/gToH?date=${day}-${month}-${year}&adjustment=-1`
+    `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=ID&method=4&adjustment=-1`
   );
 
-  const response = data?.data;
-  const hijri = `${response?.hijri.day} ${response?.hijri.month.en} ${response?.hijri.year}`;
+  // Set hijri date
+  const date = data?.data?.date;
+  const [hDay, hMonth, hYear] = [
+    date?.hijri.day,
+    date?.hijri.month.en,
+    date?.hijri.year,
+  ];
+  const hijri = `${hDay} ${hMonth} ${hYear}` || '';
+
+  // Set praying times
+  const pt = data?.data?.timings;
+  const timings = {
+    Subuh: pt?.Fajr,
+    Dzuhur: pt?.Dhuhr,
+    Ashar: pt?.Asr,
+    Maghrib: pt?.Maghrib,
+    Isya: pt?.Isha,
+  };
 
   return {
     isError: error,
     isLoading: !data && !error,
+    timings,
     today: { greg, hijri },
   };
 };
