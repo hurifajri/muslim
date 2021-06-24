@@ -1,19 +1,20 @@
 // Eksternal
 import Head from 'next/head';
-import {
-  AspectRatio,
-  Box,
-  Container,
-  Flex,
-  Heading,
-  Text,
-} from '@chakra-ui/react';
+import { AspectRatio, Box, Container, Flex, Heading } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 // Internal
+import { toc } from '@/data';
 import { TocIcons } from '@/interfaces';
-import { useToc } from '@/hooks';
-import { Evening, Morning, Pray, Prophet, Quran } from '@/components/icons';
+import { useToday } from '@/hooks';
+import {
+  Evening,
+  Menu,
+  Morning,
+  Pray,
+  Prophet,
+  Quran,
+} from '@/components/icons';
 
 const Icons: TocIcons = {
   1: <Morning h="125%" w="100%" />,
@@ -24,7 +25,7 @@ const Icons: TocIcons = {
 };
 
 const Home = (): ReactNode => {
-  const { contents, isLoading, isError } = useToc();
+  const { today, isLoading, isError } = useToday();
 
   if (isError) return <div>Failed to load</div>;
   if (isLoading) return <div>Loading...</div>;
@@ -36,24 +37,36 @@ const Home = (): ReactNode => {
         <meta name="description" content="Muslim" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
       <Container
         display="flex"
         flexDirection="column"
-        px="2rem"
+        p="2rem"
         sx={{ gap: 30 }}
       >
         {/* Header */}
         <Flex as="header" justify="space-between">
-          <Text>Text 1</Text>
-          <Text>Text 2</Text>
+          <Box bgColor="white" borderRadius="20%" p=".75rem">
+            <Menu h="25px" w="25px" />
+          </Box>
+          <Flex direction="column" align="flex-end">
+            <Heading as="h1" fontSize={['md', 'lg']} fontWeight="extrabold">
+              {today.greg}
+            </Heading>
+            <Heading
+              as="h1"
+              color="#8273D3"
+              fontSize={['xs', 'sm']}
+              fontWeight="extrabold"
+            >
+              {today.hijri}
+            </Heading>
+          </Flex>
         </Flex>
-
         {/* Main */}
         <Flex as="main" direction="column" sx={{ gap: 40 }}>
           {/* Dzikir */}
           <Flex as="section" sx={{ gap: 20 }}>
-            {contents
+            {toc
               .filter(({ group }) => group === 'Dzikir')
               .map(content => {
                 const { bgColor, color, id, title } = content;
@@ -81,14 +94,13 @@ const Home = (): ReactNode => {
                 );
               })}
           </Flex>
-
           {/* Doa */}
           <Flex as="section" direction="column" sx={{ gap: 15 }}>
             <Heading fontSize={['md', 'lg']} fontWeight="extrabold">
               Kumpulan Doa
             </Heading>
             <Flex sx={{ gap: 15 }}>
-              {contents
+              {toc
                 .filter(({ group }) => group === 'Doa')
                 .map(content => {
                   const { bgColor, color, id, title } = content;
