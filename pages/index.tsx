@@ -13,18 +13,14 @@ import React, { ReactNode } from 'react';
 // Internal
 import { TocIcons } from '@/interfaces';
 import { useToc } from '@/hooks';
-import { Evening, Morning, Pray, Quran } from '@/components/icons';
+import { Evening, Morning, Pray, Prophet, Quran } from '@/components/icons';
 
 const Icons: TocIcons = {
-  1: <Quran h="100%" w="100%" />,
-  2: (
-    <Heading fontSize={['6xl', '8xl']} lineHeight={0.6}>
-      ﷺ
-    </Heading>
-  ),
-  3: <Morning h="125%" w="100%" />,
-  4: <Evening h="100%" w="100%" />,
-  5: <Pray h="125%" w="100%" />,
+  1: <Morning h="125%" w="100%" />,
+  2: <Evening h="100%" w="100%" />,
+  3: <Quran h="100%" w="100%" />,
+  4: <Prophet h="103%" w="100%" />,
+  5: <Pray h="100%" w="100%" />,
 };
 
 const Home = (): ReactNode => {
@@ -41,7 +37,12 @@ const Home = (): ReactNode => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
 
-      <Container display="flex" flexDirection="column" sx={{ gap: 30 }}>
+      <Container
+        display="flex"
+        flexDirection="column"
+        px="2rem"
+        sx={{ gap: 30 }}
+      >
         {/* Header */}
         <Flex as="header" justify="space-between">
           <Text>Text 1</Text>
@@ -49,39 +50,73 @@ const Home = (): ReactNode => {
         </Flex>
 
         {/* Main */}
-        <Flex as="main" direction="column" sx={{ gap: 15 }}>
-          <Flex as="section" wrap="wrap" sx={{ gap: 15 }}>
-            {contents.map((content, index) => {
-              const { bgColor, color, id, title } = content;
-              const isLast = index === contents.length - 1;
-              return (
-                <AspectRatio
-                  key={id}
-                  flex={isLast ? 4 : 1}
-                  flexBasis={isLast ? '100%' : '35%'}
-                  ratio={isLast ? 4 / 2 : 1}
-                >
-                  <Flex
-                    bgColor={bgColor}
-                    borderRadius="35px"
-                    boxShadow={isLast ? 'lg' : 'none'}
-                    flexDirection="column"
-                    sx={{ gap: '10px' }}
-                  >
-                    <Flex h={['50px', '75px']} alignItems="flex-end">
-                      {Icons[id]}
-                    </Flex>
-                    <Heading
-                      color={color}
-                      fontSize={['lg', '2xl']}
-                      fontWeight="extrabold"
+        <Flex as="main" direction="column" sx={{ gap: 40 }}>
+          {/* Dzikir */}
+          <Flex as="section" sx={{ gap: 20 }}>
+            {contents
+              .filter(({ group }) => group === 'Dzikir')
+              .map(content => {
+                const { bgColor, color, id, title } = content;
+                return (
+                  <AspectRatio key={id} flex={1} ratio={1}>
+                    <Flex
+                      bgColor={bgColor}
+                      borderRadius="20%"
+                      direction="column"
+                      sx={{ gap: '10px' }}
                     >
-                      {title}
-                    </Heading>
-                  </Flex>
-                </AspectRatio>
-              );
-            })}
+                      <Flex align="flex-end" h={['50px', '75px']}>
+                        {Icons[id]}
+                      </Flex>
+                      <Heading
+                        as="h3"
+                        color={color}
+                        fontSize={['sm', 'md']}
+                        fontWeight="extrabold"
+                      >
+                        {title}
+                      </Heading>
+                    </Flex>
+                  </AspectRatio>
+                );
+              })}
+          </Flex>
+
+          {/* Doa */}
+          <Flex as="section" direction="column" sx={{ gap: 15 }}>
+            <Heading fontSize={['md', 'lg']} fontWeight="extrabold">
+              Kumpulan Doa
+            </Heading>
+            <Flex sx={{ gap: 15 }}>
+              {contents
+                .filter(({ group }) => group === 'Doa')
+                .map(content => {
+                  const { bgColor, color, id, title } = content;
+                  return (
+                    <AspectRatio key={id} flex={1} ratio={1}>
+                      <Flex
+                        bgColor={bgColor}
+                        borderRadius="15%"
+                        boxShadow="md"
+                        direction="column"
+                        sx={{ gap: '10px' }}
+                      >
+                        <Flex align="flex-end" h={['35px', '60px']}>
+                          {Icons[id]}
+                        </Flex>
+                        <Heading
+                          as="h3"
+                          color={color}
+                          fontSize={['xs', 'sm']}
+                          fontWeight="extrabold"
+                        >
+                          {title}
+                        </Heading>
+                      </Flex>
+                    </AspectRatio>
+                  );
+                })}
+            </Flex>
           </Flex>
         </Flex>
       </Container>
