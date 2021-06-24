@@ -33,7 +33,7 @@ const Icons: TocIcons = {
 };
 
 const Home = (): ReactNode => {
-  const { timings, today, isLoading, isError } = useToday();
+  const { timings, today, isLoading } = useToday();
   const prayingTimes = Object.values(timings);
 
   return (
