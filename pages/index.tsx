@@ -6,32 +6,35 @@ import {
   Container,
   Flex,
   Heading,
+  SkeletonText,
   Text,
 } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 // Internal
+import { toc } from '@/data';
 import { TocIcons } from '@/interfaces';
-import { useToc } from '@/hooks';
-import { Evening, Morning, Pray, Quran } from '@/components/icons';
+import { useToday } from '@/hooks';
+import {
+  Evening,
+  Menu,
+  Morning,
+  Pray,
+  Prophet,
+  Quran,
+} from '@/components/icons';
 
 const Icons: TocIcons = {
-  1: <Quran h="100%" w="100%" />,
-  2: (
-    <Heading fontSize={['6xl', '8xl']} lineHeight={0.6}>
-      ﷺ
-    </Heading>
-  ),
-  3: <Morning h="125%" w="100%" />,
-  4: <Evening h="100%" w="100%" />,
-  5: <Pray h="125%" w="100%" />,
+  1: <Morning h="125%" w="100%" />,
+  2: <Evening h="100%" w="100%" />,
+  3: <Quran h="100%" w="100%" />,
+  4: <Prophet h="103%" w="100%" />,
+  5: <Pray h="100%" w="100%" />,
 };
 
 const Home = (): ReactNode => {
-  const { contents, isLoading, isError } = useToc();
-
-  if (isError) return <div>Failed to load</div>;
-  if (isLoading) return <div>Loading...</div>;
+  const { timings, today, isLoading } = useToday();
+  const prayingTimes = Object.values(timings);
 
   return (
     <Box bgColor="purple.50" height="100vh">
@@ -40,48 +43,125 @@ const Home = (): ReactNode => {
         <meta name="description" content="Muslim" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-
-      <Container display="flex" flexDirection="column" sx={{ gap: 30 }}>
+      <Container
+        display="flex"
+        flexDirection="column"
+        p="2rem"
+        sx={{ gap: 30 }}
+      >
         {/* Header */}
-        <Flex as="header" justify="space-between">
-          <Text>Text 1</Text>
-          <Text>Text 2</Text>
+        <Flex as="header" align="center" justify="space-between">
+          <Box bgColor="white" borderRadius="20%" p=".75rem">
+            <Menu h="25px" w="25px" />
+          </Box>
+          <SkeletonText
+            isLoaded={!isLoading}
+            noOfLines={2}
+            display="flex"
+            flexDirection="column"
+            alignItems="flex-end"
+          >
+            <Text
+              fontSize={['sm', 'md']}
+              fontWeight="extrabold"
+              textAlign="right"
+            >
+              {today.greg}
+            </Text>
+            <Text
+              color="#8273D3"
+              fontSize={['xx-small', 'xs']}
+              fontWeight="extrabold"
+              textAlign="right"
+            >
+              {today.hijri}
+            </Text>
+          </SkeletonText>
         </Flex>
-
         {/* Main */}
-        <Flex as="main" direction="column" sx={{ gap: 15 }}>
-          <Flex as="section" wrap="wrap" sx={{ gap: 15 }}>
-            {contents.map((content, index) => {
-              const { bgColor, color, id, title } = content;
-              const isLast = index === contents.length - 1;
-              return (
-                <AspectRatio
-                  key={id}
-                  flex={isLast ? 4 : 1}
-                  flexBasis={isLast ? '100%' : '35%'}
-                  ratio={isLast ? 4 / 2 : 1}
-                >
-                  <Flex
-                    bgColor={bgColor}
-                    borderRadius="35px"
-                    boxShadow={isLast ? 'lg' : 'none'}
-                    flexDirection="column"
-                    sx={{ gap: '10px' }}
-                  >
-                    <Flex h={['50px', '75px']} alignItems="flex-end">
-                      {Icons[id]}
-                    </Flex>
-                    <Heading
-                      color={color}
-                      fontSize={['lg', '2xl']}
-                      fontWeight="extrabold"
+        <Flex as="main" direction="column" sx={{ gap: 40 }}>
+          {/* Praying Times */}
+          <AspectRatio flex={1} ratio={16 / 9}>
+            <Flex
+              as="section"
+              justify="space-evenly"
+              bgColor="white"
+              borderRadius="25px"
+              h="150px"
+              px=".5rem"
+              py=".25rem"
+              sx={{ gap: 20 }}
+            >
+              {prayingTimes.map(item => (
+                <Flex key={item} direction="column">
+                  <Text>{item}</Text>
+                </Flex>
+              ))}
+            </Flex>
+          </AspectRatio>
+          {/* Dzikir */}
+          <Flex as="section" sx={{ gap: 20 }}>
+            {toc
+              .filter(({ group }) => group === 'Dzikir')
+              .map(content => {
+                const { bgColor, color, id, title } = content;
+                return (
+                  <AspectRatio key={id} flex={1} ratio={1}>
+                    <Flex
+                      bgColor={bgColor}
+                      borderRadius="20%"
+                      direction="column"
+                      sx={{ gap: '10px' }}
                     >
-                      {title}
-                    </Heading>
-                  </Flex>
-                </AspectRatio>
-              );
-            })}
+                      <Flex align="flex-end" h={['50px', '75px']}>
+                        {Icons[id]}
+                      </Flex>
+                      <Text
+                        color={color}
+                        fontSize={['sm', 'md']}
+                        fontWeight="extrabold"
+                      >
+                        {title}
+                      </Text>
+                    </Flex>
+                  </AspectRatio>
+                );
+              })}
+          </Flex>
+          {/* Doa */}
+          <Flex as="section" direction="column" sx={{ gap: 15 }}>
+            <Heading fontSize={['md', 'lg']} fontWeight="extrabold">
+              Kumpulan Doa
+            </Heading>
+            <Flex sx={{ gap: 15 }}>
+              {toc
+                .filter(({ group }) => group === 'Doa')
+                .map(content => {
+                  const { bgColor, color, id, title } = content;
+                  return (
+                    <AspectRatio key={id} flex={1} ratio={1}>
+                      <Flex
+                        bgColor={bgColor}
+                        borderRadius="15%"
+                        boxShadow="md"
+                        direction="column"
+                        sx={{ gap: '10px' }}
+                      >
+                        <Flex align="flex-end" h={['35px', '60px']}>
+                          {Icons[id]}
+                        </Flex>
+                        <Text
+                          color={color}
+                          fontSize={['xs', 'sm']}
+                          fontWeight="extrabold"
+                        >
+                          {title}
+                        </Text>
+                      </Flex>
+                    </AspectRatio>
+                  );
+                })}
+            </Flex>
           </Flex>
         </Flex>
       </Container>
