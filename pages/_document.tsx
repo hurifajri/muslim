@@ -1,9 +1,9 @@
-/* eslint-disable @typescript-eslint/explicit-module-boundary-types */
+// Eksternal
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 class MyDocument extends Document {
-  render() {
+  render(): JSX.Element {
     return (
       <Html>
         <Head>

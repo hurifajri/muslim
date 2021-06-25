@@ -1,1 +1,1 @@
-export { default as toc } from '@/data/toc';
+export { default as toc } from '@data/toc';
