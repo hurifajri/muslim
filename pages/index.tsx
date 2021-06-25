@@ -6,15 +6,16 @@ import {
   Container,
   Flex,
   Heading,
+  IconButton,
   SkeletonText,
   Text,
 } from '@chakra-ui/react';
 import React, { ReactNode } from 'react';
 
 // Internal
-import { toc } from '@/data';
-import { TocIcons } from '@/interfaces';
-import { useToday } from '@/hooks';
+import { If } from '@components';
+import { iTocIcons } from '@interfaces';
+import { toc } from '@data';
 import {
   Evening,
   Menu,
@@ -22,9 +23,11 @@ import {
   Pray,
   Prophet,
   Quran,
-} from '@/components/icons';
+} from '@components/icons';
+import { useGregDate, useHijriDate } from '@hooks';
 
-const Icons: TocIcons = {
+// Dynamic icons for table of contents
+const Icons: iTocIcons = {
   1: <Morning h="125%" w="100%" />,
   2: <Evening h="100%" w="100%" />,
   3: <Quran h="100%" w="100%" />,
@@ -33,71 +36,121 @@ const Icons: TocIcons = {
 };
 
 const Home = (): ReactNode => {
-  const { timings, today, isLoading } = useToday();
-  const prayingTimes = Object.values(timings);
+  const { gregDate, gregTime } = useGregDate();
+  const { timings, hijriDate, isLoading, isError } = useHijriDate('bogor');
+
+  // Destructure praying times
+  const ptKeys = Object.keys(timings);
+  const ptValues = Object.values(timings);
+  const prayingTimes = ptKeys.map((key, i) => ({
+    id: i,
+    name: key,
+    time: ptValues[i],
+  }));
 
   return (
-    <Box bgColor="purple.50" height="100vh">
+    <Box bgColor="purple.50" h="100vh">
       <Head>
         <title>Muslim</title>
-        <meta name="description" content="Muslim" />
+        <meta
+          name="description"
+          content="Muslim Free • Tidak menjual data pengguna!"
+        />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container
-        display="flex"
-        flexDirection="column"
-        p="2rem"
-        sx={{ gap: 30 }}
-      >
+      <Container display="flex" flexDirection="column" p={7} sx={{ gap: 30 }}>
         {/* Header */}
         <Flex as="header" align="center" justify="space-between">
-          <Box bgColor="white" borderRadius="20%" p=".75rem">
-            <Menu h="25px" w="25px" />
-          </Box>
-          <SkeletonText
-            isLoaded={!isLoading}
-            noOfLines={2}
-            display="flex"
-            flexDirection="column"
-            alignItems="flex-end"
-          >
+          {/* Menu */}
+          <IconButton
+            aria-label="Open drawer menu"
+            bgColor="white"
+            borderRadius={10}
+            p={2.5}
+            icon={<Menu h={25} w={25} />}
+          />
+          {/* Date */}
+          <Flex direction="column">
             <Text
-              fontSize={['sm', 'md']}
+              fontSize={['md', 'lg']}
               fontWeight="extrabold"
               textAlign="right"
             >
-              {today.greg}
+              {gregDate}
             </Text>
-            <Text
-              color="#8273D3"
-              fontSize={['xx-small', 'xs']}
-              fontWeight="extrabold"
-              textAlign="right"
-            >
-              {today.hijri}
-            </Text>
-          </SkeletonText>
+            <If condition={isError}>
+              <Text
+                color="#8273D3"
+                fontSize={['xs', 'sm']}
+                fontWeight="extrabold"
+                textAlign="right"
+              >
+                Gagal memuat tanggal
+              </Text>
+            </If>
+            <If condition={isLoading}>
+              <SkeletonText noOfLines={1} />
+            </If>
+            <If condition={!isLoading}>
+              <Text
+                color="#8273D3"
+                fontSize={['xs', 'sm']}
+                fontWeight="extrabold"
+                textAlign="right"
+              >
+                {hijriDate}
+              </Text>
+            </If>
+          </Flex>
         </Flex>
         {/* Main */}
-        <Flex as="main" direction="column" sx={{ gap: 40 }}>
+        <Flex as="main" direction="column" sx={{ gap: 30 }}>
           {/* Praying Times */}
-          <AspectRatio flex={1} ratio={16 / 9}>
-            <Flex
-              as="section"
-              justify="space-evenly"
-              bgColor="white"
-              borderRadius="25px"
-              h="150px"
-              px=".5rem"
-              py=".25rem"
-              sx={{ gap: 20 }}
-            >
-              {prayingTimes.map(item => (
-                <Flex key={item} direction="column">
-                  <Text>{item}</Text>
+          <AspectRatio
+            as="section"
+            ratio={16 / 9}
+            bgColor="white"
+            bgGradient="linear(to-bl, purple.400, blue.400)"
+            borderRadius={25}
+            boxShadow="sm"
+          >
+            <Box>
+              <Flex
+                direction="column"
+                justify="space-between"
+                h="100%"
+                w="100%"
+                p={5}
+              >
+                <Text
+                  color="gray.100"
+                  fontSize={['md', 'lg']}
+                  fontWeight="bold"
+                >
+                  {gregTime}
+                </Text>
+                <Flex justify="space-between" sx={{ gap: 15 }}>
+                  {prayingTimes.map(item => (
+                    <Flex key={item.id} direction="column" align="center">
+                      <Text
+                        color="gray.100"
+                        fontSize={['sm', 'md']}
+                        fontWeight="bold"
+                      >
+                        {item.name}
+                      </Text>
+                      <Text
+                        color="gray.100"
+                        fontSize={['sm', 'md']}
+                        fontWeight="bold"
+                      >
+                        {item.time}
+                      </Text>
+                    </Flex>
+                  ))}
                 </Flex>
-              ))}
-            </Flex>
+              </Flex>
+            </Box>
           </AspectRatio>
           {/* Dzikir */}
           <Flex as="section" sx={{ gap: 20 }}>
@@ -129,11 +182,11 @@ const Home = (): ReactNode => {
               })}
           </Flex>
           {/* Doa */}
-          <Flex as="section" direction="column" sx={{ gap: 15 }}>
+          <Flex as="section" direction="column" sx={{ gap: 10 }}>
             <Heading fontSize={['md', 'lg']} fontWeight="extrabold">
               Kumpulan Doa
             </Heading>
-            <Flex sx={{ gap: 15 }}>
+            <Flex sx={{ gap: 10 }}>
               {toc
                 .filter(({ group }) => group === 'Doa')
                 .map(content => {
