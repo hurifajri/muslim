@@ -4,12 +4,22 @@ import Head from 'next/head';
 import {
   AspectRatio,
   Box,
+  Button,
   Container,
   Flex,
   Heading,
   IconButton,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SkeletonText,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
 import React, { ReactNode, useState } from 'react';
 
@@ -38,7 +48,9 @@ const Icons: iTocIcons = {
 
 const Home = (): ReactNode => {
   // Default city
-  const [city] = useState('Jakarta');
+  const initialCity = localStorage?.getItem('city') ?? 'Jakarta';
+  const [city, setCity] = useState(initialCity);
+  const [tempCity, setTempCity] = useState('');
 
   const { gregDate, gregTime } = useGregDate();
   const { timings, hijriDate, isLoading, isError } = useHijriDate(city);
@@ -51,6 +63,19 @@ const Home = (): ReactNode => {
     name: key,
     time: ptValues[i],
   }));
+
+  // Change city
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleChangeCity = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => setTempCity(event.target.value);
+
+  const handleClickCity = () => {
+    localStorage.setItem('city', tempCity);
+    setCity(tempCity);
+    onClose();
+  };
 
   return (
     <Box bgColor="purple.50" h="100vh">
@@ -138,6 +163,7 @@ const Home = (): ReactNode => {
                     <IconButton
                       aria-label="Change city"
                       bgColor="transparent"
+                      onClick={onOpen}
                       p={0}
                       w={6}
                       h={6}
@@ -244,6 +270,38 @@ const Home = (): ReactNode => {
           </Flex>
         </Flex>
       </Container>
+      {/* Change city modal */}
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        closeOnOverlayClick={false}
+        motionPreset="scale"
+        size="xs"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader></ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input
+              placeholder="Ganti kota"
+              defaultValue={city}
+              variant="flushed"
+              onChange={handleChangeCity}
+            />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="purple"
+              bgGradient="linear(to-bl, purple.400, blue.400)"
+              onClick={handleClickCity}
+            >
+              Simpan
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
