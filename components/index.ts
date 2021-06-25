@@ -1,1 +1,1 @@
-export { default as If } from '@/components/If';
+export { default as If } from '@components/if';

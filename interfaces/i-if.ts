@@ -1,6 +1,6 @@
-interface If {
+interface iIf {
   children: JSX.Element;
   condition: boolean | undefined;
 }
 
-export default If;
+export default iIf;

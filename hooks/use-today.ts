@@ -4,9 +4,9 @@
 import useSWR from 'swr';
 
 // Internal
-import { Today } from '@/interfaces';
+import { iToday } from '@interfaces';
 
-const useToday = (city = 'Jakarta'): Today => {
+const useToday = (city = 'Jakarta'): iToday => {
   const currentDate = new Date();
 
   // Get current gregorian date

@@ -13,10 +13,10 @@ import {
 import React, { ReactNode } from 'react';
 
 // Internal
-import { If } from '@/components';
-import { toc } from '@/data';
-import { TocIcons } from '@/interfaces';
-import { useToday } from '@/hooks';
+import { If } from '@components';
+import { iTocIcons } from '@interfaces';
+import { toc } from '@data';
+import { useToday } from '@hooks';
 import {
   Evening,
   Menu,
@@ -24,10 +24,10 @@ import {
   Pray,
   Prophet,
   Quran,
-} from '@/components/icons';
+} from '@components/icons';
 
 // Dynamic icons for table of contents
-const Icons: TocIcons = {
+const Icons: iTocIcons = {
   1: <Morning h="125%" w="100%" />,
   2: <Evening h="100%" w="100%" />,
   3: <Quran h="100%" w="100%" />,
@@ -117,7 +117,7 @@ const Home = (): ReactNode => {
             borderRadius="25px"
             boxShadow="sm"
           >
-            <Flex direction="column" justify="space-between">
+            <Flex direction="column">
               <Box>tes</Box>
               <Flex sx={{ gap: 15 }}>
                 {prayingTimes.map(item => (

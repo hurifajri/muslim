@@ -1,1 +1,1 @@
-export { default as useToday } from '@/hooks/useToday';
+export { default as useToday } from '@hooks/use-today';
