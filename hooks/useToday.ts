@@ -29,7 +29,7 @@ const useToday = (city = 'Jakarta'): Today => {
     date?.hijri.month.en,
     date?.hijri.year,
   ];
-  const hijri = `${hDay} ${hMonth} ${hYear}` || '';
+  const hijri = `${hDay ?? ''} ${hMonth ?? ''} ${hYear ?? ''}`;
 
   // Set praying times
   const pt = data?.data?.timings;

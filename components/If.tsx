@@ -1,3 +1,4 @@
+// Internal
 import { If as iIf } from '@/interfaces';
 
 const If = ({ children, condition }: iIf): null | JSX.Element => {
