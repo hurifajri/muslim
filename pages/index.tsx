@@ -16,7 +16,6 @@ import React, { ReactNode } from 'react';
 import { If } from '@components';
 import { iTocIcons } from '@interfaces';
 import { toc } from '@data';
-import { useToday } from '@hooks';
 import {
   Evening,
   Menu,
@@ -25,6 +24,7 @@ import {
   Prophet,
   Quran,
 } from '@components/icons';
+import { useGregDate, useHijriDate } from '@hooks';
 
 // Dynamic icons for table of contents
 const Icons: iTocIcons = {
@@ -36,7 +36,8 @@ const Icons: iTocIcons = {
 };
 
 const Home = (): ReactNode => {
-  const { timings, today, isLoading, isError } = useToday();
+  const { gregDate, gregTime } = useGregDate();
+  const { timings, hijriDate, isLoading, isError } = useHijriDate('bogor');
 
   // Destructure praying times
   const ptKeys = Object.keys(timings);
@@ -48,7 +49,7 @@ const Home = (): ReactNode => {
   }));
 
   return (
-    <Box bgColor="purple.50" height="100vh">
+    <Box bgColor="purple.50" h="100vh">
       <Head>
         <title>Muslim</title>
         <meta
@@ -57,21 +58,16 @@ const Home = (): ReactNode => {
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <Container
-        display="flex"
-        flexDirection="column"
-        p="1.5rem"
-        sx={{ gap: 30 }}
-      >
+      <Container display="flex" flexDirection="column" p={7} sx={{ gap: 30 }}>
         {/* Header */}
         <Flex as="header" align="center" justify="space-between">
           {/* Menu */}
           <IconButton
             aria-label="Open drawer menu"
             bgColor="white"
-            borderRadius="20%"
-            p=".65rem"
-            icon={<Menu h="25px" w="25px" />}
+            borderRadius={10}
+            p={2.5}
+            icon={<Menu h={25} w={25} />}
           />
           {/* Date */}
           <Flex direction="column">
@@ -80,7 +76,7 @@ const Home = (): ReactNode => {
               fontWeight="extrabold"
               textAlign="right"
             >
-              {today.greg}
+              {gregDate}
             </Text>
             <If condition={isError}>
               <Text
@@ -102,7 +98,7 @@ const Home = (): ReactNode => {
                 fontWeight="extrabold"
                 textAlign="right"
               >
-                {today.hijri}
+                {hijriDate}
               </Text>
             </If>
           </Flex>
@@ -114,24 +110,47 @@ const Home = (): ReactNode => {
             as="section"
             ratio={16 / 9}
             bgColor="white"
-            borderRadius="25px"
+            bgGradient="linear(to-bl, purple.400, blue.400)"
+            borderRadius={25}
             boxShadow="sm"
           >
-            <Flex direction="column">
-              <Box>tes</Box>
-              <Flex sx={{ gap: 15 }}>
-                {prayingTimes.map(item => (
-                  <Flex key={item.id} direction="column" align="center">
-                    <Text fontSize={['xs', 'sm']} fontWeight="bold">
-                      {item.name}
-                    </Text>
-                    <Text fontSize={['xs', 'sm']} fontWeight="bold">
-                      {item.time}
-                    </Text>
-                  </Flex>
-                ))}
+            <Box>
+              <Flex
+                direction="column"
+                justify="space-between"
+                h="100%"
+                w="100%"
+                p={5}
+              >
+                <Text
+                  color="gray.100"
+                  fontSize={['md', 'lg']}
+                  fontWeight="bold"
+                >
+                  {gregTime}
+                </Text>
+                <Flex justify="space-between" sx={{ gap: 15 }}>
+                  {prayingTimes.map(item => (
+                    <Flex key={item.id} direction="column" align="center">
+                      <Text
+                        color="gray.100"
+                        fontSize={['sm', 'md']}
+                        fontWeight="bold"
+                      >
+                        {item.name}
+                      </Text>
+                      <Text
+                        color="gray.100"
+                        fontSize={['sm', 'md']}
+                        fontWeight="bold"
+                      >
+                        {item.time}
+                      </Text>
+                    </Flex>
+                  ))}
+                </Flex>
               </Flex>
-            </Flex>
+            </Box>
           </AspectRatio>
           {/* Dzikir */}
           <Flex as="section" sx={{ gap: 20 }}>
