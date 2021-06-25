@@ -1,4 +1,5 @@
 // Eksternal
+import { EditIcon } from '@chakra-ui/icons';
 import Head from 'next/head';
 import {
   AspectRatio,
@@ -10,7 +11,7 @@ import {
   SkeletonText,
   Text,
 } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 // Internal
 import { If } from '@components';
@@ -36,8 +37,11 @@ const Icons: iTocIcons = {
 };
 
 const Home = (): ReactNode => {
+  // Default city
+  const [city] = useState('Jakarta');
+
   const { gregDate, gregTime } = useGregDate();
-  const { timings, hijriDate, isLoading, isError } = useHijriDate('bogor');
+  const { timings, hijriDate, isLoading, isError } = useHijriDate(city);
 
   // Destructure praying times
   const ptKeys = Object.keys(timings);
@@ -120,15 +124,37 @@ const Home = (): ReactNode => {
                 justify="space-between"
                 h="100%"
                 w="100%"
-                p={5}
+                p={7}
               >
-                <Text
-                  color="gray.100"
-                  fontSize={['md', 'lg']}
-                  fontWeight="bold"
-                >
-                  {gregTime}
-                </Text>
+                <Flex direction="column">
+                  <Flex align="center" sx={{ gap: 5 }}>
+                    <Text
+                      color="gray.100"
+                      fontSize={['xl', '2xl']}
+                      fontWeight="bold"
+                    >
+                      {city}
+                    </Text>
+                    <IconButton
+                      aria-label="Change city"
+                      bgColor="transparent"
+                      p={0}
+                      w={6}
+                      h={6}
+                      minW={6}
+                      _hover={{ bgColor: 'transparent' }}
+                      _active={{ bgColor: 'transparent' }}
+                      icon={<EditIcon color="gray.300" />}
+                    />
+                  </Flex>
+                  <Text
+                    color="gray.100"
+                    fontSize={['xl', '2xl']}
+                    fontWeight="bold"
+                  >
+                    {gregTime}
+                  </Text>
+                </Flex>
                 <Flex justify="space-between" sx={{ gap: 15 }}>
                   {prayingTimes.map(item => (
                     <Flex key={item.id} direction="column" align="center">
