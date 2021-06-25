@@ -1,16 +1,27 @@
 // Eksternal
+import { EditIcon } from '@chakra-ui/icons';
 import Head from 'next/head';
 import {
   AspectRatio,
   Box,
+  Button,
   Container,
   Flex,
   Heading,
   IconButton,
+  Input,
+  Modal,
+  ModalBody,
+  ModalCloseButton,
+  ModalContent,
+  ModalFooter,
+  ModalHeader,
+  ModalOverlay,
   SkeletonText,
   Text,
+  useDisclosure,
 } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
+import React, { ReactNode, useState } from 'react';
 
 // Internal
 import { If } from '@components';
@@ -36,8 +47,13 @@ const Icons: iTocIcons = {
 };
 
 const Home = (): ReactNode => {
+  // Default city
+  const initialCity = localStorage?.getItem('city') ?? 'Jakarta';
+  const [city, setCity] = useState(initialCity);
+  const [tempCity, setTempCity] = useState('');
+
   const { gregDate, gregTime } = useGregDate();
-  const { timings, hijriDate, isLoading, isError } = useHijriDate('bogor');
+  const { timings, hijriDate, isLoading, isError } = useHijriDate(city);
 
   // Destructure praying times
   const ptKeys = Object.keys(timings);
@@ -47,6 +63,19 @@ const Home = (): ReactNode => {
     name: key,
     time: ptValues[i],
   }));
+
+  // Change city
+  const { isOpen, onOpen, onClose } = useDisclosure();
+
+  const handleChangeCity = (event: {
+    target: { value: React.SetStateAction<string> };
+  }) => setTempCity(event.target.value);
+
+  const handleClickCity = () => {
+    localStorage.setItem('city', tempCity);
+    setCity(tempCity);
+    onClose();
+  };
 
   return (
     <Box bgColor="purple.50" h="100vh">
@@ -120,16 +149,39 @@ const Home = (): ReactNode => {
                 justify="space-between"
                 h="100%"
                 w="100%"
-                p={5}
+                p={7}
               >
-                <Text
-                  color="gray.100"
-                  fontSize={['md', 'lg']}
-                  fontWeight="bold"
-                >
-                  {gregTime}
-                </Text>
-                <Flex justify="space-between" sx={{ gap: 15 }}>
+                <Flex direction="column">
+                  <Flex align="center" sx={{ gap: 5 }}>
+                    <Text
+                      color="gray.100"
+                      fontSize={['xl', '2xl']}
+                      fontWeight="bold"
+                    >
+                      {city}
+                    </Text>
+                    <IconButton
+                      aria-label="Change city"
+                      bgColor="transparent"
+                      onClick={onOpen}
+                      p={0}
+                      w={6}
+                      h={6}
+                      minW={6}
+                      _hover={{ bgColor: 'transparent' }}
+                      _active={{ bgColor: 'transparent' }}
+                      icon={<EditIcon color="gray.300" />}
+                    />
+                  </Flex>
+                  <Text
+                    color="gray.100"
+                    fontSize={['xl', '2xl']}
+                    fontWeight="bold"
+                  >
+                    {gregTime}
+                  </Text>
+                </Flex>
+                <Flex justify="space-evenly" sx={{ gap: 15 }}>
                   {prayingTimes.map(item => (
                     <Flex key={item.id} direction="column" align="center">
                       <Text
@@ -218,6 +270,38 @@ const Home = (): ReactNode => {
           </Flex>
         </Flex>
       </Container>
+      {/* Change city modal */}
+      <Modal
+        isOpen={isOpen}
+        onClose={onClose}
+        closeOnOverlayClick={false}
+        motionPreset="scale"
+        size="xs"
+      >
+        <ModalOverlay />
+        <ModalContent>
+          <ModalHeader></ModalHeader>
+          <ModalCloseButton />
+          <ModalBody>
+            <Input
+              placeholder="Ganti kota"
+              defaultValue={city}
+              variant="flushed"
+              onChange={handleChangeCity}
+            />
+          </ModalBody>
+
+          <ModalFooter>
+            <Button
+              colorScheme="purple"
+              bgGradient="linear(to-bl, purple.400, blue.400)"
+              onClick={handleClickCity}
+            >
+              Simpan
+            </Button>
+          </ModalFooter>
+        </ModalContent>
+      </Modal>
     </Box>
   );
 };
