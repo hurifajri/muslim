@@ -155,7 +155,7 @@ const Home = (): ReactNode => {
                     {gregTime}
                   </Text>
                 </Flex>
-                <Flex justify="space-between" sx={{ gap: 15 }}>
+                <Flex justify="space-evenly" sx={{ gap: 15 }}>
                   {prayingTimes.map(item => (
                     <Flex key={item.id} direction="column" align="center">
                       <Text
