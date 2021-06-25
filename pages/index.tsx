@@ -48,7 +48,9 @@ const Icons: iTocIcons = {
 
 const Home = (): ReactNode => {
   // Default city
-  const initialCity = localStorage?.getItem('city') ?? 'Jakarta';
+  const isServer = typeof window === 'undefined';
+  let initialCity = 'Jakarta';
+  if (!isServer) initialCity = localStorage?.getItem('city') ?? 'Jakarta';
   const [city, setCity] = useState(initialCity);
   const [tempCity, setTempCity] = useState('');
 
@@ -72,7 +74,7 @@ const Home = (): ReactNode => {
   }) => setTempCity(event.target.value);
 
   const handleClickCity = () => {
-    localStorage.setItem('city', tempCity);
+    if (!isServer) localStorage.setItem('city', tempCity);
     setCity(tempCity);
     onClose();
   };
