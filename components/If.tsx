@@ -1,4 +1,5 @@
-import { If as iIf } from '@/interfaces';
+// Internal
+import { iIf } from '@interfaces';
 
 const If = ({ children, condition }: iIf): null | JSX.Element => {
   if (!condition) return null;
