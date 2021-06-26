@@ -1,5 +1,6 @@
 // Eksternal
 import { EditIcon } from '@chakra-ui/icons';
+import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import {
   AspectRatio,
@@ -24,8 +25,6 @@ import {
 import React, { ReactNode, useState } from 'react';
 
 // Internal
-import { If } from '@components';
-import { iTocIcons } from '@interfaces';
 import { toc } from '@data';
 import {
   Evening,
@@ -35,6 +34,7 @@ import {
   Prophet,
   Quran,
 } from '@components/icons';
+import { iHome, iTocIcons } from '@interfaces';
 import { useGregDate, useHijriDate } from '@hooks';
 
 // Dynamic icons for table of contents
@@ -46,25 +46,12 @@ const Icons: iTocIcons = {
   5: <Pray h="100%" w="100%" />,
 };
 
-const Home = (): ReactNode => {
-  // Default city
-  const isServer = typeof window === 'undefined';
-  let initialCity = 'Jakarta';
-  if (!isServer) initialCity = localStorage?.getItem('city') ?? 'Jakarta';
-  const [city, setCity] = useState(initialCity);
+const Home = ({ initialCity, isServer }: iHome): ReactNode => {
   const [tempCity, setTempCity] = useState('');
+  const [city, setCity] = useState(initialCity);
 
   const { gregDate, gregTime } = useGregDate();
-  const { timings, hijriDate, isLoading, isError } = useHijriDate(city);
-
-  // Destructure praying times
-  const ptKeys = Object.keys(timings);
-  const ptValues = Object.values(timings);
-  const prayingTimes = ptKeys.map((key, i) => ({
-    id: i,
-    name: key,
-    time: ptValues[i],
-  }));
+  const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
 
   // Change city
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -109,20 +96,7 @@ const Home = (): ReactNode => {
             >
               {gregDate}
             </Text>
-            <If condition={isError}>
-              <Text
-                color="#8273D3"
-                fontSize={['xs', 'sm']}
-                fontWeight="extrabold"
-                textAlign="right"
-              >
-                Gagal memuat tanggal
-              </Text>
-            </If>
-            <If condition={isLoading}>
-              <SkeletonText noOfLines={1} />
-            </If>
-            <If condition={!isLoading}>
+            <SkeletonText isLoaded={!isLoading} noOfLines={1}>
               <Text
                 color="#8273D3"
                 fontSize={['xs', 'sm']}
@@ -131,7 +105,7 @@ const Home = (): ReactNode => {
               >
                 {hijriDate}
               </Text>
-            </If>
+            </SkeletonText>
           </Flex>
         </Flex>
         {/* Main */}
@@ -185,7 +159,12 @@ const Home = (): ReactNode => {
                 </Flex>
                 <Flex justify="space-evenly" sx={{ gap: 15 }}>
                   {prayingTimes.map(item => (
-                    <Flex key={item.id} direction="column" align="center">
+                    <Flex
+                      key={item.id}
+                      direction="column"
+                      align="center"
+                      minH="42px"
+                    >
                       <Text
                         color="gray.100"
                         fontSize={['sm', 'md']}
@@ -193,13 +172,15 @@ const Home = (): ReactNode => {
                       >
                         {item.name}
                       </Text>
-                      <Text
-                        color="gray.100"
-                        fontSize={['sm', 'md']}
-                        fontWeight="bold"
-                      >
-                        {item.time}
-                      </Text>
+                      <SkeletonText isLoaded={!isLoading} noOfLines={1}>
+                        <Text
+                          color="gray.100"
+                          fontSize={['sm', 'md']}
+                          fontWeight="bold"
+                        >
+                          {item.time}
+                        </Text>
+                      </SkeletonText>
                     </Flex>
                   ))}
                 </Flex>
@@ -306,6 +287,17 @@ const Home = (): ReactNode => {
       </Modal>
     </Box>
   );
+};
+
+export const getServerSideProps: GetServerSideProps = async () => {
+  // Set default city
+  const isServer = typeof window === 'undefined';
+  let initialCity = 'Jakarta';
+  if (!isServer) initialCity = localStorage?.getItem('city') ?? 'Jakarta';
+
+  return {
+    props: { initialCity, isServer },
+  };
 };
 
 export default Home;
