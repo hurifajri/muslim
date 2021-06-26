@@ -31,10 +31,19 @@ const useHijriDate = (city: string): iHijriDate => {
     Isya: pt?.Isha,
   };
 
+  // Destructure praying times
+  const ptKeys = Object.keys(timings);
+  const ptValues = Object.values(timings);
+  const prayingTimes = ptKeys.map((key, i) => ({
+    id: i,
+    name: key,
+    time: ptValues[i],
+  }));
+
   return {
     isError: error,
     isLoading: !data && !error,
-    timings,
+    prayingTimes,
     hijriDate,
   };
 };
