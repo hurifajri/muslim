@@ -1,5 +1,4 @@
 // Eksternal
-import { EditIcon } from '@chakra-ui/icons';
 import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import {
@@ -7,7 +6,17 @@ import {
   Box,
   Button,
   Container,
+  Divider,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerOverlay,
   Flex,
+  FormControl,
+  FormLabel,
   Heading,
   IconButton,
   Input,
@@ -19,10 +28,12 @@ import {
   ModalHeader,
   ModalOverlay,
   SkeletonText,
+  Switch,
   Text,
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
+import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
 import React, { ReactNode, useState } from 'react';
 
 // Internal
@@ -56,7 +67,11 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
   const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
 
   // Change city
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  const {
+    isOpen: isOpenCity,
+    onOpen: onOpenCity,
+    onClose: onCloseCity,
+  } = useDisclosure();
 
   const handleChangeCity = (event: {
     target: { value: React.SetStateAction<string> };
@@ -65,11 +80,18 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
   const handleClickCity = () => {
     if (!isServer) localStorage.setItem('city', tempCity);
     setCity(tempCity);
-    onClose();
+    onCloseCity();
   };
 
   // Get very small screen
   const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
+
+  // Open drawer menu
+  const {
+    isOpen: isOpenMenu,
+    onOpen: onOpenMenu,
+    onClose: onCloseMenu,
+  } = useDisclosure();
 
   return (
     <Box bgColor="purple.50" h="100vh">
@@ -90,6 +112,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
             bgColor="white"
             borderRadius={10}
             p={2.5}
+            onClick={onOpenMenu}
             icon={<Menu h={25} w={25} />}
           />
           {/* Date */}
@@ -144,14 +167,15 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                     <IconButton
                       aria-label="Change city"
                       bgColor="transparent"
-                      onClick={onOpen}
+                      onClick={onOpenCity}
                       p={0}
-                      w={6}
-                      h={6}
-                      minW={6}
-                      _hover={{ bgColor: 'transparent' }}
-                      _active={{ bgColor: 'transparent' }}
+                      w={5}
+                      h={5}
+                      minW={5}
                       icon={<EditIcon color="gray.300" />}
+                      zIndex={1}
+                      _active={{ bgColor: 'transparent' }}
+                      _hover={{ bgColor: 'transparent' }}
                     />
                   </Flex>
                   <Text
@@ -181,7 +205,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                           color="gray.100"
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
-                          textShadow="1px 1px #000"
+                          textShadow=".5px .5px #000"
                         >
                           {item.name}
                         </Text>
@@ -189,7 +213,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                           color="gray.100"
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
-                          textShadow="1px 1px #000"
+                          textShadow=".5px .5px #000"
                         >
                           {item.time}
                         </Text>
@@ -204,7 +228,8 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                 top={4}
                 h="85%"
                 w="85%"
-                opacity={0.5}
+                opacity={0.35}
+                zIndex={0}
               />
             </Box>
           </AspectRatio>
@@ -276,8 +301,8 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
       </Container>
       {/* Change city modal */}
       <Modal
-        isOpen={isOpen}
-        onClose={onClose}
+        isOpen={isOpenCity}
+        onClose={onCloseCity}
         closeOnOverlayClick={false}
         motionPreset="scale"
         size="xs"
@@ -308,6 +333,73 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
           </ModalFooter>
         </ModalContent>
       </Modal>
+      {/* Drawer menu */}
+      <Drawer
+        placement="right"
+        size="xs"
+        closeOnOverlayClick={false}
+        onClose={onCloseMenu}
+        isOpen={isOpenMenu}
+      >
+        <DrawerOverlay />
+        <DrawerContent>
+          <DrawerCloseButton />
+          <DrawerHeader
+            display="flex"
+            alignItems="center"
+            borderBottomWidth="1px"
+            sx={{ gap: 10 }}
+          >
+            <SettingsIcon />
+            <Heading
+              as="h1"
+              fontSize={['lg', 'xl']}
+              fontWeight="extrabold"
+              lineHeight={1}
+            >
+              Pengaturan
+            </Heading>
+          </DrawerHeader>
+          <DrawerBody>
+            {/* Dark mode */}
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <FormLabel htmlFor="mode-gelap">Gunakan Mode Gelap</FormLabel>
+              <Switch id="mode-gelap" />
+            </FormControl>
+            <Divider my={2.5} />
+            {/* Terjemahan */}
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <FormLabel htmlFor="terjemahan" mb="0">
+                Tampilkan Terjemahan
+              </FormLabel>
+              <Switch id="terjemahan" />
+            </FormControl>
+            <Divider my={2.5} />
+            {/* Transliterasi */}
+            <FormControl
+              display="flex"
+              alignItems="center"
+              justifyContent="space-between"
+            >
+              <FormLabel htmlFor="transliterasi" mb="0">
+                Tampilkan Transliterasi
+              </FormLabel>
+              <Switch id="transliterasi" />
+            </FormControl>
+          </DrawerBody>
+          <DrawerFooter>
+            <Text>Tentang Aplikasi</Text>
+          </DrawerFooter>
+        </DrawerContent>
+      </Drawer>
     </Box>
   );
 };
