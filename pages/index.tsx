@@ -21,6 +21,7 @@ import {
   SkeletonText,
   Text,
   useDisclosure,
+  useMediaQuery,
 } from '@chakra-ui/react';
 import React, { ReactNode, useState } from 'react';
 
@@ -66,6 +67,9 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
     setCity(tempCity);
     onClose();
   };
+
+  // Get very small screen
+  const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
 
   return (
     <Box bgColor="purple.50" h="100vh">
@@ -120,22 +124,13 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
             borderRadius={25}
             boxShadow="sm"
           >
-            <Box
-              _before={{
-                bgImage: 'red',
-                content: `""`,
-                display: 'block',
-                h: '250px',
-                position: 'absolute',
-                w: '250px',
-              }}
-            >
+            <Box>
               <Flex
                 direction="column"
                 justify="space-between"
                 h="100%"
                 w="100%"
-                p={7}
+                p={isSmallerThan360 ? 3 : 7}
               >
                 <Flex direction="column">
                   <Flex align="center" sx={{ gap: 5 }}>
@@ -167,7 +162,11 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                     {gregTime}
                   </Text>
                 </Flex>
-                <Flex justify="space-evenly" sx={{ gap: 15 }}>
+                <Flex
+                  justify="space-evenly"
+                  zIndex={1}
+                  sx={{ gap: isSmallerThan360 ? 5 : 15 }}
+                >
                   {prayingTimes.map(item => (
                     <SkeletonText
                       key={item.id}
@@ -182,6 +181,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                           color="gray.100"
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
+                          textShadow="1px 1px #000"
                         >
                           {item.name}
                         </Text>
@@ -189,6 +189,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                           color="gray.100"
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
+                          textShadow="1px 1px #000"
                         >
                           {item.time}
                         </Text>
@@ -197,7 +198,14 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                   ))}
                 </Flex>
               </Flex>
-              {/* <Mosque position="absolute" top={-10} h="100%" w="100%" /> */}
+              <Mosque
+                position="absolute"
+                right={-12}
+                top={4}
+                h="85%"
+                w="85%"
+                opacity={0.5}
+              />
             </Box>
           </AspectRatio>
           {/* Dzikir */}
