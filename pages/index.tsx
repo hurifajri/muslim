@@ -149,9 +149,10 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                       w={6}
                       h={6}
                       minW={6}
-                      _hover={{ bgColor: 'transparent' }}
-                      _active={{ bgColor: 'transparent' }}
                       icon={<EditIcon color="gray.300" />}
+                      zIndex={1}
+                      _active={{ bgColor: 'transparent' }}
+                      _hover={{ bgColor: 'transparent' }}
                     />
                   </Flex>
                   <Text
@@ -181,7 +182,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                           color="gray.100"
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
-                          textShadow="1px 1px #000"
+                          textShadow=".5px .5px #000"
                         >
                           {item.name}
                         </Text>
@@ -189,7 +190,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                           color="gray.100"
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
-                          textShadow="1px 1px #000"
+                          textShadow=".5px .5px #000"
                         >
                           {item.time}
                         </Text>
@@ -204,7 +205,8 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                 top={4}
                 h="85%"
                 w="85%"
-                opacity={0.5}
+                opacity={0.35}
+                zIndex={0}
               />
             </Box>
           </AspectRatio>
