@@ -263,7 +263,9 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader></ModalHeader>
+          <ModalHeader fontSize={['md', 'lg']}>
+            Ubah lokasi jadwal solat
+          </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Input
