@@ -30,6 +30,7 @@ import {
   Evening,
   Menu,
   Morning,
+  Mosque,
   Pray,
   Prophet,
   Quran,
@@ -119,7 +120,16 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
             borderRadius={25}
             boxShadow="sm"
           >
-            <Box>
+            <Box
+              _before={{
+                bgImage: 'red',
+                content: `""`,
+                display: 'block',
+                h: '250px',
+                position: 'absolute',
+                w: '250px',
+              }}
+            >
               <Flex
                 direction="column"
                 justify="space-between"
@@ -159,20 +169,22 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                 </Flex>
                 <Flex justify="space-evenly" sx={{ gap: 15 }}>
                   {prayingTimes.map(item => (
-                    <Flex
+                    <SkeletonText
                       key={item.id}
-                      direction="column"
-                      align="center"
-                      minH="42px"
+                      isLoaded={!isLoading}
+                      noOfLines={2}
+                      display="flex"
+                      flexDirection="column"
+                      alignItems="center"
                     >
-                      <Text
-                        color="gray.100"
-                        fontSize={['sm', 'md']}
-                        fontWeight="bold"
-                      >
-                        {item.name}
-                      </Text>
-                      <SkeletonText isLoaded={!isLoading} noOfLines={1}>
+                      <Flex direction="column" align="center">
+                        <Text
+                          color="gray.100"
+                          fontSize={['sm', 'md']}
+                          fontWeight="bold"
+                        >
+                          {item.name}
+                        </Text>
                         <Text
                           color="gray.100"
                           fontSize={['sm', 'md']}
@@ -180,11 +192,12 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                         >
                           {item.time}
                         </Text>
-                      </SkeletonText>
-                    </Flex>
+                      </Flex>
+                    </SkeletonText>
                   ))}
                 </Flex>
               </Flex>
+              {/* <Mosque position="absolute" top={-10} h="100%" w="100%" /> */}
             </Box>
           </AspectRatio>
           {/* Dzikir */}
