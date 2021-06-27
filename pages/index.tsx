@@ -1,10 +1,10 @@
 // Eksternal
-import { GetServerSideProps } from 'next';
 import Head from 'next/head';
 import {
   AspectRatio,
   Box,
   Button,
+  Collapse,
   Container,
   Divider,
   Drawer,
@@ -34,9 +34,10 @@ import {
   useMediaQuery,
 } from '@chakra-ui/react';
 import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
-import React, { ReactNode, useState } from 'react';
+import React, { ReactNode, SetStateAction, useState } from 'react';
 
 // Internal
+import { iTocIcons } from '@interfaces';
 import { toc } from '@data';
 import {
   Evening,
@@ -47,7 +48,6 @@ import {
   Prophet,
   Quran,
 } from '@components/icons';
-import { iHome, iTocIcons } from '@interfaces';
 import { useGregDate, useHijriDate } from '@hooks';
 
 // Dynamic icons for table of contents
@@ -59,39 +59,46 @@ const Icons: iTocIcons = {
   5: <Pray h="100%" w="100%" />,
 };
 
-const Home = ({ initialCity, isServer }: iHome): ReactNode => {
-  const [tempCity, setTempCity] = useState('');
-  const [city, setCity] = useState(initialCity);
+const Home = (): ReactNode => {
+  const isServer = typeof window === 'undefined';
 
-  const { gregDate, gregTime } = useGregDate();
-  const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
+  // Set default city
+  let initialCity = 'jakarta';
+  if (!isServer) initialCity = localStorage?.getItem('city') ?? 'jakarta';
 
-  // Change city
-  const {
-    isOpen: isOpenCity,
-    onOpen: onOpenCity,
-    onClose: onCloseCity,
-  } = useDisclosure();
-
+  const [tempCity, setTempCity] = useState(initialCity);
   const handleChangeCity = (event: {
-    target: { value: React.SetStateAction<string> };
+    target: { value: SetStateAction<string> };
   }) => setTempCity(event.target.value);
 
+  const [city, setCity] = useState(initialCity);
   const handleClickCity = () => {
     if (!isServer) localStorage.setItem('city', tempCity);
     setCity(tempCity);
     onCloseCity();
   };
 
-  // Get very small screen
-  const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
+  // Open city modal
+  const {
+    isOpen: isOpenCity,
+    onOpen: onOpenCity,
+    onClose: onCloseCity,
+  } = useDisclosure();
 
-  // Open drawer menu
+  // Open menu drawer
   const {
     isOpen: isOpenMenu,
     onOpen: onOpenMenu,
     onClose: onCloseMenu,
   } = useDisclosure();
+
+  // Toggle quote text
+  const [showFullQuote, setShowFullQuote] = useState(false);
+  const handleClickQuote = () => setShowFullQuote(!showFullQuote);
+
+  const { gregDate, gregTime } = useGregDate();
+  const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
+  const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
 
   return (
     <Box bgColor="purple.50" h="100vh">
@@ -99,7 +106,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
         <title>Muslim</title>
         <meta
           name="description"
-          content="Muslim Free • Tidak menjual data pengguna!"
+          content="Muslim • Dzikir, Doa, dan Jadwal Sholat."
         />
         <link rel="icon" href="/favicon.ico" />
       </Head>
@@ -108,18 +115,19 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
         <Flex as="header" align="center" justify="space-between">
           {/* Menu */}
           <IconButton
-            aria-label="Open drawer menu"
+            aria-label="Open menu drawer"
             bgColor="white"
             borderRadius={10}
-            p={2.5}
-            onClick={onOpenMenu}
             icon={<Menu h={25} w={25} />}
+            onClick={onOpenMenu}
+            p={2.5}
           />
           {/* Date */}
           <Flex direction="column">
             <Text
+              color="gray.700"
               fontSize={['md', 'lg']}
-              fontWeight="extrabold"
+              fontWeight="bold"
               textAlign="right"
             >
               {gregDate}
@@ -128,7 +136,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
               <Text
                 color="#8273D3"
                 fontSize={['xs', 'sm']}
-                fontWeight="extrabold"
+                fontWeight="bold"
                 textAlign="right"
               >
                 {hijriDate}
@@ -142,7 +150,6 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
           <AspectRatio
             as="section"
             ratio={16 / 9}
-            bgColor="white"
             bgGradient="linear(to-bl, purple.400, blue.400)"
             borderRadius={25}
             boxShadow="sm"
@@ -161,17 +168,18 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                       color="gray.100"
                       fontSize={['xl', '2xl']}
                       fontWeight="bold"
+                      textTransform="capitalize"
                     >
                       {city}
                     </Text>
                     <IconButton
-                      aria-label="Change city"
+                      aria-label="Open city modal"
                       bgColor="transparent"
                       onClick={onOpenCity}
-                      p={0}
-                      w={5}
                       h={5}
+                      w={5}
                       minW={5}
+                      p={0}
                       icon={<EditIcon color="gray.300" />}
                       zIndex={1}
                       _active={{ bgColor: 'transparent' }}
@@ -253,7 +261,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                       <Text
                         color={color}
                         fontSize={['sm', 'md']}
-                        fontWeight="extrabold"
+                        fontWeight="bold"
                       >
                         {title}
                       </Text>
@@ -262,9 +270,41 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                 );
               })}
           </Flex>
+          {/* Quotes */}
+          <Flex
+            as="section"
+            direction="column"
+            bgColor="white"
+            borderRadius={25}
+            boxShadow="md"
+            p={5}
+            sx={{ gap: 10 }}
+          >
+            <Heading color="gray.700" fontSize={['md', 'lg']} fontWeight="bold">
+              Untaian Hikmah
+            </Heading>
+            <Flex direction="column" sx={{ gap: 10 }}>
+              <Collapse startingHeight={50} in={showFullQuote}>
+                <Text
+                  color="gray.700"
+                  cursor="pointer"
+                  fontStyle="italic"
+                  onClick={handleClickQuote}
+                >
+                  Malik bin Dinar sepanjang malam bangun sambil memegang
+                  janggutnya dan berkata: &#34;Wahai Rabbi, Engkau telah
+                  mengetahui siapa calon penghuni surga dan neraka. Dimanakah
+                  Malik akan berada?&#34;
+                </Text>
+              </Collapse>
+              <Text color="#8273D3" fontSize={['xs', 'sm']} fontWeight="bold">
+                Ibid, hlm. 213; Tahdzib Al-Kamal, 30/438
+              </Text>
+            </Flex>
+          </Flex>
           {/* Doa */}
           <Flex as="section" direction="column" sx={{ gap: 10 }}>
-            <Heading fontSize={['md', 'lg']} fontWeight="extrabold">
+            <Heading color="gray.700" fontSize={['md', 'lg']} fontWeight="bold">
               Kumpulan Doa
             </Heading>
             <Flex sx={{ gap: 10 }}>
@@ -287,7 +327,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
                         <Text
                           color={color}
                           fontSize={['xs', 'sm']}
-                          fontWeight="extrabold"
+                          fontWeight="bold"
                         >
                           {title}
                         </Text>
@@ -303,19 +343,24 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
       <Modal
         isOpen={isOpenCity}
         onClose={onCloseCity}
-        closeOnOverlayClick={false}
+        closeOnOverlayClick={true}
         motionPreset="scale"
         size="xs"
       >
         <ModalOverlay />
         <ModalContent>
-          <ModalHeader fontSize={['md', 'lg']}>
-            Ubah lokasi jadwal solat
+          <ModalHeader
+            color="gray.700"
+            fontSize={['md', 'lg']}
+            textTransform="capitalize"
+          >
+            Ubah Lokasi
           </ModalHeader>
           <ModalCloseButton />
           <ModalBody>
             <Input
-              placeholder="Ganti kota"
+              color="gray.700"
+              placeholder="Contoh: Bogor"
               defaultValue={city}
               variant="flushed"
               onChange={handleChangeCity}
@@ -324,6 +369,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
 
           <ModalFooter>
             <Button
+              color="gray.100"
               colorScheme="purple"
               bgGradient="linear(to-bl, purple.400, blue.400)"
               onClick={handleClickCity}
@@ -337,7 +383,7 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
       <Drawer
         placement="right"
         size="xs"
-        closeOnOverlayClick={false}
+        closeOnOverlayClick={true}
         onClose={onCloseMenu}
         isOpen={isOpenMenu}
       >
@@ -352,9 +398,9 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
           >
             <SettingsIcon />
             <Heading
-              as="h1"
+              color="gray.700"
               fontSize={['lg', 'xl']}
-              fontWeight="extrabold"
+              fontWeight="bold"
               lineHeight={1}
             >
               Pengaturan
@@ -367,7 +413,9 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <FormLabel htmlFor="mode-gelap">Gunakan Mode Gelap</FormLabel>
+              <FormLabel color="gray.700" htmlFor="mode-gelap" mb={0}>
+                Mode Gelap
+              </FormLabel>
               <Switch id="mode-gelap" />
             </FormControl>
             <Divider my={2.5} />
@@ -377,8 +425,8 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <FormLabel htmlFor="terjemahan" mb="0">
-                Tampilkan Terjemahan
+              <FormLabel color="gray.700" htmlFor="terjemahan" mb={0}>
+                Terjemahan
               </FormLabel>
               <Switch id="terjemahan" />
             </FormControl>
@@ -389,30 +437,19 @@ const Home = ({ initialCity, isServer }: iHome): ReactNode => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <FormLabel htmlFor="transliterasi" mb="0">
-                Tampilkan Transliterasi
+              <FormLabel color="gray.700" htmlFor="transliterasi" mb={0}>
+                Transliterasi
               </FormLabel>
               <Switch id="transliterasi" />
             </FormControl>
           </DrawerBody>
-          <DrawerFooter>
+          <DrawerFooter display="flex" justifyContent="flex-start">
             <Text>Tentang Aplikasi</Text>
           </DrawerFooter>
         </DrawerContent>
       </Drawer>
     </Box>
   );
-};
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  // Set default city
-  const isServer = typeof window === 'undefined';
-  let initialCity = 'Jakarta';
-  if (!isServer) initialCity = localStorage?.getItem('city') ?? 'Jakarta';
-
-  return {
-    props: { initialCity, isServer },
-  };
 };
 
 export default Home;
