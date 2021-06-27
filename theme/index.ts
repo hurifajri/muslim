@@ -1,11 +1,19 @@
 // Eksternal
-import { extendTheme } from '@chakra-ui/react';
+import { extendTheme, ThemeConfig } from '@chakra-ui/react';
 
-const theme = extendTheme({
-  fonts: {
-    body: `Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
-    heading: `Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol"`,
-  },
-});
+// Internal
+import fonts from '@theme/fonts';
+import styles from '@theme/styles';
 
-export default theme;
+const config: ThemeConfig = {
+  initialColorMode: 'light',
+  useSystemColorMode: false,
+};
+
+const overrides = {
+  ...config,
+  fonts,
+  styles,
+};
+
+export default extendTheme(overrides);

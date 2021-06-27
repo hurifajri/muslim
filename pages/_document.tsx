@@ -1,6 +1,10 @@
 // Eksternal
+import { ColorModeScript } from '@chakra-ui/react';
 import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
+
+// Internal
+import theme from '@theme';
 
 class MyDocument extends Document {
   render(): JSX.Element {
@@ -14,11 +18,12 @@ class MyDocument extends Document {
             crossOrigin="true"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;700;800&display=swap"
             rel="stylesheet"
           />
         </Head>
         <body>
+          <ColorModeScript initialColorMode={theme.config.initialColorMode} />
           <Main />
           <NextScript />
         </body>
