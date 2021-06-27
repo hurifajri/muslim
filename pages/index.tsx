@@ -50,7 +50,7 @@ import {
   Prophet,
   Quran,
 } from '@components/icons';
-import { useGregDate, useHijriDate } from '@hooks';
+import { useGregDate, useHijriDate, useQuote } from '@hooks';
 
 // Dynamic icons for table of contents
 const Icons: iTocIcons = {
@@ -110,13 +110,14 @@ const Home = (): ReactNode => {
   const bgBlue = useColorModeValue('#36219E', '#44339A');
   const textPurpleDark = useColorModeValue('purple.600', 'purple.200');
   const textPurpleLight = useColorModeValue('purple.400', 'purple.100');
-  const textLight = useColorModeValue('whiteAlpha.900', 'white');
   const textDark = useColorModeValue('gray.800', 'gray.900');
+  const textLight = useColorModeValue('whiteAlpha.900', 'white');
   const iconMenu = useColorModeValue('#36219E', '#FFFFFFEB');
 
   const { gregDate, gregTime } = useGregDate();
   const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
   const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
+  const { quote, source } = useQuote();
 
   return (
     <Box bgColor={bg}>
@@ -310,10 +311,7 @@ const Home = (): ReactNode => {
                   fontStyle="italic"
                   onClick={handleClickQuote}
                 >
-                  Malik bin Dinar sepanjang malam bangun sambil memegang
-                  janggutnya dan berkata: &#34;Wahai Rabbi, Engkau telah
-                  mengetahui siapa calon penghuni surga dan neraka. Dimanakah
-                  Malik akan berada?&#34;
+                  {quote}
                 </Text>
               </Collapse>
               <Text
@@ -321,7 +319,7 @@ const Home = (): ReactNode => {
                 fontSize={['xs', 'sm']}
                 fontWeight="bold"
               >
-                Ibid, hlm. 213; Tahdzib Al-Kamal, 30/438
+                {source}
               </Text>
             </Flex>
           </Flex>
