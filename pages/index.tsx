@@ -300,7 +300,7 @@ const Home = (): ReactNode => {
             sx={{ gap: 10 }}
           >
             <Heading fontSize={['md', 'lg']} fontWeight="bold">
-              Untaian Hikmah
+              Mutiara Hikmah
             </Heading>
             <Flex direction="column" sx={{ gap: 10 }}>
               <Collapse startingHeight={40} in={showFullQuote}>
@@ -407,6 +407,7 @@ const Home = (): ReactNode => {
               alignItems="center"
               borderBottomWidth="1px"
               sx={{ gap: 10 }}
+              mb={5}
             >
               <SettingsIcon />
               <Heading fontSize={['lg', 'xl']} fontWeight="bold" lineHeight={1}>
