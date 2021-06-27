@@ -30,6 +30,8 @@ import {
   SkeletonText,
   Switch,
   Text,
+  useColorMode,
+  useColorModeValue,
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
@@ -96,12 +98,28 @@ const Home = (): ReactNode => {
   const [showFullQuote, setShowFullQuote] = useState(false);
   const handleClickQuote = () => setShowFullQuote(!showFullQuote);
 
+  // Togle dark/light mode
+  const { colorMode, toggleColorMode } = useColorMode();
+
+  // Dark/light mode colors
+  const bg = useColorModeValue('purple.50', 'purple.900');
+  const bgCard = useColorModeValue('white', 'purple.800');
+  const bgGradientPurple = useColorModeValue('purple.400', 'purple.300');
+  const bgGradientBlue = useColorModeValue('blue.400', 'blue.300');
+  const bgPurple = useColorModeValue('#E3DEFF', '#C3B8FF');
+  const bgBlue = useColorModeValue('#36219E', '#44339A');
+  const textPurpleDark = useColorModeValue('purple.600', 'purple.200');
+  const textPurpleLight = useColorModeValue('purple.400', 'purple.100');
+  const textLight = useColorModeValue('whiteAlpha.900', 'white');
+  const textDark = useColorModeValue('gray.800', 'gray.900');
+  const iconMenu = useColorModeValue('#36219E', '#FFFFFFEB');
+
   const { gregDate, gregTime } = useGregDate();
   const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
   const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
 
   return (
-    <Box bgColor="purple.50" h="100vh">
+    <Box bgColor={bg}>
       <Head>
         <title>Muslim</title>
         <meta
@@ -116,27 +134,26 @@ const Home = (): ReactNode => {
           {/* Menu */}
           <IconButton
             aria-label="Open menu drawer"
-            bgColor="white"
+            bgColor={bgCard}
             borderRadius={10}
-            icon={<Menu h={25} w={25} />}
+            icon={<Menu color={iconMenu} />}
             onClick={onOpenMenu}
             p={2.5}
           />
           {/* Date */}
           <Flex direction="column">
             <Text
-              color="gray.700"
               fontSize={['md', 'lg']}
-              fontWeight="bold"
+              fontWeight="extrabold"
               textAlign="right"
             >
               {gregDate}
             </Text>
             <SkeletonText isLoaded={!isLoading} noOfLines={1}>
               <Text
-                color="#8273D3"
+                color={textPurpleDark}
                 fontSize={['xs', 'sm']}
-                fontWeight="bold"
+                fontWeight="extrabold"
                 textAlign="right"
               >
                 {hijriDate}
@@ -150,7 +167,7 @@ const Home = (): ReactNode => {
           <AspectRatio
             as="section"
             ratio={16 / 9}
-            bgGradient="linear(to-bl, purple.400, blue.400)"
+            bgGradient={`linear(to-bl, ${bgGradientPurple}, ${bgGradientBlue})`}
             borderRadius={25}
             boxShadow="sm"
           >
@@ -165,7 +182,7 @@ const Home = (): ReactNode => {
                 <Flex direction="column">
                   <Flex align="center" sx={{ gap: 5 }}>
                     <Text
-                      color="gray.100"
+                      color={textLight}
                       fontSize={['xl', '2xl']}
                       fontWeight="bold"
                       textTransform="capitalize"
@@ -187,7 +204,7 @@ const Home = (): ReactNode => {
                     />
                   </Flex>
                   <Text
-                    color="gray.100"
+                    color={textLight}
                     fontSize={['xl', '2xl']}
                     fontWeight="bold"
                   >
@@ -210,7 +227,7 @@ const Home = (): ReactNode => {
                     >
                       <Flex direction="column" align="center">
                         <Text
-                          color="gray.100"
+                          color={textLight}
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
                           textShadow=".5px .5px #000"
@@ -218,7 +235,7 @@ const Home = (): ReactNode => {
                           {item.name}
                         </Text>
                         <Text
-                          color="gray.100"
+                          color={textLight}
                           fontSize={['sm', 'md']}
                           fontWeight="bold"
                           textShadow=".5px .5px #000"
@@ -246,7 +263,9 @@ const Home = (): ReactNode => {
             {toc
               .filter(({ group }) => group === 'Dzikir')
               .map(content => {
-                const { bgColor, color, id, title } = content;
+                const { id, title } = content;
+                const bgColor = id === 1 ? bgPurple : bgBlue;
+                const color = id === 1 ? textDark : textLight;
                 return (
                   <AspectRatio key={id} flex={1} ratio={1}>
                     <Flex
@@ -274,20 +293,20 @@ const Home = (): ReactNode => {
           <Flex
             as="section"
             direction="column"
-            bgColor="white"
+            bgColor={bgCard}
             borderRadius={25}
             boxShadow="md"
             p={5}
             sx={{ gap: 10 }}
           >
-            <Heading color="gray.700" fontSize={['md', 'lg']} fontWeight="bold">
+            <Heading fontSize={['md', 'lg']} fontWeight="bold">
               Untaian Hikmah
             </Heading>
             <Flex direction="column" sx={{ gap: 10 }}>
-              <Collapse startingHeight={50} in={showFullQuote}>
+              <Collapse startingHeight={40} in={showFullQuote}>
                 <Text
-                  color="gray.700"
                   cursor="pointer"
+                  fontSize={['sm', 'md']}
                   fontStyle="italic"
                   onClick={handleClickQuote}
                 >
@@ -297,25 +316,29 @@ const Home = (): ReactNode => {
                   Malik akan berada?&#34;
                 </Text>
               </Collapse>
-              <Text color="#8273D3" fontSize={['xs', 'sm']} fontWeight="bold">
+              <Text
+                color={textPurpleLight}
+                fontSize={['xs', 'sm']}
+                fontWeight="bold"
+              >
                 Ibid, hlm. 213; Tahdzib Al-Kamal, 30/438
               </Text>
             </Flex>
           </Flex>
           {/* Doa */}
           <Flex as="section" direction="column" sx={{ gap: 10 }}>
-            <Heading color="gray.700" fontSize={['md', 'lg']} fontWeight="bold">
+            <Heading fontSize={['md', 'lg']} fontWeight="bold">
               Kumpulan Doa
             </Heading>
             <Flex sx={{ gap: 10 }}>
               {toc
                 .filter(({ group }) => group === 'Doa')
                 .map(content => {
-                  const { bgColor, color, id, title } = content;
+                  const { id, title } = content;
                   return (
                     <AspectRatio key={id} flex={1} ratio={1}>
                       <Flex
-                        bgColor={bgColor}
+                        bgColor={bgCard}
                         borderRadius="15%"
                         boxShadow="md"
                         direction="column"
@@ -324,11 +347,7 @@ const Home = (): ReactNode => {
                         <Flex align="flex-end" h={['35px', '60px']}>
                           {Icons[id]}
                         </Flex>
-                        <Text
-                          color={color}
-                          fontSize={['xs', 'sm']}
-                          fontWeight="bold"
-                        >
+                        <Text fontSize={['xs', 'sm']} fontWeight="bold">
                           {title}
                         </Text>
                       </Flex>
@@ -338,116 +357,110 @@ const Home = (): ReactNode => {
             </Flex>
           </Flex>
         </Flex>
-      </Container>
-      {/* Change city modal */}
-      <Modal
-        isOpen={isOpenCity}
-        onClose={onCloseCity}
-        closeOnOverlayClick={true}
-        motionPreset="scale"
-        size="xs"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader
-            color="gray.700"
-            fontSize={['md', 'lg']}
-            textTransform="capitalize"
-          >
-            Ubah Lokasi
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Input
-              color="gray.700"
-              placeholder="Contoh: Bogor"
-              defaultValue={city}
-              variant="flushed"
-              onChange={handleChangeCity}
-            />
-          </ModalBody>
+        {/* Change city modal */}
+        <Modal
+          isOpen={isOpenCity}
+          onClose={onCloseCity}
+          closeOnOverlayClick={true}
+          motionPreset="scale"
+          size="xs"
+        >
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader fontSize={['md', 'lg']} textTransform="capitalize">
+              Ubah Lokasi
+            </ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>
+              <Input
+                placeholder="Contoh: Bogor"
+                defaultValue={city}
+                variant="flushed"
+                onChange={handleChangeCity}
+              />
+            </ModalBody>
 
-          <ModalFooter>
-            <Button
-              color="gray.100"
-              colorScheme="purple"
-              bgGradient="linear(to-bl, purple.400, blue.400)"
-              onClick={handleClickCity}
-            >
-              Simpan
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-      {/* Drawer menu */}
-      <Drawer
-        placement="right"
-        size="xs"
-        closeOnOverlayClick={true}
-        onClose={onCloseMenu}
-        isOpen={isOpenMenu}
-      >
-        <DrawerOverlay />
-        <DrawerContent>
-          <DrawerCloseButton />
-          <DrawerHeader
-            display="flex"
-            alignItems="center"
-            borderBottomWidth="1px"
-            sx={{ gap: 10 }}
-          >
-            <SettingsIcon />
-            <Heading
-              color="gray.700"
-              fontSize={['lg', 'xl']}
-              fontWeight="bold"
-              lineHeight={1}
-            >
-              Pengaturan
-            </Heading>
-          </DrawerHeader>
-          <DrawerBody>
-            {/* Dark mode */}
-            <FormControl
+            <ModalFooter>
+              <Button
+                colorScheme="purple"
+                bgGradient="linear(to-bl, purple.400, blue.400)"
+                onClick={handleClickCity}
+              >
+                Simpan
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+        {/* Drawer menu */}
+        <Drawer
+          placement="right"
+          size="xs"
+          closeOnOverlayClick={true}
+          onClose={onCloseMenu}
+          isOpen={isOpenMenu}
+        >
+          <DrawerOverlay />
+          <DrawerContent bgColor={bg}>
+            <DrawerCloseButton />
+            <DrawerHeader
               display="flex"
               alignItems="center"
-              justifyContent="space-between"
+              borderBottomWidth="1px"
+              sx={{ gap: 10 }}
             >
-              <FormLabel color="gray.700" htmlFor="mode-gelap" mb={0}>
-                Mode Gelap
-              </FormLabel>
-              <Switch id="mode-gelap" />
-            </FormControl>
-            <Divider my={2.5} />
-            {/* Terjemahan */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel color="gray.700" htmlFor="terjemahan" mb={0}>
-                Terjemahan
-              </FormLabel>
-              <Switch id="terjemahan" />
-            </FormControl>
-            <Divider my={2.5} />
-            {/* Transliterasi */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel color="gray.700" htmlFor="transliterasi" mb={0}>
-                Transliterasi
-              </FormLabel>
-              <Switch id="transliterasi" />
-            </FormControl>
-          </DrawerBody>
-          <DrawerFooter display="flex" justifyContent="flex-start">
-            <Text>Tentang Aplikasi</Text>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+              <SettingsIcon />
+              <Heading fontSize={['lg', 'xl']} fontWeight="bold" lineHeight={1}>
+                Pengaturan
+              </Heading>
+            </DrawerHeader>
+            <DrawerBody>
+              {/* Dark mode */}
+              <FormControl
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <FormLabel htmlFor="mode-gelap" mb={0}>
+                  Mode Gelap
+                </FormLabel>
+                <Switch
+                  id="mode-gelap"
+                  defaultChecked={colorMode === 'light'}
+                  isChecked={colorMode === 'dark'}
+                  onChange={toggleColorMode}
+                />
+              </FormControl>
+              <Divider my={2.5} />
+              {/* Terjemahan */}
+              <FormControl
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <FormLabel htmlFor="terjemahan" mb={0}>
+                  Terjemahan
+                </FormLabel>
+                <Switch id="terjemahan" />
+              </FormControl>
+              <Divider my={2.5} />
+              {/* Transliterasi */}
+              <FormControl
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <FormLabel htmlFor="transliterasi" mb={0}>
+                  Transliterasi
+                </FormLabel>
+                <Switch id="transliterasi" />
+              </FormControl>
+            </DrawerBody>
+            <DrawerFooter display="flex" justifyContent="flex-start">
+              <Text>Tentang Aplikasi</Text>
+            </DrawerFooter>
+          </DrawerContent>
+        </Drawer>
+      </Container>
     </Box>
   );
 };
