@@ -1,7 +1,7 @@
 interface iQuote {
   id: number;
   quote: string;
-  source: string;
+  narrator: string;
 }
 
 export default iQuote;
