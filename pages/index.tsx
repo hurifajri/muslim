@@ -1,5 +1,6 @@
 // Eksternal
 import Head from 'next/head';
+import Link from 'next/link';
 import {
   AspectRatio,
   Box,
@@ -264,29 +265,31 @@ const Home = (): ReactNode => {
             {toc
               .filter(({ group }) => group === 'Dzikir')
               .map(content => {
-                const { id, title } = content;
+                const { id, title, link } = content;
                 const bgColor = id === 1 ? bgPurple : bgBlue;
                 const color = id === 1 ? textDark : textLight;
                 return (
-                  <AspectRatio key={id} flex={1} ratio={1}>
-                    <Flex
-                      bgColor={bgColor}
-                      borderRadius="20%"
-                      direction="column"
-                      sx={{ gap: '10px' }}
-                    >
-                      <Flex align="flex-end" h={['50px', '75px']}>
-                        {Icons[id]}
-                      </Flex>
-                      <Text
-                        color={color}
-                        fontSize={['sm', 'md']}
-                        fontWeight="bold"
+                  <Link href={link} key={id}>
+                    <AspectRatio flex={1} ratio={1} cursor="pointer">
+                      <Flex
+                        bgColor={bgColor}
+                        borderRadius="20%"
+                        direction="column"
+                        sx={{ gap: '10px' }}
                       >
-                        {title}
-                      </Text>
-                    </Flex>
-                  </AspectRatio>
+                        <Flex align="flex-end" h={['50px', '75px']}>
+                          {Icons[id]}
+                        </Flex>
+                        <Text
+                          color={color}
+                          fontSize={['sm', 'md']}
+                          fontWeight="bold"
+                        >
+                          {title}
+                        </Text>
+                      </Flex>
+                    </AspectRatio>
+                  </Link>
                 );
               })}
           </Flex>
@@ -332,24 +335,26 @@ const Home = (): ReactNode => {
               {toc
                 .filter(({ group }) => group === 'Doa')
                 .map(content => {
-                  const { id, title } = content;
+                  const { id, title, link } = content;
                   return (
-                    <AspectRatio key={id} flex={1} ratio={1}>
-                      <Flex
-                        bgColor={bgCard}
-                        borderRadius="15%"
-                        boxShadow="md"
-                        direction="column"
-                        sx={{ gap: '10px' }}
-                      >
-                        <Flex align="flex-end" h={['35px', '60px']}>
-                          {Icons[id]}
+                    <Link href={link} key={id}>
+                      <AspectRatio flex={1} ratio={1} cursor="pointer">
+                        <Flex
+                          bgColor={bgCard}
+                          borderRadius="15%"
+                          boxShadow="md"
+                          direction="column"
+                          sx={{ gap: '10px' }}
+                        >
+                          <Flex align="flex-end" h={['35px', '60px']}>
+                            {Icons[id]}
+                          </Flex>
+                          <Text fontSize={['xs', 'sm']} fontWeight="bold">
+                            {title}
+                          </Text>
                         </Flex>
-                        <Text fontSize={['xs', 'sm']} fontWeight="bold">
-                          {title}
-                        </Text>
-                      </Flex>
-                    </AspectRatio>
+                      </AspectRatio>
+                    </Link>
                   );
                 })}
             </Flex>
