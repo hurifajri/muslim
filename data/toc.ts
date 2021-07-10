@@ -1,28 +1,35 @@
+import { routes } from '@utils';
+
 const toc = [
   {
-    group: 'Dzikir',
     id: 1,
     title: 'Dzikir Pagi',
+    group: 'Dzikir',
+    link: routes.dzikir('pagi'),
   },
   {
-    group: 'Dzikir',
     id: 2,
     title: 'Dzikir Petang',
+    group: 'Dzikir',
+    link: routes.dzikir('petang'),
   },
   {
-    group: 'Doa',
     id: 3,
     title: 'Doa Quran',
+    group: 'Doa',
+    link: routes.doa('quran'),
   },
   {
-    group: 'Doa',
     id: 4,
     title: 'Doa Nabi',
+    group: 'Doa',
+    link: routes.doa('nabi'),
   },
   {
-    group: 'Doa',
     id: 5,
     title: 'Doa Solat',
+    group: 'Doa',
+    link: routes.doa('solat'),
   },
 ];
 
