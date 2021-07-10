@@ -386,84 +386,84 @@ const doas = [
   },
   {
     id: 19,
-    title: `Ditetapkan Hati dalam Iman`,
+    title: `Meminta Agar Ditetapkan Hati dalam Iman`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اَللَّهُمَّ يا مُصَرِّفَ الْقُلُوْبِ، صَرِّفْ قُلُوْبَنَا عَلَى دِينِكَ</p>`,
         transliteration: null,
-        translation: `"Wahai Tuhan yang membolak-balikkan hati, teguhkanlah hatiku pada agamaMu."`,
+        translation: `Wahai Tuhan yang membolak-balikkan hati, teguhkanlah hatiku pada agamaMu.`,
         narrator: `HR. Muslim No. 2654`,
       },
     ],
   },
   {
     id: 20,
-    title: `Ampunan dalam Segala Hal`,
+    title: `Meminta Ampunan dalam Segala Hal`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اَللّهُمَّ اغْفِرْ لِيْ خَطِيْئَتِيْ، وَجَهْلِيْ، وَإِسْرَافِيْ فِي أَمْرِيْ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّيْ. اللّهُمَّ اغْفِرْ لِيْ جَدِّيْ وَهَزْلِيْ، وَخَطَئِيْ وَعَمْدِيْ، وَكُلُّ ذلِكَ عِنْدِيْ، اللّهُمَّ اغْفِرْ لِيْ مَا قَدَّمْتُ، وَمَا أَخَّرْتُ، وَمَا أَسْرَرْتُ، وَمَا أَعْلَنْتُ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّيْ، أَنْتَ الْمُقَدِّمُ، وَأَنْتَ الْمُؤَخِّرُ، وَأَنْتَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ.</p>`,
         transliteration: null,
-        translation: `"Ya Allah, ampunilah kesalahanku, kebodohanku, keberlebih-lebihan dalam perkaraku, dan apa yang Engkau lebih mengetahui daripadaku. Ya Allah, ampunilah diriku dalam kesungguhanku, kelalaianku, kesalahanku, kesengajaanku, dan semua itu adalah berasal dari sisiku. Ya Allah, ampunilah aku dari segala dosa yang telah aku lakukan dan yang belum aku lakukan, segala dosa yang aku sembunyikan dan yang aku tampakkan, dan dosa yang Engkau lebih mengetahui daripadaku, Engkaulah Yang Maha Mendahulukan dan Yang mengakhirkan, dan Engkau Mahakuasa atas segala sesuatu."`,
+        translation: `Ya Allah, ampunilah kesalahanku, kebodohanku, keberlebih-lebihan dalam perkaraku, dan apa yang Engkau lebih mengetahui daripadaku. Ya Allah, ampunilah diriku dalam kesungguhanku, kelalaianku, kesalahanku, kesengajaanku, dan semua itu adalah berasal dari sisiku. Ya Allah, ampunilah aku dari segala dosa yang telah aku lakukan dan yang belum aku lakukan, segala dosa yang aku sembunyikan dan yang aku tampakkan, dan dosa yang Engkau lebih mengetahui daripadaku, Engkaulah Yang Maha Mendahulukan dan Yang mengakhirkan, dan Engkau Mahakuasa atas segala sesuatu.`,
         narrator: `HR. Bukhari No. 6398 dan Muslim No. 2719`,
       },
     ],
   },
   {
     id: 21,
-    title: `Mohon Diperbaiki Segala Urusan`,
+    title: `Meminta Diperbaiki Segala Urusan`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اَللَّـهُـَّم أَصْلِحْ لِي دِينِي الّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الّتِي فِيهَا مَعَادِي، وَاجْعَلِ الْحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ، وَاجْعَلِ الْمَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ</p>`,
         transliteration: null,
-        translation: `"Ya Allah mohon kebaikan pada urusan agamaku karena itu adalah penjaga semua urusanku. Aku mohon kebaikan pada urusan duniaku karena itu tempat hidupku. Aku mohon kebaikan pada urusan akhiratku karena itu tempat kembaliku. Jadikanlah hidup ini tambahan kebaikan bagiku, dan jadikanlah kematianku waktu istirahat bagiku dari segala keburukan."`,
+        translation: `Ya Allah mohon kebaikan pada urusan agamaku karena itu adalah penjaga semua urusanku. Aku mohon kebaikan pada urusan duniaku karena itu tempat hidupku. Aku mohon kebaikan pada urusan akhiratku karena itu tempat kembaliku. Jadikanlah hidup ini tambahan kebaikan bagiku, dan jadikanlah kematianku waktu istirahat bagiku dari segala keburukan.`,
         narrator: `HR. Muslim No. 2720`,
       },
     ],
   },
   {
     id: 22,
-    title: `Perlindungan dari Fitnah Kaya dan Fitnah Miskin`,
+    title: `Meminta Perlindungan dari Fitnah Kaya dan Fitnah Miskin`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الكَسَلِ وَالهَرَمِ، وَالمَأْثَمِ وَالمَغْرَمِ، وَمِنْ فِتْنَةِ القَبْرِ، وَعَذَابِ القَبْرِ، وَمِنْ فِتْنَةِ النَّارِ وَعَذَابِ النَّارِ، وَمِنْ شَرِّ فِتْنَةِ الغِنَى، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الفَقْرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الَمسِيحِ الدَّجَّال</p>`,
         transliteration: null,
-        translation: `"Ya Allah, aku berlindung kepada-Mu dari kemalasan dan usia jompo, perbuatan dosa dan hutang, fitnah kubur dan azab kubur, fitnah neraka dan azab neraka, keburukan fitnah kekayaan; aku berlindung kepada-Mu dari fitnah kemiskinan dan aku berlindung kepada-Mu dari fitnah Masih Dajjal."`,
+        translation: `Ya Allah, aku berlindung kepada-Mu dari kemalasan dan usia jompo, perbuatan dosa dan hutang, fitnah kubur dan azab kubur, fitnah neraka dan azab neraka, keburukan fitnah kekayaan; aku berlindung kepada-Mu dari fitnah kemiskinan dan aku berlindung kepada-Mu dari fitnah Masih Dajjal.`,
         narrator: `HR. Bukhari No. 6368`,
       },
     ],
   },
   {
     id: 23,
-    title: `Perlindungan Dicabutnya Nikmat Lahir Batin`,
+    title: `Meminta Perlindungan Dicabutnya Nikmat Lahir Batin`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّى أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ</p>`,
         transliteration: null,
-        translation: `"Ya Allah, sesungguhnya aku berlindung kepada-Mu dari hilangnya kenikmatan yang telah Engkau berikan, dari berubahnya kesehatan yang telah Engkau anugerahkan, dari siksa-Mu yang datang secara tiba-tiba, dan dari segala kemurkaan-Mu."`,
+        translation: `Ya Allah, sesungguhnya aku berlindung kepada-Mu dari hilangnya kenikmatan yang telah Engkau berikan, dari berubahnya kesehatan yang telah Engkau anugerahkan, dari siksa-Mu yang datang secara tiba-tiba, dan dari segala kemurkaan-Mu.`,
         narrator: `HR. Muslim No. 2739`,
       },
     ],
   },
   {
     id: 24,
-    title: `Agar Dijauhkan dari Sifat Pengecut dan Tidak Pikun`,
+    title: `Meminta Agar Dijauhkan dari Sifat Pengecut dan Tidak Pikun`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْجُبْنِ، وَأَعُوذُ بِكَ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الدُّنْيَا، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ</p>`,
         transliteration: null,
-        translation: `"Ya Allah, aku berlindung kepada-Mu dari sikap pengecut, aku berlindung kepada-Mu kepada serendah-rendahnya usia (pikun), aku berpindung kepada-Mu dari fitnah dunia, dan aku berlindung berlindung kepada-Mu dari adzab kubur."`,
+        translation: `Ya Allah, aku berlindung kepada-Mu dari sikap pengecut, aku berlindung kepada-Mu kepada serendah-rendahnya usia (pikun), aku berpindung kepada-Mu dari fitnah dunia, dan aku berlindung berlindung kepada-Mu dari adzab kubur.`,
         narrator: `HR. Bukhari No. 2822`,
       },
     ],
@@ -477,82 +477,101 @@ const doas = [
         id: 1,
         arabic: `<p>اللهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ، وَشَرِّ مَا لَمْ أَعْمَلْ</p>`,
         transliteration: null,
-        translation: `"Ya Allah, aku berlindung dari keburukan yang telah aku perbuat dan keburukan yang belum aku perbuat."`,
+        translation: `Ya Allah, aku berlindung dari keburukan yang telah aku perbuat dan keburukan yang belum aku perbuat.`,
         narrator: `HR. Muslim No. 2716`,
       },
     ],
   },
   {
     id: 26,
-    title: `Agar Bertaqwa dan Berlindung dari Ilmu yang Tidak Bermanfaat`,
+    title: `Meminta Agar Bertaqwa dan Berlindung dari Ilmu yang Tidak Bermanfaat`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا، اللهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ، وَمِنْ قَلْبٍ لَا يَخْشَعُ، وَمِنْ نَفْسٍ لَا تَشْبَعُ، وَمِنْ دَعْوَةٍ لَا يُسْتَجَابُ لَهَا</p>`,
         transliteration: null,
-        translation: `"Ya Allah karuniakan ketakwaan pada jiwaku. Sucikanlah ia, sesungguhnya Engkaulah sebaik-baik yang mensucikannya, Engkau-lah Yang Menjaga serta Melindunginya. Ya Allah, aku berlindung kepada-Mu dari Ilmu yang tidak manfaat, hati yang tidak khusyu, dan doa yang tidak diijabahi."`,
+        translation: `Ya Allah karuniakan ketakwaan pada jiwaku. Sucikanlah ia, sesungguhnya Engkaulah sebaik-baik yang mensucikannya, Engkau-lah Yang Menjaga serta Melindunginya. Ya Allah, aku berlindung kepada-Mu dari Ilmu yang tidak manfaat, hati yang tidak khusyu, dan doa yang tidak diijabahi.`,
         narrator: `HR. Muslim No. 2722`,
       },
     ],
   },
   {
     id: 27,
-    title: `Mohon Bisa Melihat Wajah Allah`,
+    title: `Meminta Agar Dapat Melihat Wajah Allah`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَسْأَلُكَ لَذَّةَ النَّظَرِ إِلَى وَجْهِكَ، وَالشَّوْقَ إِلَى لِقَائِكَ فِي غَيْرِ ضَرَّاءَ مُضِرَّةٍ، وَلَا فِتْنَةٍ مُضِلَّةٍ</p>`,
         transliteration: null,
-        translation: `"Ya Allah, Aku mohon kepada-Mu kenikmatan memandang wajah-Mu (di Surga), rindu bertemu dengan-Mu tanpa penderitaan yang membahayakan dan fitnah yang menyesatkan."`,
+        translation: `Ya Allah, Aku mohon kepada-Mu kenikmatan memandang wajah-Mu (di Surga), rindu bertemu dengan-Mu tanpa penderitaan yang membahayakan dan fitnah yang menyesatkan.`,
         narrator: `HR. Nasai No. 1305 dan dishahihkan al-Albani`,
       },
     ],
   },
   {
     id: 28,
-    title: `Dimudahkan Berbuat Baik & Mencintai Orang Miskin`,
+    title: `Meminta Dimudahkan Berbuat Baik & Mencintai Orang Miskin`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّى أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ وَتَرْكَ الْمُنْكَرَاتِ وَحُبَّ الْمَسَاكِينِ وَأَنْ تَغْفِرَ لِى وَتَرْحَمَنِى وَإِذَا أَرَدْتَ فِتْنَةَ قَوْمٍ فَتَوَفَّنِى غَيْرَ مَفْتُونٍ</p>`,
         transliteration: null,
-        translation: `"Ya Allah, aku memohon kepada-Mu untuk mudah melakukan kebaikan dan meninggalkan kemungkaran serta aku memohon pada-Mu supaya bisa mencintai orang miskin,ampunilah (dosa-dosa)ku, rahmatilah saya, jika Engkau menginginkan untuk menguji suatu kaum maka wafatkanlah saya dalam keadaan tidak tenggelam dalam ujian."`,
+        translation: `Ya Allah, aku memohon kepada-Mu untuk mudah melakukan kebaikan dan meninggalkan kemungkaran serta aku memohon pada-Mu supaya bisa mencintai orang miskin,ampunilah (dosa-dosa)ku, rahmatilah saya, jika Engkau menginginkan untuk menguji suatu kaum maka wafatkanlah saya dalam keadaan tidak tenggelam dalam ujian.`,
         narrator: `HR. Tirmidzi No. 3235 dan Ahmad 5: 243, dan Dishahihkan al-Albani`,
       },
     ],
   },
   {
     id: 29,
-    title: `Mohon Agar Bisa Mencintai Orang yang Mencintai Allah`,
+    title: `Meminta Agar Bisa Mencintai Orang yang Mencintai Allah`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّى أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُ إِلَى حُبِّكَ</p>`,
         transliteration: null,
-        translation: `"Saya memohon agar dapat mencintai-Mu, mencintai orang-orang yang mencintai-Mu dan mencintai amal yang dapat mendekatkan diriku kepada cinta-Mu."`,
+        translation: `Saya memohon agar dapat mencintai-Mu, mencintai orang-orang yang mencintai-Mu dan mencintai amal yang dapat mendekatkan diriku kepada cinta-Mu.`,
         narrator: `HR. Tirmidzi no. 3235 dan Ahmad 5: 243, dan Dishahihkan al-Albani`,
       },
     ],
   },
   {
     id: 30,
-    title: `Mohon Kebaikan dalam Segala Hal yang Pernah Diminta Nabi`,
+    title: `Meminta Kebaikan dalam Segala Hal yang Pernah Diminta Nabi`,
     types: [`nabi`],
     contents: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ عَبْدُكَ وَنَبِيُّكَ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِهِ عَبْدُكَ وَنَبِيُّكَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَسْأَلُكَ أَنْ تَجْعَلَ كُلَّ قَضَاءٍ قَضَيْتَهُ لِي خَيْرًا</p>`,
         transliteration: null,
-        translation: `"Ya Allah, sesungguhnya aku memohon kepadaMu seluruh kebaikan yang segera (dunia) dan yang tertunda (akhirat), kebaikan yang aku ketahui dan yang tidak aku ketahui.
+        translation: `Ya Allah, sesungguhnya aku memohon kepadaMu seluruh kebaikan yang segera (dunia) dan yang tertunda (akhirat), kebaikan yang aku ketahui dan yang tidak aku ketahui.
       Dan aku berlindung kepadaMu dari segala keburukan yang segera (dunia) dan yang tertunda (akhirat), yang aku ketahui dan yang tidak aku ketahui.
       Aku meminta kepada-Mu kebaikan semua doa yang pernah diminta oleh hamba dan nabi-Mu, dan aku berlindung kepada-Mu dari keburukan, yang hamba dan nabi-Mu pernah berlindung darinya.
       Aku memohon surga kepadaMu dan segala perkataan dan perbuatan yang mendekatkan kepadanya. Aku berlindung kepadaMu dari neraka dan segala perkataan dan perbuatan yang mendekatkan kepadanya.
       Aku meminta segala sesuatu yang telah Engkau takdirkan untukku, hendaklah Engkau jadikan kebaikan bagiku.
-    "`,
+    `,
+        narrator: `HR. Ahmad No. 25019, Ibnu Majah No. 3846 dan dishahihkan Syuaib al-Arnauth`,
+      },
+    ],
+  },
+  {
+    id: 31,
+    title: `Contoh Doa Solat`,
+    types: [`solat`],
+    contents: [
+      {
+        id: 1,
+        arabic: `<p>اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ عَبْدُكَ وَنَبِيُّكَ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِهِ عَبْدُكَ وَنَبِيُّكَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَسْأَلُكَ أَنْ تَجْعَلَ كُلَّ قَضَاءٍ قَضَيْتَهُ لِي خَيْرًا</p>`,
+        transliteration: null,
+        translation: `Ya Allah, sesungguhnya aku memohon kepadaMu seluruh kebaikan yang segera (dunia) dan yang tertunda (akhirat), kebaikan yang aku ketahui dan yang tidak aku ketahui.
+      Dan aku berlindung kepadaMu dari segala keburukan yang segera (dunia) dan yang tertunda (akhirat), yang aku ketahui dan yang tidak aku ketahui.
+      Aku meminta kepada-Mu kebaikan semua doa yang pernah diminta oleh hamba dan nabi-Mu, dan aku berlindung kepada-Mu dari keburukan, yang hamba dan nabi-Mu pernah berlindung darinya.
+      Aku memohon surga kepadaMu dan segala perkataan dan perbuatan yang mendekatkan kepadanya. Aku berlindung kepadaMu dari neraka dan segala perkataan dan perbuatan yang mendekatkan kepadanya.
+      Aku meminta segala sesuatu yang telah Engkau takdirkan untukku, hendaklah Engkau jadikan kebaikan bagiku.
+    `,
         narrator: `HR. Ahmad No. 25019, Ibnu Majah No. 3846 dan dishahihkan Syuaib al-Arnauth`,
       },
     ],
