@@ -1,7 +1,7 @@
 // Eksternal
-import type { AppProps } from 'next/app';
 import { ChakraProvider } from '@chakra-ui/react';
-import React, { ReactNode } from 'react';
+import { ReactNode } from 'react';
+import type { AppProps } from 'next/app';
 
 // Internal
 import theme from '@theme';

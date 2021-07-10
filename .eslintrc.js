@@ -32,6 +32,7 @@ module.exports = {
       'error',
       { rule: '^(is|has)[A-Z]([A-Za-z0-9]?)+', validateNested: true },
     ],
+    'react/react-in-jsx-scope': 'off',
     'react/sort-comp': ['error'],
     'react/sort-prop-types': [
       'error',
@@ -48,10 +49,12 @@ module.exports = {
       {
         allowSeparatedGroups: true,
         ignoreCase: true,
-        memberSyntaxSortOrder: ['single', 'multiple', 'all', 'none'],
+        ignoreDeclarationSort: true,
+        ignoreMemberSort: false,
       },
     ],
     'sort-vars': ['error', { ignoreCase: true }],
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
   },
   settings: {
     react: {

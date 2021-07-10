@@ -11,9 +11,7 @@ const useQuote = (): iQuote => {
     Math.floor(Math.random() * totalQuotes)
   );
 
-  const minutes = 1000 * 60;
-  const hours = minutes * 60;
-  const delay = hours; // Change quote every hour
+  const delay = 1000 * 30; // Change quote every 30 seconds
   useEffect(() => {
     const timer = setInterval(
       () => setRandomNumber(Math.floor(Math.random() * totalQuotes)),
