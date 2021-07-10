@@ -1,6 +1,5 @@
 // Eksternal
 import { ColorModeScript } from '@chakra-ui/react';
-import React from 'react';
 import Document, { Head, Html, Main, NextScript } from 'next/document';
 
 // Internal
