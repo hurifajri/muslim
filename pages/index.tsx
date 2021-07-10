@@ -1,6 +1,5 @@
 // Eksternal
-import Head from 'next/head';
-import Link from 'next/link';
+import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
 import {
   AspectRatio,
   Box,
@@ -36,12 +35,11 @@ import {
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
-import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
+import Head from 'next/head';
+import Link from 'next/link';
 import React, { ReactNode, SetStateAction, useState } from 'react';
 
 // Internal
-import { iTocIcons } from '@interfaces';
-import { toc } from '@data';
 import {
   Evening,
   Menu,
@@ -51,7 +49,9 @@ import {
   Prophet,
   Quran,
 } from '@components/icons';
+import { toc } from '@data';
 import { useGregDate, useHijriDate, useQuote } from '@hooks';
+import { iTocIcons } from '@interfaces';
 
 // Dynamic icons for table of contents
 const Icons: iTocIcons = {
@@ -263,7 +263,7 @@ const Home = (): ReactNode => {
           {/* Dzikir */}
           <Flex as="section" sx={{ gap: 20 }}>
             {toc
-              .filter(({ group }) => group === 'Dzikir')
+              .filter(({ group }) => group === 'dzikir')
               .map(content => {
                 const { id, title, link } = content;
                 const bgColor = id === 1 ? bgPurple : bgBlue;
@@ -333,7 +333,7 @@ const Home = (): ReactNode => {
             </Heading>
             <Flex sx={{ gap: 10 }}>
               {toc
-                .filter(({ group }) => group === 'Doa')
+                .filter(({ group }) => group === 'doa')
                 .map(content => {
                   const { id, title, link } = content;
                   return (

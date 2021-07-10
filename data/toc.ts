@@ -4,32 +4,32 @@ const toc = [
   {
     id: 1,
     title: 'Dzikir Pagi',
-    group: 'Dzikir',
     link: routes.dzikir('pagi'),
+    group: 'dzikir',
   },
   {
     id: 2,
     title: 'Dzikir Petang',
-    group: 'Dzikir',
     link: routes.dzikir('petang'),
+    group: 'dzikir',
   },
   {
     id: 3,
     title: 'Doa Quran',
-    group: 'Doa',
     link: routes.doa('quran'),
+    group: 'doa',
   },
   {
     id: 4,
     title: 'Doa Nabi',
-    group: 'Doa',
     link: routes.doa('nabi'),
+    group: 'doa',
   },
   {
     id: 5,
     title: 'Doa Solat',
-    group: 'Doa',
     link: routes.doa('solat'),
+    group: 'doa',
   },
 ];
 
