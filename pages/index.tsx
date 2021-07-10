@@ -117,7 +117,7 @@ const Home = (): ReactNode => {
   const { gregDate, gregTime } = useGregDate();
   const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
   const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
-  const { quote, source } = useQuote();
+  const { quote, narrator } = useQuote();
 
   return (
     <Box bgColor={bg}>
@@ -319,7 +319,7 @@ const Home = (): ReactNode => {
                 fontSize={['xs', 'sm']}
                 fontWeight="bold"
               >
-                {source}
+                {narrator}
               </Text>
             </Flex>
           </Flex>
