@@ -34,7 +34,8 @@ import {
   useMediaQuery,
 } from '@chakra-ui/react';
 import Link from 'next/link';
-import React, { ReactNode, SetStateAction, useState } from 'react';
+import { NextSeo } from 'next-seo';
+import { ReactNode, SetStateAction, useState } from 'react';
 
 // Internal
 import {
@@ -121,6 +122,8 @@ const Home = (): ReactNode => {
 
   return (
     <>
+      {/* SEO */}
+      <NextSeo title="Muslim" description="Jadwal Solat, Dzikir, dan Doa." />
       {/* Header */}
       <Flex as="header" align="center" justify="space-between">
         {/* Menu */}
@@ -414,7 +417,7 @@ const Home = (): ReactNode => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <FormLabel htmlFor="mode-gelap" mb={0}>
+              <FormLabel htmlFor="mode-gelap" mb={0} cursor="pointer">
                 Mode Gelap
               </FormLabel>
               <Switch
@@ -431,7 +434,7 @@ const Home = (): ReactNode => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <FormLabel htmlFor="terjemahan" mb={0}>
+              <FormLabel htmlFor="terjemahan" mb={0} cursor="pointer">
                 Terjemahan
               </FormLabel>
               <Switch id="terjemahan" />
@@ -443,7 +446,7 @@ const Home = (): ReactNode => {
               alignItems="center"
               justifyContent="space-between"
             >
-              <FormLabel htmlFor="transliterasi" mb={0}>
+              <FormLabel htmlFor="transliterasi" mb={0} cursor="pointer">
                 Transliterasi
               </FormLabel>
               <Switch id="transliterasi" />
