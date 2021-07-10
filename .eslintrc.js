@@ -33,6 +33,7 @@ module.exports = {
       { rule: '^(is|has)[A-Z]([A-Za-z0-9]?)+', validateNested: true },
     ],
     'react/react-in-jsx-scope': 'off',
+    'react/prop-types': 'off',
     'react/sort-comp': ['error'],
     'react/sort-prop-types': [
       'error',
