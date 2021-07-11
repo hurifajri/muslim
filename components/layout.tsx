@@ -21,8 +21,9 @@ const Layout = ({ children }: iLayout) => {
       <Container
         display="flex"
         flexDirection="column"
-        mt={!isHome ? 10 : 0}
-        p={7}
+        px={7}
+        pb={7}
+        pt={isHome ? 7 : '5rem'}
         sx={{ gap: 30 }}
       >
         {children}
