@@ -83,7 +83,7 @@ const Dzikir: NextPage = () => {
                   <If condition={dzikir.note}>
                     <Text
                       fontSize={['sm', 'md']}
-                      opacity={0.9}
+                      opacity={0.8}
                       flex={1}
                       textAlign="right"
                     >
@@ -97,7 +97,7 @@ const Dzikir: NextPage = () => {
                       key={item.id}
                       direction="column"
                       p={4}
-                      sx={{ gap: 30 }}
+                      sx={{ gap: 20 }}
                     >
                       <Box
                         fontFamily="Amiri, serif"
@@ -112,12 +112,12 @@ const Dzikir: NextPage = () => {
                         </Text>
                       </If>
                       <Text fontSize={['md', 'lg']}>
-                        {item.translation}
+                        {`"${item.translation}"`}
                         <If condition={item.narrator}>
                           <Text
                             as="span"
                             fontSize={['sm', 'md']}
-                            opacity={0.9}
+                            opacity={0.8}
                           >{` [${item.narrator}]`}</Text>
                         </If>
                       </Text>
@@ -160,7 +160,7 @@ const Dzikir: NextPage = () => {
                   <Text
                     as="span"
                     fontSize={['sm', 'md']}
-                    opacity={0.9}
+                    opacity={0.8}
                   >{` [${benefit.narrator}]`}</Text>
                 </Text>
               ))}
