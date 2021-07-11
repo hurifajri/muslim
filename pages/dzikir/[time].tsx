@@ -1,16 +1,21 @@
 // Eksternal
-import { Box, Flex, Text } from '@chakra-ui/react';
+import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
 // Internal
+import { If } from '@components';
 import { dzikirs } from '@data';
+import { useColors } from '@hooks';
 import { capitalize } from '@utils';
 
 const Dzikir: NextPage = () => {
   const { query } = useRouter();
   const time = query?.time ?? '';
+
+  // Dark/light mode colors
+  const { bgCard, bc } = useColors();
 
   return (
     <>
@@ -18,63 +23,80 @@ const Dzikir: NextPage = () => {
         title={`Muslim • Dzikir ${capitalize(time)}`}
         description="Dzikir Pagi Sesuai Sunnah."
       />
-      <Box position="relative">
+      <Flex as="main" direction="column">
         {dzikirs
           .filter(dzikir => dzikir.times.includes(time))
           .map(dzikir => {
             return (
-              <Box key={dzikir.id} borderBottom="1px solid rgba(0, 0, 0, 0.1)">
+              <Flex
+                as="section"
+                key={dzikir.id}
+                direction="column"
+                borderBottom={`1px solid ${bc}`}
+                _even={{ bgColor: bgCard }}
+              >
+                {/* Header */}
                 <Flex
+                  as="header"
+                  align="center"
                   justify="space-between"
-                  borderBottom="1px solid rgba(0, 0, 0, 0.1)"
+                  borderBottom={`1px solid ${bc}`}
                   p={4}
-                  align="flex-end"
                 >
-                  <Text fontWeight="600" mr={2} flex={2.5}>
+                  <Heading fontSize={['md', 'lg']} fontWeight="bold" flex={3}>
                     {dzikir.title}
-                  </Text>
-                  <Text fontSize="sm" textAlign="right" opacity={0.7} flex={1}>
-                    {dzikir.note}
-                  </Text>
+                  </Heading>
+                  <If condition={dzikir.note}>
+                    <Text
+                      fontSize={['sm', 'md']}
+                      opacity={0.8}
+                      flex={1}
+                      textAlign="right"
+                    >
+                      {dzikir.note}
+                    </Text>
+                  </If>
                 </Flex>
                 {dzikir.items.map(item => {
                   return (
-                    <Box key={item.id} p={4}>
+                    <Flex
+                      key={item.id}
+                      direction="column"
+                      p={4}
+                      sx={{ gap: 30 }}
+                    >
                       <Box
+                        fontFamily="Amiri, serif"
+                        fontWeight="bold"
                         textAlign="right"
-                        fontFamily="'Amiri', serif"
-                        fontWeight="700"
                         fontSize="2xl"
-                        lineHeight="2.4"
-                        letterSpacing={{ base: '-0.5px', lg: 0 }}
-                        mb={4}
+                        lineHeight={2.5}
                         dangerouslySetInnerHTML={{ __html: item.arabic }}
                       />
-                      <Text fontStyle="italic" mb={4}>
-                        {item.transliteration}
-                      </Text>
+                      <If condition={item.transliteration}>
+                        <Text fontStyle="italic">{item.transliteration}</Text>
+                      </If>
                       <Text>
                         {item.translation}
                         {item.narrator && ` [${item.narrator}]`}
                       </Text>
-                      {item.benefits && (
-                        <Box
+                      <If condition={item.benefits !== null}>
+                        <Button
                           py={2}
-                          mt={4}
                           cursor="pointer"
                           fontSize="sm"
                           opacity={0.7}
                         >
                           Lihat Keutamaan
-                        </Box>
-                      )}
-                    </Box>
+                        </Button>
+                      </If>
+                    </Flex>
                   );
                 })}
-              </Box>
+              </Flex>
             );
           })}
-      </Box>
+      </Flex>
     </>
   );
 };

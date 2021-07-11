@@ -49,7 +49,7 @@ const Header = () => {
           onClick={back}
           {...iconButtonProps}
         />
-        <Heading as="h1" color={textLight} fontSize="lg">
+        <Heading as="h1" color={textLight} fontSize={['lg', '2x1']}>
           {title}
         </Heading>
       </Flex>
