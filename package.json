@@ -1,6 +1,6 @@
 {
   "name": "muslim",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
@@ -15,6 +15,8 @@
     "@emotion/styled": "^11.3.0",
     "framer-motion": "^4.1.17",
     "next": "^11.0.1",
+    "next-pwa": "^5.2.23",
+    "next-seo": "^4.26.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",
     "swr": "^0.5.6"

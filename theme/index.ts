@@ -10,10 +10,6 @@ const config: ThemeConfig = {
   useSystemColorMode: false,
 };
 
-const overrides = {
-  ...config,
-  fonts,
-  styles,
-};
+const overrides = { ...config, fonts, styles };
 
 export default extendTheme(overrides);
