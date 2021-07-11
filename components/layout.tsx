@@ -18,7 +18,13 @@ const Layout = ({ children }: iLayout) => {
   return (
     <Box bgColor={bg}>
       {!isHome && <Header />}
-      <Container display="flex" flexDirection="column" p={7} sx={{ gap: 30 }}>
+      <Container
+        display="flex"
+        flexDirection="column"
+        mt={!isHome ? 10 : 0}
+        p={7}
+        sx={{ gap: 30 }}
+      >
         {children}
       </Container>
     </Box>

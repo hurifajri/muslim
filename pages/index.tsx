@@ -123,7 +123,10 @@ const Home = (): ReactNode => {
   return (
     <>
       {/* SEO */}
-      <NextSeo title="Muslim" description="Jadwal Solat, Dzikir, dan Doa." />
+      <NextSeo
+        title="Muslim • Jadwal Sholat, Dzikir, dan Doa."
+        description="Jadwal Sholat, Dzikir, dan Doa."
+      />
       {/* Header */}
       <Flex as="header" align="center" justify="space-between">
         {/* Menu */}
