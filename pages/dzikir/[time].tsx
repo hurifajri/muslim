@@ -1,8 +1,22 @@
 // Eksternal
-import { Box, Button, Flex, Heading, Text } from '@chakra-ui/react';
+import {
+  Box,
+  Button,
+  Drawer,
+  DrawerBody,
+  DrawerCloseButton,
+  DrawerContent,
+  DrawerHeader,
+  DrawerOverlay,
+  Flex,
+  Heading,
+  Text,
+  useDisclosure,
+} from '@chakra-ui/react';
 import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
+import { useState } from 'react';
 
 // Internal
 import { If } from '@components';
@@ -16,6 +30,23 @@ const Dzikir: NextPage = () => {
 
   // Dark/light mode colors
   const { bgCard, bc } = useColors();
+
+  // Handle "Lihat Keutamaan"
+  type tItemBenefits =
+    | { id: number; translation: string; narrator: string }[]
+    | null;
+
+  const { isOpen, onOpen, onClose } = useDisclosure();
+  const [title, setTitle] = useState('');
+  const [benefits, setBenefits] = useState<tItemBenefits>([]);
+  const handleClickBenefits = (
+    itemTitle: string,
+    itemBenefits: tItemBenefits
+  ) => {
+    setTitle(itemTitle);
+    setBenefits(itemBenefits);
+    onOpen();
+  };
 
   return (
     <>
@@ -34,6 +65,9 @@ const Dzikir: NextPage = () => {
                 direction="column"
                 borderBottom={`1px solid ${bc}`}
                 _even={{ bgColor: bgCard }}
+                _last={{
+                  borderBottom: 'none',
+                }}
               >
                 {/* Header */}
                 <Flex
@@ -49,7 +83,7 @@ const Dzikir: NextPage = () => {
                   <If condition={dzikir.note}>
                     <Text
                       fontSize={['sm', 'md']}
-                      opacity={0.8}
+                      opacity={0.9}
                       flex={1}
                       textAlign="right"
                     >
@@ -67,25 +101,37 @@ const Dzikir: NextPage = () => {
                     >
                       <Box
                         fontFamily="Amiri, serif"
-                        fontWeight="bold"
                         textAlign="right"
                         fontSize="2xl"
                         lineHeight={2.5}
                         dangerouslySetInnerHTML={{ __html: item.arabic }}
                       />
                       <If condition={item.transliteration}>
-                        <Text fontStyle="italic">{item.transliteration}</Text>
+                        <Text fontSize={['md', 'lg']} fontStyle="italic">
+                          {item.transliteration}
+                        </Text>
                       </If>
-                      <Text>
+                      <Text fontSize={['md', 'lg']}>
                         {item.translation}
-                        {item.narrator && ` [${item.narrator}]`}
+                        <If condition={item.narrator}>
+                          <Text
+                            as="span"
+                            fontSize={['sm', 'md']}
+                            opacity={0.9}
+                          >{` [${item.narrator}]`}</Text>
+                        </If>
                       </Text>
                       <If condition={item.benefits !== null}>
                         <Button
+                          aria-label="Lihat Keutamaan"
                           py={2}
                           cursor="pointer"
                           fontSize="sm"
                           opacity={0.7}
+                          textTransform="uppercase"
+                          onClick={() =>
+                            handleClickBenefits(dzikir.title, item.benefits)
+                          }
                         >
                           Lihat Keutamaan
                         </Button>
@@ -97,6 +143,31 @@ const Dzikir: NextPage = () => {
             );
           })}
       </Flex>
+
+      <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
+        <DrawerOverlay>
+          <DrawerContent borderTopRadius="40px" pt="50px" pb={6}>
+            <DrawerCloseButton right="22px" top="22px" borderRadius="50%" />
+            <DrawerHeader>
+              <Heading fontSize={['md', 'lg']} fontWeight="bold">
+                Keutamaan {title}
+              </Heading>
+            </DrawerHeader>
+            <DrawerBody>
+              {benefits?.map(benefit => (
+                <Text key={benefit.id} fontSize={['md', 'lg']}>
+                  {benefit.translation}
+                  <Text
+                    as="span"
+                    fontSize={['sm', 'md']}
+                    opacity={0.9}
+                  >{` [${benefit.narrator}]`}</Text>
+                </Text>
+              ))}
+            </DrawerBody>
+          </DrawerContent>
+        </DrawerOverlay>
+      </Drawer>
     </>
   );
 };
