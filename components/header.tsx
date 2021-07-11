@@ -6,9 +6,7 @@ import { useEffect, useState } from 'react';
 
 // Internal
 import { useColors } from '@hooks';
-
-// Helper function to capitalize first letter
-const capitalize = string => string.charAt(0).toUpperCase() + string.slice(1);
+import { capitalize } from '@utils';
 
 const Header = () => {
   const { back, pathname, query } = useRouter();
