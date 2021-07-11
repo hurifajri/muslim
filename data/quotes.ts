@@ -21,7 +21,7 @@ const quotes = [
   },
   {
     id: 5,
-    quote: `Seorg tabi'in, Makhul Asy Syami pernah bercerita, "Aku pernah melihat seseorang yang sedang solat. Setiap kali rukuk dan sujud ia terisak menangis, maka di dalam hatiku menuduhnya bahwa orang itu berbuat riya dengan tangisnya. Namun oleh sebab inilah aku terhalang dari menangis selama 1 tahun."`,
+    quote: `Seorang tabi'in, Makhul Asy Syami pernah bercerita, "Aku pernah melihat seseorang yang sedang sholat. Setiap kali rukuk dan sujud ia terisak menangis, maka di dalam hatiku menuduhnya bahwa orang itu berbuat riya dengan tangisnya. Namun oleh sebab inilah aku terhalang dari menangis selama 1 tahun."`,
     narrator: `Hilyatul Aulia, 5/184`,
   },
 ];
