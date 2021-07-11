@@ -8,6 +8,7 @@ const useColors = () => {
   );
   const bg = useColorModeValue('purple.50', 'purple.900');
   const bgBlue = useColorModeValue('#36219E', '#44339A');
+  const bgButton = useColorModeValue('purple.200', 'purple.300');
   const bgCard = useColorModeValue('white', 'purple.800');
   const bgGradientBlue = useColorModeValue('blue.400', 'blue.300');
   const bgGradientPurple = useColorModeValue('purple.400', 'purple.300');
@@ -22,6 +23,7 @@ const useColors = () => {
     bc,
     bg,
     bgBlue,
+    bgButton,
     bgCard,
     bgGradientBlue,
     bgGradientPurple,

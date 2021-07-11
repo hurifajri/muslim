@@ -1,4 +1,5 @@
 // Eksternal
+import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
@@ -10,6 +11,8 @@ import {
   DrawerOverlay,
   Flex,
   Heading,
+  IconButton,
+  Input,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -29,7 +32,7 @@ const Dzikir: NextPage = () => {
   const time = query?.time ?? '';
 
   // Dark/light mode colors
-  const { bgCard, bc } = useColors();
+  const { bc, bgButton, bgCard, bgPurple, textDark } = useColors();
 
   // Handle "Lihat Keutamaan"
   type tItemBenefits =
@@ -106,6 +109,53 @@ const Dzikir: NextPage = () => {
                         lineHeight={2.5}
                         dangerouslySetInnerHTML={{ __html: item.arabic }}
                       />
+                      <Flex
+                        justify={item.benefits ? 'space-between' : 'flex-end'}
+                      >
+                        <If condition={item.benefits !== null}>
+                          <Button
+                            aria-label="Lihat Keutamaan"
+                            py={2}
+                            cursor="pointer"
+                            fontSize="sm"
+                            opacity={0.7}
+                            textTransform="uppercase"
+                            onClick={() =>
+                              handleClickBenefits(dzikir.title, item.benefits)
+                            }
+                          >
+                            Lihat Keutamaan
+                          </Button>
+                        </If>
+                        <Flex
+                          align="center"
+                          justify="space-between"
+                          borderRadius="md"
+                          bgColor={bgPurple}
+                        >
+                          <Input
+                            variant="unstyled"
+                            color={textDark}
+                            fontSize={['md', 'lg']}
+                            fontWeight="bold"
+                            textAlign="center"
+                            id={`input-${dzikir.id}.${item.id}`}
+                            name={`input-${dzikir.id}.${item.id}`}
+                            value={0}
+                            readOnly={true}
+                            w={12}
+                          />
+                          <IconButton
+                            aria-label="Hitung"
+                            bgColor={bgButton}
+                            borderRadius="md"
+                            color="black"
+                            icon={<AddIcon pointerEvents="none" />}
+                            name={`button-${dzikir.id}.${item.id}`}
+                            // onClick={handleClickCounter}
+                          />
+                        </Flex>
+                      </Flex>
                       <If condition={item.transliteration}>
                         <Text fontSize={['md', 'lg']} fontStyle="italic">
                           {item.transliteration}
@@ -121,21 +171,6 @@ const Dzikir: NextPage = () => {
                           >{` [${item.narrator}]`}</Text>
                         </If>
                       </Text>
-                      <If condition={item.benefits !== null}>
-                        <Button
-                          aria-label="Lihat Keutamaan"
-                          py={2}
-                          cursor="pointer"
-                          fontSize="sm"
-                          opacity={0.7}
-                          textTransform="uppercase"
-                          onClick={() =>
-                            handleClickBenefits(dzikir.title, item.benefits)
-                          }
-                        >
-                          Lihat Keutamaan
-                        </Button>
-                      </If>
                     </Flex>
                   );
                 })}
