@@ -2,6 +2,10 @@
 import { useColorModeValue } from '@chakra-ui/react';
 
 const useColors = () => {
+  const bc = useColorModeValue(
+    'rgba(0, 0, 0, 0.2)',
+    'rgba(255, 255, 255, 0.2)'
+  );
   const bg = useColorModeValue('purple.50', 'purple.900');
   const bgBlue = useColorModeValue('#36219E', '#44339A');
   const bgCard = useColorModeValue('white', 'purple.800');
@@ -15,6 +19,7 @@ const useColors = () => {
   const textPurpleLight = useColorModeValue('purple.400', 'purple.100');
 
   return {
+    bc,
     bg,
     bgBlue,
     bgCard,
