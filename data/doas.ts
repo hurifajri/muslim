@@ -148,7 +148,7 @@ const doas = [
   },
   {
     id: 5,
-    title: `Meminta Ketetapan bagi Diri dan Keluarga dalam Mendirikan Solat`,
+    title: `Meminta Ketetapan bagi Diri dan Keluarga dalam Mendirikan Sholat`,
     types: [`quran`],
     items: [
       {
@@ -561,7 +561,7 @@ const doas = [
     id: 31,
     title: `Membaca Istighfar`,
     note: `Dibaca 3x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -583,7 +583,7 @@ const doas = [
     id: 32,
     title: `Memuji dan Mengagungkan Allah`,
     note: `Dibaca 1x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -605,7 +605,7 @@ const doas = [
     id: 33,
     title: `Memuji dan Mengagungkan Allah`,
     note: `Dibaca 1x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -622,7 +622,7 @@ const doas = [
     id: 34,
     title: `Memuji dan Mengagungkan Allah`,
     note: `Dibaca 1x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -646,7 +646,7 @@ const doas = [
     id: 35,
     title: `Membaca Tasbih, Tahmid, dan Takbir`,
     note: `Dibaca 33x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -711,7 +711,7 @@ const doas = [
     id: 36,
     title: `Mentauhidkan Allah`,
     note: `Dibaca 1x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -738,7 +738,7 @@ const doas = [
     id: 37,
     title: `Membaca Ayat Kursi`,
     note: `Dibaca 1x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -760,7 +760,7 @@ const doas = [
     id: 38,
     title: `Membaca Surat Al-Ikhlas, Al-Falaq, dan An-Naas`,
     note: `Dibaca 1x`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,
@@ -810,7 +810,7 @@ const doas = [
     id: 39,
     title: `Meminta Ilmu yang Bermanfaat`,
     note: `Dibaca 1x (Subuh)`,
-    types: [`solat`],
+    types: [`sholat`],
     items: [
       {
         id: 1,

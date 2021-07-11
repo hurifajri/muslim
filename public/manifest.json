@@ -1,7 +1,7 @@
 {
   "name": "Muslim",
   "short_name": "Muslim",
-  "description": "Jadwal Solat, Dzikir, dan Doa.",
+  "description": "Jadwal Sholat, Dzikir, dan Doa.",
   "icons": [
     {
       "src": "/icon-192x192.png",

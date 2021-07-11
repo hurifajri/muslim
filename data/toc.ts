@@ -27,8 +27,8 @@ const toc = [
   },
   {
     id: 5,
-    title: 'Doa Solat',
-    link: routes.doa('solat'),
+    title: 'Doa Sholat',
+    link: routes.doa('sholat'),
     group: 'doa',
   },
 ];
