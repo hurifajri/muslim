@@ -22,7 +22,7 @@ const Layout = ({ children }: iLayout) => {
         display="flex"
         flexDirection="column"
         px={isHome ? 7 : 0}
-        pb={7}
+        pb={isHome ? 7 : 0}
         pt={isHome ? 7 : '3.5rem'}
         sx={{ gap: 30 }}
       >
