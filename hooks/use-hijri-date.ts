@@ -1,5 +1,3 @@
-/* eslint-disable sort-keys */
-
 // Eksternal
 import useSWR from 'swr';
 

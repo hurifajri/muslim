@@ -1,6 +1,6 @@
 interface iIf {
   children: JSX.Element;
-  condition: boolean | undefined;
+  condition: boolean | null | string | undefined;
 }
 
 export default iIf;
