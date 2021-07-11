@@ -26,9 +26,9 @@ const Dzikir: NextPage = () => {
                   {doa.title}
                 </Text>
               </Flex>
-              {doa.contents.map(content => {
+              {doa.items.map(item => {
                 return (
-                  <Box key={content.id} p={4}>
+                  <Box key={item.id} p={4}>
                     <Box
                       textAlign="right"
                       fontFamily="'Amiri', serif"
@@ -37,14 +37,14 @@ const Dzikir: NextPage = () => {
                       lineHeight="2.4"
                       letterSpacing={{ base: '-0.5px', lg: 0 }}
                       mb={4}
-                      dangerouslySetInnerHTML={{ __html: content.arabic }}
+                      dangerouslySetInnerHTML={{ __html: item.arabic }}
                     />
                     <Text fontStyle="italic" mb={4}>
-                      {content.transliteration}
+                      {item.transliteration}
                     </Text>
                     <Text>
-                      {content.translation}
-                      {content.narrator && ` [${content.narrator}]`}
+                      {item.translation}
+                      {item.narrator && ` [${item.narrator}]`}
                     </Text>
                   </Box>
                 );

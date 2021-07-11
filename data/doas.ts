@@ -3,7 +3,7 @@ const doas = [
     id: 1,
     title: `Meminta Ampunan dan Rahmat Allah`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ إِنِّي أَعُوذُ بِكَ أَنْ أَسْأَلَكَ مَا لَيْسَ لِي بِهِ عِلْمٌ وَإِلَّا تَغْفِرْ لِي وَتَرْحَمْنِي أَكُنْ مِنَ الْخَاسِرِينَ</p>`,
@@ -66,7 +66,7 @@ const doas = [
     id: 2,
     title: `Meminta Agar Tergolong Orang-orang Beriman`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ وَاجْعَلْ لِي لِسَانَ صِدْقٍ فِي الْآخِرِينَ وَاجْعَلْنِي مِنْ وَرَثَةِ جَنَّةِ النَّعِيمِ</p>`,
@@ -87,7 +87,7 @@ const doas = [
     id: 3,
     title: `Meminta Agar Diberikan Keturunan yang Shalih`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ لَا تَذَرْنِي فَرْدًا وَأَنْتَ خَيْرُ الْوَارِثِينَ</p>`,
@@ -122,7 +122,7 @@ const doas = [
     id: 4,
     title: `Meminta Ampunan bagi Kedua Orang Tua dan Kaum Mukminin`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ</p>`,
@@ -150,7 +150,7 @@ const doas = [
     id: 5,
     title: `Meminta Ketetapan bagi Diri dan Keluarga dalam Mendirikan Solat`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِنْ ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلْ دُعَاءِ</p>`,
@@ -164,7 +164,7 @@ const doas = [
     id: 6,
     title: `Meminta Perlindungan dari Orang yang Zhalim`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ نَجِّنِي مِنَ الْقَوْمِ الظَّالِمِينَ</p>`,
@@ -192,7 +192,7 @@ const doas = [
     id: 7,
     title: `Meminta Agar Diterima Amal Ibadah dan Taubat`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ</p>`,
@@ -206,7 +206,7 @@ const doas = [
     id: 8,
     title: `Meminta Agar Dapat Bertawakkal Hanya Kepada Allah`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ</p>`,
@@ -227,7 +227,7 @@ const doas = [
     id: 9,
     title: `Meminta Perlindungan dari Keburukan Orang-orang Kafir`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِلَّذِينَ كَفَرُوا وَاغْفِرْ لَنَا رَبَّنَا إِنَّكَ أَنْتَ الْعَزِيزُ الْحَكِيمُ</p>`,
@@ -248,7 +248,7 @@ const doas = [
     id: 10,
     title: `Meminta Agar Ditambahkan Ilmu`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ زِدْنِي عِلْمًا</p>`,
@@ -262,7 +262,7 @@ const doas = [
     id: 11,
     title: `Meminta Agar Disempurnakan Cahaya`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ</p>`,
@@ -276,7 +276,7 @@ const doas = [
     id: 12,
     title: `Meminta Kebaikan dunia dan Akhirat`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ</p>`,
@@ -290,7 +290,7 @@ const doas = [
     id: 13,
     title: `Meminta Agar Dijadikan Hamba yang Bersyukur`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَدْخِلْنِي بِرَحْمَتِكَ فِي عِبَادِكَ الصَّالِحِينَ</p>`,
@@ -311,7 +311,7 @@ const doas = [
     id: 14,
     title: `Meminta Perlindungan dari Syaitan`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ  وَأَعُوذُ بِكَ رَبِّ أَنْ يَحْضُرُونِ</p>`,
@@ -325,7 +325,7 @@ const doas = [
     id: 15,
     title: `Meminta Agar Hati Ditetapkan dalam Hidayah`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ</p>`,
@@ -339,7 +339,7 @@ const doas = [
     id: 16,
     title: `Meminta Agar Dilapangkan Hati dan Dimudahkan Dalam Urusan`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ اشْرَحْ لِي صَدْرِي  وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي  يَفْقَهُوا قَوْلِي</p>`,
@@ -360,7 +360,7 @@ const doas = [
     id: 17,
     title: `Meminta Keamanan Negeri dan Berlindung dari Syirik`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبِّ اجْعَلْ هَذَا الْبَلَدَ آمِنًا وَاجْنُبْنِي وَبَنِيَّ أَنْ نَعْبُدَ الْأَصْنَامَ</p>`,
@@ -374,7 +374,7 @@ const doas = [
     id: 18,
     title: `Meminta Perlindungan dari Api Neraka`,
     types: [`quran`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا  إِنَّهَا سَاءَتْ مُسْتَقَرًّا وَمُقَامًا</p>`,
@@ -388,7 +388,7 @@ const doas = [
     id: 19,
     title: `Meminta Agar Ditetapkan Hati dalam Iman`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اَللَّهُمَّ يا مُصَرِّفَ الْقُلُوْبِ، صَرِّفْ قُلُوْبَنَا عَلَى دِينِكَ</p>`,
@@ -402,7 +402,7 @@ const doas = [
     id: 20,
     title: `Meminta Ampunan dalam Segala Hal`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اَللّهُمَّ اغْفِرْ لِيْ خَطِيْئَتِيْ، وَجَهْلِيْ، وَإِسْرَافِيْ فِي أَمْرِيْ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّيْ. اللّهُمَّ اغْفِرْ لِيْ جَدِّيْ وَهَزْلِيْ، وَخَطَئِيْ وَعَمْدِيْ، وَكُلُّ ذلِكَ عِنْدِيْ، اللّهُمَّ اغْفِرْ لِيْ مَا قَدَّمْتُ، وَمَا أَخَّرْتُ، وَمَا أَسْرَرْتُ، وَمَا أَعْلَنْتُ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّيْ، أَنْتَ الْمُقَدِّمُ، وَأَنْتَ الْمُؤَخِّرُ، وَأَنْتَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ.</p>`,
@@ -416,7 +416,7 @@ const doas = [
     id: 21,
     title: `Meminta Diperbaiki Segala Urusan`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اَللَّـهُـَّم أَصْلِحْ لِي دِينِي الّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الّتِي فِيهَا مَعَادِي، وَاجْعَلِ الْحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ، وَاجْعَلِ الْمَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ</p>`,
@@ -430,7 +430,7 @@ const doas = [
     id: 22,
     title: `Meminta Perlindungan dari Fitnah Kaya dan Fitnah Miskin`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الكَسَلِ وَالهَرَمِ، وَالمَأْثَمِ وَالمَغْرَمِ، وَمِنْ فِتْنَةِ القَبْرِ، وَعَذَابِ القَبْرِ، وَمِنْ فِتْنَةِ النَّارِ وَعَذَابِ النَّارِ، وَمِنْ شَرِّ فِتْنَةِ الغِنَى، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الفَقْرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الَمسِيحِ الدَّجَّال</p>`,
@@ -444,7 +444,7 @@ const doas = [
     id: 23,
     title: `Meminta Perlindungan Dicabutnya Nikmat Lahir Batin`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّى أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ</p>`,
@@ -458,7 +458,7 @@ const doas = [
     id: 24,
     title: `Meminta Agar Dijauhkan dari Sifat Pengecut dan Tidak Pikun`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْجُبْنِ، وَأَعُوذُ بِكَ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الدُّنْيَا، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ</p>`,
@@ -472,7 +472,7 @@ const doas = [
     id: 25,
     title: `Berlindung dari Keburukan Amal`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ، وَشَرِّ مَا لَمْ أَعْمَلْ</p>`,
@@ -486,7 +486,7 @@ const doas = [
     id: 26,
     title: `Meminta Agar Bertaqwa dan Berlindung dari Ilmu yang Tidak Bermanfaat`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا، اللهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ، وَمِنْ قَلْبٍ لَا يَخْشَعُ، وَمِنْ نَفْسٍ لَا تَشْبَعُ، وَمِنْ دَعْوَةٍ لَا يُسْتَجَابُ لَهَا</p>`,
@@ -500,7 +500,7 @@ const doas = [
     id: 27,
     title: `Meminta Agar Dapat Melihat Wajah Allah`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَسْأَلُكَ لَذَّةَ النَّظَرِ إِلَى وَجْهِكَ، وَالشَّوْقَ إِلَى لِقَائِكَ فِي غَيْرِ ضَرَّاءَ مُضِرَّةٍ، وَلَا فِتْنَةٍ مُضِلَّةٍ</p>`,
@@ -514,7 +514,7 @@ const doas = [
     id: 28,
     title: `Meminta Dimudahkan Berbuat Baik & Mencintai Orang Miskin`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّى أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ وَتَرْكَ الْمُنْكَرَاتِ وَحُبَّ الْمَسَاكِينِ وَأَنْ تَغْفِرَ لِى وَتَرْحَمَنِى وَإِذَا أَرَدْتَ فِتْنَةَ قَوْمٍ فَتَوَفَّنِى غَيْرَ مَفْتُونٍ</p>`,
@@ -528,7 +528,7 @@ const doas = [
     id: 29,
     title: `Meminta Agar Bisa Mencintai Orang yang Mencintai Allah`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّى أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُ إِلَى حُبِّكَ</p>`,
@@ -542,7 +542,7 @@ const doas = [
     id: 30,
     title: `Meminta Kebaikan dalam Segala Hal yang Pernah Diminta Nabi`,
     types: [`nabi`],
-    contents: [
+    items: [
       {
         id: 1,
         arabic: `<p>اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ عَبْدُكَ وَنَبِيُّكَ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِهِ عَبْدُكَ وَنَبِيُّكَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَسْأَلُكَ أَنْ تَجْعَلَ كُلَّ قَضَاءٍ قَضَيْتَهُ لِي خَيْرًا</p>`,
@@ -559,20 +559,266 @@ const doas = [
   },
   {
     id: 31,
-    title: `Contoh Doa Solat`,
+    title: `Membaca Istighfar`,
+    note: `Dibaca 3x`,
     types: [`solat`],
-    contents: [
+    items: [
       {
         id: 1,
-        arabic: `<p>اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ عَبْدُكَ وَنَبِيُّكَ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِهِ عَبْدُكَ وَنَبِيُّكَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَسْأَلُكَ أَنْ تَجْعَلَ كُلَّ قَضَاءٍ قَضَيْتَهُ لِي خَيْرًا</p>`,
-        transliteration: null,
-        translation: `Ya Allah, sesungguhnya aku memohon kepadaMu seluruh kebaikan yang segera (dunia) dan yang tertunda (akhirat), kebaikan yang aku ketahui dan yang tidak aku ketahui.
-      Dan aku berlindung kepadaMu dari segala keburukan yang segera (dunia) dan yang tertunda (akhirat), yang aku ketahui dan yang tidak aku ketahui.
-      Aku meminta kepada-Mu kebaikan semua doa yang pernah diminta oleh hamba dan nabi-Mu, dan aku berlindung kepada-Mu dari keburukan, yang hamba dan nabi-Mu pernah berlindung darinya.
-      Aku memohon surga kepadaMu dan segala perkataan dan perbuatan yang mendekatkan kepadanya. Aku berlindung kepadaMu dari neraka dan segala perkataan dan perbuatan yang mendekatkan kepadanya.
-      Aku meminta segala sesuatu yang telah Engkau takdirkan untukku, hendaklah Engkau jadikan kebaikan bagiku.
-    `,
-        narrator: `HR. Ahmad No. 25019, Ibnu Majah No. 3846 dan dishahihkan Syuaib al-Arnauth`,
+        arabic: `<p>أَسْتَغْفِرُ اللهَ</p>`,
+        transliteration: `Astaghfirullah`,
+        translation: `Aku minta ampun kepada Allah.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Rasulullah shallallahu 'alaihi wa sallam jika selesai dari shalatnya beliau beristighfar sebanyak tiga kali dan membaca dzikir di atas. Al Auza'i menyatakan bahwa bacaan istighfar adalah astaghfirullah, astaghfirullah.`,
+            narrator: `HR. Muslim no. 591`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 32,
+    title: `Memuji dan Mengagungkan Allah`,
+    note: `Dibaca 1x`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>اَللَّهُمَّ أَنْتَ السَّلاَمُ، وَمِنْكَ السَّلاَمُ، تَبَارَكْتَ يَا ذَا الْجَلاَلِ وَاْلإِكْرَامِ</p>`,
+        transliteration: `Allahumma antas salaam wa minkas salaam tabaarokta yaa dzal jalaali wal ikrom.`,
+        translation: `Ya Allah, Engkau pemberi keselamatan, dan dariMu keselamatan, Maha Suci Engkau, wahai Tuhan Yang Pemilik Keagungan dan Kemuliaan.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Rasulullah shallallahu 'alaihi wa sallam jika selesai dari shalatnya beliau beristighfar sebanyak tiga kali dan membaca dzikir di atas. Al Auza'i menyatakan bahwa bacaan istighfar adalah astaghfirullah, astaghfirullah.`,
+            narrator: `HR. Muslim no. 591`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 33,
+    title: `Memuji dan Mengagungkan Allah`,
+    note: `Dibaca 1x`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرُ، اَللَّهُمَّ لاَ مَانِعَ لِمَا أَعْطَيْتَ، وَلاَ مُعْطِيَ لِمَا مَنَعْتَ، وَلاَ يَنْفَعُ ذَا الْجَدِّ مِنْكَ الْجَدُّ</p>`,
+        transliteration: `Laa ilaha illallah wahdahu laa syarika lah, lahul mulku wa lahul hamdu wa huwa ‘ala kulli syai-in qodiir.
+        Allahumma laa maani’a limaa a’thoyta wa laa mu’thiya limaa mana’ta wa laa yanfa’u dzal jaddi minkal jaddu.`,
+        translation: `Tiada Rabb yang berhak disembah selain Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya puji dan bagi-Nya kerajaan. Dia Maha Kuasa atas segala sesuatu. Ya Allah, tidak ada yang mencegah apa yang Engkau berikan dan tidak ada yang memberi apa yang Engkau cegah. Tidak berguna kekayaan dan kemuliaan itu bagi pemiliknya (selain iman dan amal shalihnya yang menyelamatkan dari siksaan). Hanya dari-Mu kekayaan dan kemuliaan.`,
+        narrator: `HR. Bukhari no. 844 dan Muslim no. 593`,
+        benefits: null,
+      },
+    ],
+  },
+  {
+    id: 34,
+    title: `Memuji dan Mengagungkan Allah`,
+    note: `Dibaca 1x`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرُ. لاَ حَوْلَ وَلاَ قُوَّةَ إِلاَّ بِاللهِ، لاَ إِلَـهَ إِلاَّ اللهُ، وَلاَ نَعْبُدُ إِلاَّ إِيَّاهُ، لَهُ النِّعْمَةُ وَلَهُ الْفَضْلُ وَلَهُ الثَّنَاءُ الْحَسَنُ، لاَ إِلَـهَ إِلاَّ اللهُ مُخْلِصِيْنَ لَهُ الدِّيْنَ وَلَوْ كَرِهَ الْكَافِرُوْنَ</p>`,
+        transliteration: `Laa ilaha illallah wahdahu laa syarika lah. Lahul mulku wa lahul hamdu wa huwa ‘ala kulli syai-in qodiir.
+        Laa hawla wa laa quwwata illa billah. Laa ilaha illallah wa laa na’budu illa iyyaah. Lahun ni’mah wa lahul fadhlu wa lahuts tsanaaul hasan.
+        Laa ilaha illallah mukhlishiina lahud diin wa law karihal kaafiruun.`,
+        translation: `Tiada Rabb (yang berhak disembah) kecuali Allah, Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan dan pujaan. Dia Mahakuasa atas segala sesuatu. Tidak ada daya dan kekuatan kecuali (dengan pertolongan) Allah. Tiada Rabb (yang hak disembah) kecuali Allah. Kami tidak menyembah kecuali kepada-Nya. Bagi-Nya nikmat, anugerah dan pujaan yang baik. Tiada Rabb (yang hak disembah) kecuali Allah, dengan memurnikan ibadah kepadaNya, sekalipun orang-orang kafir sama benci.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Dikatakan oleh ‘Abdullah bin Zubair, Nabi shallallahu ‘alaihi wa sallam biasa membaca tahlil (laa ilaha illallah) di akhir shalat.`,
+            narrator: `HR. Muslim no. 594`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 35,
+    title: `Membaca Tasbih, Tahmid, dan Takbir`,
+    note: `Dibaca 33x`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>سُبْحَانَ اللهِ</p>`,
+        transliteration: `Subhanallah`,
+        translation: `Maha Suci Allah.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Siapa yang membaca dzikir di atas, maka dosa-dosanya diampuni walau sebanyak buih di lautan.`,
+            narrator: `HR. Muslim no. 597`,
+          },
+          {
+            id: 2,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadits menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            narrator: `Lihat Syarh Shahih Muslim, 5: 84`,
+          },
+        ],
+      },
+      {
+        id: 2,
+        arabic: `<p>اَلْحَمْدُ لِلَّهِ</p>`,
+        transliteration: `Alhamdulillah`,
+        translation: `Degala puji bagi Allah.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Siapa yang membaca dzikir di atas, maka dosa-dosanya diampuni walau sebanyak buih di lautan.`,
+            narrator: `HR. Muslim no. 597`,
+          },
+          {
+            id: 2,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadits menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            narrator: `Lihat Syarh Shahih Muslim, 5: 84`,
+          },
+        ],
+      },
+      {
+        id: 3,
+        arabic: `<p>اَللهُ أَكْبَرُ</p>`,
+        transliteration: `Allahu akbar`,
+        translation: `Allah Maha Besar.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Siapa yang membaca dzikir di atas, maka dosa-dosanya diampuni walau sebanyak buih di lautan.`,
+            narrator: `HR. Muslim no. 597`,
+          },
+          {
+            id: 2,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadits menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            narrator: `Lihat Syarh Shahih Muslim, 5: 84`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 36,
+    title: `Mentauhidkan Allah`,
+    note: `Dibaca 1x`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>لاَ إِلَـهَ إِلاَّ اللهُ وَحْدَهُ لاَ شَرِيْكَ لَهُ، لَهُ الْمُلْكُ وَلَهُ الْحَمْدُ وَهُوَ عَلَى كُلِّ شَيْءٍ قَدِيْرُ</p>`,
+        transliteration: `Laa ilaha illallah wahdahu laa syarika lah. Lahul mulku wa lahul hamdu wa huwa 'ala kulli syai-in qodiir.`,
+        translation: `Tidak ada Rabb (yang berhak disembah) kecuali Allah Yang Maha Esa, tidak ada sekutu bagi-Nya. Bagi-Nya kerajaan. Bagi-Nya pujaan. Dia-lah Yang Mahakuasa atas segala sesuatu.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Siapa yang membaca dzikir di atas, maka dosa-dosanya diampuni walau sebanyak buih di lautan.`,
+            narrator: `HR. Muslim no. 597`,
+          },
+          {
+            id: 2,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadits menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            narrator: `Lihat Syarh Shahih Muslim, 5: 84`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 37,
+    title: `Membaca Ayat Kursi`,
+    note: `Dibaca 1x`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>اللَّهُ لاَ إِلَهَ إِلاَّ هُوَ الْحَيُّ الْقَيُّومُ، لاَ تَأْخُذُهُ سِنَةٌ وَلاَ نَوْمٌ، لَهُ مَا فِي السَّمَاوَاتِ وَمَا فِي الْأَرْضِ، مَنْ ذَا الَّذِي يَشْفَعُ عِنْدَهُ إِلاَّ بِإِذْنِهِ، يَعْلَمُ مَا بَيْنَ أَيْدِيهِمْ وَمَا خَلْفَهُمْ، وَلَا يُحِيطُونَ بِشَيْءٍ مِنْ عِلْمِهِ إِلاَّ بِمَا شَاءَ، وَسِعَ كُرْسِيُّهُ السَّمَاوَاتِ وَالْأَرْضَ، وَلَا يَئُودُهُ حِفْظُهُمَا، وَهُوَ الْعَلِيُّ الْعَظِيمُ</p>`,
+        transliteration: `Allaahu laa ilaaha illa huwa al-hayyu al-qoyyuum. Laa ta'khudzuhu sinatu wa laa nauum. Lahuu maa fii as-samaa waati wamaa fii al-ard. Man dzaa al-ladzii yassfa'u 'indahu illaa biidznih. Ya'lamu maa bayna aydiihim wamaa kholfahum. Walaa yuhiituuna bisyaii min 'ilmihi illaa bimaa syaa a. Wa si'a kursiyyuhu as-samaa waati wal-ard. Wa laa yauuduhu hifdjuhumaa. Wahuwa al-'aliiyu al-adziim.`,
+        translation: `Allah, tidak ada ilah (yang berhak disembah) melainkan Dia, yang hidup kekal lagi terus menerus mengurus (makhluk-Nya). Dia tidak mengantuk dan tidak tidur. Kepunyaan-Nya apa yang di langit dan di bumi. Tiada yang dapat memberi syafa'at di sisi-Nya tanpa seizin-Nya. Dia mengetahui apa-apa yang di hadapan mereka dan di belakang mereka. Mereka tidak mengetahui apa-apa dari ilmu Allah melainkan apa yang dikehendaki-Nya. Kursi Allah meliputi langit dan bumi. Dia tidak merasa berat memelihara keduanya. Dan Dia Maha Tinggi lagi Maha besar.`,
+        narrator: null,
+        benefits: [
+          {
+            id: 1,
+            translation: `Siapa membaca ayat Kursi setiap selesai shalat, tidak ada yang menghalanginya masuk surga selain kematian.`,
+            narrator: `HR. An-Nasai dalam Al Kubro 9: 44. Hadits ini dinyatakan shahih oleh Ibnu Hibban, sebagaimana disebut oleh Ibnu Hajar dalam Bulughul Maram`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 38,
+    title: `Membaca Surat Al-Ikhlas, Al-Falaq, dan An-Naas`,
+    note: `Dibaca 1x`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p><p>قُلْ هُوَ اللَّهُ أَحَدٌ اللَّهُ الصَّمَدُ لَمْ يَلِدْ وَلَمْ يُولَدْ وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ</p>`,
+        transliteration: `Bismillaahi ar-rohmaani ar-rohiimi. Qul huwa Allahu ahad. Allahu as-somad. Lam yalid wa lam yuulad. Wa lam yakun lahu kufuwan ahad.`,
+        translation: `Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang. Katakanlah: Dialah Allah, Yang Maha Esa. Allah adalah ilah yang bergantung kepada-Nya segala urusan. Dia tidak beranak dan tiada pula diperanakkan, dan tidak ada seorang pun yang setara dengan Dia.`,
+        narrator: `QS. Al-Ikhlas: 1-4`,
+        benefits: [
+          {
+            id: 1,
+            translation: `Tiga surat ini disebut mu'awwidzot.`,
+            narrator: `HR. Abu Daud no. 1523 dan An-Nasai no. 1337. Al Hafizh Abu Thohir mengatakan bahwa sanad hadits ini hasan`,
+          },
+        ],
+      },
+      {
+        id: 2,
+        arabic: `<p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p><p>قُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ  وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ</p>`,
+        transliteration: `Bismillaahi ar-rohmaani ar-rohiimi. Qul a'udzu birobbi al-falaq. Min syarri maa kholaq. Wa min syarri goosiqin idzaa waqob. Wa min syarri an-naffaatsaati fii al-'uqod. wa min syarri haasidin idzaa hasad.`,
+        translation: `Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang. Katakanlah: Aku berlindung kepada Rabb yang menguasai Shubuh, dari kejahatan makhluk-Nya, dan dari kejahatan malam apabila telah gelap gulita, dan dari kejahatan-kejahatan wanita tukang sihir yang menghembus pada buhul-buhul, dan dari kejahatan orang yang dengki apabila ia dengki.`,
+        narrator: `QS. Al-Falaq: 1-5`,
+        benefits: [
+          {
+            id: 1,
+            translation: `Tiga surat ini disebut mu'awwidzot.`,
+            narrator: `HR. Abu Daud no. 1523 dan An-Nasai no. 1337. Al Hafizh Abu Thohir mengatakan bahwa sanad hadits ini hasan`,
+          },
+        ],
+      },
+      {
+        id: 3,
+        arabic: `<p>بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</p><p>قُلْ أَعُوذُ بِرَبِّ النَّاسِ مَلِكِ النَّاسِ إِلَهِ النَّاسِ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ مِنَ الْجِنَّةِ وَ النَّاسِ</p>`,
+        transliteration: `Bismillaahi ar-rohmaani ar-rohiimi. Qul a'udzu birobbi an-naas. Maliki an-naas. Ilaahi an-naas. Min syarri al-waswaaasi al-khonnaas. Alladzi yuwaswisu fii suduuri an-naas. Mina al-jinnaati wa an-naas.`,
+        translation: `Dengan menyebut nama Allah Yang Maha Pengasih lagi Maha Penyayang. Katakanlah: Aku berlindung kepada Rabb manusia. Raja manusia. Sembahan manusia, dari kejahatan (bisikan) syaitan yang biasa bersembunyi, yang membisikkan (kejahatan) ke dalam dada manusia, dari jin dan manusia.`,
+        narrator: `QS. An-Naas: 1-6`,
+        benefits: [
+          {
+            id: 1,
+            translation: `Tiga surat ini disebut mu'awwidzot.`,
+            narrator: `HR. Abu Daud no. 1523 dan An-Nasai no. 1337. Al Hafizh Abu Thohir mengatakan bahwa sanad hadits ini hasan`,
+          },
+        ],
+      },
+    ],
+  },
+  {
+    id: 39,
+    title: `Meminta Ilmu yang Bermanfaat`,
+    note: `Dibaca 1x (Subuh)`,
+    types: [`solat`],
+    items: [
+      {
+        id: 1,
+        arabic: `<p>اَللَّهُمَّ إِنِّيْ أَسْأَلُكَ عِلْمًا نَافِعًا، وَرِزْقًا طَيِّبًا، وَعَمَلاً مُتَقَبَّلاً</p>`,
+        transliteration: `Allahumma inni as-aluka 'ilman naafi'a, wa rizqon thoyyiba, wa 'amalan mutaqobbala.`,
+        translation: `Ya Allah, sungguh aku memohon kepada-Mu ilmu yang bermanfaat (bagi diriku dan orang lain), rizki yang halal dan amal yang diterima (di sisi-Mu dan mendapatkan ganjaran yang baik).`,
+        narrator: `HR. Ibnu Majah no. 925 dan Ahmad 6: 305, 322. Al Hafizh Abu Thohir mengatakan bahwa hadits ini shahih`,
+        benefits: null,
       },
     ],
   },

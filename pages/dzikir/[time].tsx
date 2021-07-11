@@ -29,9 +29,9 @@ const Dzikir: NextPage = () => {
                   {dzikir.note}
                 </Text>
               </Flex>
-              {dzikir.contents.map(content => {
+              {dzikir.items.map(item => {
                 return (
-                  <Box key={content.id} p={4}>
+                  <Box key={item.id} p={4}>
                     <Box
                       textAlign="right"
                       fontFamily="'Amiri', serif"
@@ -40,16 +40,16 @@ const Dzikir: NextPage = () => {
                       lineHeight="2.4"
                       letterSpacing={{ base: '-0.5px', lg: 0 }}
                       mb={4}
-                      dangerouslySetInnerHTML={{ __html: content.arabic }}
+                      dangerouslySetInnerHTML={{ __html: item.arabic }}
                     />
                     <Text fontStyle="italic" mb={4}>
-                      {content.transliteration}
+                      {item.transliteration}
                     </Text>
                     <Text>
-                      {content.translation}
-                      {content.narrator && ` [${content.narrator}]`}
+                      {item.translation}
+                      {item.narrator && ` [${item.narrator}]`}
                     </Text>
-                    {content.benefits && (
+                    {item.benefits && (
                       <Box
                         py={2}
                         mt={4}
