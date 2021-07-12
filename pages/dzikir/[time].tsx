@@ -29,7 +29,7 @@ import { capitalize } from '@utils';
 
 const Dzikir: NextPage = () => {
   const { query } = useRouter();
-  const time = query?.time ?? '';
+  const time = Array.isArray(query.time) ? query.time[0] : query.time ?? '';
 
   // Dark/light mode colors
   const { bc, bg, bgButton, bgCard, bgPurple, textDark } = useColors();
