@@ -32,7 +32,7 @@ const Dzikir: NextPage = () => {
   const time = query?.time ?? '';
 
   // Dark/light mode colors
-  const { bc, bgButton, bgCard, bgPurple, textDark } = useColors();
+  const { bc, bg, bgButton, bgCard, bgPurple, textDark } = useColors();
 
   // Handle "Lihat Keutamaan"
   type tItemBenefits =
@@ -181,10 +181,15 @@ const Dzikir: NextPage = () => {
 
       <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
         <DrawerOverlay>
-          <DrawerContent borderTopRadius="40px" pt="50px" pb={6}>
-            <DrawerCloseButton right="22px" top="22px" borderRadius="50%" />
-            <DrawerHeader>
-              <Heading fontSize={['md', 'lg']} fontWeight="bold">
+          <DrawerContent
+            bgColor={bg}
+            boxShadow="lg"
+            borderTopRadius="35px"
+            py={2}
+          >
+            <DrawerCloseButton right="17px" top="17px" borderRadius="50%" />
+            <DrawerHeader display="flex">
+              <Heading flex={0.9} fontSize={['md', 'lg']} fontWeight="bold">
                 Keutamaan {title}
               </Heading>
             </DrawerHeader>
