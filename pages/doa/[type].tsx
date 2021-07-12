@@ -26,7 +26,7 @@ import { capitalize } from '@utils';
 
 const Doa: NextPage = () => {
   const { query } = useRouter();
-  const type = query?.type ?? '';
+  const type = Array.isArray(query.type) ? query.type[0] : query.type ?? '';
 
   // Dark/light mode colors
   const { bgCard, bc } = useColors();
