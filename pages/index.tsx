@@ -1,21 +1,11 @@
 // Eksternal
-import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
+import { EditIcon } from '@chakra-ui/icons';
 import {
   AspectRatio,
   Box,
   Button,
   Collapse,
-  Divider,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
   Flex,
-  FormControl,
-  FormLabel,
   Heading,
   IconButton,
   Input,
@@ -27,12 +17,11 @@ import {
   ModalHeader,
   ModalOverlay,
   SkeletonText,
-  Switch,
   Text,
-  useColorMode,
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { ReactNode, SetStateAction, useState } from 'react';
@@ -50,6 +39,9 @@ import {
 import { toc } from '@data';
 import { useColors, useGregDate, useHijriDate, useQuote } from '@hooks';
 import { iTocIcons } from '@interfaces';
+
+// Internal dynamic
+const Settings = dynamic(() => import('@components/settings'));
 
 // Dynamic icons for table of contents
 const Icons: iTocIcons = {
@@ -86,23 +78,19 @@ const Home = (): ReactNode => {
     onClose: onCloseCity,
   } = useDisclosure();
 
-  // Open menu drawer
+  // Open settings drawer
   const {
-    isOpen: isOpenMenu,
-    onOpen: onOpenMenu,
-    onClose: onCloseMenu,
+    isOpen: isOpenSettings,
+    onOpen: onOpenSettings,
+    onClose: onCloseSettings,
   } = useDisclosure();
 
   // Toggle quote text
   const [showFullQuote, setShowFullQuote] = useState(false);
   const handleClickQuote = () => setShowFullQuote(!showFullQuote);
 
-  // Togle dark/light mode
-  const { colorMode, toggleColorMode } = useColorMode();
-
   // Dark/light mode colors
   const {
-    bg,
     bgBlue,
     bgCard,
     bgGradientBlue,
@@ -135,7 +123,7 @@ const Home = (): ReactNode => {
           bgColor={bgCard}
           borderRadius={10}
           icon={<Menu color={iconMenu} />}
-          onClick={onOpenMenu}
+          onClick={onOpenSettings}
           p={2.5}
         />
         {/* Date */}
@@ -390,76 +378,8 @@ const Home = (): ReactNode => {
           </ModalFooter>
         </ModalContent>
       </Modal>
-      {/* Drawer menu */}
-      <Drawer
-        placement="right"
-        size="xs"
-        closeOnOverlayClick={true}
-        onClose={onCloseMenu}
-        isOpen={isOpenMenu}
-      >
-        <DrawerOverlay />
-        <DrawerContent bgColor={bg}>
-          <DrawerCloseButton />
-          <DrawerHeader
-            display="flex"
-            alignItems="center"
-            borderBottomWidth="1px"
-            sx={{ gap: 10 }}
-            mb={5}
-          >
-            <SettingsIcon />
-            <Heading fontSize={['lg', 'xl']} fontWeight="bold" lineHeight={1}>
-              Pengaturan
-            </Heading>
-          </DrawerHeader>
-          <DrawerBody>
-            {/* Dark mode */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel htmlFor="mode-gelap" mb={0} cursor="pointer">
-                Mode Gelap
-              </FormLabel>
-              <Switch
-                id="mode-gelap"
-                defaultChecked={colorMode === 'light'}
-                isChecked={colorMode === 'dark'}
-                onChange={toggleColorMode}
-              />
-            </FormControl>
-            <Divider my={2.5} />
-            {/* Terjemahan */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel htmlFor="terjemahan" mb={0} cursor="pointer">
-                Terjemahan
-              </FormLabel>
-              <Switch id="terjemahan" />
-            </FormControl>
-            <Divider my={2.5} />
-            {/* Transliterasi */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel htmlFor="transliterasi" mb={0} cursor="pointer">
-                Transliterasi
-              </FormLabel>
-              <Switch id="transliterasi" />
-            </FormControl>
-          </DrawerBody>
-          <DrawerFooter display="flex" justifyContent="flex-start">
-            <Text>Tentang Aplikasi</Text>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+      {/* Settings */}
+      <Settings isOpen={isOpenSettings} onClose={onCloseSettings} />
     </>
   );
 };
