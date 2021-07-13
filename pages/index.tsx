@@ -3,19 +3,10 @@ import { EditIcon } from '@chakra-ui/icons';
 import {
   AspectRatio,
   Box,
-  Button,
   Collapse,
   Flex,
   Heading,
   IconButton,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   SkeletonText,
   Text,
   useDisclosure,
@@ -24,7 +15,7 @@ import {
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-import { ReactNode, SetStateAction, useState } from 'react';
+import { ReactNode, useState } from 'react';
 
 // Internal
 import {
@@ -37,10 +28,17 @@ import {
   Quran,
 } from '@components/icons';
 import { toc } from '@data';
-import { useColors, useGregDate, useHijriDate, useQuote } from '@hooks';
+import {
+  useColors,
+  useGregDate,
+  useHijriDate,
+  useInitialLocation,
+  useQuote,
+} from '@hooks';
 import { iTocIcons } from '@interfaces';
 
 // Internal dynamic
+const Location = dynamic(() => import('@components/location'));
 const Settings = dynamic(() => import('@components/settings'));
 
 // Dynamic icons for table of contents
@@ -53,32 +51,14 @@ const Icons: iTocIcons = {
 };
 
 const Home = (): ReactNode => {
-  const isServer = typeof window === 'undefined';
-
-  // Set default city
-  let initialCity = 'jakarta';
-  if (!isServer) initialCity = localStorage?.getItem('city') ?? 'jakarta';
-
-  const [tempCity, setTempCity] = useState(initialCity);
-  const handleChangeCity = (event: {
-    target: { value: SetStateAction<string> };
-  }) => setTempCity(event.target.value);
-
-  const [city, setCity] = useState(initialCity);
-  const handleClickCity = () => {
-    if (!isServer) localStorage.setItem('city', tempCity);
-    setCity(tempCity);
-    onCloseCity();
-  };
-
-  // Open city modal
+  // Open location picker
   const {
-    isOpen: isOpenCity,
-    onOpen: onOpenCity,
-    onClose: onCloseCity,
+    isOpen: isOpenLocation,
+    onOpen: onOpenLocation,
+    onClose: onCloseLocation,
   } = useDisclosure();
 
-  // Open settings drawer
+  // Open settings
   const {
     isOpen: isOpenSettings,
     onOpen: onOpenSettings,
@@ -102,6 +82,9 @@ const Home = (): ReactNode => {
     textPurpleDark,
     textPurpleLight,
   } = useColors();
+
+  // Get and set default location from storage if any
+  const { initialLocation: city } = useInitialLocation();
 
   const { gregDate, gregTime } = useGregDate();
   const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
@@ -176,9 +159,9 @@ const Home = (): ReactNode => {
                     {city}
                   </Text>
                   <IconButton
-                    aria-label="Open city modal"
+                    aria-label="Open location modal"
                     bgColor="transparent"
-                    onClick={onOpenCity}
+                    onClick={onOpenLocation}
                     h={5}
                     w={5}
                     minW={5}
@@ -344,42 +327,10 @@ const Home = (): ReactNode => {
           </Flex>
         </Flex>
       </Flex>
-      {/* Change city modal */}
-      <Modal
-        isOpen={isOpenCity}
-        onClose={onCloseCity}
-        closeOnOverlayClick={true}
-        motionPreset="scale"
-        size="xs"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader fontSize={['md', 'lg']} textTransform="capitalize">
-            Ubah Lokasi
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Input
-              placeholder="Contoh: Bogor"
-              defaultValue={city}
-              variant="flushed"
-              onChange={handleChangeCity}
-            />
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              colorScheme="purple"
-              bgGradient="linear(to-bl, purple.400, blue.400)"
-              onClick={handleClickCity}
-            >
-              Simpan
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
       {/* Settings */}
       <Settings isOpen={isOpenSettings} onClose={onCloseSettings} />
+      {/* Location Picker */}
+      <Location isOpen={isOpenLocation} onClose={onCloseLocation} />
     </>
   );
 };
