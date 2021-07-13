@@ -20,7 +20,12 @@ import {
 // Internal
 import { useColors } from '@hooks';
 
-const Settings = ({ isOpen, onClose }) => {
+type SettingsProps = {
+  isOpen: boolean;
+  onClose: () => void;
+};
+
+const Settings = ({ isOpen, onClose }: SettingsProps) => {
   // Togle dark/light mode
   const { colorMode, toggleColorMode } = useColorMode();
 
