@@ -96,7 +96,7 @@ const Home = (): ReactNode => {
       {/* SEO */}
       <NextSeo
         title="Muslim • Jadwal Sholat, Dzikir, dan Doa."
-        description="Jadwal Sholat, Dzikir, dan Doa."
+        description="Jadwal sholat, dzikir, dan kumpulan doa dalam genggaman."
       />
       {/* Header */}
       <Flex as="header" align="center" justify="space-between">

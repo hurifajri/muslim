@@ -19,7 +19,7 @@ import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 
 // Internal
-import { If } from '@components';
+import { If, Items } from '@components';
 import { doas } from '@data';
 import { useColors } from '@hooks';
 import { capitalize } from '@utils';
@@ -54,120 +54,7 @@ const Doa: NextPage = () => {
         title={`Muslim • Kumpulan Doa ${capitalize(type)}`}
         description="Kumpulan Doa di Dalam Al-Quran dan Hadits Nabi."
       />
-      <Flex as="main" direction="column">
-        {doas
-          .filter(doa => doa.types.includes(type))
-          .map(doa => {
-            return (
-              <Flex
-                as="section"
-                key={doa.id}
-                direction="column"
-                borderBottom={`1px solid ${bc}`}
-                _even={{ bgColor: bgCard }}
-                _last={{
-                  borderBottom: 'none',
-                }}
-              >
-                {/* Header */}
-                <Flex
-                  as="header"
-                  align="center"
-                  justify="space-between"
-                  borderBottom={`1px solid ${bc}`}
-                  p={4}
-                >
-                  <Heading fontSize={['md', 'lg']} fontWeight="bold" flex={3}>
-                    {doa.title}
-                  </Heading>
-                  <If condition={doa.note}>
-                    <Text
-                      fontSize={['sm', 'md']}
-                      opacity={0.8}
-                      flex={1}
-                      textAlign="right"
-                    >
-                      {doa.note}
-                    </Text>
-                  </If>
-                </Flex>
-                {doa.items.map(item => {
-                  return (
-                    <Flex
-                      key={item.id}
-                      direction="column"
-                      p={4}
-                      sx={{ gap: 20 }}
-                    >
-                      <Box
-                        fontFamily="Amiri, serif"
-                        textAlign="right"
-                        fontSize="2xl"
-                        lineHeight={2.5}
-                        dangerouslySetInnerHTML={{ __html: item.arabic }}
-                      />
-                      <If condition={item.transliteration}>
-                        <Text fontSize={['md', 'lg']} fontStyle="italic">
-                          {item.transliteration}
-                        </Text>
-                      </If>
-                      <Text fontSize={['md', 'lg']}>
-                        {item.translation}
-                        <If condition={item.narrator}>
-                          <Text
-                            as="span"
-                            fontSize={['sm', 'md']}
-                            opacity={0.8}
-                          >{` [${item.narrator}]`}</Text>
-                        </If>
-                      </Text>
-                      <If condition={item.benefits !== null}>
-                        <Button
-                          aria-label="Lihat Keutamaan"
-                          py={2}
-                          cursor="pointer"
-                          fontSize="sm"
-                          opacity={0.7}
-                          textTransform="uppercase"
-                          onClick={() =>
-                            handleClickBenefits(doa.title, item.benefits)
-                          }
-                        >
-                          Lihat Keutamaan
-                        </Button>
-                      </If>
-                    </Flex>
-                  );
-                })}
-              </Flex>
-            );
-          })}
-      </Flex>
-
-      <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
-        <DrawerOverlay>
-          <DrawerContent borderTopRadius="40px" pt="50px" pb={6}>
-            <DrawerCloseButton right="22px" top="22px" borderRadius="50%" />
-            <DrawerHeader>
-              <Heading fontSize={['md', 'lg']} fontWeight="bold">
-                Keutamaan {title}
-              </Heading>
-            </DrawerHeader>
-            <DrawerBody>
-              {benefits?.map(benefit => (
-                <Text key={benefit.id} fontSize={['md', 'lg']}>
-                  {benefit.translation}
-                  <Text
-                    as="span"
-                    fontSize={['sm', 'md']}
-                    opacity={0.8}
-                  >{` [${benefit.narrator}]`}</Text>
-                </Text>
-              ))}
-            </DrawerBody>
-          </DrawerContent>
-        </DrawerOverlay>
-      </Drawer>
+      <Items items={doas} timeOrType={{ label: 'types', data: type }} />
     </>
   );
 };
