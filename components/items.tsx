@@ -13,7 +13,7 @@ import {
 import { useState } from 'react';
 
 // Internal
-import { Benefits, If } from '@components';
+import { Benefits, Counter, If } from '@components';
 import { useColors } from '@hooks';
 
 const Items = ({ items, timeOrType }) => {
@@ -116,27 +116,7 @@ const Items = ({ items, timeOrType }) => {
                           borderRadius="md"
                           bgColor={bgPurple}
                         >
-                          <Input
-                            variant="unstyled"
-                            color={textDark}
-                            fontSize={['md', 'lg']}
-                            fontWeight="bold"
-                            textAlign="center"
-                            id={`input-${item.id}.${item.id}`}
-                            name={`input-${item.id}.${item.id}`}
-                            value={0}
-                            readOnly={true}
-                            w={12}
-                          />
-                          <IconButton
-                            aria-label="Hitung"
-                            bgColor={bgButton}
-                            borderRadius="md"
-                            color="black"
-                            icon={<AddIcon pointerEvents="none" />}
-                            name={`button-${item.id}.${item.id}`}
-                            // onClick={handleClickCounter}
-                          />
+                          <Counter />
                         </Flex>
                       </Flex>
                       <If condition={item.transliteration}>
