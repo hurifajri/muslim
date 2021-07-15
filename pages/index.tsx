@@ -236,7 +236,7 @@ const Home = (): ReactNode => {
               const bgColor = id === 1 ? bgPurple : bgBlue;
               const color = id === 1 ? textDark : textLight;
               return (
-                <Link href={link} key={id}>
+                <Link href={link} passHref={true} key={id}>
                   <AspectRatio flex={1} ratio={1} cursor="pointer">
                     <Flex
                       bgColor={bgColor}
@@ -304,7 +304,7 @@ const Home = (): ReactNode => {
               .map(content => {
                 const { id, title, link } = content;
                 return (
-                  <Link href={link} key={id}>
+                  <Link href={link} passHref={true} key={id}>
                     <AspectRatio flex={1} ratio={1} cursor="pointer">
                       <Flex
                         bgColor={bgCard}
