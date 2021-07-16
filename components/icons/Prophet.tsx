@@ -2,7 +2,7 @@
 import React from 'react';
 import { Icon, IconProps } from '@chakra-ui/react';
 
-const Prophet = (props: IconProps): JSX.Element => (
+const Prophet = (props: IconProps) => (
   <Icon viewBox="0 0 508.715 508.715" {...props}>
     <g id="XMLID_4224_">
       <path

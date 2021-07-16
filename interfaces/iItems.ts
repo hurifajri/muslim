@@ -1,8 +1,5 @@
-export interface iBenefit {
-  id: number;
-  translation: string;
-  narrator: string;
-}
+// Internal
+import { iBenefit } from '@interfaces';
 interface iCitem {
   id: number;
   arabic: string;
