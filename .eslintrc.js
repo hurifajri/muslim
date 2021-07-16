@@ -8,8 +8,8 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react-hooks/recommended',
-    'plugin:jsx-a11y/recommended',
+    'next',
+    'next/core-web-vitals',
     'plugin:prettier/recommended',
   ],
   parser: '@typescript-eslint/parser',
@@ -22,12 +22,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
-    'prettier/prettier': [
-      'error',
-      {
-        endOfLine: 'auto',
-      },
-    ],
+    'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/boolean-prop-naming': [
       'error',
       { rule: '^(is|has)[A-Z]([A-Za-z0-9]?)+', validateNested: true },

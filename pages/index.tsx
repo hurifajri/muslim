@@ -1,41 +1,21 @@
 // Eksternal
-import { EditIcon, SettingsIcon } from '@chakra-ui/icons';
+import { EditIcon } from '@chakra-ui/icons';
 import {
   AspectRatio,
   Box,
-  Button,
   Collapse,
-  Divider,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
   Flex,
-  FormControl,
-  FormLabel,
   Heading,
   IconButton,
-  Input,
-  Modal,
-  ModalBody,
-  ModalCloseButton,
-  ModalContent,
-  ModalFooter,
-  ModalHeader,
-  ModalOverlay,
   SkeletonText,
-  Switch,
   Text,
-  useColorMode,
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
+import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-import { ReactNode, SetStateAction, useState } from 'react';
+import { useState } from 'react';
 
 // Internal
 import {
@@ -47,12 +27,22 @@ import {
   Prophet,
   Quran,
 } from '@components/icons';
+import { iIcons } from '@interfaces';
 import { toc } from '@data';
-import { useColors, useGregDate, useHijriDate, useQuote } from '@hooks';
-import { iTocIcons } from '@interfaces';
+import {
+  useColors,
+  useGregDate,
+  useHijriDate,
+  useInitialLocation,
+  useQuote,
+} from '@hooks';
+
+// Internal dynamic
+const Location = dynamic(() => import('@components/Location'));
+const Settings = dynamic(() => import('@components/Settings'));
 
 // Dynamic icons for table of contents
-const Icons: iTocIcons = {
+const Icons: iIcons = {
   1: <Morning h="125%" w="100%" />,
   2: <Evening h="100%" w="100%" />,
   3: <Quran h="100%" w="100%" />,
@@ -60,49 +50,27 @@ const Icons: iTocIcons = {
   5: <Pray h="100%" w="100%" />,
 };
 
-const Home = (): ReactNode => {
-  const isServer = typeof window === 'undefined';
-
-  // Set default city
-  let initialCity = 'jakarta';
-  if (!isServer) initialCity = localStorage?.getItem('city') ?? 'jakarta';
-
-  const [tempCity, setTempCity] = useState(initialCity);
-  const handleChangeCity = (event: {
-    target: { value: SetStateAction<string> };
-  }) => setTempCity(event.target.value);
-
-  const [city, setCity] = useState(initialCity);
-  const handleClickCity = () => {
-    if (!isServer) localStorage.setItem('city', tempCity);
-    setCity(tempCity);
-    onCloseCity();
-  };
-
-  // Open city modal
+const Home = () => {
+  // Open location picker
   const {
-    isOpen: isOpenCity,
-    onOpen: onOpenCity,
-    onClose: onCloseCity,
+    isOpen: isOpenLocation,
+    onOpen: onOpenLocation,
+    onClose: onCloseLocation,
   } = useDisclosure();
 
-  // Open menu drawer
+  // Open settings
   const {
-    isOpen: isOpenMenu,
-    onOpen: onOpenMenu,
-    onClose: onCloseMenu,
+    isOpen: isOpenSettings,
+    onOpen: onOpenSettings,
+    onClose: onCloseSettings,
   } = useDisclosure();
 
   // Toggle quote text
   const [showFullQuote, setShowFullQuote] = useState(false);
   const handleClickQuote = () => setShowFullQuote(!showFullQuote);
 
-  // Togle dark/light mode
-  const { colorMode, toggleColorMode } = useColorMode();
-
   // Dark/light mode colors
   const {
-    bg,
     bgBlue,
     bgCard,
     bgGradientBlue,
@@ -115,6 +83,9 @@ const Home = (): ReactNode => {
     textPurpleLight,
   } = useColors();
 
+  // Get default location from storage
+  const { initialLocation: city } = useInitialLocation();
+
   const { gregDate, gregTime } = useGregDate();
   const { prayingTimes, hijriDate, isLoading } = useHijriDate(city);
   const [isSmallerThan360] = useMediaQuery('(max-width: 360px)');
@@ -122,10 +93,10 @@ const Home = (): ReactNode => {
 
   return (
     <>
-      {/* SEO */}
+      {/* Head */}
       <NextSeo
         title="Muslim • Jadwal Sholat, Dzikir, dan Doa."
-        description="Jadwal Sholat, Dzikir, dan Doa."
+        description="Jadwal sholat, dzikir, dan kumpulan doa dalam genggaman."
       />
       {/* Header */}
       <Flex as="header" align="center" justify="space-between">
@@ -135,7 +106,7 @@ const Home = (): ReactNode => {
           bgColor={bgCard}
           borderRadius={10}
           icon={<Menu color={iconMenu} />}
-          onClick={onOpenMenu}
+          onClick={onOpenSettings}
           p={2.5}
         />
         {/* Date */}
@@ -188,9 +159,9 @@ const Home = (): ReactNode => {
                     {city}
                   </Text>
                   <IconButton
-                    aria-label="Open city modal"
+                    aria-label="Open location modal"
                     bgColor="transparent"
-                    onClick={onOpenCity}
+                    onClick={onOpenLocation}
                     h={5}
                     w={5}
                     minW={5}
@@ -259,13 +230,13 @@ const Home = (): ReactNode => {
         {/* Dzikir */}
         <Flex as="section" sx={{ gap: 20 }}>
           {toc
-            .filter(({ group }) => group === 'dzikir')
+            .filter(({ category }) => category === 'dzikir')
             .map(content => {
               const { id, title, link } = content;
               const bgColor = id === 1 ? bgPurple : bgBlue;
               const color = id === 1 ? textDark : textLight;
               return (
-                <Link href={link} key={id}>
+                <Link href={link} passHref={true} key={id}>
                   <AspectRatio flex={1} ratio={1} cursor="pointer">
                     <Flex
                       bgColor={bgColor}
@@ -329,11 +300,11 @@ const Home = (): ReactNode => {
           </Heading>
           <Flex sx={{ gap: 10 }}>
             {toc
-              .filter(({ group }) => group === 'doa')
+              .filter(({ category }) => category === 'doa')
               .map(content => {
                 const { id, title, link } = content;
                 return (
-                  <Link href={link} key={id}>
+                  <Link href={link} passHref={true} key={id}>
                     <AspectRatio flex={1} ratio={1} cursor="pointer">
                       <Flex
                         bgColor={bgCard}
@@ -356,110 +327,10 @@ const Home = (): ReactNode => {
           </Flex>
         </Flex>
       </Flex>
-      {/* Change city modal */}
-      <Modal
-        isOpen={isOpenCity}
-        onClose={onCloseCity}
-        closeOnOverlayClick={true}
-        motionPreset="scale"
-        size="xs"
-      >
-        <ModalOverlay />
-        <ModalContent>
-          <ModalHeader fontSize={['md', 'lg']} textTransform="capitalize">
-            Ubah Lokasi
-          </ModalHeader>
-          <ModalCloseButton />
-          <ModalBody>
-            <Input
-              placeholder="Contoh: Bogor"
-              defaultValue={city}
-              variant="flushed"
-              onChange={handleChangeCity}
-            />
-          </ModalBody>
-
-          <ModalFooter>
-            <Button
-              colorScheme="purple"
-              bgGradient="linear(to-bl, purple.400, blue.400)"
-              onClick={handleClickCity}
-            >
-              Simpan
-            </Button>
-          </ModalFooter>
-        </ModalContent>
-      </Modal>
-      {/* Drawer menu */}
-      <Drawer
-        placement="right"
-        size="xs"
-        closeOnOverlayClick={true}
-        onClose={onCloseMenu}
-        isOpen={isOpenMenu}
-      >
-        <DrawerOverlay />
-        <DrawerContent bgColor={bg}>
-          <DrawerCloseButton />
-          <DrawerHeader
-            display="flex"
-            alignItems="center"
-            borderBottomWidth="1px"
-            sx={{ gap: 10 }}
-            mb={5}
-          >
-            <SettingsIcon />
-            <Heading fontSize={['lg', 'xl']} fontWeight="bold" lineHeight={1}>
-              Pengaturan
-            </Heading>
-          </DrawerHeader>
-          <DrawerBody>
-            {/* Dark mode */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel htmlFor="mode-gelap" mb={0} cursor="pointer">
-                Mode Gelap
-              </FormLabel>
-              <Switch
-                id="mode-gelap"
-                defaultChecked={colorMode === 'light'}
-                isChecked={colorMode === 'dark'}
-                onChange={toggleColorMode}
-              />
-            </FormControl>
-            <Divider my={2.5} />
-            {/* Terjemahan */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel htmlFor="terjemahan" mb={0} cursor="pointer">
-                Terjemahan
-              </FormLabel>
-              <Switch id="terjemahan" />
-            </FormControl>
-            <Divider my={2.5} />
-            {/* Transliterasi */}
-            <FormControl
-              display="flex"
-              alignItems="center"
-              justifyContent="space-between"
-            >
-              <FormLabel htmlFor="transliterasi" mb={0} cursor="pointer">
-                Transliterasi
-              </FormLabel>
-              <Switch id="transliterasi" />
-            </FormControl>
-          </DrawerBody>
-          <DrawerFooter display="flex" justifyContent="flex-start">
-            <Text>Tentang Aplikasi</Text>
-          </DrawerFooter>
-        </DrawerContent>
-      </Drawer>
+      {/* Settings */}
+      <Settings isOpen={isOpenSettings} onClose={onCloseSettings} />
+      {/* Location Picker */}
+      <Location isOpen={isOpenLocation} onClose={onCloseLocation} />
     </>
   );
 };
