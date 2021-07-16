@@ -5,11 +5,12 @@ import { extendTheme, ThemeConfig } from '@chakra-ui/react';
 import fonts from '@theme/fonts';
 import styles from '@theme/styles';
 
-const config: ThemeConfig = {
+const themeConfig: ThemeConfig = {
   initialColorMode: 'light',
   useSystemColorMode: false,
 };
 
-const overrides = { ...config, fonts, styles };
+const overrides = { ...themeConfig, fonts, styles };
+const theme = extendTheme(overrides);
 
-export default extendTheme(overrides);
+export default theme;

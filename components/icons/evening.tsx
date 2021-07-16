@@ -1,8 +1,7 @@
 // Eksternal
-import React from 'react';
 import { Icon, IconProps } from '@chakra-ui/react';
 
-const Evening = (props: IconProps): JSX.Element => (
+const Evening = (props: IconProps) => (
   <Icon
     viewBox="0 0 510 510"
     sx={{ transform: 'scaleX(-1) rotate(-35deg)' }}

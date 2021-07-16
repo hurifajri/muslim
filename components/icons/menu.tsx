@@ -6,7 +6,7 @@ type MenuProps = {
   color: string;
 };
 
-const Menu = ({ color }: MenuProps): JSX.Element => (
+const Menu = ({ color }: MenuProps) => (
   <Icon viewBox="0 0 512 512" h={25} w={25}>
     <path
       d="M479.18,91.897H32.821C14.69,91.897,0,77.207,0,59.077s14.69-32.821,32.821-32.821H479.18
