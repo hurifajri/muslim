@@ -33,7 +33,7 @@ class MyDocument extends Document {
             rel="stylesheet"
           />
           <link
-            href="https://fonts.googleapis.com/css2?family=Amiri&display=swap"
+            href="https://fonts.googleapis.com/css2?family=Amiri:wght@400&display=swap"
             rel="stylesheet"
           />
         </Head>

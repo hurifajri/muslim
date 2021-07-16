@@ -15,7 +15,7 @@ import {
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
-import { ReactNode, useState } from 'react';
+import { useState } from 'react';
 
 // Internal
 import {
@@ -27,6 +27,7 @@ import {
   Prophet,
   Quran,
 } from '@components/icons';
+import { iIcons } from '@interfaces';
 import { toc } from '@data';
 import {
   useColors,
@@ -35,14 +36,13 @@ import {
   useInitialLocation,
   useQuote,
 } from '@hooks';
-import { iTocIcons } from '@interfaces';
 
 // Internal dynamic
-const Location = dynamic(() => import('@components/location'));
-const Settings = dynamic(() => import('@components/settings'));
+const Location = dynamic(() => import('@components/Location'));
+const Settings = dynamic(() => import('@components/Settings'));
 
 // Dynamic icons for table of contents
-const Icons: iTocIcons = {
+const Icons: iIcons = {
   1: <Morning h="125%" w="100%" />,
   2: <Evening h="100%" w="100%" />,
   3: <Quran h="100%" w="100%" />,
@@ -50,7 +50,7 @@ const Icons: iTocIcons = {
   5: <Pray h="100%" w="100%" />,
 };
 
-const Home = (): ReactNode => {
+const Home = () => {
   // Open location picker
   const {
     isOpen: isOpenLocation,
@@ -83,7 +83,7 @@ const Home = (): ReactNode => {
     textPurpleLight,
   } = useColors();
 
-  // Get and set default location from storage if any
+  // Get default location from storage
   const { initialLocation: city } = useInitialLocation();
 
   const { gregDate, gregTime } = useGregDate();
@@ -93,7 +93,7 @@ const Home = (): ReactNode => {
 
   return (
     <>
-      {/* SEO */}
+      {/* Head */}
       <NextSeo
         title="Muslim • Jadwal Sholat, Dzikir, dan Doa."
         description="Jadwal sholat, dzikir, dan kumpulan doa dalam genggaman."
@@ -230,7 +230,7 @@ const Home = (): ReactNode => {
         {/* Dzikir */}
         <Flex as="section" sx={{ gap: 20 }}>
           {toc
-            .filter(({ group }) => group === 'dzikir')
+            .filter(({ category }) => category === 'dzikir')
             .map(content => {
               const { id, title, link } = content;
               const bgColor = id === 1 ? bgPurple : bgBlue;
@@ -300,7 +300,7 @@ const Home = (): ReactNode => {
           </Heading>
           <Flex sx={{ gap: 10 }}>
             {toc
-              .filter(({ group }) => group === 'doa')
+              .filter(({ category }) => category === 'doa')
               .map(content => {
                 const { id, title, link } = content;
                 return (
