@@ -33,7 +33,7 @@ const Benefits = ({ benefits, title, isOpen, onClose }: iBenefits) => {
               Keutamaan {title}
             </Heading>
           </DrawerHeader>
-          <DrawerBody>
+          <DrawerBody display="flex" flexDirection="column" sx={{ gap: 15 }}>
             {benefits?.map(benefit => (
               <Text key={benefit.id} fontSize={['md', 'lg']}>
                 {benefit.translation}
