@@ -1,5 +1,4 @@
 // Eksternal
-import { NextPage } from 'next';
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
@@ -8,17 +7,19 @@ import { Items } from '@components';
 import { dzikirs } from '@data';
 import { capitalize } from '@utils';
 
-const Dzikir: NextPage = () => {
+const Dzikir = () => {
   const { query } = useRouter();
-  const time = Array.isArray(query.time) ? query.time[0] : query.time ?? '';
+  const category = Array.isArray(query.category)
+    ? query.category[0]
+    : query.category ?? '';
 
   return (
     <>
       <NextSeo
-        title={`Muslim • Dzikir ${capitalize(time)}`}
+        title={`Muslim • Dzikir ${capitalize(category)}`}
         description="Dzikir Pagi Sesuai Sunnah."
       />
-      <Items items={dzikirs} timeOrType={{ label: 'times', data: time }} />
+      <Items items={dzikirs} category={category} />
     </>
   );
 };

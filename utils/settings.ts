@@ -1,4 +1,8 @@
 const settings = {
+  counter: {
+    title: 'Tombol Hitung',
+    isActive: false,
+  },
   translation: {
     title: 'Terjemahan',
     isActive: false,
@@ -10,14 +14,6 @@ const settings = {
   benefits: {
     title: 'Keutamaan',
     isActive: false,
-  },
-  counter: {
-    title: 'Tombol Hitung',
-    isActive: false,
-  },
-  fontSize: {
-    title: 'Ukuran Huruf',
-    size: 2,
   },
 };
 

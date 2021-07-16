@@ -19,13 +19,9 @@ import {
 
 // Internal
 import { useColors } from '@hooks';
+import { iSettings } from '@interfaces';
 
-type SettingsProps = {
-  isOpen: boolean;
-  onClose: () => void;
-};
-
-const Settings = ({ isOpen, onClose }: SettingsProps) => {
+const Settings = ({ isOpen, onClose }: iSettings) => {
   // Togle dark/light mode
   const { colorMode, toggleColorMode } = useColorMode();
 

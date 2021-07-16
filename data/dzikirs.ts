@@ -3,7 +3,7 @@ const dzikirs = [
     id: 1,
     title: `Membaca Isti'adzah atau Ta'awudz`,
     note: null,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -19,7 +19,7 @@ const dzikirs = [
     id: 2,
     title: `Membaca Ayat Kursi`,
     note: `Dibaca 1x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -41,7 +41,7 @@ const dzikirs = [
     id: 3,
     title: `Membaca Surat Al-Ikhlas, Al-Falaq, dan An-Naas`,
     note: `Dibaca 3x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -91,7 +91,7 @@ const dzikirs = [
     id: 4,
     title: `Meminta Kebaikan dan Perlindungan`,
     note: `Dibaca 1x`,
-    times: [`pagi`],
+    category: [`pagi`],
     items: [
       {
         id: 1,
@@ -113,7 +113,7 @@ const dzikirs = [
     id: 5,
     title: `Meminta Kebaikan dan Perlindungan`,
     note: `Dibaca 1x`,
-    times: [`petang`],
+    category: [`petang`],
     items: [
       {
         id: 1,
@@ -135,7 +135,7 @@ const dzikirs = [
     id: 6,
     title: `Memuji Allah Ketika Memasuki Waktu Pagi`,
     note: `Dibaca 1x`,
-    times: [`pagi`],
+    category: [`pagi`],
     items: [
       {
         id: 1,
@@ -151,7 +151,7 @@ const dzikirs = [
     id: 7,
     title: `Memuji Allah Ketika Memasuki Waktu Petang`,
     note: `Dibaca 1x`,
-    times: [`petang`],
+    category: [`petang`],
     items: [
       {
         id: 1,
@@ -167,7 +167,7 @@ const dzikirs = [
     id: 8,
     title: `Membaca Sayyidul Istighfar`,
     note: `Dibaca 1x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -189,7 +189,7 @@ const dzikirs = [
     id: 9,
     title: `Memuji dan Mentauhidkan Allah di Waktu Pagi`,
     note: `Dibaca 4x`,
-    times: [`pagi`],
+    category: [`pagi`],
     items: [
       {
         id: 1,
@@ -211,7 +211,7 @@ const dzikirs = [
     id: 10,
     title: `Memuji dan Mentauhidkan Allah di Waktu Petang`,
     note: `Dibaca 4x`,
-    times: [`petang`],
+    category: [`petang`],
     items: [
       {
         id: 1,
@@ -233,7 +233,7 @@ const dzikirs = [
     id: 11,
     title: `Meminta Kebaikan dan Keselamatan Dunia dan Akhirat`,
     note: `Dibaca 1x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -255,7 +255,7 @@ const dzikirs = [
     id: 12,
     title: `Meminta Perlindungan dari Kejahatan Diri dan Syaitan`,
     note: `Dibaca 1x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -277,7 +277,7 @@ const dzikirs = [
     id: 13,
     title: `Meminta Dihindarkan dari Bahaya yang Tiba-tiba`,
     note: `Dibaca 3x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -299,7 +299,7 @@ const dzikirs = [
     id: 14,
     title: `Memohon Keridhoan Allah`,
     note: `Dibaca 3x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -321,7 +321,7 @@ const dzikirs = [
     id: 15,
     title: `Meminta Pertolongan dalam Segala Urusan`,
     note: `Dibaca 1x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -343,7 +343,7 @@ const dzikirs = [
     id: 16,
     title: 'Mengikrarkan Tauhid di Waktu Pagi',
     note: `Dibaca 1x`,
-    times: [`pagi`],
+    category: [`pagi`],
     items: [
       {
         id: 1,
@@ -359,7 +359,7 @@ const dzikirs = [
     id: 17,
     title: `Bertasbih Kepada Allah`,
     note: `Dibaca 100x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -381,7 +381,7 @@ const dzikirs = [
     id: 18,
     title: `Mentauhidkan Allah`,
     note: `Dibaca 10x`,
-    times: [`pagi`, `petang`],
+    category: [`pagi`, `petang`],
     items: [
       {
         id: 1,
@@ -410,7 +410,7 @@ const dzikirs = [
     id: 19,
     title: `Memuji Allah`,
     note: `Dibaca 3x`,
-    times: [`pagi`],
+    category: [`pagi`],
     items: [
       {
         id: 1,
@@ -432,7 +432,7 @@ const dzikirs = [
     id: 20,
     title: `Meminta Ilmu yang Bermanfaat`,
     note: `Dibaca 1x`,
-    times: [`pagi`],
+    category: [`pagi`],
     items: [
       {
         id: 1,
@@ -448,7 +448,7 @@ const dzikirs = [
     id: 21,
     title: `Membaca Istighfar`,
     note: `Dibaca 100x`,
-    times: [`pagi`],
+    category: [`pagi`],
     items: [
       {
         id: 1,
@@ -464,7 +464,7 @@ const dzikirs = [
     id: 22,
     title: `Meminta Perlindungan dari Kejahatan`,
     note: `Dibaca 3x`,
-    times: [`petang`],
+    category: [`petang`],
     items: [
       {
         id: 1,

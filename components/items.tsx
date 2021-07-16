@@ -1,12 +1,9 @@
 // Eksternal
-import { AddIcon } from '@chakra-ui/icons';
 import {
   Box,
   Button,
   Flex,
   Heading,
-  IconButton,
-  Input,
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
@@ -15,10 +12,11 @@ import { useState } from 'react';
 // Internal
 import { Benefits, Counter, If } from '@components';
 import { useColors } from '@hooks';
+import { iItems } from '@interfaces';
 
-const Items = ({ items, timeOrType }) => {
+const Items = ({ items, category }: iItems) => {
   // Dark/light mode colors
-  const { bc, bgButton, bgCard, bgPurple, textDark } = useColors();
+  const { bc, bgCard, bgPurple } = useColors();
 
   // Handle "Lihat Keutamaan"
   type tItemBenefits =
@@ -42,7 +40,7 @@ const Items = ({ items, timeOrType }) => {
       {/* Dzikir or Doa */}
       <Flex as="main" direction="column">
         {items
-          .filter(item => item[timeOrType.label].includes(timeOrType.data))
+          .filter(item => item.category.includes(category))
           .map(item => {
             return (
               <Flex
