@@ -2,6 +2,7 @@ const doas = [
   {
     id: 1,
     title: `Meminta Ampunan dan Rahmat Allah`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -73,6 +74,7 @@ const doas = [
   {
     id: 2,
     title: `Meminta Agar Tergolong Orang-orang Beriman`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -96,6 +98,7 @@ const doas = [
   {
     id: 3,
     title: `Meminta Agar Diberikan Keturunan yang Shalih`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -135,6 +138,7 @@ const doas = [
   {
     id: 4,
     title: `Meminta Ampunan bagi Kedua Orang Tua dan Kaum Mukminin`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -166,6 +170,7 @@ const doas = [
   {
     id: 5,
     title: `Meminta Ketetapan bagi Diri dan Keluarga dalam Mendirikan Sholat`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -181,6 +186,7 @@ const doas = [
   {
     id: 6,
     title: `Meminta Perlindungan dari Orang yang Zhalim`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -212,6 +218,7 @@ const doas = [
   {
     id: 7,
     title: `Meminta Agar Diterima Amal Ibadah dan Taubat`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -227,6 +234,7 @@ const doas = [
   {
     id: 8,
     title: `Meminta Agar Dapat Bertawakkal Hanya Kepada Allah`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -250,6 +258,7 @@ const doas = [
   {
     id: 9,
     title: `Meminta Perlindungan dari Keburukan Orang-orang Kafir`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -273,6 +282,7 @@ const doas = [
   {
     id: 10,
     title: `Meminta Agar Ditambahkan Ilmu`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -288,6 +298,7 @@ const doas = [
   {
     id: 11,
     title: `Meminta Agar Disempurnakan Cahaya`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -303,6 +314,7 @@ const doas = [
   {
     id: 12,
     title: `Meminta Kebaikan dunia dan Akhirat`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -318,6 +330,7 @@ const doas = [
   {
     id: 13,
     title: `Meminta Agar Dijadikan Hamba yang Bersyukur`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -341,6 +354,7 @@ const doas = [
   {
     id: 14,
     title: `Meminta Perlindungan dari Syaitan`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -356,6 +370,7 @@ const doas = [
   {
     id: 15,
     title: `Meminta Agar Hati Ditetapkan dalam Hidayah`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -371,6 +386,7 @@ const doas = [
   {
     id: 16,
     title: `Meminta Agar Dilapangkan Hati dan Dimudahkan Dalam Urusan`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -394,6 +410,7 @@ const doas = [
   {
     id: 17,
     title: `Meminta Keamanan Negeri dan Berlindung dari Syirik`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -409,6 +426,7 @@ const doas = [
   {
     id: 18,
     title: `Meminta Perlindungan dari Api Neraka`,
+    note: null,
     category: [`quran`],
     items: [
       {
@@ -424,6 +442,7 @@ const doas = [
   {
     id: 19,
     title: `Meminta Agar Ditetapkan Hati dalam Iman`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -439,6 +458,7 @@ const doas = [
   {
     id: 20,
     title: `Meminta Ampunan dalam Segala Hal`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -454,6 +474,7 @@ const doas = [
   {
     id: 21,
     title: `Meminta Diperbaiki Segala Urusan`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -469,6 +490,7 @@ const doas = [
   {
     id: 22,
     title: `Meminta Perlindungan dari Fitnah Kaya dan Fitnah Miskin`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -484,6 +506,7 @@ const doas = [
   {
     id: 23,
     title: `Meminta Perlindungan Dicabutnya Nikmat Lahir Batin`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -499,6 +522,7 @@ const doas = [
   {
     id: 24,
     title: `Meminta Agar Dijauhkan dari Sifat Pengecut dan Tidak Pikun`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -514,6 +538,7 @@ const doas = [
   {
     id: 25,
     title: `Berlindung dari Keburukan Amal`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -529,6 +554,7 @@ const doas = [
   {
     id: 26,
     title: `Meminta Agar Bertaqwa dan Berlindung dari Ilmu yang Tidak Bermanfaat`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -544,6 +570,7 @@ const doas = [
   {
     id: 27,
     title: `Meminta Agar Dapat Melihat Wajah Allah`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -559,6 +586,7 @@ const doas = [
   {
     id: 28,
     title: `Meminta Dimudahkan Berbuat Baik & Mencintai Orang Miskin`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -574,6 +602,7 @@ const doas = [
   {
     id: 29,
     title: `Meminta Agar Bisa Mencintai Orang yang Mencintai Allah`,
+    note: null,
     category: [`nabi`],
     items: [
       {
@@ -589,6 +618,7 @@ const doas = [
   {
     id: 30,
     title: `Meminta Kebaikan dalam Segala Hal yang Pernah Diminta Nabi`,
+    note: null,
     category: [`nabi`],
     items: [
       {

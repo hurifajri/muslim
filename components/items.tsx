@@ -1,4 +1,5 @@
 // Eksternal
+import dynamic from 'next/dynamic';
 import {
   Box,
   Button,
@@ -10,25 +11,24 @@ import {
 import { useState } from 'react';
 
 // Internal
-import { Benefits, Counter, If } from '@components';
+import { Counter, If } from '@components';
 import { useColors } from '@hooks';
-import { iItems } from '@interfaces';
+import { iBenefit, iItems } from '@interfaces';
+
+// Internal dynamic
+const Benefits = dynamic(() => import('@components/Benefits'));
 
 const Items = ({ items, category }: iItems) => {
   // Dark/light mode colors
   const { bc, bgCard, bgPurple } = useColors();
 
   // Handle "Lihat Keutamaan"
-  type tItemBenefits =
-    | { id: number; translation: string; narrator: string }[]
-    | null;
-
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState('');
-  const [benefits, setBenefits] = useState<tItemBenefits>([]);
+  const [benefits, setBenefits] = useState<iBenefit[] | null>([]);
   const handleClickBenefits = (
     itemTitle: string,
-    itemBenefits: tItemBenefits
+    itemBenefits: iBenefit[] | null
   ) => {
     setTitle(itemTitle);
     setBenefits(itemBenefits);
@@ -40,12 +40,12 @@ const Items = ({ items, category }: iItems) => {
       {/* Dzikir or Doa */}
       <Flex as="main" direction="column">
         {items
-          .filter(item => item.category.includes(category))
-          .map(item => {
+          .filter(pItem => pItem.category.includes(category))
+          .map(pItem => {
             return (
               <Flex
                 as="section"
-                key={item.id}
+                key={pItem.id}
                 direction="column"
                 borderBottom={`1px solid ${bc}`}
                 _even={{ bgColor: bgCard }}
@@ -62,23 +62,23 @@ const Items = ({ items, category }: iItems) => {
                   p={4}
                 >
                   <Heading fontSize={['md', 'lg']} fontWeight="bold" flex={3}>
-                    {item.title}
+                    {pItem.title}
                   </Heading>
-                  <If condition={item.note}>
+                  <If condition={pItem.note}>
                     <Text
                       fontSize={['sm', 'md']}
                       opacity={0.8}
                       flex={1}
                       textAlign="right"
                     >
-                      {item.note}
+                      {pItem.note}
                     </Text>
                   </If>
                 </Flex>
-                {item.items.map(item => {
+                {pItem.items.map(cItem => {
                   return (
                     <Flex
-                      key={item.id}
+                      key={cItem.id}
                       direction="column"
                       p={4}
                       sx={{ gap: 20 }}
@@ -88,12 +88,12 @@ const Items = ({ items, category }: iItems) => {
                         textAlign="right"
                         fontSize="2xl"
                         lineHeight={2.5}
-                        dangerouslySetInnerHTML={{ __html: item.arabic }}
+                        dangerouslySetInnerHTML={{ __html: cItem.arabic }}
                       />
                       <Flex
-                        justify={item.benefits ? 'space-between' : 'flex-end'}
+                        justify={cItem.benefits ? 'space-between' : 'flex-end'}
                       >
-                        <If condition={item.benefits !== null}>
+                        <If condition={cItem.benefits !== null}>
                           <Button
                             aria-label="Lihat Keutamaan"
                             py={2}
@@ -102,7 +102,7 @@ const Items = ({ items, category }: iItems) => {
                             opacity={0.7}
                             textTransform="uppercase"
                             onClick={() =>
-                              handleClickBenefits(item.title, item.benefits)
+                              handleClickBenefits(pItem.title, cItem.benefits)
                             }
                           >
                             Lihat Keutamaan
@@ -117,19 +117,19 @@ const Items = ({ items, category }: iItems) => {
                           <Counter />
                         </Flex>
                       </Flex>
-                      <If condition={item.transliteration}>
+                      <If condition={cItem.transliteration}>
                         <Text fontSize={['md', 'lg']} fontStyle="italic">
-                          {item.transliteration}
+                          {cItem.transliteration}
                         </Text>
                       </If>
                       <Text fontSize={['md', 'lg']}>
-                        {`"${item.translation}"`}
-                        <If condition={item.narrator}>
+                        {`"${cItem.translation}"`}
+                        <If condition={cItem.narrator}>
                           <Text
                             as="span"
                             fontSize={['sm', 'md']}
                             opacity={0.8}
-                          >{` [${item.narrator}]`}</Text>
+                          >{` [${cItem.narrator}]`}</Text>
                         </If>
                       </Text>
                     </Flex>
