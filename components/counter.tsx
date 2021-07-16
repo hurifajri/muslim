@@ -11,9 +11,7 @@ const Counter = () => {
   const { bgButton, textDark } = useColors();
 
   const [value, setValue] = useState(0);
-  const handleClickCounter = () => {
-    setValue(value + 1);
-  };
+  const handleClickCounter = () => setValue(value + 1);
 
   return (
     <>

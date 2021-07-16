@@ -12,8 +12,9 @@ import {
 
 // Internal
 import { useColors } from '@hooks';
+import { iBenefits } from '@interfaces';
 
-const Benefits = ({ benefits, title, isOpen, onClose }) => {
+const Benefits = ({ benefits, title, isOpen, onClose }: iBenefits) => {
   // Dark/light mode colors
   const { bg } = useColors();
 

@@ -2,7 +2,7 @@
 import React from 'react';
 import { Icon, IconProps } from '@chakra-ui/react';
 
-const Mosque = (props: IconProps): JSX.Element => (
+const Mosque = (props: IconProps) => (
   <Icon viewBox="0 0 512 512" {...props}>
     <polygon
       points="20.918,355.377 255.971,491.119 491.082,355.377 256.18,219.757 "
