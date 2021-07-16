@@ -6,20 +6,20 @@ import { useEffect, useState } from 'react';
 
 // Internal
 import { useColors } from '@hooks';
-import { capitalize } from '@utils';
 
 const Header = () => {
   const { back, pathname, query } = useRouter();
-  const isDzikir = pathname === '/dzikir/[time]';
-  const time = query?.time ?? '';
-  const type = query?.type ?? '';
+  const isDzikir = pathname === '/dzikir/[category]';
+  const category = Array.isArray(query.category)
+    ? query.category[0]
+    : query.category ?? '';
 
   const [title, setTitle] = useState('');
   useEffect(() => {
     isDzikir
-      ? setTitle(`Dzikir ${capitalize(time)}`)
-      : setTitle(`Kumpulan Doa ${capitalize(type)}`);
-  }, [isDzikir, time, type]);
+      ? setTitle(`Dzikir ${category}`)
+      : setTitle(`Kumpulan Doa ${category}`);
+  }, [category, isDzikir]);
 
   // Dark/light mode colors
   const { bgBlue, textLight } = useColors();
@@ -49,7 +49,12 @@ const Header = () => {
           onClick={back}
           {...iconButtonProps}
         />
-        <Heading as="h1" color={textLight} fontSize={['lg', '2x1']}>
+        <Heading
+          as="h1"
+          color={textLight}
+          fontSize={['lg', '2x1']}
+          textTransform="capitalize"
+        >
           {title}
         </Heading>
       </Flex>

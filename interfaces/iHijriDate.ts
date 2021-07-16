@@ -1,17 +1,15 @@
 // Internal
 import { iSwrResponse } from '@interfaces';
 
-interface iPrayingTimeObject {
+interface iPrayingTime {
   id: number;
   name: string;
   time: string;
 }
 
-type iPrayingTime = iPrayingTimeObject[];
-
 interface iHijriDate extends iSwrResponse {
   hijriDate: string;
-  prayingTimes: iPrayingTime;
+  prayingTimes: iPrayingTime[];
 }
 
 export default iHijriDate;
