@@ -1,5 +1,5 @@
 // Eksternal
-import { AddIcon } from '@chakra-ui/icons';
+import { AddIcon, RepeatIcon } from '@chakra-ui/icons';
 import { IconButton, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
@@ -12,9 +12,18 @@ const Counter = () => {
 
   const [value, setValue] = useState(0);
   const handleClickCounter = () => setValue(value + 1);
+  const handleClickReset = () => setValue(0);
 
   return (
     <>
+      <IconButton
+        aria-label="Reset"
+        bgColor={bgButton}
+        borderLeftRadius="md"
+        color="black"
+        icon={<RepeatIcon pointerEvents="none" />}
+        onClick={handleClickReset}
+      />
       <Input
         variant="unstyled"
         color={textDark}
@@ -28,7 +37,7 @@ const Counter = () => {
       <IconButton
         aria-label="Hitung"
         bgColor={bgButton}
-        borderRadius="md"
+        borderRightRadius="md"
         color="black"
         icon={<AddIcon pointerEvents="none" />}
         onClick={handleClickCounter}

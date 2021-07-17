@@ -122,6 +122,8 @@ const Items = ({ items, category }: iItems) => {
                               opacity={0.7}
                               textTransform="uppercase"
                               width={
+                                pItem.note !== null &&
+                                pItem.note !== 'Dibaca 1x' &&
                                 settings.counter.isActive === true
                                   ? 'auto'
                                   : '100%'
@@ -133,7 +135,13 @@ const Items = ({ items, category }: iItems) => {
                               Lihat Keutamaan
                             </Button>
                           </If>
-                          <If condition={settings.counter.isActive === true}>
+                          <If
+                            condition={
+                              pItem.note !== null &&
+                              pItem.note !== 'Dibaca 1x' &&
+                              settings.counter.isActive === true
+                            }
+                          >
                             <Flex
                               align="center"
                               justify="space-between"
@@ -175,12 +183,14 @@ const Items = ({ items, category }: iItems) => {
           })}
       </Flex>
       {/* Benefits of each item Dzikir or Doa */}
-      <Benefits
-        benefits={benefits}
-        title={title}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
+      <If condition={settings.benefits.isActive === true}>
+        <Benefits
+          benefits={benefits}
+          title={title}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+      </If>
     </>
   );
 };
