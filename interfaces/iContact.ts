@@ -5,3 +5,9 @@ export interface iHandleChangeInput {
 export interface iHandleSubmitForm {
   preventDefault: () => void;
 }
+
+interface iContact {
+  [key: string]: string;
+}
+
+export default iContact;
