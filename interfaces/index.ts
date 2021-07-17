@@ -10,4 +10,6 @@ export type { default as iLocation } from '@interfaces/iLocation';
 export type { iHandleChangeLocation } from '@interfaces/iLocation';
 export type { default as iQuote } from '@interfaces/iQuote';
 export type { default as iSettings } from '@interfaces/iSettings';
+export type { iSetting } from '@interfaces/iSettings';
+export type { iHandleChangeSetting } from '@interfaces/iSettings';
 export type { default as iSwrResponse } from '@interfaces/iSwrResponse';

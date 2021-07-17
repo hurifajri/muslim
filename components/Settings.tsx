@@ -16,10 +16,11 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
+import { Fragment } from 'react';
 
 // Internal
-import { useColors } from '@hooks';
-import { iSettings } from '@interfaces';
+import { useColors, useSettings } from '@hooks';
+import { iHandleChangeSetting, iSettings } from '@interfaces';
 
 const Settings = ({ isOpen, onClose }: iSettings) => {
   // Togle dark/light mode
@@ -27,6 +28,15 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
 
   // Dark/light mode colors
   const { bg } = useColors();
+
+  // Settings
+  const { settings, setSettings } = useSettings();
+  const handleChangeSetting = (event: iHandleChangeSetting) => {
+    const { name, checked } = event.target;
+    const newSettings = { ...settings };
+    newSettings[name].isActive = checked;
+    setSettings(newSettings);
+  };
 
   return (
     <Drawer
@@ -63,35 +73,32 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
             </FormLabel>
             <Switch
               id="mode-gelap"
-              defaultChecked={colorMode === 'light'}
               isChecked={colorMode === 'dark'}
               onChange={toggleColorMode}
             />
           </FormControl>
-          <Divider my={2.5} />
-          {/* Terjemahan */}
-          <FormControl
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <FormLabel htmlFor="terjemahan" mb={0} cursor="pointer">
-              Terjemahan
-            </FormLabel>
-            <Switch id="terjemahan" />
-          </FormControl>
-          <Divider my={2.5} />
-          {/* Transliterasi */}
-          <FormControl
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <FormLabel htmlFor="transliterasi" mb={0} cursor="pointer">
-              Transliterasi
-            </FormLabel>
-            <Switch id="transliterasi" />
-          </FormControl>
+          <Divider my={5} />
+          {/* Other settings */}
+          {Object.values(settings).map(setting => (
+            <Fragment key={setting.name}>
+              <FormControl
+                display="flex"
+                alignItems="center"
+                justifyContent="space-between"
+              >
+                <FormLabel htmlFor={setting.name} mb={0} cursor="pointer">
+                  {setting.label}
+                </FormLabel>
+                <Switch
+                  id={setting.name}
+                  name={setting.name}
+                  isChecked={setting.isActive}
+                  onChange={event => handleChangeSetting(event)}
+                />
+              </FormControl>
+              <Divider my={5} />
+            </Fragment>
+          ))}
         </DrawerBody>
         <DrawerFooter display="flex" justifyContent="flex-start">
           <Text>Tentang Aplikasi</Text>
