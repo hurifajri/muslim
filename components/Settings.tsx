@@ -1,6 +1,7 @@
 // Eksternal
 import { ExternalLinkIcon, SettingsIcon } from '@chakra-ui/icons';
 import {
+  Button,
   Divider,
   Drawer,
   DrawerBody,
@@ -17,6 +18,7 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
+import Link from 'next/link';
 import { Fragment } from 'react';
 
 // Internal
@@ -29,7 +31,7 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
   const { colorMode, toggleColorMode } = useColorMode();
 
   // Dark/light mode colors
-  const { bg } = useColors();
+  const { bg, bgButtonHighlight, textLight } = useColors();
 
   // Settings
   const { settings, setSettings } = useSettings();
@@ -77,6 +79,7 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
               id="mode-gelap"
               isChecked={colorMode === 'dark'}
               onChange={toggleColorMode}
+              colorScheme="purple"
             />
           </FormControl>
           <Divider my={5} />
@@ -96,11 +99,22 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
                   name={setting.name}
                   isChecked={setting.isActive}
                   onChange={event => handleChangeSetting(event)}
+                  colorScheme="purple"
                 />
               </FormControl>
               <Divider my={5} />
             </Fragment>
           ))}
+          <Link href="/contact" passHref={true}>
+            <Button
+              width="100%"
+              color={textLight}
+              bg={bgButtonHighlight}
+              _hover={{ bg: bgButtonHighlight }}
+            >
+              Kritik dan Saran
+            </Button>
+          </Link>
         </DrawerBody>
         <DrawerFooter
           display="flex"

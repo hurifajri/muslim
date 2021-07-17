@@ -20,12 +20,13 @@ const Counter = () => {
         aria-label="Reset"
         bgColor={bgButton}
         borderLeftRadius="md"
-        color="black"
         icon={<RepeatIcon pointerEvents="none" />}
         onClick={handleClickReset}
+        _hover={{ bg: bgButton }}
       />
       <Input
         variant="unstyled"
+        bgColor="transparent"
         color={textDark}
         fontSize={['md', 'lg']}
         fontWeight="bold"
@@ -38,9 +39,9 @@ const Counter = () => {
         aria-label="Hitung"
         bgColor={bgButton}
         borderRightRadius="md"
-        color="black"
         icon={<AddIcon pointerEvents="none" />}
         onClick={handleClickCounter}
+        _hover={{ bg: bgButton }}
       />
     </>
   );

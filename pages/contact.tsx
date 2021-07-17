@@ -11,6 +11,9 @@ import {
 import { NextSeo } from 'next-seo';
 import { useRef } from 'react';
 
+// Internal
+import { useColors } from '@hooks';
+
 const Contact = () => {
   const form = useRef(null);
 
@@ -28,6 +31,10 @@ const Contact = () => {
       .then(response => console.log('Success!', response))
       .catch(error => console.error('Error!', error.message));
   };
+
+  // Dark/light mode colors
+  const { bgButtonHighlight, textLight } = useColors();
+
   return (
     <>
       {/* Head */}
@@ -37,23 +44,30 @@ const Contact = () => {
       />
       <Box height="100vh">
         <form ref={form} onSubmit={handleSubmitForm}>
-          <Flex direction="column" p={4} sx={{ gap: 10 }}>
+          <Flex direction="column" p={5} sx={{ gap: 30 }}>
             <FormControl id="name" isRequired>
-              <FormLabel>Nama</FormLabel>
+              <FormLabel m={0}>Nama</FormLabel>
               <Input name="name" type="text" variant="flushed" />
             </FormControl>
             <FormControl id="email" isRequired>
-              <FormLabel>Email</FormLabel>
+              <FormLabel m={0}>Email</FormLabel>
               <Input name="email" type="email" variant="flushed" />
             </FormControl>
             <FormControl id="message" isRequired>
-              <FormLabel>Pesan</FormLabel>
+              <FormLabel m={0}>Pesan</FormLabel>
               <Input name="message" type="textarea" variant="flushed" />
               <FormHelperText>
                 Silakan sampaikan kritik atau saran.
               </FormHelperText>
             </FormControl>
-            <Button type="submit">Kirim</Button>
+            <Button
+              type="submit"
+              color={textLight}
+              bg={bgButtonHighlight}
+              _hover={{ bg: bgButtonHighlight }}
+            >
+              Kirim
+            </Button>
           </Flex>
         </form>
       </Box>

@@ -20,7 +20,7 @@ const Benefits = dynamic(() => import('@components/Benefits'));
 
 const Items = ({ items, category }: iItems) => {
   // Dark/light mode colors
-  const { bc, bgCard, bgPurple } = useColors();
+  const { bc, bgButton, bgCard, bgPurple, textDark } = useColors();
 
   // Handle "Lihat Keutamaan"
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -123,8 +123,8 @@ const Items = ({ items, category }: iItems) => {
                               py={2}
                               cursor="pointer"
                               fontSize="sm"
-                              opacity={0.7}
                               textTransform="uppercase"
+                              bgColor={bgButton}
                               width={
                                 pItem.note !== null &&
                                 pItem.note !== 'Dibaca 1x' &&
@@ -132,6 +132,7 @@ const Items = ({ items, category }: iItems) => {
                                   ? 'auto'
                                   : '100%'
                               }
+                              _hover={{ bg: bgButton }}
                               onClick={() =>
                                 handleClickBenefits(pItem.title, cItem.benefits)
                               }
