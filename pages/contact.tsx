@@ -14,6 +14,7 @@ import { useRef, useState } from 'react';
 
 // Internal
 import { useColors } from '@hooks';
+import { iHandleChangeInput, iHandleSubmitForm } from '@interfaces';
 
 const Contact = () => {
   const form = useRef(null);
@@ -21,7 +22,7 @@ const Contact = () => {
 
   const initialValues = { name: '', email: '', message: '' };
   const [values, setValues] = useState(initialValues);
-  const handleChangeInput = event => {
+  const handleChangeInput = (event: iHandleChangeInput) => {
     const { name, value } = event.target;
     const newValues = { ...values };
     newValues[name] = value;
@@ -30,7 +31,7 @@ const Contact = () => {
   console.log(values);
 
   const [isLoading, setIsLoading] = useState(false);
-  const handleSubmitForm = event => {
+  const handleSubmitForm = (event: iHandleSubmitForm) => {
     event.preventDefault();
     const feedback = new FormData(form.current);
     const url =
