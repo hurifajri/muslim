@@ -1,6 +1,5 @@
 // Eksternal
 import {
-  Box,
   Button,
   Flex,
   FormControl,
@@ -78,54 +77,60 @@ const Contact = () => {
         title="Muslim • Kritik dan Saran"
         description="Silakan sampaikan kritik dan saran."
       />
-      <Box height="100vh">
-        <form ref={form} onSubmit={handleSubmitForm}>
-          <Flex direction="column" p={5} sx={{ gap: 30 }}>
-            <FormControl id="name" isRequired>
-              <FormLabel m={0}>Nama</FormLabel>
-              <Input
-                name="name"
-                type="text"
-                value={values['name']}
-                onChange={handleChangeInput}
-                variant="flushed"
-              />
-            </FormControl>
-            <FormControl id="email" isRequired>
-              <FormLabel m={0}>Email</FormLabel>
-              <Input
-                name="email"
-                type="email"
-                value={values['email']}
-                onChange={handleChangeInput}
-                variant="flushed"
-              />
-            </FormControl>
-            <FormControl id="message" isRequired>
-              <FormLabel m={0}>Pesan</FormLabel>
-              <Textarea
-                name="message"
-                value={values['message']}
-                onChange={handleChangeInput}
-                variant="flushed"
-              />
-              <FormHelperText>
-                Silakan sampaikan kritik atau saran.
-              </FormHelperText>
-            </FormControl>
-            <Button
-              type="submit"
-              isLoading={isLoading}
-              loadingText="Mengirim"
-              color={textLight}
-              bg={bgButtonHighlight}
-              _hover={{ bg: bgButtonHighlight }}
-            >
-              Kirim
-            </Button>
-          </Flex>
-        </form>
-      </Box>
+      <form ref={form} onSubmit={handleSubmitForm}>
+        <Flex
+          as="main"
+          height="100vh"
+          direction="column"
+          p={5}
+          sx={{ gap: 30 }}
+        >
+          <FormControl id="name" isRequired>
+            <FormLabel m={0}>Nama</FormLabel>
+            <Input
+              name="name"
+              type="text"
+              value={values['name']}
+              onChange={handleChangeInput}
+              variant="flushed"
+            />
+          </FormControl>
+          <FormControl id="email" isRequired>
+            <FormLabel m={0}>Email</FormLabel>
+            <Input
+              name="email"
+              type="email"
+              value={values['email']}
+              onChange={handleChangeInput}
+              variant="flushed"
+            />
+          </FormControl>
+          <FormControl id="message" isRequired>
+            <FormLabel m={0}>Pesan</FormLabel>
+            <Textarea
+              name="message"
+              value={values['message']}
+              onChange={handleChangeInput}
+              variant="flushed"
+            />
+            <FormHelperText>
+              Silakan sampaikan kritik dan sarannya. Insyaa Allah akan sangat
+              bermanfaat untuk kami dalam memperbaiki aplikasi ini agar menjadi
+              lebih baik lagi.
+            </FormHelperText>
+          </FormControl>
+          <Button
+            type="submit"
+            isLoading={isLoading}
+            loadingText="Mengirim"
+            color={textLight}
+            bg={bgButtonHighlight}
+            _hover={{ bg: bgButtonHighlight }}
+          >
+            Kirim
+          </Button>
+        </Flex>
+      </form>
     </>
   );
 };
