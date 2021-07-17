@@ -93,11 +93,14 @@ const Items = ({ items, category }: iItems) => {
                         lineHeight={2.5}
                         dangerouslySetInnerHTML={{ __html: cItem.arabic }}
                       />
+                      {/* Condition to render benefits and counter button */}
                       <If
                         condition={
                           (cItem.benefits !== null &&
                             settings.benefits.isActive === true) ||
-                          settings.counter.isActive === true
+                          (pItem.note !== null &&
+                            pItem.note !== 'Dibaca 1x' &&
+                            settings.counter.isActive === true)
                         }
                       >
                         <Flex
@@ -108,6 +111,7 @@ const Items = ({ items, category }: iItems) => {
                               : 'flex-end'
                           }
                         >
+                          {/* Condition to render benefits button */}
                           <If
                             condition={
                               cItem.benefits !== null &&
@@ -135,6 +139,7 @@ const Items = ({ items, category }: iItems) => {
                               Lihat Keutamaan
                             </Button>
                           </If>
+                          {/* Condition to render counter button */}
                           <If
                             condition={
                               pItem.note !== null &&
@@ -153,6 +158,7 @@ const Items = ({ items, category }: iItems) => {
                           </If>
                         </Flex>
                       </If>
+                      {/*  Condition to render transliteration */}
                       <If
                         condition={
                           cItem.transliteration &&
@@ -163,6 +169,7 @@ const Items = ({ items, category }: iItems) => {
                           {cItem.transliteration}
                         </Text>
                       </If>
+                      {/*  Condition to render translation */}
                       <If condition={settings.translation.isActive === true}>
                         <Text fontSize={['md', 'lg']}>
                           {`"${cItem.translation}"`}
