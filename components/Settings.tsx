@@ -109,13 +109,13 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
           sx={{ gap: 10 }}
         >
           <Text fontSize={['sm', 'md']}>Tentang Aplikasi</Text>
-          <Flex direction="column" width="100%" sx={{ gap: 5 }}>
+          <Flex direction="column" width="100%" sx={{ gap: 30 }}>
             <Flex align="center" justify="space-between">
               <Text fontSize={['xs', 'sm']}>Versi</Text>
               <Text fontSize={['xs', 'sm']}>1.0.0</Text>
             </Flex>
-            <Flex direction="column">
-              <Text fontSize={['xs', 'sm']}>Sumber</Text>
+            <Flex direction="column" sx={{ gap: 10 }}>
+              <Text fontSize={['sm', 'md']}>Sumber</Text>
               <Flex flexWrap="wrap" align="center" sx={{ gap: 5 }}>
                 {sources.map(source => (
                   <Flex
