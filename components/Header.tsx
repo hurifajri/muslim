@@ -10,6 +10,7 @@ import { useColors } from '@hooks';
 const Header = () => {
   const { back, pathname, query } = useRouter();
   const isDzikir = pathname === '/dzikir/[category]';
+  const isDoa = pathname === '/doa/[category]';
   const category = Array.isArray(query.category)
     ? query.category[0]
     : query.category ?? '';
@@ -18,8 +19,10 @@ const Header = () => {
   useEffect(() => {
     isDzikir
       ? setTitle(`Dzikir ${category}`)
-      : setTitle(`Kumpulan Doa ${category}`);
-  }, [category, isDzikir]);
+      : isDoa
+      ? setTitle(`Kumpulan Doa ${category}`)
+      : setTitle(`Kritik dan Saran`);
+  }, [category, isDzikir, isDoa]);
 
   // Dark/light mode colors
   const { bgBlue, textLight } = useColors();
