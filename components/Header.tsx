@@ -40,7 +40,7 @@ const Header = () => {
       top={0}
       left={0}
       right={0}
-      zIndex={1}
+      zIndex={2}
       align="center"
       justify="space-between"
     >
