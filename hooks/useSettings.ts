@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react';
 
 // Internal
+import { initialSettings } from '@data';
 import { isServer } from '@helpers';
 import { iSetting } from '@interfaces';
-import { initialSettings } from '@utils';
 
 const useSettings = () => {
   const key = 'mslm-settings';
