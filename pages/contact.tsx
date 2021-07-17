@@ -7,6 +7,7 @@ import {
   FormHelperText,
   FormLabel,
   Input,
+  Textarea,
   useToast,
 } from '@chakra-ui/react';
 import { NextSeo } from 'next-seo';
@@ -102,9 +103,8 @@ const Contact = () => {
             </FormControl>
             <FormControl id="message" isRequired>
               <FormLabel m={0}>Pesan</FormLabel>
-              <Input
+              <Textarea
                 name="message"
-                type="textarea"
                 value={values['message']}
                 onChange={handleChangeInput}
                 variant="flushed"
