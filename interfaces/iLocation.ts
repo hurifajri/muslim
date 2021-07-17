@@ -1,3 +1,4 @@
+// Eksternal
 import { SetStateAction } from 'react';
 
 interface iLocation {

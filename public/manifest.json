@@ -28,8 +28,8 @@
       "purpose": "any maskable"
     }
   ],
-  "theme_color": "#44339A",
-  "background_color": "#322659",
+  "theme_color": "#322659",
+  "background_color": "#7D2AE8",
   "start_url": "/",
   "display": "fullscreen",
   "orientation": "portrait"
