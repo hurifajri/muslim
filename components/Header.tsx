@@ -21,7 +21,7 @@ const Header = () => {
       ? setTitle(`Dzikir ${category}`)
       : isDoa
       ? setTitle(`Kumpulan Doa ${category}`)
-      : setTitle(`Kritik dan Saran`);
+      : setTitle(`Kritik & Saran`);
   }, [category, isDzikir, isDoa]);
 
   // Dark/light mode colors
