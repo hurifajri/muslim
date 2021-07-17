@@ -20,7 +20,7 @@ const Benefits = dynamic(() => import('@components/Benefits'));
 
 const Items = ({ items, category }: iItems) => {
   // Dark/light mode colors
-  const { bc, bgButton, bgCard, bgPurple, textDark } = useColors();
+  const { bc, bgButton, bgCard, bgPurple } = useColors();
 
   // Handle "Lihat Keutamaan"
   const { isOpen, onOpen, onClose } = useDisclosure();
