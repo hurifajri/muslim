@@ -13,12 +13,13 @@ import {
 import { useEffect, useState } from 'react';
 
 // Internal
+import { isServer } from '@helpers';
 import { useInitialLocation } from '@hooks';
 import { iHandleChangeLocation, iLocation } from '@interfaces';
 
 const Location = ({ isOpen, onClose }: iLocation) => {
   // Get and set default location from storage if any
-  const { isServer, initialLocation } = useInitialLocation();
+  const { initialLocation } = useInitialLocation();
 
   // Get and set typed location by user
   const [tempLocation, setTempLocation] = useState(initialLocation);
@@ -35,7 +36,7 @@ const Location = ({ isOpen, onClose }: iLocation) => {
   // Set location to storage
   useEffect(() => {
     if (!isServer) localStorage?.setItem('mslm-location', location);
-  }, [isServer, location]);
+  }, [location]);
 
   return (
     <Modal
