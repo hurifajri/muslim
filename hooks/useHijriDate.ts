@@ -7,7 +7,7 @@ import { iHijriDate } from '@interfaces';
 const useHijriDate = (city: string): iHijriDate => {
   // Get current hijri date and praying times
   const { data, error } = useSWR(
-    `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=ID&method=4&adjustment=-1`
+    `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=ID&method=4&adjustment=0`
   );
 
   // Set hijri date
