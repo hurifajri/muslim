@@ -13,7 +13,7 @@ const useColors = () => {
   const bgCard = useColorModeValue('white', 'purple.800');
   const bgGradientBlue = useColorModeValue('blue.400', 'blue.300');
   const bgGradientPurple = useColorModeValue('purple.400', 'purple.300');
-  const bgInput = useColorModeValue('purple.100', 'purple.5400');
+  const bgInput = useColorModeValue('purple.100', 'purple.400');
   const bgPurple = useColorModeValue('#E3DEFF', '#C3B8FF');
   const iconMenu = useColorModeValue('#36219E', '#FFFFFFEB');
   const textDark = useColorModeValue('gray.800', 'gray.900');

@@ -110,7 +110,9 @@ const Contact = () => {
                 variant="flushed"
               />
               <FormHelperText>
-                Silakan sampaikan kritik atau saran.
+                Silakan sampaikan kritik dan sarannya. Insyaa Allah akan sangat
+                bermanfaat untuk kami dalam memperbaiki aplikasi ini agar
+                menjadi lebih baik lagi.
               </FormHelperText>
             </FormControl>
             <Button

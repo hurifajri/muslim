@@ -122,7 +122,7 @@ const Items = ({ items, category }: iItems) => {
                               aria-label="Lihat Keutamaan"
                               py={2}
                               cursor="pointer"
-                              fontSize="sm"
+                              fontSize={['sm', 'md']}
                               textTransform="uppercase"
                               bgColor={bgButton}
                               width={
@@ -148,14 +148,7 @@ const Items = ({ items, category }: iItems) => {
                               settings.counter.isActive === true
                             }
                           >
-                            <Flex
-                              align="center"
-                              justify="space-between"
-                              borderRadius="md"
-                              bgColor={bgPurple}
-                            >
-                              <Counter />
-                            </Flex>
+                            <Counter />
                           </If>
                         </Flex>
                       </If>
