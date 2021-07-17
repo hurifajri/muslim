@@ -1,5 +1,5 @@
 // Eksternal
-import { SettingsIcon } from '@chakra-ui/icons';
+import { ExternalLinkIcon, SettingsIcon } from '@chakra-ui/icons';
 import {
   Divider,
   Drawer,
@@ -9,6 +9,7 @@ import {
   DrawerFooter,
   DrawerHeader,
   DrawerOverlay,
+  Flex,
   FormControl,
   FormLabel,
   Heading,
@@ -19,6 +20,7 @@ import {
 import { Fragment } from 'react';
 
 // Internal
+import { sources } from '@data';
 import { useColors, useSettings } from '@hooks';
 import { iHandleChangeSetting, iSettings } from '@interfaces';
 
@@ -100,8 +102,39 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
             </Fragment>
           ))}
         </DrawerBody>
-        <DrawerFooter display="flex" justifyContent="flex-start">
-          <Text>Tentang Aplikasi</Text>
+        <DrawerFooter
+          display="flex"
+          alignItems="flex-start"
+          flexDirection="column"
+          sx={{ gap: 10 }}
+        >
+          <Text fontSize={['sm', 'md']}>Tentang Aplikasi</Text>
+          <Flex direction="column" width="100%" sx={{ gap: 5 }}>
+            <Flex align="center" justify="space-between">
+              <Text fontSize={['xs', 'sm']}>Versi</Text>
+              <Text fontSize={['xs', 'sm']}>1.0.0</Text>
+            </Flex>
+            <Flex direction="column">
+              <Text fontSize={['xs', 'sm']}>Sumber</Text>
+              <Flex flexWrap="wrap" align="center" sx={{ gap: 5 }}>
+                {sources.map(source => (
+                  <Flex
+                    key={source.id}
+                    align="center"
+                    justify="center"
+                    sx={{ gap: 5 }}
+                  >
+                    <Text fontSize={['xs', 'sm']}>{source.title}</Text>
+                    <Text fontSize={['xs', 'sm']}>
+                      <a href={source.url} target="_blank" rel="noreferrer">
+                        <ExternalLinkIcon />
+                      </a>
+                    </Text>
+                  </Flex>
+                ))}
+              </Flex>
+            </Flex>
+          </Flex>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>

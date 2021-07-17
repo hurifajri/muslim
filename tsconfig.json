@@ -24,9 +24,7 @@
       "@public": ["public"],
       "@public/*": ["public/*"],
       "@theme": ["theme"],
-      "@theme/*": ["theme/*"],
-      "@utils": ["utils"],
-      "@utils/*": ["utils/*"]
+      "@theme/*": ["theme/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,
