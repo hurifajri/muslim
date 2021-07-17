@@ -47,7 +47,7 @@ const Contact = () => {
       .then(() => {
         setValues(initialValues);
         toast({
-          position: 'bottom',
+          position: 'top',
           title: 'Pesan berhasil dikirim.',
           description: 'Jazakumullahu khairo atas kritik dan sarannya.',
           status: 'success',
@@ -57,6 +57,7 @@ const Contact = () => {
       })
       .catch(() =>
         toast({
+          position: 'top',
           title: 'Pesan gagal dikirim.',
           description: 'Mohon dicoba beberapa saat lagi.',
           status: 'error',
