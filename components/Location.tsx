@@ -14,7 +14,7 @@ import { useEffect, useState } from 'react';
 
 // Internal
 import { isServer } from '@helpers';
-import { useInitialLocation } from '@hooks';
+import { useColors, useInitialLocation } from '@hooks';
 import { iHandleChangeLocation, iLocation } from '@interfaces';
 
 const Location = ({ isOpen, onClose }: iLocation) => {
@@ -37,6 +37,9 @@ const Location = ({ isOpen, onClose }: iLocation) => {
   useEffect(() => {
     if (!isServer) localStorage?.setItem('mslm-location', location);
   }, [location]);
+
+  // Dark/light mode colors
+  const { bgButton } = useColors();
 
   return (
     <Modal
@@ -63,9 +66,9 @@ const Location = ({ isOpen, onClose }: iLocation) => {
 
         <ModalFooter>
           <Button
-            colorScheme="purple"
-            bgGradient="linear(to-bl, purple.400, blue.400)"
+            bgColor={bgButton}
             onClick={handleClickLocation}
+            _hover={{ bg: bgButton }}
           >
             Simpan
           </Button>
