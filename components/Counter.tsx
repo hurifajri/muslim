@@ -8,7 +8,7 @@ import { useColors } from '@hooks';
 
 const Counter = () => {
   // Dark/light mode colors
-  const { bgButton, textDark } = useColors();
+  const { bgButton, bgInput, textDark } = useColors();
 
   const [value, setValue] = useState(0);
   const handleClickCounter = () => setValue(value + 1);
@@ -26,8 +26,8 @@ const Counter = () => {
       />
       <Input
         variant="unstyled"
-        bgColor="transparent"
         color={textDark}
+        bgColor={bgInput}
         fontSize={['md', 'lg']}
         fontWeight="bold"
         textAlign="center"
