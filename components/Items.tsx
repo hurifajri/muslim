@@ -12,7 +12,7 @@ import { useState } from 'react';
 
 // Internal
 import { Counter, If } from '@components';
-import { useColors } from '@hooks';
+import { useColors, useSettings } from '@hooks';
 import { iBenefit, iItems } from '@interfaces';
 
 // Internal dynamic
@@ -20,7 +20,7 @@ const Benefits = dynamic(() => import('@components/Benefits'));
 
 const Items = ({ items, category }: iItems) => {
   // Dark/light mode colors
-  const { bc, bgCard, bgPurple } = useColors();
+  const { bc, bgButton, bgCard, bgPurple } = useColors();
 
   // Handle "Lihat Keutamaan"
   const { isOpen, onOpen, onClose } = useDisclosure();
@@ -34,6 +34,9 @@ const Items = ({ items, category }: iItems) => {
     setBenefits(itemBenefits);
     onOpen();
   };
+
+  // Settings
+  const { settings } = useSettings();
 
   return (
     <>
@@ -90,48 +93,96 @@ const Items = ({ items, category }: iItems) => {
                         lineHeight={2.5}
                         dangerouslySetInnerHTML={{ __html: cItem.arabic }}
                       />
-                      <Flex
-                        justify={cItem.benefits ? 'space-between' : 'flex-end'}
+                      {/* Condition to render benefits and counter button */}
+                      <If
+                        condition={
+                          (cItem.benefits !== null &&
+                            settings.benefits.isActive === true) ||
+                          (pItem.note !== null &&
+                            pItem.note !== 'Dibaca 1x' &&
+                            settings.counter.isActive === true)
+                        }
                       >
-                        <If condition={cItem.benefits !== null}>
-                          <Button
-                            aria-label="Lihat Keutamaan"
-                            py={2}
-                            cursor="pointer"
-                            fontSize="sm"
-                            opacity={0.7}
-                            textTransform="uppercase"
-                            onClick={() =>
-                              handleClickBenefits(pItem.title, cItem.benefits)
+                        <Flex
+                          justify={
+                            cItem.benefits !== null &&
+                            settings.benefits.isActive === true
+                              ? 'space-between'
+                              : 'flex-end'
+                          }
+                        >
+                          {/* Condition to render benefits button */}
+                          <If
+                            condition={
+                              cItem.benefits !== null &&
+                              settings.benefits.isActive === true
                             }
                           >
-                            Lihat Keutamaan
-                          </Button>
-                        </If>
-                        <Flex
-                          align="center"
-                          justify="space-between"
-                          borderRadius="md"
-                          bgColor={bgPurple}
-                        >
-                          <Counter />
+                            <Button
+                              aria-label="Lihat Keutamaan"
+                              py={2}
+                              cursor="pointer"
+                              fontSize="sm"
+                              textTransform="uppercase"
+                              bgColor={bgButton}
+                              width={
+                                pItem.note !== null &&
+                                pItem.note !== 'Dibaca 1x' &&
+                                settings.counter.isActive === true
+                                  ? 'auto'
+                                  : '100%'
+                              }
+                              _hover={{ bg: bgButton }}
+                              onClick={() =>
+                                handleClickBenefits(pItem.title, cItem.benefits)
+                              }
+                            >
+                              Lihat Keutamaan
+                            </Button>
+                          </If>
+                          {/* Condition to render counter button */}
+                          <If
+                            condition={
+                              pItem.note !== null &&
+                              pItem.note !== 'Dibaca 1x' &&
+                              settings.counter.isActive === true
+                            }
+                          >
+                            <Flex
+                              align="center"
+                              justify="space-between"
+                              borderRadius="md"
+                              bgColor={bgPurple}
+                            >
+                              <Counter />
+                            </Flex>
+                          </If>
                         </Flex>
-                      </Flex>
-                      <If condition={cItem.transliteration}>
+                      </If>
+                      {/*  Condition to render transliteration */}
+                      <If
+                        condition={
+                          cItem.transliteration &&
+                          settings.transliteration.isActive === true
+                        }
+                      >
                         <Text fontSize={['md', 'lg']} fontStyle="italic">
                           {cItem.transliteration}
                         </Text>
                       </If>
-                      <Text fontSize={['md', 'lg']}>
-                        {`"${cItem.translation}"`}
-                        <If condition={cItem.narrator}>
-                          <Text
-                            as="span"
-                            fontSize={['sm', 'md']}
-                            opacity={0.8}
-                          >{` [${cItem.narrator}]`}</Text>
-                        </If>
-                      </Text>
+                      {/*  Condition to render translation */}
+                      <If condition={settings.translation.isActive === true}>
+                        <Text fontSize={['md', 'lg']}>
+                          {`"${cItem.translation}"`}
+                          <If condition={cItem.narrator}>
+                            <Text
+                              as="span"
+                              fontSize={['sm', 'md']}
+                              opacity={0.8}
+                            >{` [${cItem.narrator}]`}</Text>
+                          </If>
+                        </Text>
+                      </If>
                     </Flex>
                   );
                 })}
@@ -140,12 +191,14 @@ const Items = ({ items, category }: iItems) => {
           })}
       </Flex>
       {/* Benefits of each item Dzikir or Doa */}
-      <Benefits
-        benefits={benefits}
-        title={title}
-        isOpen={isOpen}
-        onClose={onClose}
-      />
+      <If condition={settings.benefits.isActive === true}>
+        <Benefits
+          benefits={benefits}
+          title={title}
+          isOpen={isOpen}
+          onClose={onClose}
+        />
+      </If>
     </>
   );
 };

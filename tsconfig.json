@@ -15,6 +15,8 @@
       "@components/*": ["components/*"],
       "@data": ["data"],
       "@data/*": ["data/*"],
+      "@helpers": ["helpers"],
+      "@helpers/*": ["helpers/*"],
       "@hooks": ["hooks"],
       "@hooks/*": ["hooks/*"],
       "@interfaces": ["interfaces"],
@@ -22,9 +24,7 @@
       "@public": ["public"],
       "@public/*": ["public/*"],
       "@theme": ["theme"],
-      "@theme/*": ["theme/*"],
-      "@utils": ["utils"],
-      "@utils/*": ["utils/*"]
+      "@theme/*": ["theme/*"]
     },
     "resolveJsonModule": true,
     "skipLibCheck": true,

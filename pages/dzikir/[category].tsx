@@ -5,7 +5,7 @@ import { NextSeo } from 'next-seo';
 // Internal
 import { Items } from '@components';
 import { dzikirs } from '@data';
-import { capitalize } from '@utils';
+import { capitalize } from '@helpers';
 
 const Dzikir = () => {
   const { query } = useRouter();
