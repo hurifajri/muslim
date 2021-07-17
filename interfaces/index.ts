@@ -1,5 +1,6 @@
 export type { default as iBenefits } from '@interfaces/iBenefits';
 export type { iBenefit } from '@interfaces/iBenefits';
+export type { default as iContact } from '@interfaces/iContact';
 export type { iHandleChangeInput } from '@interfaces/iContact';
 export type { iHandleSubmitForm } from '@interfaces/iContact';
 export type { default as iGregDate } from '@interfaces/iGregDate';

@@ -14,26 +14,30 @@ import { useRef, useState } from 'react';
 
 // Internal
 import { useColors } from '@hooks';
-import { iHandleChangeInput, iHandleSubmitForm } from '@interfaces';
+import { iContact, iHandleChangeInput, iHandleSubmitForm } from '@interfaces';
 
 const Contact = () => {
-  const form = useRef(null);
+  const form = useRef<HTMLFormElement>(null);
   const toast = useToast();
 
   const initialValues = { name: '', email: '', message: '' };
-  const [values, setValues] = useState(initialValues);
+  const [values, setValues] = useState<iContact>(initialValues);
   const handleChangeInput = (event: iHandleChangeInput) => {
     const { name, value } = event.target;
     const newValues = { ...values };
     newValues[name] = value;
     setValues(newValues);
   };
-  console.log(values);
 
   const [isLoading, setIsLoading] = useState(false);
   const handleSubmitForm = (event: iHandleSubmitForm) => {
     event.preventDefault();
-    const feedback = new FormData(form.current);
+
+    let feedback;
+    if (form.current !== null) {
+      feedback = new FormData(form.current);
+    }
+
     const url =
       'https://script.google.com/macros/s/AKfycbx-JUKUUL4kQDDhmlzpElo-eY5YDBwkYvgAK3b-EIxFoCV3KZqD2CuvccMouYz4TTi8/exec';
 
