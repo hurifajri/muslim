@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "dev.jadi.muslim.twa",
+                   "sha256_cert_fingerprints": ["74:D9:F0:58:2E:D4:89:39:EE:BA:A6:66:88:A9:49:4E:48:CD:3A:33:CE:AB:09:C8:B4:1E:17:E7:2E:9E:5B:23"] }
+    }]
