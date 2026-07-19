@@ -2,9 +2,9 @@
 import useSWR from 'swr';
 
 // Internal
-import { iHijriDate } from '@interfaces';
+import { HijriDate } from '@interfaces/HijriDate';
 
-const useHijriDate = (city: string): iHijriDate => {
+const useHijriDate = (city: string): HijriDate => {
   // Get current hijri date and praying times
   const { data, error } = useSWR(
     `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=ID&method=11&adjustment=0`

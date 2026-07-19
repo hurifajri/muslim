@@ -1,14 +1,12 @@
-export interface iBenefit {
+export interface Benefit {
   id: number;
   translation: string;
   narrator: string;
 }
 
-interface iBenefits {
-  benefits: iBenefit[] | null;
+export interface BenefitsProps {
+  benefits: Benefit[] | null;
   title: string;
   isOpen: boolean;
   onClose: () => void;
 }
-
-export default iBenefits;

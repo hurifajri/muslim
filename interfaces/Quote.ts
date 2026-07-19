@@ -1,7 +1,5 @@
-interface iQuote {
+export interface Quote {
   id: number;
   quote: string;
   narrator: string;
 }
-
-export default iQuote;

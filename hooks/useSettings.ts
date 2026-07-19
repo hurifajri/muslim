@@ -2,14 +2,14 @@
 import { useEffect, useState } from 'react';
 
 // Internal
-import { initialSettings } from '@data';
-import { isServer } from '@helpers';
-import { iSetting } from '@interfaces';
+import initialSettings from '@data/initialSettings';
+import isServer from '@helpers/isServer';
+import { Setting } from '@interfaces/Settings';
 
 const useSettings = () => {
   const key = 'mslm-settings';
 
-  const [settings, setSettings] = useState<iSetting>(() => {
+  const [settings, setSettings] = useState<Setting>(() => {
     const storedSetting = !isServer ? localStorage?.getItem(key) : null;
 
     return storedSetting !== null ? JSON.parse(storedSetting) : initialSettings;

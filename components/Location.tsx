@@ -13,17 +13,18 @@ import {
 import { useEffect, useState } from 'react';
 
 // Internal
-import { isServer } from '@helpers';
-import { useColors, useInitialLocation } from '@hooks';
-import { iHandleChangeLocation, iLocation } from '@interfaces';
+import isServer from '@helpers/isServer';
+import useColors from '@hooks/useColors';
+import useInitialLocation from '@hooks/useInitialLocation';
+import { HandleChangeLocation, LocationProps } from '@interfaces/Location';
 
-const Location = ({ isOpen, onClose }: iLocation) => {
+const Location = ({ isOpen, onClose }: LocationProps) => {
   // Get and set default location from storage if any
   const { initialLocation } = useInitialLocation();
 
   // Get and set typed location by user
   const [tempLocation, setTempLocation] = useState(initialLocation);
-  const handleChangeLocation = (event: iHandleChangeLocation) =>
+  const handleChangeLocation = (event: HandleChangeLocation) =>
     setTempLocation(event.target.value);
 
   // Set location from user typing and exit

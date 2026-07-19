@@ -22,11 +22,12 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 
 // Internal
-import { sources } from '@data';
-import { useColors, useSettings } from '@hooks';
-import { iHandleChangeSetting, iSettings } from '@interfaces';
+import sources from '@data/sources';
+import useColors from '@hooks/useColors';
+import useSettings from '@hooks/useSettings';
+import { HandleChangeSetting, SettingsProps } from '@interfaces/Settings';
 
-const Settings = ({ isOpen, onClose }: iSettings) => {
+const Settings = ({ isOpen, onClose }: SettingsProps) => {
   // Togle dark/light mode
   const { colorMode, toggleColorMode } = useColorMode();
 
@@ -35,7 +36,7 @@ const Settings = ({ isOpen, onClose }: iSettings) => {
 
   // Settings
   const { settings, setSettings } = useSettings();
-  const handleChangeSetting = (event: iHandleChangeSetting) => {
+  const handleChangeSetting = (event: HandleChangeSetting) => {
     const { name, checked } = event.target;
     const newSettings = { ...settings };
     newSettings[name].isActive = checked;

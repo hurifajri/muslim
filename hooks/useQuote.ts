@@ -2,10 +2,10 @@
 import { useEffect, useState } from 'react';
 
 // Internal
-import { iQuote } from '@interfaces';
-import { quotes } from '@data';
+import { Quote } from '@interfaces/Quote';
+import quotes from '@data/quotes';
 
-const useQuote = (): iQuote => {
+const useQuote = (): Quote => {
   const totalQuotes = quotes?.length ?? 0;
   const [randomNumber, setRandomNumber] = useState(
     Math.floor(Math.random() * totalQuotes)

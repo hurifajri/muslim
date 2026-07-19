@@ -2,9 +2,9 @@
 import { useEffect, useState } from 'react';
 
 // Internal
-import { iGregDate } from '@interfaces';
+import { GregDate } from '@interfaces/GregDate';
 
-const useGregDate = (): iGregDate => {
+const useGregDate = (): GregDate => {
   // Create date instance
   const date = new Date();
 
