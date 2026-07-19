@@ -13,9 +13,9 @@ import {
 import { useEffect, useState } from 'react';
 
 // Internal
-import isServer from '@/helpers/isServer';
-import useColors from '@/hooks/useColors';
-import useInitialLocation from '@/hooks/useInitialLocation';
+import isServer from '@/helpers/is-server';
+import useColors from '@/hooks/use-colors';
+import useInitialLocation from '@/hooks/use-initial-location';
 
 interface LocationProps {
   isOpen: boolean;

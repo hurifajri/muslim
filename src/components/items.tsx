@@ -10,12 +10,12 @@ import {
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
-import type { Benefit } from '@/components/Benefits';
+import type { Benefit } from '@/components/benefits';
 // Internal
-import Counter from '@/components/Counter';
-import If from '@/components/If';
-import useColors from '@/hooks/useColors';
-import useSettings from '@/hooks/useSettings';
+import Counter from '@/components/counter';
+import If from '@/components/if';
+import useColors from '@/hooks/use-colors';
+import useSettings from '@/hooks/use-settings';
 
 interface ContentItem {
   id: number;
@@ -40,7 +40,7 @@ interface ItemsProps {
 }
 
 // Internal dynamic
-const Benefits = dynamic(() => import('@/components/Benefits'));
+const Benefits = dynamic(() => import('@/components/benefits'));
 
 const Items = ({ items, category }: ItemsProps) => {
   // Dark/light mode colors
@@ -65,7 +65,7 @@ const Items = ({ items, category }: ItemsProps) => {
   return (
     <>
       {/* Dzikir or Doa */}
-      <Flex as="main" direction="column">
+      <Flex as="main" sx={{ flexDirection: 'column' }}>
         {items
           .filter(pItem => pItem.category.includes(category))
           .map(pItem => {
@@ -73,30 +73,36 @@ const Items = ({ items, category }: ItemsProps) => {
               <Flex
                 as="section"
                 key={pItem.id}
-                direction="column"
-                borderBottom={`1px solid ${bc}`}
-                _even={{ bgColor: bgCard }}
-                _last={{
-                  borderBottom: 'none',
+                sx={{
+                  flexDirection: 'column',
+                  borderBottom: `1px solid ${bc}`,
+                  _even: { bgColor: bgCard },
+                  _last: { borderBottom: 'none' },
                 }}
               >
                 {/* Header */}
                 <Flex
                   as="header"
-                  align="center"
-                  justify="space-between"
-                  borderBottom={`1px solid ${bc}`}
-                  p={4}
+                  sx={{
+                    alignItems: 'center',
+                    justifyContent: 'space-between',
+                    borderBottom: `1px solid ${bc}`,
+                    p: 4,
+                  }}
                 >
-                  <Heading fontSize={['md', 'lg']} fontWeight="bold" flex={3}>
+                  <Heading
+                    sx={{ fontSize: ['md', 'lg'], fontWeight: 'bold', flex: 3 }}
+                  >
                     {pItem.title}
                   </Heading>
                   <If condition={pItem.note}>
                     <Text
-                      fontSize={['sm', 'md']}
-                      opacity={0.8}
-                      flex={1}
-                      textAlign="right"
+                      sx={{
+                        fontSize: ['sm', 'md'],
+                        opacity: 0.8,
+                        flex: 1,
+                        textAlign: 'right',
+                      }}
                     >
                       {pItem.note}
                     </Text>
@@ -106,16 +112,16 @@ const Items = ({ items, category }: ItemsProps) => {
                   return (
                     <Flex
                       key={cItem.id}
-                      direction="column"
-                      p={4}
-                      sx={{ gap: 20 }}
+                      sx={{ flexDirection: 'column', p: 4, gap: 20 }}
                     >
                       <Box
-                        fontFamily="Amiri, serif"
-                        textAlign="right"
-                        fontSize="2xl"
-                        lineHeight={2.5}
                         dangerouslySetInnerHTML={{ __html: cItem.arabic }}
+                        sx={{
+                          fontFamily: 'Amiri, serif',
+                          textAlign: 'right',
+                          fontSize: '2xl',
+                          lineHeight: 2.5,
+                        }}
                       />
                       {/* Condition to render benefits and counter button */}
                       <If
@@ -128,12 +134,13 @@ const Items = ({ items, category }: ItemsProps) => {
                         }
                       >
                         <Flex
-                          justify={
-                            cItem.benefits !== null &&
-                            settings.benefits.isActive === true
-                              ? 'space-between'
-                              : 'flex-end'
-                          }
+                          sx={{
+                            justifyContent:
+                              cItem.benefits !== null &&
+                              settings.benefits.isActive === true
+                                ? 'space-between'
+                                : 'flex-end',
+                          }}
                         >
                           {/* Condition to render benefits button */}
                           <If
@@ -144,22 +151,23 @@ const Items = ({ items, category }: ItemsProps) => {
                           >
                             <Button
                               aria-label="Lihat Keutamaan"
-                              py={2}
-                              cursor="pointer"
-                              fontSize={['sm', 'md']}
-                              textTransform="uppercase"
-                              bgColor={bgButton}
-                              width={
-                                pItem.note !== null &&
-                                pItem.note !== 'Dibaca 1x' &&
-                                settings.counter.isActive === true
-                                  ? 'auto'
-                                  : '100%'
-                              }
-                              _hover={{ bg: bgButton }}
                               onClick={() =>
                                 handleClickBenefits(pItem.title, cItem.benefits)
                               }
+                              sx={{
+                                py: 2,
+                                cursor: 'pointer',
+                                fontSize: ['sm', 'md'],
+                                textTransform: 'uppercase',
+                                bgColor: bgButton,
+                                width:
+                                  pItem.note !== null &&
+                                  pItem.note !== 'Dibaca 1x' &&
+                                  settings.counter.isActive === true
+                                    ? 'auto'
+                                    : '100%',
+                                _hover: { bg: bgButton },
+                              }}
                             >
                               Lihat Keutamaan
                             </Button>
@@ -183,19 +191,23 @@ const Items = ({ items, category }: ItemsProps) => {
                           settings.transliteration.isActive === true
                         }
                       >
-                        <Text fontSize={['md', 'lg']} fontStyle="italic">
+                        <Text
+                          sx={{ fontSize: ['md', 'lg'], fontStyle: 'italic' }}
+                        >
                           {cItem.transliteration}
                         </Text>
                       </If>
                       {/*  Condition to render translation */}
                       <If condition={settings.translation.isActive === true}>
-                        <Text fontSize={['md', 'lg']}>
+                        <Text sx={{ fontSize: ['md', 'lg'] }}>
                           {`"${cItem.translation}"`}
                           <If condition={cItem.narrator}>
                             <Text
                               as="span"
-                              fontSize={['sm', 'md']}
-                              opacity={0.8}
+                              sx={{
+                                fontSize: ['sm', 'md'],
+                                opacity: 0.8,
+                              }}
                             >{` [${cItem.narrator}]`}</Text>
                           </If>
                         </Text>

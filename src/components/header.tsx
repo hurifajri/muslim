@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 // Internal
-import useColors from '@/hooks/useColors';
+import useColors from '@/hooks/use-colors';
 
 const Header = () => {
   const { back, pathname, query } = useRouter();

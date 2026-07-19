@@ -4,7 +4,7 @@ import { Flex, IconButton, Input } from '@chakra-ui/react';
 import { useState } from 'react';
 
 // Internal
-import useColors from '@/hooks/useColors';
+import useColors from '@/hooks/use-colors';
 
 const Counter = () => {
   // Dark/light mode colors

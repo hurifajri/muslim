@@ -11,7 +11,7 @@ import {
 } from '@chakra-ui/react';
 
 // Internal
-import useColors from '@/hooks/useColors';
+import useColors from '@/hooks/use-colors';
 
 export interface Benefit {
   id: number;

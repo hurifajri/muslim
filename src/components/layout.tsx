@@ -4,8 +4,8 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 // Internal
-import Header from '@/components/Header';
-import useColors from '@/hooks/useColors';
+import Header from '@/components/header';
+import useColors from '@/hooks/use-colors';
 
 interface LayoutProps {
   children: React.ReactNode;
