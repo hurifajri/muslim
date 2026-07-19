@@ -12,29 +12,30 @@ import {
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
-import Evening from '@components/icons/Evening';
-import Menu from '@components/icons/Menu';
-import Morning from '@components/icons/Morning';
-import Mosque from '@components/icons/Mosque';
-import Pray from '@components/icons/Pray';
-import Prophet from '@components/icons/Prophet';
-import Quran from '@components/icons/Quran';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { ReactNode, useState } from 'react';
 
+import Evening from '@/components/icons/Evening';
+import Menu from '@/components/icons/Menu';
+import Morning from '@/components/icons/Morning';
+import Mosque from '@/components/icons/Mosque';
+import Pray from '@/components/icons/Pray';
+import Prophet from '@/components/icons/Prophet';
+import Quran from '@/components/icons/Quran';
+
 type Icons = Record<number, ReactNode>;
-import toc from '@data/toc';
-import useColors from '@hooks/useColors';
-import useGregDate from '@hooks/useGregDate';
-import useHijriDate from '@hooks/useHijriDate';
-import useInitialLocation from '@hooks/useInitialLocation';
-import useQuote from '@hooks/useQuote';
+import toc from '@/data/toc';
+import useColors from '@/hooks/useColors';
+import useGregDate from '@/hooks/useGregDate';
+import useHijriDate from '@/hooks/useHijriDate';
+import useInitialLocation from '@/hooks/useInitialLocation';
+import useQuote from '@/hooks/useQuote';
 
 // Internal dynamic
-const Location = dynamic(() => import('@components/Location'));
-const Settings = dynamic(() => import('@components/Settings'));
+const Location = dynamic(() => import('@/components/Location'));
+const Settings = dynamic(() => import('@/components/Settings'));
 
 // Dynamic icons for table of contents
 const Icons: Icons = {

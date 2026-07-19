@@ -1,9 +1,10 @@
 // Eksternal
 import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
-// Internal
-import Layout from '@components/Layout';
-import theme from '@theme/index';
 import type { AppProps } from 'next/app';
+
+// Internal
+import Layout from '@/components/Layout';
+import theme from '@/theme/index';
 
 const App = ({ Component, pageProps }: AppProps) => (
   <ChakraProvider colorModeManager={localStorageManager} theme={theme}>

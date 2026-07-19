@@ -18,12 +18,13 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
-// Internal
-import sources from '@data/sources';
-import useColors from '@hooks/useColors';
-import useSettings from '@hooks/useSettings';
 import Link from 'next/link';
 import { Fragment } from 'react';
+
+// Internal
+import sources from '@/data/sources';
+import useColors from '@/hooks/useColors';
+import useSettings from '@/hooks/useSettings';
 
 interface SettingsProps {
   isOpen: boolean;

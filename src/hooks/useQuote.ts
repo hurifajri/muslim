@@ -1,7 +1,8 @@
 // Eksternal
 // Internal
-import quotes from '@data/quotes';
 import { useEffect, useState } from 'react';
+
+import quotes from '@/data/quotes';
 
 interface Quote {
   id: number;

@@ -7,14 +7,15 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import type { Benefit } from '@components/Benefits';
-// Internal
-import Counter from '@components/Counter';
-import If from '@components/If';
-import useColors from '@hooks/useColors';
-import useSettings from '@hooks/useSettings';
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
+
+import type { Benefit } from '@/components/Benefits';
+// Internal
+import Counter from '@/components/Counter';
+import If from '@/components/If';
+import useColors from '@/hooks/useColors';
+import useSettings from '@/hooks/useSettings';
 
 interface ContentItem {
   id: number;
@@ -39,7 +40,7 @@ interface ItemsProps {
 }
 
 // Internal dynamic
-const Benefits = dynamic(() => import('@components/Benefits'));
+const Benefits = dynamic(() => import('@/components/Benefits'));
 
 const Items = ({ items, category }: ItemsProps) => {
   // Dark/light mode colors

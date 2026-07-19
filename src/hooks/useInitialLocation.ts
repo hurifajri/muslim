@@ -1,5 +1,5 @@
 // Internal
-import isServer from '@helpers/isServer';
+import isServer from '@/helpers/isServer';
 
 const useInitialLocation = () => {
   let initialLocation = '';
