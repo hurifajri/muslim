@@ -13,4 +13,4 @@ const If = ({ children, condition }: IfProps): JSX.Element | null => {
   return <Fragment>{children}</Fragment>;
 };
 
-export default If;
+export { If };

@@ -22,9 +22,9 @@ import Link from 'next/link';
 import { Fragment } from 'react';
 
 // Internal
-import sources from '@/data/sources';
-import useColors from '@/hooks/use-colors';
-import useSettings from '@/hooks/use-settings';
+import { sources } from '@/data/sources';
+import { useColors } from '@/hooks/use-colors';
+import { useSettings } from '@/hooks/use-settings';
 
 interface SettingsProps {
   isOpen: boolean;
@@ -162,4 +162,4 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
   );
 };
 
-export default Settings;
+export { Settings };

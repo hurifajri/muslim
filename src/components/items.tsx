@@ -12,10 +12,10 @@ import { useState } from 'react';
 
 import type { Benefit } from '@/components/benefits';
 // Internal
-import Counter from '@/components/counter';
-import If from '@/components/if';
-import useColors from '@/hooks/use-colors';
-import useSettings from '@/hooks/use-settings';
+import { Counter } from '@/components/counter';
+import { If } from '@/components/if';
+import { useColors } from '@/hooks/use-colors';
+import { useSettings } from '@/hooks/use-settings';
 
 interface ContentItem {
   id: number;
@@ -40,7 +40,9 @@ interface ItemsProps {
 }
 
 // Internal dynamic
-const Benefits = dynamic(() => import('@/components/benefits'));
+const Benefits = dynamic(() =>
+  import('@/components/benefits').then(mod => mod.Benefits)
+);
 
 const Items = ({ items, category }: ItemsProps) => {
   // Dark/light mode colors
@@ -232,4 +234,4 @@ const Items = ({ items, category }: ItemsProps) => {
   );
 };
 
-export default Items;
+export { Items };

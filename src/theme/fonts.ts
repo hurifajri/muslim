@@ -3,4 +3,4 @@ const fonts = {
   heading: `Nunito, -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif`,
 };
 
-export default fonts;
+export { fonts };

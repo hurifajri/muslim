@@ -191,4 +191,4 @@ const Mosque = (props: IconProps) => (
   </Icon>
 );
 
-export default Mosque;
+export { Mosque };

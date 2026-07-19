@@ -84,4 +84,4 @@ const Morning = (props: IconProps) => (
   </Icon>
 );
 
-export default Morning;
+export { Morning };

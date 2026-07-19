@@ -178,4 +178,4 @@ const Evening = (props: IconProps) => (
   </Icon>
 );
 
-export default Evening;
+export { Evening };

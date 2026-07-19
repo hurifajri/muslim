@@ -41,4 +41,4 @@ const Quran = (props: IconProps) => (
   </Icon>
 );
 
-export default Quran;
+export { Quran };

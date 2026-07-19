@@ -31,4 +31,4 @@ const Menu = ({ color }: MenuProps) => (
   </Icon>
 );
 
-export default Menu;
+export { Menu };

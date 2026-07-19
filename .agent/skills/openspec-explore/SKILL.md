@@ -5,8 +5,8 @@ license: MIT
 compatibility: Requires openspec CLI.
 metadata:
   author: openspec
-  version: "1.0"
-  generatedBy: "1.5.0"
+  version: '1.0'
+  generatedBy: '1.5.0'
 ---
 
 Enter explore mode. Think deeply. Visualize freely. Follow the conversation wherever it goes.
@@ -35,24 +35,28 @@ Enter explore mode. Think deeply. Visualize freely. Follow the conversation wher
 Depending on what the user brings, you might:
 
 **Explore the problem space**
+
 - Ask clarifying questions that emerge from what they said
 - Challenge assumptions
 - Reframe the problem
 - Find analogies
 
 **Investigate the codebase**
+
 - Map existing architecture relevant to the discussion
 - Find integration points
 - Identify patterns already in use
 - Surface hidden complexity
 
 **Compare options**
+
 - Brainstorm multiple approaches
 - Build comparison tables
 - Sketch tradeoffs
 - Recommend a path (if asked)
 
 **Visualize**
+
 ```
 ┌─────────────────────────────────────────┐
 │     Use ASCII diagrams liberally        │
@@ -71,6 +75,7 @@ Depending on what the user brings, you might:
 ```
 
 **Surface risks and unknowns**
+
 - Identify what could go wrong
 - Find gaps in understanding
 - Suggest spikes or investigations
@@ -84,11 +89,13 @@ You have full context of the OpenSpec system. Use it naturally, don't force it.
 ### Check for context
 
 At the start, quickly check what exists:
+
 ```bash
 openspec list --json
 ```
 
 This tells you:
+
 - If there are active changes
 - Their names, schemas, and status
 - What the user might be working on
@@ -105,26 +112,29 @@ Think freely. When insights crystallize, you might offer:
 If the user mentions a change or you detect one is relevant:
 
 1. **Resolve and read existing artifacts for context**
+
    - Run `openspec status --change "<name>" --json`.
    - Use `changeRoot`, `artifactPaths`, and `actionContext` from the status JSON.
    - Read existing files from `artifactPaths.<artifact>.existingOutputPaths`.
 
 2. **Reference them naturally in conversation**
+
    - "Your design mentions using Redis, but we just realized SQLite fits better..."
    - "The proposal scopes this to premium users, but we're now thinking everyone..."
 
 3. **Offer to capture when decisions are made**
 
-    | Insight Type               | Where to Capture               |
-    |----------------------------|--------------------------------|
-    | New requirement discovered | `specs/<capability>/spec.md` |
-    | Requirement changed        | `specs/<capability>/spec.md` |
-    | Design decision made       | `design.md`                  |
-    | Scope changed              | `proposal.md`                |
-    | New work identified        | `tasks.md`                   |
-    | Assumption invalidated     | Relevant artifact              |
+   | Insight Type               | Where to Capture             |
+   | -------------------------- | ---------------------------- |
+   | New requirement discovered | `specs/<capability>/spec.md` |
+   | Requirement changed        | `specs/<capability>/spec.md` |
+   | Design decision made       | `design.md`                  |
+   | Scope changed              | `proposal.md`                |
+   | New work identified        | `tasks.md`                   |
+   | Assumption invalidated     | Relevant artifact            |
 
    Example offers:
+
    - "That's a design decision. Capture it in design.md?"
    - "This is a new requirement. Add it to specs?"
    - "This changes scope. Update the proposal?"
@@ -147,6 +157,7 @@ If the user mentions a change or you detect one is relevant:
 ## Handling Different Entry Points
 
 **User brings a vague idea:**
+
 ```
 User: I'm thinking about adding real-time collaboration
 
@@ -170,6 +181,7 @@ You: Real-time collab is a big space. Let me think about this...
 ```
 
 **User brings a specific problem:**
+
 ```
 User: The auth system is a mess
 
@@ -201,6 +213,7 @@ You: [reads codebase]
 ```
 
 **User is stuck mid-implementation:**
+
 ```
 User: /opsx:explore add-auth-system
       The OAuth integration is more complex than expected
@@ -218,6 +231,7 @@ You: [reads change artifacts]
 ```
 
 **User wants to compare options:**
+
 ```
 User: Should we use Postgres or SQLite?
 

@@ -484,4 +484,4 @@ const dzikirs = [
   },
 ];
 
-export default dzikirs;
+export { dzikirs };

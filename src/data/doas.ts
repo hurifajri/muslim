@@ -903,4 +903,4 @@ const doas = [
   },
 ];
 
-export default doas;
+export { doas };

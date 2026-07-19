@@ -40,4 +40,4 @@ const useColors = () => {
   };
 };
 
-export default useColors;
+export { useColors };

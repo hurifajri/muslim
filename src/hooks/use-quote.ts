@@ -2,7 +2,7 @@
 // Internal
 import { useEffect, useState } from 'react';
 
-import quotes from '@/data/quotes';
+import { quotes } from '@/data/quotes';
 
 interface Quote {
   id: number;
@@ -28,4 +28,4 @@ const useQuote = (): Quote => {
   return quotes[randomNumber];
 };
 
-export default useQuote;
+export { useQuote };

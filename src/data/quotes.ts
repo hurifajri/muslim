@@ -26,4 +26,4 @@ const quotes = [
   },
 ];
 
-export default quotes;
+export { quotes };

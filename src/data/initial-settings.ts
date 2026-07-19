@@ -21,4 +21,4 @@ const initialSettings = {
   },
 };
 
-export default initialSettings;
+export { initialSettings };
