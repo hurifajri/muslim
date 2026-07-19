@@ -1,8 +1,9 @@
 // Eksternal
 import { extendTheme, ThemeConfig } from '@chakra-ui/react';
+
 // Internal
-import fonts from '@theme/fonts';
-import styles from '@theme/styles';
+import fonts from '@/theme/fonts';
+import styles from '@/theme/styles';
 
 const themeConfig: ThemeConfig = {
   initialColorMode: 'light',

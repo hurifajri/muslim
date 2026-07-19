@@ -1,9 +1,10 @@
 // Eksternal
 import { AddIcon, RepeatIcon } from '@chakra-ui/icons';
 import { Flex, IconButton, Input } from '@chakra-ui/react';
-// Internal
-import useColors from '@hooks/useColors';
 import { useState } from 'react';
+
+// Internal
+import useColors from '@/hooks/useColors';
 
 const Counter = () => {
   // Dark/light mode colors

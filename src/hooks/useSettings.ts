@@ -1,8 +1,9 @@
 // Eksternal
 // Internal
-import initialSettings from '@data/initialSettings';
-import isServer from '@helpers/isServer';
 import { useEffect, useState } from 'react';
+
+import initialSettings from '@/data/initialSettings';
+import isServer from '@/helpers/isServer';
 
 type Setting = Record<
   string,

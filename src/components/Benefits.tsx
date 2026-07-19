@@ -9,8 +9,9 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react';
+
 // Internal
-import useColors from '@hooks/useColors';
+import useColors from '@/hooks/useColors';
 
 export interface Benefit {
   id: number;
@@ -33,29 +34,39 @@ const Benefits = ({ benefits, title, isOpen, onClose }: BenefitsProps) => {
     <Drawer isOpen={isOpen} placement="bottom" onClose={onClose}>
       <DrawerOverlay>
         <DrawerContent
-          bgColor={bg}
-          boxShadow="lg"
-          borderTopRadius="35px"
-          py={2}
+          sx={{
+            bgColor: bg,
+            boxShadow: 'lg',
+            borderTopRadius: '35px',
+            py: 2,
+          }}
         >
-          <DrawerCloseButton right="17px" top="17px" borderRadius="50%" />
-          <DrawerHeader display="flex">
-            <Heading flex={0.9} fontSize={['md', 'lg']} fontWeight="bold">
+          <DrawerCloseButton
+            sx={{ right: '17px', top: '17px', borderRadius: '50%' }}
+          />
+          <DrawerHeader sx={{ display: 'flex' }}>
+            <Heading
+              sx={{ flex: 0.9, fontSize: ['md', 'lg'], fontWeight: 'bold' }}
+            >
               Keutamaan {title}
             </Heading>
           </DrawerHeader>
           <DrawerBody
-            display="flex"
-            flexDirection="column"
-            style={{ gap: '15px' }}
+            sx={{
+              display: 'flex',
+              flexDirection: 'column',
+              gap: '15px',
+            }}
           >
             {benefits?.map(benefit => (
-              <Text key={benefit.id} fontSize={['md', 'lg']}>
+              <Text key={benefit.id} sx={{ fontSize: ['md', 'lg'] }}>
                 {benefit.translation}
                 <Text
                   as="span"
-                  fontSize={['sm', 'md']}
-                  opacity={0.8}
+                  sx={{
+                    fontSize: ['sm', 'md'],
+                    opacity: 0.8,
+                  }}
                 >{` [${benefit.narrator}]`}</Text>
               </Text>
             ))}

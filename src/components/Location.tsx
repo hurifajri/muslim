@@ -10,11 +10,12 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-// Internal
-import isServer from '@helpers/isServer';
-import useColors from '@hooks/useColors';
-import useInitialLocation from '@hooks/useInitialLocation';
 import { useEffect, useState } from 'react';
+
+// Internal
+import isServer from '@/helpers/isServer';
+import useColors from '@/hooks/useColors';
+import useInitialLocation from '@/hooks/useInitialLocation';
 
 interface LocationProps {
   isOpen: boolean;
