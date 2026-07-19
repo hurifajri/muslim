@@ -17,13 +17,13 @@ import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { ReactNode, useState } from 'react';
 
-import { Evening } from '@/components/icons/evening';
-import { Menu } from '@/components/icons/menu';
-import { Morning } from '@/components/icons/morning';
-import { Mosque } from '@/components/icons/mosque';
-import { Pray } from '@/components/icons/pray';
-import { Prophet } from '@/components/icons/prophet';
-import { Quran } from '@/components/icons/quran';
+import { EveningIcon } from '@/components/icons/evening';
+import { MenuIcon } from '@/components/icons/menu';
+import { MorningIcon } from '@/components/icons/morning';
+import { MosqueIcon } from '@/components/icons/mosque';
+import { PrayIcon } from '@/components/icons/pray';
+import { ProphetIcon } from '@/components/icons/prophet';
+import { QuranIcon } from '@/components/icons/quran';
 
 type Icons = Record<number, ReactNode>;
 import { toc } from '@/data/toc';
@@ -43,11 +43,11 @@ const Settings = dynamic(() =>
 
 // Dynamic icons for table of contents
 const Icons: Icons = {
-  1: <Morning h="125%" w="100%" />,
-  2: <Evening h="100%" w="100%" />,
-  3: <Quran h="100%" w="100%" />,
-  4: <Prophet h="103%" w="100%" />,
-  5: <Pray h="100%" w="100%" />,
+  1: <MorningIcon h="125%" w="100%" />,
+  2: <EveningIcon h="100%" w="100%" />,
+  3: <QuranIcon h="100%" w="100%" />,
+  4: <ProphetIcon h="103%" w="100%" />,
+  5: <PrayIcon h="100%" w="100%" />,
 };
 
 const Home = () => {
@@ -99,31 +99,40 @@ const Home = () => {
         description="Jadwal sholat, dzikir, dan kumpulan doa dalam genggaman."
       />
       {/* Header */}
-      <Flex as="header" align="center" justify="space-between">
+      <Flex
+        as="header"
+        sx={{ alignItems: 'center', justifyContent: 'space-between' }}
+      >
         {/* Menu */}
         <IconButton
           aria-label="Open menu drawer"
-          bgColor={bgCard}
-          borderRadius={10}
-          icon={<Menu color={iconMenu} />}
+          icon={<MenuIcon color={iconMenu} />}
           onClick={onOpenSettings}
-          p={2.5}
+          sx={{
+            bgColor: bgCard,
+            borderRadius: 10,
+            p: 2.5,
+          }}
         />
         {/* Date */}
-        <Flex direction="column">
+        <Flex sx={{ flexDirection: 'column' }}>
           <Text
-            fontSize={['md', 'lg']}
-            fontWeight="extrabold"
-            textAlign="right"
+            sx={{
+              fontSize: ['md', 'lg'],
+              fontWeight: 'extrabold',
+              textAlign: 'right',
+            }}
           >
             {gregDate}
           </Text>
           <SkeletonText isLoaded={!isLoading} noOfLines={1}>
             <Text
-              color={textPurpleDark}
-              fontSize={['xs', 'sm']}
-              fontWeight="extrabold"
-              textAlign="right"
+              sx={{
+                color: textPurpleDark,
+                fontSize: ['xs', 'sm'],
+                fontWeight: 'extrabold',
+                textAlign: 'right',
+              }}
             >
               {hijriDate}
             </Text>
@@ -131,83 +140,103 @@ const Home = () => {
         </Flex>
       </Flex>
       {/* Main */}
-      <Flex as="main" direction="column" sx={{ gap: 30 }}>
+      <Flex as="main" sx={{ flexDirection: 'column', gap: 30 }}>
         {/* Praying Times */}
         <AspectRatio
           as="section"
           ratio={16 / 9}
-          bgGradient={`linear(to-bl, ${bgGradientPurple}, ${bgGradientBlue})`}
-          borderRadius={25}
-          boxShadow="sm"
+          sx={{
+            bgGradient: `linear(to-bl, ${bgGradientPurple}, ${bgGradientBlue})`,
+            borderRadius: 25,
+            boxShadow: 'sm',
+          }}
         >
           <Box>
             <Flex
-              direction="column"
-              justify="space-between"
-              h="100%"
-              w="100%"
-              p={isSmallerThan360 ? 3 : 7}
+              sx={{
+                flexDirection: 'column',
+                justifyContent: 'space-between',
+                h: '100%',
+                w: '100%',
+                p: isSmallerThan360 ? 3 : 7,
+              }}
             >
-              <Flex direction="column">
-                <Flex align="center" sx={{ gap: 5 }}>
+              <Flex sx={{ flexDirection: 'column' }}>
+                <Flex sx={{ alignItems: 'center', gap: 5 }}>
                   <Text
-                    color={textLight}
-                    fontSize={['xl', '2xl']}
-                    fontWeight="bold"
-                    textTransform="capitalize"
+                    sx={{
+                      color: textLight,
+                      fontSize: ['xl', '2xl'],
+                      fontWeight: 'bold',
+                      textTransform: 'capitalize',
+                    }}
                   >
                     {city}
                   </Text>
                   <IconButton
                     aria-label="Open location modal"
-                    bgColor="transparent"
                     onClick={onOpenLocation}
-                    h={5}
-                    w={5}
-                    minW={5}
-                    p={0}
                     icon={<EditIcon color="gray.300" />}
-                    zIndex={1}
-                    _active={{ bgColor: 'transparent' }}
-                    _hover={{ bgColor: 'transparent' }}
+                    sx={{
+                      bgColor: 'transparent',
+                      h: 5,
+                      w: 5,
+                      minW: 5,
+                      p: 0,
+                      zIndex: 1,
+                      _active: { bgColor: 'transparent' },
+                      _hover: { bgColor: 'transparent' },
+                    }}
                   />
                 </Flex>
                 <Text
-                  color={textLight}
-                  fontSize={['xl', '2xl']}
-                  fontWeight="bold"
+                  sx={{
+                    color: textLight,
+                    fontSize: ['xl', '2xl'],
+                    fontWeight: 'bold',
+                  }}
                 >
                   {gregTime}
                 </Text>
               </Flex>
               <Flex
-                justify="space-evenly"
-                zIndex={1}
-                sx={{ gap: isSmallerThan360 ? 5 : 15 }}
+                sx={{
+                  justifyContent: 'space-evenly',
+                  zIndex: 1,
+                  gap: isSmallerThan360 ? 5 : 15,
+                }}
               >
                 {prayingTimes.map(item => (
                   <SkeletonText
                     key={item.id}
                     isLoaded={!isLoading}
                     noOfLines={2}
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
+                    sx={{
+                      display: 'flex',
+                      flexDirection: 'column',
+                      alignItems: 'center',
+                    }}
                   >
-                    <Flex direction="column" align="center">
+                    <Flex
+                      sx={{ flexDirection: 'column', alignItems: 'center' }}
+                    >
                       <Text
-                        color={textLight}
-                        fontSize={['sm', 'md']}
-                        fontWeight="bold"
-                        textShadow=".5px .5px #000"
+                        sx={{
+                          color: textLight,
+                          fontSize: ['sm', 'md'],
+                          fontWeight: 'bold',
+                          textShadow: '.5px .5px #000',
+                        }}
                       >
                         {item.name}
                       </Text>
                       <Text
-                        color={textLight}
-                        fontSize={['sm', 'md']}
-                        fontWeight="bold"
-                        textShadow=".5px .5px #000"
+                        sx={{
+                          color: textLight,
+                          fontSize: ['sm', 'md'],
+                          fontWeight: 'bold',
+                          textShadow: '.5px .5px #000',
+                        }}
                       >
                         {item.time}
                       </Text>
@@ -216,14 +245,16 @@ const Home = () => {
                 ))}
               </Flex>
             </Flex>
-            <Mosque
-              position="absolute"
-              right={-12}
-              top={4}
-              h="85%"
-              w="85%"
-              opacity={0.35}
-              zIndex={0}
+            <MosqueIcon
+              sx={{
+                position: 'absolute',
+                right: -12,
+                top: 4,
+                h: '85%',
+                w: '85%',
+                opacity: 0.35,
+                zIndex: 0,
+              }}
             />
           </Box>
         </AspectRatio>
@@ -237,20 +268,26 @@ const Home = () => {
               const color = id === 1 ? textDark : textLight;
               return (
                 <Link href={link} passHref={true} key={id}>
-                  <AspectRatio flex={1} ratio={1} cursor="pointer">
+                  <AspectRatio ratio={1} sx={{ flex: 1, cursor: 'pointer' }}>
                     <Flex
-                      bgColor={bgColor}
-                      borderRadius="20%"
-                      direction="column"
-                      sx={{ gap: '10px' }}
+                      sx={{
+                        bgColor: bgColor,
+                        borderRadius: '20%',
+                        flexDirection: 'column',
+                        gap: '10px',
+                      }}
                     >
-                      <Flex align="flex-end" h={['50px', '75px']}>
+                      <Flex
+                        sx={{ alignItems: 'flex-end', h: ['50px', '75px'] }}
+                      >
                         {Icons[id]}
                       </Flex>
                       <Text
-                        color={color}
-                        fontSize={['sm', 'md']}
-                        fontWeight="bold"
+                        sx={{
+                          color: color,
+                          fontSize: ['sm', 'md'],
+                          fontWeight: 'bold',
+                        }}
                       >
                         {title}
                       </Text>
@@ -263,39 +300,45 @@ const Home = () => {
         {/* Quotes */}
         <Flex
           as="section"
-          direction="column"
-          bgColor={bgCard}
-          borderRadius={25}
-          boxShadow="md"
-          p={5}
-          sx={{ gap: 10 }}
+          sx={{
+            flexDirection: 'column',
+            bgColor: bgCard,
+            borderRadius: 25,
+            boxShadow: 'md',
+            p: 5,
+            gap: 10,
+          }}
         >
-          <Heading fontSize={['md', 'lg']} fontWeight="bold">
+          <Heading sx={{ fontSize: ['md', 'lg'], fontWeight: 'bold' }}>
             Mutiara Hikmah
           </Heading>
-          <Flex direction="column" sx={{ gap: 10 }}>
+          <Flex sx={{ flexDirection: 'column', gap: 10 }}>
             <Collapse startingHeight={40} in={showFullQuote}>
               <Text
-                cursor="pointer"
-                fontSize={['sm', 'md']}
-                fontStyle="italic"
                 onClick={handleClickQuote}
+                sx={{
+                  cursor: 'pointer',
+                  fontSize: ['sm', 'md'],
+                  fontStyle: 'italic',
+                }}
               >
                 {quote}
               </Text>
             </Collapse>
             <Text
-              color={textPurpleLight}
-              fontSize={['xs', 'sm']}
-              fontWeight="bold"
+              sx={{
+                color: textPurpleLight,
+                fontSize: ['xs', 'sm'],
+                fontWeight: 'bold',
+              }}
             >
               {narrator}
             </Text>
           </Flex>
         </Flex>
         {/* Doa */}
-        <Flex as="section" direction="column" sx={{ gap: 10 }}>
-          <Heading fontSize={['md', 'lg']} fontWeight="bold">
+        <Flex as="section" sx={{ flexDirection: 'column', gap: 10 }}>
+          <Heading sx={{ fontSize: ['md', 'lg'], fontWeight: 'bold' }}>
             Kumpulan Doa
           </Heading>
           <Flex sx={{ gap: 10 }}>
@@ -305,18 +348,24 @@ const Home = () => {
                 const { id, title, link } = content;
                 return (
                   <Link href={link} passHref={true} key={id}>
-                    <AspectRatio flex={1} ratio={1} cursor="pointer">
+                    <AspectRatio ratio={1} sx={{ flex: 1, cursor: 'pointer' }}>
                       <Flex
-                        bgColor={bgCard}
-                        borderRadius="15%"
-                        boxShadow="md"
-                        direction="column"
-                        sx={{ gap: '10px' }}
+                        sx={{
+                          bgColor: bgCard,
+                          borderRadius: '15%',
+                          boxShadow: 'md',
+                          flexDirection: 'column',
+                          gap: '10px',
+                        }}
                       >
-                        <Flex align="flex-end" h={['35px', '60px']}>
+                        <Flex
+                          sx={{ alignItems: 'flex-end', h: ['35px', '60px'] }}
+                        >
                           {Icons[id]}
                         </Flex>
-                        <Text fontSize={['xs', 'sm']} fontWeight="bold">
+                        <Text
+                          sx={{ fontSize: ['xs', 'sm'], fontWeight: 'bold' }}
+                        >
                           {title}
                         </Text>
                       </Flex>
