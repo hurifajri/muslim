@@ -1,8 +1,18 @@
 // Eksternal
 import useSWR from 'swr';
 
-// Internal
-import { HijriDate } from '@interfaces/HijriDate';
+interface PrayingTime {
+  id: number;
+  name: string;
+  time: string;
+}
+
+interface HijriDate {
+  isError: boolean | undefined;
+  isLoading: boolean | undefined;
+  hijriDate: string;
+  prayingTimes: PrayingTime[];
+}
 
 const useHijriDate = (city: string): HijriDate => {
   // Get current hijri date and praying times

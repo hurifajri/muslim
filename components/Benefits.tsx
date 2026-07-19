@@ -9,10 +9,21 @@ import {
   Heading,
   Text,
 } from '@chakra-ui/react';
-
 // Internal
-import { BenefitsProps } from '@interfaces/Benefits';
 import useColors from '@hooks/useColors';
+
+export interface Benefit {
+  id: number;
+  translation: string;
+  narrator: string;
+}
+
+interface BenefitsProps {
+  benefits: Benefit[] | null;
+  title: string;
+  isOpen: boolean;
+  onClose: () => void;
+}
 
 const Benefits = ({ benefits, title, isOpen, onClose }: BenefitsProps) => {
   // Dark/light mode colors
@@ -33,7 +44,11 @@ const Benefits = ({ benefits, title, isOpen, onClose }: BenefitsProps) => {
               Keutamaan {title}
             </Heading>
           </DrawerHeader>
-          <DrawerBody display="flex" flexDirection="column" sx={{ gap: 15 }}>
+          <DrawerBody
+            display="flex"
+            flexDirection="column"
+            style={{ gap: '15px' }}
+          >
             {benefits?.map(benefit => (
               <Text key={benefit.id} fontSize={['md', 'lg']}>
                 {benefit.translation}

@@ -1,12 +1,14 @@
 // Eksternal
 import { Box, Container } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import React from 'react';
-
 // Internal
 import Header from '@components/Header';
 import useColors from '@hooks/useColors';
-import { LayoutProps } from '@interfaces/Layout';
+import { useRouter } from 'next/router';
+import React from 'react';
+
+interface LayoutProps {
+  children: React.ReactNode;
+}
 
 const Layout = ({ children }: LayoutProps) => {
   const { pathname } = useRouter();

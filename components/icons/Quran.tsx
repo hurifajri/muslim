@@ -1,6 +1,6 @@
 // Eksternal
-import React from 'react';
 import { Icon, IconProps } from '@chakra-ui/react';
+import React from 'react';
 
 const Quran = (props: IconProps) => (
   <Icon viewBox="0 0 512.037 512.037" {...props}>

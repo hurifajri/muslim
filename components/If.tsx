@@ -1,14 +1,16 @@
 // Eksternal
-import { ReactNode } from 'react';
+import { Fragment, ReactNode } from 'react';
 
-// Internal
-import { IfProps } from '@interfaces/If';
+interface IfProps {
+  children: ReactNode;
+  condition: boolean | null | string | undefined;
+}
 
-const If = ({ children, condition }: IfProps): null | ReactNode => {
+const If = ({ children, condition }: IfProps): JSX.Element | null => {
   if (!condition) return null;
 
   // render children if the condition is truthy
-  return children;
+  return <Fragment>{children}</Fragment>;
 };
 
 export default If;

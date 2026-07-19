@@ -1,8 +1,10 @@
 // Eksternal
 import { useEffect, useState } from 'react';
 
-// Internal
-import { GregDate } from '@interfaces/GregDate';
+interface GregDate {
+  gregDate: string;
+  gregTime: string;
+}
 
 const useGregDate = (): GregDate => {
   // Create date instance

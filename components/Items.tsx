@@ -1,5 +1,4 @@
 // Eksternal
-import dynamic from 'next/dynamic';
 import {
   Box,
   Button,
@@ -8,14 +7,36 @@ import {
   Text,
   useDisclosure,
 } from '@chakra-ui/react';
-import { useState } from 'react';
-
+import type { Benefit } from '@components/Benefits';
 // Internal
 import Counter from '@components/Counter';
 import If from '@components/If';
 import useColors from '@hooks/useColors';
 import useSettings from '@hooks/useSettings';
-import { Benefit, Items as ItemsProps } from '@interfaces/Items';
+import dynamic from 'next/dynamic';
+import { useState } from 'react';
+
+interface ContentItem {
+  id: number;
+  arabic: string;
+  transliteration: string | null;
+  translation: string;
+  narrator: string | null;
+  benefits: Benefit[] | null;
+}
+
+interface ParentItem {
+  id: number;
+  title: string;
+  note: string | null;
+  category: string[];
+  items: ContentItem[];
+}
+
+interface ItemsProps {
+  items: ParentItem[];
+  category: string;
+}
 
 // Internal dynamic
 const Benefits = dynamic(() => import('@components/Benefits'));

@@ -1,11 +1,10 @@
 // Eksternal
 import { ChevronLeftIcon, MoonIcon, SunIcon } from '@chakra-ui/icons';
 import { Flex, Heading, IconButton, useColorMode } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
-import { useEffect, useState } from 'react';
-
 // Internal
 import useColors from '@hooks/useColors';
+import { useRouter } from 'next/router';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
   const { back, pathname, query } = useRouter();
