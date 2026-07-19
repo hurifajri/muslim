@@ -3,7 +3,7 @@
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
-import Items from '@/components/Items';
+import Items from '@/components/items';
 import doas from '@/data/doas';
 import capitalize from '@/helpers/capitalize';
 

@@ -2,8 +2,8 @@
 // Internal
 import { useEffect, useState } from 'react';
 
-import initialSettings from '@/data/initialSettings';
-import isServer from '@/helpers/isServer';
+import initialSettings from '@/data/initial-settings';
+import isServer from '@/helpers/is-server';
 
 type Setting = Record<
   string,

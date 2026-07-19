@@ -23,8 +23,8 @@ import { Fragment } from 'react';
 
 // Internal
 import sources from '@/data/sources';
-import useColors from '@/hooks/useColors';
-import useSettings from '@/hooks/useSettings';
+import useColors from '@/hooks/use-colors';
+import useSettings from '@/hooks/use-settings';
 
 interface SettingsProps {
   isOpen: boolean;

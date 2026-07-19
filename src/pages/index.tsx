@@ -17,25 +17,25 @@ import Link from 'next/link';
 import { NextSeo } from 'next-seo';
 import { ReactNode, useState } from 'react';
 
-import Evening from '@/components/icons/Evening';
-import Menu from '@/components/icons/Menu';
-import Morning from '@/components/icons/Morning';
-import Mosque from '@/components/icons/Mosque';
-import Pray from '@/components/icons/Pray';
-import Prophet from '@/components/icons/Prophet';
-import Quran from '@/components/icons/Quran';
+import Evening from '@/components/icons/evening';
+import Menu from '@/components/icons/menu';
+import Morning from '@/components/icons/morning';
+import Mosque from '@/components/icons/mosque';
+import Pray from '@/components/icons/pray';
+import Prophet from '@/components/icons/prophet';
+import Quran from '@/components/icons/quran';
 
 type Icons = Record<number, ReactNode>;
 import toc from '@/data/toc';
-import useColors from '@/hooks/useColors';
-import useGregDate from '@/hooks/useGregDate';
-import useHijriDate from '@/hooks/useHijriDate';
-import useInitialLocation from '@/hooks/useInitialLocation';
-import useQuote from '@/hooks/useQuote';
+import useColors from '@/hooks/use-colors';
+import useGregDate from '@/hooks/use-greg-date';
+import useHijriDate from '@/hooks/use-hijri-date';
+import useInitialLocation from '@/hooks/use-initial-location';
+import useQuote from '@/hooks/use-quote';
 
 // Internal dynamic
-const Location = dynamic(() => import('@/components/Location'));
-const Settings = dynamic(() => import('@/components/Settings'));
+const Location = dynamic(() => import('@/components/location'));
+const Settings = dynamic(() => import('@/components/settings'));
 
 // Dynamic icons for table of contents
 const Icons: Icons = {

@@ -3,7 +3,7 @@ import { ChakraProvider, localStorageManager } from '@chakra-ui/react';
 import type { AppProps } from 'next/app';
 
 // Internal
-import Layout from '@/components/Layout';
+import Layout from '@/components/layout';
 import theme from '@/theme/index';
 
 const App = ({ Component, pageProps }: AppProps) => (
