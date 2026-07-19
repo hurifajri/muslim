@@ -11,24 +11,26 @@ import {
 import { useState } from 'react';
 
 // Internal
-import { Counter, If } from '@components';
-import { useColors, useSettings } from '@hooks';
-import { iBenefit, iItems } from '@interfaces';
+import Counter from '@components/Counter';
+import If from '@components/If';
+import useColors from '@hooks/useColors';
+import useSettings from '@hooks/useSettings';
+import { Benefit, Items as ItemsProps } from '@interfaces/Items';
 
 // Internal dynamic
 const Benefits = dynamic(() => import('@components/Benefits'));
 
-const Items = ({ items, category }: iItems) => {
+const Items = ({ items, category }: ItemsProps) => {
   // Dark/light mode colors
   const { bc, bgButton, bgCard } = useColors();
 
   // Handle "Lihat Keutamaan"
   const { isOpen, onOpen, onClose } = useDisclosure();
   const [title, setTitle] = useState('');
-  const [benefits, setBenefits] = useState<iBenefit[] | null>([]);
+  const [benefits, setBenefits] = useState<Benefit[] | null>([]);
   const handleClickBenefits = (
     itemTitle: string,
-    itemBenefits: iBenefit[] | null
+    itemBenefits: Benefit[] | null
   ) => {
     setTitle(itemTitle);
     setBenefits(itemBenefits);

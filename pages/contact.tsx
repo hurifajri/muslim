@@ -13,16 +13,16 @@ import { NextSeo } from 'next-seo';
 import { useRef, useState } from 'react';
 
 // Internal
-import { useColors } from '@hooks';
-import { iContact, iHandleChangeInput, iHandleSubmitForm } from '@interfaces';
+import useColors from '@hooks/useColors';
+import { ContactForm, HandleChangeInput, HandleSubmitForm } from '@interfaces/Contact';
 
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);
   const toast = useToast();
 
   const initialValues = { name: '', email: '', message: '' };
-  const [values, setValues] = useState<iContact>(initialValues);
-  const handleChangeInput = (event: iHandleChangeInput) => {
+  const [values, setValues] = useState<ContactForm>(initialValues);
+  const handleChangeInput = (event: HandleChangeInput) => {
     const { name, value } = event.target;
     const newValues = { ...values };
     newValues[name] = value;
@@ -30,7 +30,7 @@ const Contact = () => {
   };
 
   const [isLoading, setIsLoading] = useState(false);
-  const handleSubmitForm = (event: iHandleSubmitForm) => {
+  const handleSubmitForm = (event: HandleSubmitForm) => {
     event.preventDefault();
 
     let feedback;

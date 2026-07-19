@@ -18,31 +18,27 @@ import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 
 // Internal
-import {
-  Evening,
-  Menu,
-  Morning,
-  Mosque,
-  Pray,
-  Prophet,
-  Quran,
-} from '@components/icons';
-import { iIcons } from '@interfaces';
-import { toc } from '@data';
-import {
-  useColors,
-  useGregDate,
-  useHijriDate,
-  useInitialLocation,
-  useQuote,
-} from '@hooks';
+import Evening from '@components/icons/Evening';
+import Menu from '@components/icons/Menu';
+import Morning from '@components/icons/Morning';
+import Mosque from '@components/icons/Mosque';
+import Pray from '@components/icons/Pray';
+import Prophet from '@components/icons/Prophet';
+import Quran from '@components/icons/Quran';
+import { Icons as IconsType } from '@interfaces/Icons';
+import toc from '@data/toc';
+import useColors from '@hooks/useColors';
+import useGregDate from '@hooks/useGregDate';
+import useHijriDate from '@hooks/useHijriDate';
+import useInitialLocation from '@hooks/useInitialLocation';
+import useQuote from '@hooks/useQuote';
 
 // Internal dynamic
 const Location = dynamic(() => import('@components/Location'));
 const Settings = dynamic(() => import('@components/Settings'));
 
 // Dynamic icons for table of contents
-const Icons: iIcons = {
+const Icons: IconsType = {
   1: <Morning h="125%" w="100%" />,
   2: <Evening h="100%" w="100%" />,
   3: <Quran h="100%" w="100%" />,

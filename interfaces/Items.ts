@@ -1,25 +1,24 @@
 // Internal
-import { iBenefit } from '@interfaces';
-interface iCitem {
+import { Benefit } from '@interfaces/Benefits';
+
+interface ContentItem {
   id: number;
   arabic: string;
   transliteration: string | null;
   translation: string;
   narrator: string | null;
-  benefits: iBenefit[] | null;
+  benefits: Benefit[] | null;
 }
 
-interface iPitem {
+interface ParentItem {
   id: number;
   title: string;
   note: string | null;
   category: string[];
-  items: iCitem[];
+  items: ContentItem[];
 }
 
-interface iItems {
-  items: iPitem[];
+export interface Items {
+  items: ParentItem[];
   category: string;
 }
-
-export default iItems;

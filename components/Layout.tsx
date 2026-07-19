@@ -4,11 +4,11 @@ import { useRouter } from 'next/router';
 import React from 'react';
 
 // Internal
-import { Header } from '@components';
-import { useColors } from '@hooks';
-import { iLayout } from '@interfaces';
+import Header from '@components/Header';
+import useColors from '@hooks/useColors';
+import { LayoutProps } from '@interfaces/Layout';
 
-const Layout = ({ children }: iLayout) => {
+const Layout = ({ children }: LayoutProps) => {
   const { pathname } = useRouter();
   const isHome = pathname === '/';
 

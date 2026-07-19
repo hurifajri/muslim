@@ -1,7 +1,10 @@
-// Internal
-import { iIf } from '@interfaces';
+// Eksternal
+import { ReactNode } from 'react';
 
-const If = ({ children, condition }: iIf): null | JSX.Element => {
+// Internal
+import { IfProps } from '@interfaces/If';
+
+const If = ({ children, condition }: IfProps): null | ReactNode => {
   if (!condition) return null;
 
   // render children if the condition is truthy

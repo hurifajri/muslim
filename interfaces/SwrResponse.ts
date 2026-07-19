@@ -1,6 +1,4 @@
-interface iSwrResponse {
+export interface SwrResponse {
   isError: boolean | undefined;
   isLoading: boolean | undefined;
 }
-
-export default iSwrResponse;

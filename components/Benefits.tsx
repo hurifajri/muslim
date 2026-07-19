@@ -11,10 +11,10 @@ import {
 } from '@chakra-ui/react';
 
 // Internal
-import { useColors } from '@hooks';
-import { iBenefits } from '@interfaces';
+import { BenefitsProps } from '@interfaces/Benefits';
+import useColors from '@hooks/useColors';
 
-const Benefits = ({ benefits, title, isOpen, onClose }: iBenefits) => {
+const Benefits = ({ benefits, title, isOpen, onClose }: BenefitsProps) => {
   // Dark/light mode colors
   const { bg } = useColors();
 
