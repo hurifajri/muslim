@@ -1,5 +1,5 @@
 // Internal
-import isServer from '@/helpers/is-server';
+import { isServer } from '@/helpers/is-server';
 
 const useInitialLocation = () => {
   let initialLocation = '';
@@ -9,4 +9,4 @@ const useInitialLocation = () => {
   return { initialLocation };
 };
 
-export default useInitialLocation;
+export { useInitialLocation };

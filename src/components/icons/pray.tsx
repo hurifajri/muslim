@@ -152,4 +152,4 @@ const Pray = (props: IconProps) => (
   </Icon>
 );
 
-export default Pray;
+export { Pray };

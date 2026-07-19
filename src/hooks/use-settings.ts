@@ -2,8 +2,8 @@
 // Internal
 import { useEffect, useState } from 'react';
 
-import initialSettings from '@/data/initial-settings';
-import isServer from '@/helpers/is-server';
+import { initialSettings } from '@/data/initial-settings';
+import { isServer } from '@/helpers/is-server';
 
 type Setting = Record<
   string,
@@ -30,4 +30,4 @@ const useSettings = () => {
   return { settings, setSettings };
 };
 
-export default useSettings;
+export { useSettings };

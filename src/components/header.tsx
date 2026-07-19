@@ -5,7 +5,7 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 // Internal
-import useColors from '@/hooks/use-colors';
+import { useColors } from '@/hooks/use-colors';
 
 const Header = () => {
   const { back, pathname, query } = useRouter();
@@ -87,4 +87,4 @@ const iconButtonProps = {
   },
 };
 
-export default Header;
+export { Header };

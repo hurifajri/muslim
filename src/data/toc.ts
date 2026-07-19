@@ -31,4 +31,4 @@ const toc = [
   },
 ];
 
-export default toc;
+export { toc };

@@ -13,9 +13,9 @@ import {
 import { useEffect, useState } from 'react';
 
 // Internal
-import isServer from '@/helpers/is-server';
-import useColors from '@/hooks/use-colors';
-import useInitialLocation from '@/hooks/use-initial-location';
+import { isServer } from '@/helpers/is-server';
+import { useColors } from '@/hooks/use-colors';
+import { useInitialLocation } from '@/hooks/use-initial-location';
 
 interface LocationProps {
   isOpen: boolean;
@@ -85,4 +85,4 @@ const Location = ({ isOpen, onClose }: LocationProps) => {
   );
 };
 
-export default Location;
+export { Location };

@@ -3,9 +3,9 @@
 import { useRouter } from 'next/router';
 import { NextSeo } from 'next-seo';
 
-import Items from '@/components/items';
-import dzikirs from '@/data/dzikirs';
-import capitalize from '@/helpers/capitalize';
+import { Items } from '@/components/items';
+import { dzikirs } from '@/data/dzikirs';
+import { capitalize } from '@/helpers/capitalize';
 
 const Dzikir = () => {
   const { query } = useRouter();

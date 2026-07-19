@@ -39,4 +39,4 @@ const Prophet = (props: IconProps) => (
   </Icon>
 );
 
-export default Prophet;
+export { Prophet };

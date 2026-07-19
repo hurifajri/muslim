@@ -42,4 +42,4 @@ const useGregDate = (): GregDate => {
   return { gregDate, gregTime };
 };
 
-export default useGregDate;
+export { useGregDate };

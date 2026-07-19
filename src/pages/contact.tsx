@@ -12,7 +12,7 @@ import {
 import { NextSeo } from 'next-seo';
 import { ChangeEvent, FormEvent, useRef, useState } from 'react';
 
-import useColors from '@/hooks/use-colors';
+import { useColors } from '@/hooks/use-colors';
 
 type ContactForm = Record<string, string>;
 type HandleChangeInput = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;

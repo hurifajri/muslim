@@ -9,7 +9,7 @@ import Document, {
 } from 'next/document';
 
 // Internal
-import theme from '@/theme';
+import { theme } from '@/theme';
 
 class MyDocument extends Document {
   static async getInitialProps(ctx: DocumentContext) {

@@ -56,4 +56,4 @@ const useHijriDate = (city: string): HijriDate => {
   };
 };
 
-export default useHijriDate;
+export { useHijriDate };
