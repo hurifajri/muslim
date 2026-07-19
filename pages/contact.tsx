@@ -9,12 +9,13 @@ import {
   Textarea,
   useToast,
 } from '@chakra-ui/react';
-import { NextSeo } from 'next-seo';
-import { useRef, useState } from 'react';
-
-// Internal
 import useColors from '@hooks/useColors';
-import { ContactForm, HandleChangeInput, HandleSubmitForm } from '@interfaces/Contact';
+import { NextSeo } from 'next-seo';
+import { ChangeEvent, FormEvent, useRef, useState } from 'react';
+
+type ContactForm = Record<string, string>;
+type HandleChangeInput = ChangeEvent<HTMLInputElement | HTMLTextAreaElement>;
+type HandleSubmitForm = FormEvent<HTMLFormElement>;
 
 const Contact = () => {
   const form = useRef<HTMLFormElement>(null);

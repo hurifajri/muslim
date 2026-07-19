@@ -20,7 +20,13 @@ module.exports = {
     ecmaVersion: 12,
     sourceType: 'module',
   },
-  plugins: ['react', '@typescript-eslint', 'prettier'],
+  plugins: [
+    'react',
+    '@typescript-eslint',
+    'prettier',
+    'simple-import-sort',
+    'unused-imports',
+  ],
   rules: {
     'prettier/prettier': ['error', { endOfLine: 'auto' }],
     'react/boolean-prop-naming': [
@@ -40,18 +46,23 @@ module.exports = {
         sortShapeProp: false,
       },
     ],
-    'sort-imports': [
-      'error',
-      {
-        allowSeparatedGroups: true,
-        ignoreCase: true,
-        ignoreDeclarationSort: true,
-        ignoreMemberSort: false,
-      },
-    ],
+    'sort-imports': 'off',
+    'simple-import-sort/imports': 'error',
+    'simple-import-sort/exports': 'error',
     'sort-vars': ['error', { ignoreCase: true }],
     '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-unused-vars': 'off',
     '@typescript-eslint/no-var-requires': 'off',
+    'unused-imports/no-unused-imports': 'error',
+    'unused-imports/no-unused-vars': [
+      'warn',
+      {
+        vars: 'all',
+        varsIgnorePattern: '^_',
+        args: 'after-used',
+        argsIgnorePattern: '^_',
+      },
+    ],
   },
   settings: {
     react: {

@@ -12,12 +12,6 @@ import {
   useDisclosure,
   useMediaQuery,
 } from '@chakra-ui/react';
-import dynamic from 'next/dynamic';
-import Link from 'next/link';
-import { NextSeo } from 'next-seo';
-import { useState } from 'react';
-
-// Internal
 import Evening from '@components/icons/Evening';
 import Menu from '@components/icons/Menu';
 import Morning from '@components/icons/Morning';
@@ -25,7 +19,12 @@ import Mosque from '@components/icons/Mosque';
 import Pray from '@components/icons/Pray';
 import Prophet from '@components/icons/Prophet';
 import Quran from '@components/icons/Quran';
-import { Icons as IconsType } from '@interfaces/Icons';
+import dynamic from 'next/dynamic';
+import Link from 'next/link';
+import { NextSeo } from 'next-seo';
+import { ReactNode, useState } from 'react';
+
+type Icons = Record<number, ReactNode>;
 import toc from '@data/toc';
 import useColors from '@hooks/useColors';
 import useGregDate from '@hooks/useGregDate';
@@ -38,7 +37,7 @@ const Location = dynamic(() => import('@components/Location'));
 const Settings = dynamic(() => import('@components/Settings'));
 
 // Dynamic icons for table of contents
-const Icons: IconsType = {
+const Icons: Icons = {
   1: <Morning h="125%" w="100%" />,
   2: <Evening h="100%" w="100%" />,
   3: <Quran h="100%" w="100%" />,

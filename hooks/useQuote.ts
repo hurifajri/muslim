@@ -1,9 +1,13 @@
 // Eksternal
+// Internal
+import quotes from '@data/quotes';
 import { useEffect, useState } from 'react';
 
-// Internal
-import { Quote } from '@interfaces/Quote';
-import quotes from '@data/quotes';
+interface Quote {
+  id: number;
+  quote: string;
+  narrator: string;
+}
 
 const useQuote = (): Quote => {
   const totalQuotes = quotes?.length ?? 0;

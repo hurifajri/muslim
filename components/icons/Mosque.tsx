@@ -1,6 +1,6 @@
 // Eksternal
-import React from 'react';
 import { Icon, IconProps } from '@chakra-ui/react';
+import React from 'react';
 
 const Mosque = (props: IconProps) => (
   <Icon viewBox="0 0 512 512" {...props}>

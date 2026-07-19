@@ -1,6 +1,6 @@
 // Eksternal
-import React from 'react';
 import { Icon, IconProps } from '@chakra-ui/react';
+import React from 'react';
 
 const Morning = (props: IconProps) => (
   <Icon viewBox="0 0 504.5 504.5" {...props}>

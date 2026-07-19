@@ -1,6 +1,5 @@
 // Eksternal
 import { extendTheme, ThemeConfig } from '@chakra-ui/react';
-
 // Internal
 import fonts from '@theme/fonts';
 import styles from '@theme/styles';

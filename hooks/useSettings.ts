@@ -1,10 +1,17 @@
 // Eksternal
-import { useEffect, useState } from 'react';
-
 // Internal
 import initialSettings from '@data/initialSettings';
 import isServer from '@helpers/isServer';
-import { Setting } from '@interfaces/Settings';
+import { useEffect, useState } from 'react';
+
+type Setting = Record<
+  string,
+  {
+    name: string;
+    label: string;
+    isActive: boolean;
+  }
+>;
 
 const useSettings = () => {
   const key = 'mslm-settings';

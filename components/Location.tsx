@@ -10,13 +10,18 @@ import {
   ModalHeader,
   ModalOverlay,
 } from '@chakra-ui/react';
-import { useEffect, useState } from 'react';
-
 // Internal
 import isServer from '@helpers/isServer';
 import useColors from '@hooks/useColors';
 import useInitialLocation from '@hooks/useInitialLocation';
-import { HandleChangeLocation, LocationProps } from '@interfaces/Location';
+import { useEffect, useState } from 'react';
+
+interface LocationProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+type HandleChangeLocation = React.ChangeEvent<HTMLInputElement>;
 
 const Location = ({ isOpen, onClose }: LocationProps) => {
   // Get and set default location from storage if any

@@ -18,14 +18,19 @@ import {
   Text,
   useColorMode,
 } from '@chakra-ui/react';
-import Link from 'next/link';
-import { Fragment } from 'react';
-
 // Internal
 import sources from '@data/sources';
 import useColors from '@hooks/useColors';
 import useSettings from '@hooks/useSettings';
-import { HandleChangeSetting, SettingsProps } from '@interfaces/Settings';
+import Link from 'next/link';
+import { Fragment } from 'react';
+
+interface SettingsProps {
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+type HandleChangeSetting = React.ChangeEvent<HTMLInputElement>;
 
 const Settings = ({ isOpen, onClose }: SettingsProps) => {
   // Togle dark/light mode
