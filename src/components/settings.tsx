@@ -1,164 +1,92 @@
-// Eksternal
-import { ExternalLinkIcon, SettingsIcon } from '@chakra-ui/icons';
-import {
-  Button,
-  Divider,
-  Drawer,
-  DrawerBody,
-  DrawerCloseButton,
-  DrawerContent,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerOverlay,
-  Flex,
-  FormControl,
-  FormLabel,
-  Heading,
-  Switch,
-  Text,
-  useColorMode,
-} from '@chakra-ui/react';
-import Link from 'next/link';
+import { ExternalLink, Settings as SettingsIcon } from 'lucide-react';
+import { useTheme } from 'next-themes';
 import { Fragment } from 'react';
 
-// Internal
+import { Separator } from '@/components/ui/separator';
+import {
+  Sheet,
+  SheetContent,
+  SheetFooter,
+  SheetHeader,
+  SheetTitle,
+} from '@/components/ui/sheet';
+import { Switch } from '@/components/ui/switch';
 import { sources } from '@/data/sources';
-import { useColors } from '@/hooks/use-colors';
-import { useSettings } from '@/hooks/use-settings';
+import { useSettingsStore } from '@/providers/settings-store-provider';
+import { SETTINGS_CONFIG } from '@/stores/settings-store';
 
 interface SettingsProps {
   isOpen: boolean;
   onClose: () => void;
 }
 
-type HandleChangeSetting = React.ChangeEvent<HTMLInputElement>;
-
 const Settings = ({ isOpen, onClose }: SettingsProps) => {
-  // Togle dark/light mode
-  const { colorMode, toggleColorMode } = useColorMode();
-
-  // Dark/light mode colors
-  const { bg, bgButtonHighlight, textLight } = useColors();
-
-  // Settings
-  const { settings, setSettings } = useSettings();
-  const handleChangeSetting = (event: HandleChangeSetting) => {
-    const { name, checked } = event.target;
-    const newSettings = { ...settings };
-    newSettings[name].isActive = checked;
-    setSettings(newSettings);
-  };
+  const { resolvedTheme, setTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
+  const { settings, setSettings } = useSettingsStore(state => state);
 
   return (
-    <Drawer
-      placement="right"
-      size="xs"
-      closeOnOverlayClick={true}
-      onClose={onClose}
-      isOpen={isOpen}
-    >
-      <DrawerOverlay />
-      <DrawerContent bgColor={bg}>
-        <DrawerCloseButton />
-        <DrawerHeader
-          display="flex"
-          alignItems="center"
-          borderBottomWidth="1px"
-          sx={{ gap: 10 }}
-          mb={5}
-        >
-          <SettingsIcon />
-          <Heading fontSize={['lg', 'xl']} fontWeight="bold" lineHeight={1}>
+    <Sheet open={isOpen} onOpenChange={onClose}>
+      <SheetContent side="right" className="bg-app-bg">
+        <SheetHeader className="flex flex-row items-center gap-2 border-b pb-4 mb-5">
+          <SettingsIcon className="h-5 w-5" />
+          <SheetTitle className="text-lg font-bold leading-none">
             Pengaturan
-          </Heading>
-        </DrawerHeader>
-        <DrawerBody>
+          </SheetTitle>
+        </SheetHeader>
+        <div className="px-6 flex flex-col overflow-y-auto">
           {/* Dark mode */}
-          <FormControl
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-          >
-            <FormLabel htmlFor="mode-gelap" mb={0} cursor="pointer">
-              Mode Gelap
-            </FormLabel>
+          <div className="flex items-center justify-between">
+            <span className="text-sm cursor-pointer">Mode Gelap</span>
             <Switch
               id="mode-gelap"
-              isChecked={colorMode === 'dark'}
-              onChange={toggleColorMode}
-              colorScheme="purple"
+              checked={isDark}
+              onCheckedChange={checked => setTheme(checked ? 'dark' : 'light')}
             />
-          </FormControl>
-          <Divider my={5} />
+          </div>
+          <Separator className="my-5" />
           {/* Other settings */}
-          {Object.values(settings).map(setting => (
+          {SETTINGS_CONFIG.map(setting => (
             <Fragment key={setting.name}>
-              <FormControl
-                display="flex"
-                alignItems="center"
-                justifyContent="space-between"
-              >
-                <FormLabel htmlFor={setting.name} mb={0} cursor="pointer">
-                  {setting.label}
-                </FormLabel>
+              <div className="flex items-center justify-between">
+                <span className="text-sm cursor-pointer">{setting.label}</span>
                 <Switch
                   id={setting.name}
                   name={setting.name}
-                  isChecked={setting.isActive}
-                  onChange={event => handleChangeSetting(event)}
-                  colorScheme="purple"
+                  checked={settings[setting.name]}
+                  onCheckedChange={checked =>
+                    setSettings(setting.name, checked)
+                  }
                 />
-              </FormControl>
-              <Divider my={5} />
+              </div>
+              <Separator className="my-5" />
             </Fragment>
           ))}
-          <Link href="/contact" passHref={true}>
-            <Button
-              width="100%"
-              color={textLight}
-              bg={bgButtonHighlight}
-              _hover={{ bg: bgButtonHighlight }}
-            >
-              Kritik dan Saran
-            </Button>
-          </Link>
-        </DrawerBody>
-        <DrawerFooter
-          display="flex"
-          alignItems="flex-start"
-          flexDirection="column"
-          sx={{ gap: 10 }}
-        >
-          <Text fontSize={['sm', 'md']}>Tentang Aplikasi</Text>
-          <Flex direction="column" width="100%" sx={{ gap: 30 }}>
-            <Flex align="center" justify="space-between">
-              <Text fontSize={['xs', 'sm']}>Versi</Text>
-              <Text fontSize={['xs', 'sm']}>1.0.0</Text>
-            </Flex>
-            <Flex direction="column" sx={{ gap: 10 }}>
-              <Text fontSize={['sm', 'md']}>Sumber</Text>
-              <Flex flexWrap="wrap" align="center" sx={{ gap: 5 }}>
+        </div>
+        <SheetFooter className="flex flex-col items-start gap-2 px-6 pb-6">
+          <span className="text-sm">Tentang Aplikasi</span>
+          <div className="flex flex-col w-full gap-[30px]">
+            <div className="flex items-center justify-between">
+              <span className="text-xs">Versi</span>
+              <span className="text-xs">1.0.0</span>
+            </div>
+            <div className="flex flex-col gap-2">
+              <span className="text-sm">Sumber</span>
+              <div className="flex flex-wrap items-center gap-1">
                 {sources.map(source => (
-                  <Flex
-                    key={source.id}
-                    align="center"
-                    justify="center"
-                    sx={{ gap: 5 }}
-                  >
-                    <Text fontSize={['xs', 'sm']}>{source.title}</Text>
-                    <Text fontSize={['xs', 'sm']}>
-                      <a href={source.url} target="_blank" rel="noreferrer">
-                        <ExternalLinkIcon />
-                      </a>
-                    </Text>
-                  </Flex>
+                  <div key={source.id} className="flex items-center gap-1">
+                    <span className="text-xs">{source.title}</span>
+                    <a href={source.url} target="_blank" rel="noreferrer">
+                      <ExternalLink className="h-3 w-3" />
+                    </a>
+                  </div>
                 ))}
-              </Flex>
-            </Flex>
-          </Flex>
-        </DrawerFooter>
-      </DrawerContent>
-    </Drawer>
+              </div>
+            </div>
+          </div>
+        </SheetFooter>
+      </SheetContent>
+    </Sheet>
   );
 };
 

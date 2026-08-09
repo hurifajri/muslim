@@ -1,37 +1,36 @@
-// Eksternal
-import { Box, Container } from '@chakra-ui/react';
-import { useRouter } from 'next/router';
+'use client';
+
+import { usePathname } from 'next/navigation';
+import { useTheme } from 'next-themes';
 import React from 'react';
 
-// Internal
 import { Header } from '@/components/header';
-import { useColors } from '@/hooks/use-colors';
+import { cn } from '@/lib/utils';
 
 interface LayoutProps {
   children: React.ReactNode;
 }
 
 const Layout = ({ children }: LayoutProps) => {
-  const { pathname } = useRouter();
+  const pathname = usePathname();
   const isHome = pathname === '/';
-
-  // Dark/light mode colors
-  const { bg } = useColors();
+  const { resolvedTheme } = useTheme();
+  const isDark = resolvedTheme === 'dark';
 
   return (
-    <Box bgColor={bg}>
+    <div
+      className={cn('min-h-screen', isDark ? 'bg-[#322659]' : 'bg-[#faf5ff]')}
+    >
       {!isHome && <Header />}
-      <Container
-        display="flex"
-        flexDirection="column"
-        px={isHome ? 7 : 0}
-        pb={isHome ? 7 : 0}
-        pt={isHome ? 7 : '3.5rem'}
-        sx={{ gap: 30 }}
+      <div
+        className={cn(
+          'max-w-sm mx-auto flex flex-col',
+          isHome ? 'px-7 pb-7 pt-7 gap-[30px]' : 'pt-14 gap-[30px]'
+        )}
       >
         {children}
-      </Container>
-    </Box>
+      </div>
+    </div>
   );
 };
 

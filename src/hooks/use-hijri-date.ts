@@ -1,5 +1,4 @@
-// Eksternal
-import useSWR from 'swr';
+import { queryOptions, useQuery } from '@tanstack/react-query';
 
 interface PrayingTime {
   id: number;
@@ -14,11 +13,23 @@ interface HijriDate {
   prayingTimes: PrayingTime[];
 }
 
+const hijriDateQueryOptions = (city: string) =>
+  queryOptions({
+    queryKey: ['hijri-date', city],
+    queryFn: async () => {
+      const res = await fetch(
+        `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=ID&method=11&adjustment=0`
+      );
+      if (!res.ok) {
+        throw new Error('Network response was not ok');
+      }
+      return res.json();
+    },
+  });
+
 const useHijriDate = (city: string): HijriDate => {
   // Get current hijri date and praying times
-  const { data, error } = useSWR(
-    `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=ID&method=11&adjustment=0`
-  );
+  const { data, isError, isLoading } = useQuery(hijriDateQueryOptions(city));
 
   // Set hijri date
   const date = data?.data?.date;
@@ -49,8 +60,8 @@ const useHijriDate = (city: string): HijriDate => {
   }));
 
   return {
-    isError: error,
-    isLoading: !data && !error,
+    isError,
+    isLoading,
     prayingTimes,
     hijriDate,
   };

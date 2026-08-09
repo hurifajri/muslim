@@ -1,21 +1,13 @@
 // Eksternal
-import {
-  Box,
-  Button,
-  Flex,
-  Heading,
-  Text,
-  useDisclosure,
-} from '@chakra-ui/react';
 import dynamic from 'next/dynamic';
+import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import type { Benefit } from '@/components/benefits';
 // Internal
 import { Counter } from '@/components/counter';
-import { If } from '@/components/if';
-import { useColors } from '@/hooks/use-colors';
-import { useSettings } from '@/hooks/use-settings';
+import { Button } from '@/components/ui/button';
+import { useSettingsStore } from '@/providers/settings-store-provider';
 
 interface ContentItem {
   id: number;
@@ -30,206 +22,162 @@ interface ParentItem {
   id: number;
   title: string;
   note: string | null;
-  category: string[];
+  arabic?: string | null;
   items: ContentItem[];
 }
 
 interface ItemsProps {
   items: ParentItem[];
-  category: string;
 }
 
-// Internal dynamic
 const Benefits = dynamic(() =>
   import('@/components/benefits').then(mod => mod.Benefits)
 );
 
-const Items = ({ items, category }: ItemsProps) => {
-  // Dark/light mode colors
-  const { bc, bgButton, bgCard } = useColors();
+const Items = ({ items }: ItemsProps) => {
+  const pathname = usePathname();
+  // Settings
+  const { settings } = useSettingsStore(state => state);
 
-  // Handle "Lihat Keutamaan"
-  const { isOpen, onOpen, onClose } = useDisclosure();
+  // Open/close drawer (now sheet) benefits handler
+  const [isOpen, setIsOpen] = useState(false);
+  const onOpen = () => setIsOpen(true);
+  const onClose = () => setIsOpen(false);
+
+  // Set selected item benefits data
+  const [benefits, setBenefits] = useState<Benefit[] | null>(null);
   const [title, setTitle] = useState('');
-  const [benefits, setBenefits] = useState<Benefit[] | null>([]);
+
   const handleClickBenefits = (
-    itemTitle: string,
-    itemBenefits: Benefit[] | null
+    currentTitle: string,
+    currentBenefits: Benefit[] | null
   ) => {
-    setTitle(itemTitle);
-    setBenefits(itemBenefits);
+    setTitle(currentTitle);
+    setBenefits(currentBenefits);
     onOpen();
   };
 
-  // Settings
-  const { settings } = useSettings();
-
   return (
     <>
-      {/* Dzikir or Doa */}
-      <Flex as="main" sx={{ flexDirection: 'column' }}>
-        {items
-          .filter(pItem => pItem.category.includes(category))
-          .map(pItem => {
+      <div className="flex flex-col gap-[30px] pb-10">
+        {items.length > 0 &&
+          items.map(pItem => {
             return (
-              <Flex
-                as="section"
+              <div
                 key={pItem.id}
-                sx={{
-                  flexDirection: 'column',
-                  borderBottom: `1px solid ${bc}`,
-                  _even: { bgColor: bgCard },
-                  _last: { borderBottom: 'none' },
-                }}
+                className="flex flex-col rounded-[25px] p-5 gap-[15px] shadow-sm bg-app-bg-card"
               >
-                {/* Header */}
-                <Flex
-                  as="header"
-                  sx={{
-                    alignItems: 'center',
-                    justifyContent: 'space-between',
-                    borderBottom: `1px solid ${bc}`,
-                    p: 4,
-                  }}
-                >
-                  <Heading
-                    sx={{ fontSize: ['md', 'lg'], fontWeight: 'bold', flex: 3 }}
-                  >
-                    {pItem.title}
-                  </Heading>
-                  <If condition={pItem.note}>
-                    <Text
-                      sx={{
-                        fontSize: ['sm', 'md'],
-                        opacity: 0.8,
-                        flex: 1,
-                        textAlign: 'right',
-                      }}
-                    >
-                      {pItem.note}
-                    </Text>
-                  </If>
-                </Flex>
-                {pItem.items.map(cItem => {
+                {/* Title */}
+                <h2 className="text-xl font-bold leading-tight">
+                  {pItem.title}
+                </h2>
+                {/* Condition to render note */}
+                {pItem.note && (
+                  <span className="text-sm font-bold uppercase text-app-text-purple-dark">
+                    {pItem.note}
+                  </span>
+                )}
+                {/* Condition to render arabic if exist outside content object */}
+                {pItem.arabic && settings.arabic === true && (
+                  <p className="font-arabic font-normal text-right leading-loose tracking-wide mt-2.5 text-[32px] text-app-text-dark">
+                    {pItem.arabic}
+                  </p>
+                )}
+                {/* Condition to separate line */}
+                {(settings.translation === true ||
+                  settings.transliteration === true) && (
+                  <hr className="my-2 border-t-[1.5px] border-app-bc" />
+                )}
+                {pItem.items.map((cItem, i) => {
                   return (
-                    <Flex
-                      key={cItem.id}
-                      sx={{ flexDirection: 'column', p: 4, gap: 20 }}
-                    >
-                      <Box
-                        dangerouslySetInnerHTML={{ __html: cItem.arabic }}
-                        sx={{
-                          fontFamily: 'Amiri, serif',
-                          textAlign: 'right',
-                          fontSize: '2xl',
-                          lineHeight: 2.5,
-                        }}
-                      />
-                      {/* Condition to render benefits and counter button */}
-                      <If
-                        condition={
-                          (cItem.benefits !== null &&
-                            settings.benefits.isActive === true) ||
-                          (pItem.note !== null &&
-                            pItem.note !== 'Dibaca 1x' &&
-                            settings.counter.isActive === true)
-                        }
-                      >
-                        <Flex
-                          sx={{
+                    <div key={cItem.id} className="flex flex-col gap-5 mt-2.5">
+                      {/* Sub title */}
+                      {pItem.items.length > 1 && (
+                        <h2 className="text-xl font-bold leading-tight">
+                          Bagian {i + 1}
+                        </h2>
+                      )}
+                      {/* Condition to render arabic */}
+                      {settings.arabic === true && (
+                        <p className="font-arabic font-normal text-right leading-loose tracking-wide text-[32px] text-app-text-dark">
+                          {cItem.arabic}
+                        </p>
+                      )}
+                      {/* Condition to render row of button benefits and button counter */}
+                      {pathname.includes('dzikir') && (
+                        <div
+                          className="flex items-center w-full"
+                          style={{
                             justifyContent:
                               cItem.benefits !== null &&
-                              settings.benefits.isActive === true
+                              settings.benefits === true
                                 ? 'space-between'
                                 : 'flex-end',
                           }}
                         >
                           {/* Condition to render benefits button */}
-                          <If
-                            condition={
-                              cItem.benefits !== null &&
-                              settings.benefits.isActive === true
-                            }
-                          >
-                            <Button
-                              aria-label="Lihat Keutamaan"
-                              onClick={() =>
-                                handleClickBenefits(pItem.title, cItem.benefits)
-                              }
-                              sx={{
-                                py: 2,
-                                cursor: 'pointer',
-                                fontSize: ['sm', 'md'],
-                                textTransform: 'uppercase',
-                                bgColor: bgButton,
-                                width:
+                          {cItem.benefits !== null &&
+                            settings.benefits === true && (
+                              <Button
+                                aria-label="Lihat Keutamaan"
+                                onClick={() =>
+                                  handleClickBenefits(
+                                    pItem.title,
+                                    cItem.benefits
+                                  )
+                                }
+                                variant="ghost"
+                                className={`py-2 cursor-pointer text-sm md:text-base uppercase hover:opacity-90 active:opacity-90 transition-opacity bg-app-bg-button ${
                                   pItem.note !== null &&
                                   pItem.note !== 'Dibaca 1x' &&
-                                  settings.counter.isActive === true
-                                    ? 'auto'
-                                    : '100%',
-                                _hover: { bg: bgButton },
-                              }}
-                            >
-                              Lihat Keutamaan
-                            </Button>
-                          </If>
+                                  settings.counter === true
+                                    ? 'w-auto'
+                                    : 'w-full'
+                                }`}
+                              >
+                                Lihat Keutamaan
+                              </Button>
+                            )}
                           {/* Condition to render counter button */}
-                          <If
-                            condition={
-                              pItem.note !== null &&
-                              pItem.note !== 'Dibaca 1x' &&
-                              settings.counter.isActive === true
-                            }
-                          >
-                            <Counter />
-                          </If>
-                        </Flex>
-                      </If>
+                          {pItem.note !== null &&
+                            pItem.note !== 'Dibaca 1x' &&
+                            settings.counter === true && <Counter />}
+                        </div>
+                      )}
                       {/*  Condition to render transliteration */}
-                      <If
-                        condition={
-                          cItem.transliteration &&
-                          settings.transliteration.isActive === true
-                        }
-                      >
-                        <Text
-                          sx={{ fontSize: ['md', 'lg'], fontStyle: 'italic' }}
-                        >
-                          {cItem.transliteration}
-                        </Text>
-                      </If>
+                      {cItem.transliteration &&
+                        settings.transliteration === true && (
+                          <p className="text-base md:text-lg italic">
+                            {cItem.transliteration}
+                          </p>
+                        )}
                       {/*  Condition to render translation */}
-                      <If condition={settings.translation.isActive === true}>
-                        <Text sx={{ fontSize: ['md', 'lg'] }}>
+                      {settings.translation === true && (
+                        <p className="text-base md:text-lg">
                           {`"${cItem.translation}"`}
-                          <If condition={cItem.narrator}>
-                            <Text
-                              as="span"
-                              sx={{
-                                fontSize: ['sm', 'md'],
-                                opacity: 0.8,
-                              }}
-                            >{` [${cItem.narrator}]`}</Text>
-                          </If>
-                        </Text>
-                      </If>
-                    </Flex>
+                          {cItem.narrator && (
+                            <span className="text-sm md:text-base opacity-80">
+                              {` [${cItem.narrator}]`}
+                            </span>
+                          )}
+                        </p>
+                      )}
+                    </div>
                   );
                 })}
-              </Flex>
+              </div>
             );
           })}
-      </Flex>
+      </div>
       {/* Benefits of each item Dzikir or Doa */}
-      <If condition={settings.benefits.isActive === true}>
+      {settings.benefits === true && (
         <Benefits
           benefits={benefits}
           title={title}
           isOpen={isOpen}
           onClose={onClose}
         />
-      </If>
+      )}
     </>
   );
 };
