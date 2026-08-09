@@ -12,20 +12,24 @@ interface Quote {
 
 const useQuote = (): Quote => {
   const totalQuotes = quotes?.length ?? 0;
-  const [randomNumber, setRandomNumber] = useState(
-    Math.floor(Math.random() * totalQuotes)
-  );
+  const [randomNumber, setRandomNumber] = useState(0);
 
   const delay = 1000 * 30; // Change quote every 30 seconds
   useEffect(() => {
+    const timeout = setTimeout(() => {
+      setRandomNumber(Math.floor(Math.random() * totalQuotes));
+    }, 0);
     const timer = setInterval(
       () => setRandomNumber(Math.floor(Math.random() * totalQuotes)),
       delay
     );
-    return () => clearInterval(timer);
-  }, [delay, randomNumber, totalQuotes]);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(timer);
+    };
+  }, [delay, totalQuotes]);
 
-  return quotes[randomNumber];
+  return quotes[randomNumber] ?? quotes[0];
 };
 
 export { useQuote };

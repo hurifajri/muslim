@@ -7,10 +7,21 @@ interface GregDate {
 }
 
 const useGregDate = (): GregDate => {
-  // Create date instance
-  const date = new Date();
+  const [now, setNow] = useState<Date | null>(null);
+  const [blink, setBlink] = useState(true);
 
-  // Get current gregorian date string
+  useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setNow(new Date());
+    const timer = setInterval(() => {
+      setNow(new Date());
+      setBlink(b => !b);
+    }, 1000);
+    return () => clearInterval(timer);
+  }, []);
+
+  const date = now ?? new Date(0); // safe fallback for SSR
+
   const gregDate = date.toLocaleDateString('id-ID', {
     day: 'numeric',
     month: 'long',
@@ -18,25 +29,10 @@ const useGregDate = (): GregDate => {
     year: 'numeric',
   });
 
-  // Get current gregorian time
-  const [hours, minutes, seconds] = [
-    date.getHours(),
-    date.getMinutes(),
-    date.getSeconds(),
-  ];
-  const [time, setTime] = useState({ hours, minutes, seconds });
-
-  // Watch changes of time every second
-  useEffect(() => {
-    const timer = setInterval(() => setTime({ hours, minutes, seconds }), 1000);
-    return () => clearInterval(timer);
-  }, [hours, minutes, seconds]);
-
-  // Create gregorian date string
-  const addLeadingZero = (time: number) => `${time < 10 ? '0' : ''}${time}`;
-  const formattedHours = addLeadingZero(time.hours);
-  const formattedMinutes = addLeadingZero(time.minutes);
-  const separator = seconds % 2 === 0 ? ':' : ' ';
+  const addLeadingZero = (t: number) => `${t < 10 ? '0' : ''}${t}`;
+  const formattedHours = addLeadingZero(date.getHours());
+  const formattedMinutes = addLeadingZero(date.getMinutes());
+  const separator = now ? (blink ? ':' : ' ') : ':';
   const gregTime = `${formattedHours}${separator}${formattedMinutes}`;
 
   return { gregDate, gregTime };
