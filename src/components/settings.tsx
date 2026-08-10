@@ -27,9 +27,9 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="left" className="bg-app-bg">
+      <SheetContent side="right" className="bg-app-bg">
         <SheetHeader className="flex flex-row items-center gap-2 border-b pb-4 mb-5">
-          <SettingsIcon className="h-5 w-5" />
+          <SettingsIcon />
           <SheetTitle className="text-lg font-bold leading-none">
             Pengaturan
           </SheetTitle>

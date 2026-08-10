@@ -46,6 +46,12 @@ export function HomeShell() {
   return (
     <div className="p-4 flex flex-col gap-4 sm:min-h-dvh">
       <header className="flex items-center justify-between">
+        <div className="flex flex-col items-start">
+          <span className="text-base font-bold text-right">{hijriDate}</span>
+          <span className="text-xs font-bold text-right text-app-text-purple-dark">
+            {gregDate}
+          </span>
+        </div>
         <Button
           size="icon"
           aria-label="Open menu drawer"
@@ -54,12 +60,6 @@ export function HomeShell() {
         >
           <MenuIcon />
         </Button>
-        <div className="flex flex-col">
-          <span className="text-base font-bold text-right">{hijriDate}</span>
-          <span className="text-xs font-bold text-right text-app-text-purple-dark">
-            {gregDate}
-          </span>
-        </div>
       </header>
 
       <main className="sm:flex-1 sm:flex sm:items-center sm:portrait:max-w-md sm:portrait:self-center  sm:landscape:max-w-3xl sm:landscape:self-center">
@@ -95,7 +95,7 @@ export function HomeShell() {
                     </div>
                   ))}
                 </div>
-                <MosqueIcon className="size-11/12 opacity-10 absolute top-1/12 -right-2/12" />
+                <MosqueIcon className="size-full scale-90 opacity-10 absolute top-0 -right-3/12" />
               </div>
             </AspectRatio>
 
