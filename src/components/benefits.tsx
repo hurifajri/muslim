@@ -21,7 +21,7 @@ interface BenefitsProps {
 const Benefits = ({ benefits, title, isOpen, onClose }: BenefitsProps) => {
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
-      <DrawerContent className="rounded-t-[35px] py-2 max-h-[80vh] bg-app-bg">
+      <DrawerContent className="rounded-t-[35px] py-2 max-h-[80vh]">
         <DrawerHeader>
           <DrawerTitle className="text-base font-bold text-center">
             Keutamaan {title}

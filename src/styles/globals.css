@@ -65,29 +65,24 @@
   --radius-3xl: calc(var(--radius) * 2.2);
   --radius-4xl: calc(var(--radius) * 2.6);
 
-  --color-app-bg: var(--app-bg);
-  --color-app-bg-card: var(--app-bg-card);
   --color-app-bg-blue: var(--app-bg-blue);
   --color-app-bg-button: var(--app-bg-button);
   --color-app-bg-purple: var(--app-bg-purple);
   --color-app-gradient-from: var(--app-gradient-from);
   --color-app-gradient-to: var(--app-gradient-to);
-  --color-app-icon-menu: var(--app-icon-menu);
   --color-app-text-dark: var(--app-text-dark);
   --color-app-text-light: var(--app-text-light);
   --color-app-text-purple-dark: var(--app-text-purple-dark);
-  --color-app-text-purple-light: var(--app-text-purple-light);
-  --color-app-bc: var(--app-bc);
 }
 
 :root {
-  --background: oklch(1 0 0);
+  --background: oklch(0.9309 0.0269 285.86);
   --foreground: oklch(0.145 0.008 326);
   --card: oklch(1 0 0);
   --card-foreground: oklch(0.145 0.008 326);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0.008 326);
-  --primary: oklch(0.212 0.019 322.12);
+  --primary: oklch(0.3112 0.0882 291.24);
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.96 0.003 325.6);
   --secondary-foreground: oklch(0.212 0.019 322.12);
@@ -115,34 +110,29 @@
   --sidebar-ring: oklch(0.711 0.019 323.02);
 
   /* App purple palette */
-  --app-bg: #e6e6fa; /* lavender */
-  --app-bg-card: #ffffff;
   --app-bg-blue: #36219e;
   --app-bg-button: #e9d8fd; /* purple.200 */
   --app-bg-purple: #e3deff;
   --app-gradient-from: #9f7aea; /* purple.400 */
   --app-gradient-to: #63b3ed; /* blue.400 */
-  --app-icon-menu: #36219e;
   --app-text-dark: #1a202c; /* gray.800 */
   --app-text-light: #ffffffeb;
   --app-text-purple-dark: #6b46c1; /* purple.600 */
-  --app-text-purple-light: #9f7aea; /* purple.400 */
-  --app-bc: rgba(0, 0, 0, 0.2);
 }
 
 .dark {
-  --background: oklch(0.145 0.008 326);
+  --background: oklch(0.3112 0.0882 291.24);
   --foreground: oklch(0.985 0 0);
-  --card: oklch(0.212 0.019 322.12);
+  --card: oklch(0.3793 0.116 290.85);
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.212 0.019 322.12);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0.005 325.62);
+  --primary: oklch(0.9309 0.0269 285.86);
   --primary-foreground: oklch(0.212 0.019 322.12);
   --secondary: oklch(0.263 0.024 320.12);
   --secondary-foreground: oklch(0.985 0 0);
   --muted: oklch(0.263 0.024 320.12);
-  --muted-foreground: oklch(0.711 0.019 323.02);
+  --muted-foreground: oklch(0.8734 0.0172 316.93);
   --accent: oklch(0.263 0.024 320.12);
   --accent-foreground: oklch(0.985 0 0);
   --destructive: oklch(0.704 0.191 22.216);
@@ -164,19 +154,14 @@
   --sidebar-ring: oklch(0.542 0.034 322.5);
 
   /* App purple palette dark */
-  --app-bg: #322659; /* purple.900 */
-  --app-bg-card: #44337a; /* purple.800 */
   --app-bg-blue: #44339a;
   --app-bg-button: #6b46c1; /* purple.600 */
   --app-bg-purple: #c3b8ff;
   --app-gradient-from: #b794f4; /* purple.300 */
   --app-gradient-to: #90cdf4; /* blue.300 */
-  --app-icon-menu: #ffffffeb;
   --app-text-dark: #171923; /* gray.900 */
   --app-text-light: #ffffffeb;
   --app-text-purple-dark: #d6bcfa; /* purple.200 */
-  --app-text-purple-light: #b794f4; /* purple.100 */
-  --app-bc: rgba(255, 255, 255, 0.2);
 }
 
 @layer base {
@@ -184,7 +169,7 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-app-bg text-foreground;
+    @apply bg-background text-foreground;
   }
   button:not(:disabled),
   [role='button']:not(:disabled) {
