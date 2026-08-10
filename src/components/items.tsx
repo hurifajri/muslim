@@ -73,13 +73,13 @@ const Items = ({ items }: ItemsProps) => {
                 </h2>
                 {/* Condition to render note */}
                 {pItem.note && (
-                  <span className="text-sm font-bold uppercase text-app-text-purple-dark">
+                  <span className="text-sm font-bold uppercase">
                     {pItem.note}
                   </span>
                 )}
                 {/* Condition to render arabic if exist outside content object */}
                 {pItem.arabic && settings.arabic === true && (
-                  <p className="font-arabic font-normal text-right leading-loose tracking-wide mt-2.5 text-[32px] text-app-text-dark">
+                  <p className="font-arabic font-normal text-right leading-loose tracking-wide mt-2.5 text-[32px]">
                     {pItem.arabic}
                   </p>
                 )}
@@ -99,7 +99,7 @@ const Items = ({ items }: ItemsProps) => {
                       )}
                       {/* Condition to render arabic */}
                       {settings.arabic === true && (
-                        <p className="font-arabic font-normal text-right leading-loose tracking-wide text-[32px] text-app-text-dark">
+                        <p className="font-arabic font-normal text-right leading-loose tracking-wide text-[32px]">
                           {cItem.arabic}
                         </p>
                       )}
@@ -127,7 +127,7 @@ const Items = ({ items }: ItemsProps) => {
                                   )
                                 }
                                 variant="ghost"
-                                className={`py-2 cursor-pointer text-sm md:text-base uppercase hover:opacity-90 active:opacity-90 transition-opacity bg-app-bg-button ${
+                                className={`py-2 cursor-pointer text-sm md:text-base uppercase hover:opacity-90 active:opacity-90 transition-opacity ${
                                   pItem.note !== null &&
                                   pItem.note !== 'Dibaca 1x' &&
                                   settings.counter === true

@@ -48,9 +48,7 @@ export function HomeShell() {
       <header className="flex items-center justify-between">
         <div className="flex flex-col items-start">
           <span className="text-base font-bold text-right">{hijriDate}</span>
-          <span className="text-xs font-bold text-right text-app-text-purple-dark">
-            {gregDate}
-          </span>
+          <span className="text-xs font-bold text-right">{gregDate}</span>
         </div>
         <Button
           size="icon"
@@ -67,30 +65,26 @@ export function HomeShell() {
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="rounded-4xl bg-linear-to-bl from-app-gradient-from to-app-gradient-to h-full flex flex-col justify-between p-4 2xs:p-8 overflow-hidden">
+              <div className="rounded-4xl bg-linear-to-bl from-purple-500 to-blue-500 h-full flex flex-col justify-between p-4 2xs:p-8 overflow-hidden">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
                     aria-label="Buka modal lokasi"
                     onClick={() => setIsOpenLocation(true)}
-                    className="text-xl font-bold capitalize text-app-text-light -ml-4"
+                    className="text-xl font-bold capitalize -ml-4 text-white"
                   >
                     {city}
                     <Pencil />
                   </Button>
-                  <span className="text-xl font-bold text-app-text-light">
+                  <span className="text-xl font-bold text-white">
                     {gregTime}
                   </span>
                 </div>
-                <div className="flex items-center justify-between">
+                <div className="flex items-center justify-between text-white">
                   {prayingTimes.map(item => (
                     <div key={item.id} className="flex flex-col items-center">
-                      <span className="text-sm font-bold text-app-text-light">
-                        {item.name}
-                      </span>
-                      <span className="text-sm font-bold text-app-text-light">
-                        {item.time}
-                      </span>
+                      <span className="text-sm font-bold">{item.name}</span>
+                      <span className="text-sm font-bold">{item.time}</span>
                     </div>
                   ))}
                 </div>
@@ -104,10 +98,8 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass =
-                    id === 1 ? 'bg-app-bg-purple' : 'bg-app-bg-blue';
-                  const textClass =
-                    id === 1 ? 'text-app-text-dark' : 'text-app-text-light';
+                  const bgClass = id === 1 ? 'bg-purple-500' : 'bg-blue-500';
+                  const textClass = id === 1 ? 'text-black' : 'text-white';
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>

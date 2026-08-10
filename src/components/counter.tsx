@@ -14,11 +14,11 @@ const Counter = () => {
         variant="ghost"
         size="icon"
         onClick={() => setValue(0)}
-        className="rounded-r-none hover:opacity-90 bg-app-bg-button"
+        className="rounded-r-none hover:opacity-90"
       >
         <RotateCcw className="pointer-events-none" />
       </Button>
-      <div className="w-12 h-10 flex items-center justify-center text-base font-bold bg-app-bg-button">
+      <div className="w-12 h-10 flex items-center justify-center text-base font-bold">
         {value}
       </div>
       <Button
@@ -26,7 +26,7 @@ const Counter = () => {
         variant="ghost"
         size="icon"
         onClick={() => setValue(v => v + 1)}
-        className="rounded-l-none hover:opacity-90 bg-app-bg-button"
+        className="rounded-l-none hover:opacity-90"
       >
         <Plus className="pointer-events-none" />
       </Button>
