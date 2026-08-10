@@ -65,7 +65,7 @@ const Items = ({ items }: ItemsProps) => {
             return (
               <div
                 key={pItem.id}
-                className="flex flex-col rounded-[25px] p-5 gap-[15px] shadow-sm bg-app-bg-card"
+                className="flex flex-col rounded-[25px] p-5 gap-[15px] shadow-sm bg-card"
               >
                 {/* Title */}
                 <h2 className="text-xl font-bold leading-tight">
@@ -86,7 +86,7 @@ const Items = ({ items }: ItemsProps) => {
                 {/* Condition to separate line */}
                 {(settings.translation === true ||
                   settings.transliteration === true) && (
-                  <hr className="my-2 border-t-[1.5px] border-app-bc" />
+                  <hr className="my-2 border-t-[1.5px] border-border" />
                 )}
                 {pItem.items.map((cItem, i) => {
                   return (

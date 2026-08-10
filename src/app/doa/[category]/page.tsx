@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
+import { Header } from '@/components/header';
 import { Items } from '@/components/items';
 import { doas } from '@/data/doas';
 
@@ -15,6 +16,7 @@ const Doa = () => {
 
   return (
     <>
+      <Header />
       <Items items={filteredDoas} />
     </>
   );

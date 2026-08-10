@@ -54,9 +54,8 @@ export function HomeShell() {
         </div>
         <Button
           size="icon"
-          aria-label="Open menu drawer"
+          aria-label="Buka pengaturan"
           onClick={() => setIsOpenSettings(true)}
-          className="bg-app-icon-menu"
         >
           <MenuIcon />
         </Button>
@@ -141,7 +140,7 @@ export function HomeShell() {
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="rounded-4xl flex flex-col gap-2 items-center justify-center bg-app-bg-card">
+                        <div className="rounded-4xl flex flex-col gap-2 items-center justify-center bg-card">
                           {Icons[id]}
                           <span className="text-xs font-bold">{title}</span>
                         </div>
@@ -152,11 +151,11 @@ export function HomeShell() {
             </div>
 
             {/* Quotes */}
-            <div className="flex flex-col rounded-4xl p-4 gap-4 bg-app-bg-card sm:flex-1">
+            <div className="flex flex-col rounded-4xl p-4 gap-4 bg-card sm:flex-1">
               <h2 className="text-base font-bold">Mutiara Hikmah</h2>
               <div className="flex flex-col gap-2">
                 <p className="text-sm">{quote}</p>
-                <span className="text-xs font-bold text-app-text-purple-light">
+                <span className="text-xs text-muted-foreground">
                   {narrator}
                 </span>
               </div>

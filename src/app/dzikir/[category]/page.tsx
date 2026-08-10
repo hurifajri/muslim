@@ -2,6 +2,7 @@
 
 import { useParams } from 'next/navigation';
 
+import { Header } from '@/components/header';
 import { Items } from '@/components/items';
 import { dzikirs } from '@/data/dzikirs';
 
@@ -15,7 +16,12 @@ const Dzikir = () => {
     dzikir.category.includes(category)
   );
 
-  return <Items items={filteredDzikirs} />;
+  return (
+    <>
+      <Header />
+      <Items items={filteredDzikirs} />
+    </>
+  );
 };
 
 export default Dzikir;
