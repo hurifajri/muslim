@@ -44,11 +44,11 @@ export function HomeShell() {
   const { quote, narrator } = useQuote();
 
   return (
-    <div className="p-4 flex flex-col gap-4 sm:min-h-dvh">
+    <div className="p-4 flex flex-col gap-4 sm:min-h-dvh bg-linear-to-bl from-primary to-secondary">
       <header className="flex items-center justify-between">
-        <div className="flex flex-col items-start">
-          <span className="text-base font-bold text-right">{hijriDate}</span>
-          <span className="text-xs font-bold text-right">{gregDate}</span>
+        <div className="flex flex-col text-secondary-foreground">
+          <span className="text-base font-bold">{hijriDate}</span>
+          <span className="text-xs font-bold">{gregDate}</span>
         </div>
         <Button
           size="icon"
@@ -65,22 +65,22 @@ export function HomeShell() {
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="rounded-4xl bg-linear-to-bl from-purple-500 to-blue-500 h-full flex flex-col justify-between p-4 2xs:p-8 overflow-hidden">
+              <div className="rounded-4xl bg-linear-to-bl from-primary to-secondary h-full flex flex-col justify-between p-4 2xs:p-8 overflow-hidden">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
                     aria-label="Buka modal lokasi"
                     onClick={() => setIsOpenLocation(true)}
-                    className="text-xl font-bold capitalize -ml-4 text-white"
+                    className="text-xl font-bold capitalize -ml-4 text-secondary-foreground"
                   >
                     {city}
                     <Pencil />
                   </Button>
-                  <span className="text-xl font-bold text-white">
+                  <span className="text-xl font-bold text-primary-foreground">
                     {gregTime}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-white">
+                <div className="flex items-center justify-between text-secondary-foreground">
                   {prayingTimes.map(item => (
                     <div key={item.id} className="flex flex-col items-center">
                       <span className="text-sm font-bold">{item.name}</span>
@@ -98,8 +98,11 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass = id === 1 ? 'bg-purple-500' : 'bg-blue-500';
-                  const textClass = id === 1 ? 'text-black' : 'text-white';
+                  const bgClass = id === 1 ? 'bg-primary' : 'bg-secondary';
+                  const textClass =
+                    id === 1
+                      ? 'text-primary-foreground'
+                      : 'text-secondary-foreground';
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
@@ -134,7 +137,9 @@ export function HomeShell() {
                       <AspectRatio asChild ratio={1 / 1}>
                         <div className="rounded-4xl flex flex-col gap-2 items-center justify-center bg-card">
                           {Icons[id]}
-                          <span className="text-xs font-bold">{title}</span>
+                          <span className="text-xs font-bold text-card-foreground">
+                            {title}
+                          </span>
                         </div>
                       </AspectRatio>
                     </Link>
@@ -144,12 +149,12 @@ export function HomeShell() {
 
             {/* Quotes */}
             <div className="flex flex-col rounded-4xl p-4 gap-4 bg-card sm:flex-1">
-              <h2 className="text-base font-bold">Mutiara Hikmah</h2>
+              <h2 className="text-base font-bold text-card-foreground">
+                Mutiara Hikmah
+              </h2>
               <div className="flex flex-col gap-2">
-                <p className="text-sm">{quote}</p>
-                <span className="text-xs text-muted-foreground">
-                  {narrator}
-                </span>
+                <p className="text-sm text-card-foreground">{quote}</p>
+                <span className="text-xs text-card-foreground">{narrator}</span>
               </div>
             </div>
           </div>
