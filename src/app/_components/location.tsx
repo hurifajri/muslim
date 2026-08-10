@@ -52,10 +52,7 @@ const Location = ({ isOpen, onClose }: LocationProps) => {
           onChange={handleChangeLocation}
         />
         <DialogFooter>
-          <Button
-            onClick={handleClickLocation}
-            className="hover:opacity-90 bg-app-bg-button"
-          >
+          <Button onClick={handleClickLocation} className="hover:opacity-90">
             Simpan
           </Button>
         </DialogFooter>
