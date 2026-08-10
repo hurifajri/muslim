@@ -18,7 +18,7 @@ const Counter = () => {
       >
         <RotateCcw className="pointer-events-none" />
       </Button>
-      <div className="w-12 h-10 flex items-center justify-center text-base font-bold">
+      <div className="flex h-10 w-12 items-center justify-center text-base font-bold">
         {value}
       </div>
       <Button
