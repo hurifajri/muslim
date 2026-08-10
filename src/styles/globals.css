@@ -69,7 +69,6 @@
   --color-app-bg-card: var(--app-bg-card);
   --color-app-bg-blue: var(--app-bg-blue);
   --color-app-bg-button: var(--app-bg-button);
-  --color-app-bg-input: var(--app-bg-input);
   --color-app-bg-purple: var(--app-bg-purple);
   --color-app-gradient-from: var(--app-gradient-from);
   --color-app-gradient-to: var(--app-gradient-to);
@@ -116,11 +115,10 @@
   --sidebar-ring: oklch(0.711 0.019 323.02);
 
   /* App purple palette */
-  --app-bg: #faf5ff; /* purple.50 */
+  --app-bg: #e6e6fa; /* lavender */
   --app-bg-card: #ffffff;
   --app-bg-blue: #36219e;
   --app-bg-button: #e9d8fd; /* purple.200 */
-  --app-bg-input: #e9d8fd;
   --app-bg-purple: #e3deff;
   --app-gradient-from: #9f7aea; /* purple.400 */
   --app-gradient-to: #63b3ed; /* blue.400 */
@@ -170,7 +168,6 @@
   --app-bg-card: #44337a; /* purple.800 */
   --app-bg-blue: #44339a;
   --app-bg-button: #6b46c1; /* purple.600 */
-  --app-bg-input: #805ad5; /* purple.400 */
   --app-bg-purple: #c3b8ff;
   --app-gradient-from: #b794f4; /* purple.300 */
   --app-gradient-to: #90cdf4; /* blue.300 */

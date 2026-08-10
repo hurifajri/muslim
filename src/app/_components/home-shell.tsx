@@ -50,21 +50,23 @@ export function HomeShell() {
           size="icon"
           aria-label="Open menu drawer"
           onClick={() => setIsOpenSettings(true)}
+          className="bg-app-icon-menu"
         >
           <MenuIcon />
         </Button>
         <div className="flex flex-col">
-          <span className="text-base font-bold text-right">{gregDate}</span>
+          <span className="text-base font-bold text-right">{hijriDate}</span>
           <span className="text-xs font-bold text-right text-app-text-purple-dark">
-            {hijriDate}
+            {gregDate}
           </span>
         </div>
       </header>
 
       <main className="sm:flex-1 sm:flex sm:items-center sm:portrait:max-w-md sm:portrait:self-center  sm:landscape:max-w-3xl sm:landscape:self-center">
         <div className="flex flex-col sm:landscape:flex-row gap-4">
+          {/* Praying times and dzikir */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
-            {/* Praying Times */}
+            {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
               <div className="rounded-4xl bg-linear-to-bl from-app-gradient-from to-app-gradient-to h-full flex flex-col justify-between p-4 2xs:p-8 overflow-hidden">
                 <div className="flex items-center justify-between">
@@ -128,8 +130,9 @@ export function HomeShell() {
             </div>
           </div>
 
+          {/* Dua and quotes */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
-            {/* Doa */}
+            {/* Dua */}
             <div className="flex gap-4">
               {toc
                 .filter(({ category }) => category === 'doa')
@@ -138,7 +141,7 @@ export function HomeShell() {
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="rounded-4xl border flex flex-col gap-2 items-center justify-center bg-app-bg-card">
+                        <div className="rounded-4xl flex flex-col gap-2 items-center justify-center bg-app-bg-card">
                           {Icons[id]}
                           <span className="text-xs font-bold">{title}</span>
                         </div>
@@ -149,7 +152,7 @@ export function HomeShell() {
             </div>
 
             {/* Quotes */}
-            <div className="flex flex-col rounded-4xl border p-4 gap-4 bg-app-bg-card sm:flex-1">
+            <div className="flex flex-col rounded-4xl p-4 gap-4 bg-app-bg-card sm:flex-1">
               <h2 className="text-base font-bold">Mutiara Hikmah</h2>
               <div className="flex flex-col gap-2">
                 <p className="text-sm">{quote}</p>
@@ -167,7 +170,8 @@ export function HomeShell() {
         isOpen={isOpenSettings}
         onClose={() => setIsOpenSettings(false)}
       />
-      {/* Location Picker */}
+
+      {/* Location picker */}
       <Location
         isOpen={isOpenLocation}
         onClose={() => setIsOpenLocation(false)}
