@@ -33,7 +33,7 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
           <SettingsIcon />
           <SheetTitle>Pengaturan</SheetTitle>
         </SheetHeader>
-        <div className="px-6 flex flex-col overflow-y-auto">
+        <div className="flex flex-col overflow-y-auto px-6">
           {SETTINGS_CONFIG.map(setting => {
             const isDarkMode = setting.name === 'darkMode';
 

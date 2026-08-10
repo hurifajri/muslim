@@ -44,9 +44,12 @@ export function HomeShell() {
   const { quote, narrator } = useQuote();
 
   return (
-    <div className="p-4 flex flex-col gap-4 sm:min-h-dvh bg-linear-to-bl from-primary to-secondary">
-      <header className="flex items-center justify-between">
-        <div className="flex flex-col text-secondary-foreground">
+    <div className="from-primary to-secondary relative flex flex-col gap-4 bg-linear-to-bl p-4 sm:min-h-dvh">
+      {/* Subtle Grid Pattern */}
+      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
+
+      <header className="relative flex items-center justify-between">
+        <div className="text-secondary-foreground flex flex-col">
           <span className="text-base font-bold">{hijriDate}</span>
           <span className="text-xs font-bold">{gregDate}</span>
         </div>
@@ -59,28 +62,28 @@ export function HomeShell() {
         </Button>
       </header>
 
-      <main className="sm:flex-1 sm:flex sm:items-center sm:portrait:max-w-md sm:portrait:self-center  sm:landscape:max-w-3xl sm:landscape:self-center">
-        <div className="flex flex-col sm:landscape:flex-row gap-4">
+      <main className="relative z-10 sm:flex sm:flex-1 sm:items-center sm:portrait:max-w-md sm:portrait:self-center sm:landscape:max-w-3xl sm:landscape:self-center">
+        <div className="flex flex-col gap-4 sm:landscape:flex-row">
           {/* Praying times and dzikir */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="rounded-4xl bg-linear-to-bl from-primary to-secondary h-full flex flex-col justify-between p-4 2xs:p-8 overflow-hidden">
+              <div className="from-primary/10 to-secondary/10 2xs:p-8 flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-bl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
                     aria-label="Buka modal lokasi"
                     onClick={() => setIsOpenLocation(true)}
-                    className="text-xl font-bold capitalize -ml-4 text-secondary-foreground"
+                    className="text-secondary-foreground -ml-4 text-xl font-bold capitalize"
                   >
                     {city}
                     <Pencil />
                   </Button>
-                  <span className="text-xl font-bold text-primary-foreground">
+                  <span className="text-primary-foreground text-xl font-bold">
                     {gregTime}
                   </span>
                 </div>
-                <div className="flex items-center justify-between text-secondary-foreground">
+                <div className="text-secondary-foreground flex items-center justify-between">
                   {prayingTimes.map(item => (
                     <div key={item.id} className="flex flex-col items-center">
                       <span className="text-sm font-bold">{item.name}</span>
@@ -88,7 +91,7 @@ export function HomeShell() {
                     </div>
                   ))}
                 </div>
-                <MosqueIcon className="size-full scale-90 opacity-10 absolute top-0 -right-3/12" />
+                <MosqueIcon className="absolute top-0 -right-3/12 size-full scale-90 opacity-10" />
               </div>
             </AspectRatio>
 
@@ -98,7 +101,8 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass = id === 1 ? 'bg-primary' : 'bg-secondary';
+                  const bgClass =
+                    id === 1 ? 'bg-primary/10' : 'bg-secondary/10';
                   const textClass =
                     id === 1
                       ? 'text-primary-foreground'
@@ -109,7 +113,7 @@ export function HomeShell() {
                         <div
                           className={cn(
                             bgClass,
-                            'rounded-4xl flex flex-col gap-4 items-center justify-center'
+                            'flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs'
                           )}
                         >
                           {Icons[id]}
@@ -135,9 +139,9 @@ export function HomeShell() {
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="rounded-4xl flex flex-col gap-2 items-center justify-center bg-card">
+                        <div className="flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 bg-transparent shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs">
                           {Icons[id]}
-                          <span className="text-xs font-bold text-card-foreground">
+                          <span className="text-card-foreground text-xs font-bold">
                             {title}
                           </span>
                         </div>
@@ -148,13 +152,13 @@ export function HomeShell() {
             </div>
 
             {/* Quotes */}
-            <div className="flex flex-col rounded-4xl p-4 gap-4 bg-card sm:flex-1">
-              <h2 className="text-base font-bold text-card-foreground">
+            <div className="flex flex-col gap-4 rounded-4xl border border-white/50 bg-transparent p-4 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs sm:flex-1">
+              <h2 className="text-card-foreground text-base font-bold">
                 Mutiara Hikmah
               </h2>
               <div className="flex flex-col gap-2">
-                <p className="text-sm text-card-foreground">{quote}</p>
-                <span className="text-xs text-card-foreground">{narrator}</span>
+                <p className="text-card-foreground text-sm">{quote}</p>
+                <span className="text-card-foreground text-xs">{narrator}</span>
               </div>
             </div>
           </div>

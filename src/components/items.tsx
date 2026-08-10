@@ -65,10 +65,10 @@ const Items = ({ items }: ItemsProps) => {
             return (
               <div
                 key={pItem.id}
-                className="flex flex-col rounded-[25px] p-5 gap-[15px] shadow-sm bg-card"
+                className="bg-card flex flex-col gap-[15px] rounded-[25px] p-5 shadow-sm"
               >
                 {/* Title */}
-                <h2 className="text-xl font-bold leading-tight">
+                <h2 className="text-xl leading-tight font-bold">
                   {pItem.title}
                 </h2>
                 {/* Condition to render note */}
@@ -79,34 +79,34 @@ const Items = ({ items }: ItemsProps) => {
                 )}
                 {/* Condition to render arabic if exist outside content object */}
                 {pItem.arabic && settings.arabic === true && (
-                  <p className="font-arabic font-normal text-right leading-loose tracking-wide mt-2.5 text-[32px]">
+                  <p className="font-arabic mt-2.5 text-right text-[32px] leading-loose font-normal tracking-wide">
                     {pItem.arabic}
                   </p>
                 )}
                 {/* Condition to separate line */}
                 {(settings.translation === true ||
                   settings.transliteration === true) && (
-                  <hr className="my-2 border-t-[1.5px] border-border" />
+                  <hr className="border-border my-2 border-t-[1.5px]" />
                 )}
                 {pItem.items.map((cItem, i) => {
                   return (
-                    <div key={cItem.id} className="flex flex-col gap-5 mt-2.5">
+                    <div key={cItem.id} className="mt-2.5 flex flex-col gap-5">
                       {/* Sub title */}
                       {pItem.items.length > 1 && (
-                        <h2 className="text-xl font-bold leading-tight">
+                        <h2 className="text-xl leading-tight font-bold">
                           Bagian {i + 1}
                         </h2>
                       )}
                       {/* Condition to render arabic */}
                       {settings.arabic === true && (
-                        <p className="font-arabic font-normal text-right leading-loose tracking-wide text-[32px]">
+                        <p className="font-arabic text-right text-[32px] leading-loose font-normal tracking-wide">
                           {cItem.arabic}
                         </p>
                       )}
                       {/* Condition to render row of button benefits and button counter */}
                       {pathname.includes('dzikir') && (
                         <div
-                          className="flex items-center w-full"
+                          className="flex w-full items-center"
                           style={{
                             justifyContent:
                               cItem.benefits !== null &&
@@ -127,7 +127,7 @@ const Items = ({ items }: ItemsProps) => {
                                   )
                                 }
                                 variant="ghost"
-                                className={`py-2 cursor-pointer text-sm md:text-base uppercase hover:opacity-90 active:opacity-90 transition-opacity ${
+                                className={`cursor-pointer py-2 text-sm uppercase transition-opacity hover:opacity-90 active:opacity-90 md:text-base ${
                                   pItem.note !== null &&
                                   pItem.note !== 'Dibaca 1x' &&
                                   settings.counter === true
@@ -147,7 +147,7 @@ const Items = ({ items }: ItemsProps) => {
                       {/*  Condition to render transliteration */}
                       {cItem.transliteration &&
                         settings.transliteration === true && (
-                          <p className="text-base md:text-lg italic">
+                          <p className="text-base italic md:text-lg">
                             {cItem.transliteration}
                           </p>
                         )}
@@ -156,7 +156,7 @@ const Items = ({ items }: ItemsProps) => {
                         <p className="text-base md:text-lg">
                           {`"${cItem.translation}"`}
                           {cItem.narrator && (
-                            <span className="text-sm md:text-base opacity-80">
+                            <span className="text-sm opacity-80 md:text-base">
                               {` [${cItem.narrator}]`}
                             </span>
                           )}

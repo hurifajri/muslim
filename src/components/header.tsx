@@ -28,7 +28,7 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 left-0 right-0 z-[2] flex items-center justify-between p-3">
+      <header className="fixed top-0 right-0 left-0 z-[2] flex items-center justify-between p-3">
         <div className="flex items-center gap-1">
           <Button
             aria-label="Back"
@@ -39,7 +39,7 @@ const Header = () => {
           >
             <ChevronLeft />
           </Button>
-          <h1 className="text-lg capitalize font-bold">{title}</h1>
+          <h1 className="text-lg font-bold capitalize">{title}</h1>
         </div>
         <Button
           variant="ghost"

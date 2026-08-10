@@ -24,8 +24,8 @@ const Layout = ({ children }: LayoutProps) => {
       {!isHome && <Header />}
       <div
         className={cn(
-          'max-w-sm mx-auto flex flex-col',
-          isHome ? 'px-7 pb-7 pt-7 gap-[30px]' : 'pt-14 gap-[30px]'
+          'mx-auto flex max-w-sm flex-col',
+          isHome ? 'gap-[30px] px-7 pt-7 pb-7' : 'gap-[30px] pt-14'
         )}
       >
         {children}
