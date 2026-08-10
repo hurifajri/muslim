@@ -2,9 +2,15 @@ import { persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
 export type SettingKey =
-  'arabic' | 'counter' | 'translation' | 'transliteration' | 'benefits';
+  | 'darkMode'
+  | 'arabic'
+  | 'counter'
+  | 'translation'
+  | 'transliteration'
+  | 'benefits';
 
 export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
+  { name: 'darkMode', label: 'Mode Gelap' },
   { name: 'arabic', label: 'Bahasa Arab' },
   { name: 'counter', label: 'Tombol Hitung' },
   { name: 'translation', label: 'Terjemahan' },
@@ -26,6 +32,7 @@ export type SettingsStore = SettingsState & SettingsActions;
 
 export const defaultInitState: SettingsState = {
   settings: {
+    darkMode: false,
     arabic: true,
     counter: true,
     translation: true,
