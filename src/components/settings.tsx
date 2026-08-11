@@ -30,7 +30,7 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="right" className="bg-app-1" showCloseButton={false}>
+      <SheetContent side="right" showCloseButton={false} className="bg-app-1">
         <SheetHeader className="flex-row items-center justify-between p-4">
           <div className="flex items-center gap-2">
             <SettingsIcon className="text-app-1-1" />
