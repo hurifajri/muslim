@@ -5,6 +5,7 @@ import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { ReactNode, useState } from 'react';
 
+import { CherryBlossomsIcon } from '@/components/icons/cherry-blossoms';
 import { EveningIcon } from '@/components/icons/evening';
 import { MorningIcon } from '@/components/icons/morning';
 import { MosqueIcon } from '@/components/icons/mosque';
@@ -44,12 +45,15 @@ export function HomeShell() {
   const { quote, narrator } = useQuote();
 
   return (
-    <div className="from-primary to-secondary relative flex flex-col gap-4 bg-linear-to-bl p-4 sm:min-h-dvh">
+    <div className="bg-background relative flex flex-col gap-4 overflow-hidden p-4 sm:min-h-dvh">
       {/* Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
 
+      <CherryBlossomsIcon className="absolute top-8 -left-4 w-1/2 rotate-180 opacity-25 sm:w-1/3" />
+      <CherryBlossomsIcon className="absolute -right-6 bottom-0 opacity-25 sm:w-1/2" />
+
       <header className="relative flex items-center justify-between">
-        <div className="text-secondary-foreground flex flex-col">
+        <div className="text-foreground flex flex-col">
           <span className="text-base font-bold">{hijriDate}</span>
           <span className="text-xs font-bold">{gregDate}</span>
         </div>
@@ -62,13 +66,13 @@ export function HomeShell() {
         </Button>
       </header>
 
-      <main className="relative z-10 sm:flex sm:flex-1 sm:items-center sm:portrait:max-w-md sm:portrait:self-center sm:landscape:max-w-3xl sm:landscape:self-center">
+      <main className="sm:flex sm:flex-1 sm:items-center sm:portrait:max-w-md sm:portrait:self-center sm:landscape:max-w-3xl sm:landscape:self-center">
         <div className="flex flex-col gap-4 sm:landscape:flex-row">
           {/* Praying times and dzikir */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="from-primary/10 to-secondary/10 2xs:p-8 flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-bl p-4 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs">
+              <div className="from-primary/50 to-secondary/50 2xs:p-8 shadow-1 flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-bl p-4 backdrop-blur-xs">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
@@ -101,8 +105,7 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass =
-                    id === 1 ? 'bg-primary/10' : 'bg-secondary/10';
+                  const bgClass = id === 1 ? 'bg-primary' : 'bg-secondary';
                   const textClass =
                     id === 1
                       ? 'text-primary-foreground'
@@ -113,7 +116,7 @@ export function HomeShell() {
                         <div
                           className={cn(
                             bgClass,
-                            'flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs'
+                            'shadow-1 flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 backdrop-blur-xs'
                           )}
                         >
                           {Icons[id]}
@@ -139,7 +142,7 @@ export function HomeShell() {
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 bg-transparent shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs">
+                        <div className="shadow-1 bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
                           {Icons[id]}
                           <span className="text-card-foreground text-xs font-bold">
                             {title}
@@ -152,7 +155,7 @@ export function HomeShell() {
             </div>
 
             {/* Quotes */}
-            <div className="flex flex-col gap-4 rounded-4xl border border-white/50 bg-transparent p-4 shadow-[0_8px_32px_rgba(0,0,0,0.1)] backdrop-blur-xs sm:flex-1">
+            <div className="bg-card/50 flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
               <h2 className="text-card-foreground text-base font-bold">
                 Mutiara Hikmah
               </h2>
