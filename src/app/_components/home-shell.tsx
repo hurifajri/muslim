@@ -45,7 +45,7 @@ export function HomeShell() {
   const { quote, narrator } = useQuote();
 
   return (
-    <div className="bg-app-1 relative flex flex-col gap-4 overflow-hidden p-4 sm:min-h-dvh">
+    <div className="bg-app-1 relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4">
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
 
@@ -106,7 +106,7 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass = id === 1 ? 'bg-app-3' : 'bg-app-6';
+                  const bgClass = id === 1 ? 'bg-app-3/50' : 'bg-app-6/50';
                   const textClass = id === 1 ? 'text-app-3-3' : 'text-app-6-6';
 
                   return (
