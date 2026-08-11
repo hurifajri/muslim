@@ -68,12 +68,12 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 
   /* Custom app colors */
-  --app-1: var(--app-1);
-  --app-2: var(--app-2);
-  --app-3: var(--app-3);
-  --app-4: var(--app-4);
-  --app-5: var(--app-5);
-  --app-6: var(--app-6);
+  --color-app-1: var(--app-1);
+  --color-app-2: var(--app-2);
+  --color-app-3: var(--app-3);
+  --color-app-4: var(--app-4);
+  --color-app-5: var(--app-5);
+  --color-app-6: var(--app-6);
 }
 
 :root {
