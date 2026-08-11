@@ -68,23 +68,32 @@
   --radius-4xl: calc(var(--radius) * 2.6);
 }
 
+/*
+#ffd3d6
+#ffe5e7
+#f9dcc0
+#ffc6ca
+#f9e6e4
+#ffb0b5
+*/
+
 :root {
-  --background: oklch(0.84 0.08 354.51);
+  --background: #ffc6ca;
   --foreground: oklch(0.34 0.02 350.42);
 
-  --card: oklch(0.91 0.02 354.37);
+  --card: #f9e6e4;
   --card-foreground: oklch(0.4 0.01 0);
 
-  --popover: oklch(0.995 0.002 260);
+  --popover: #ffd3d6;
   --popover-foreground: oklch(0.3 0.03 260);
 
-  --primary: oklch(0.85 0.06 270);
+  --primary: #ffb0b5;
   --primary-foreground: oklch(0.35 0.02 274.4);
 
-  --secondary: oklch(0.92 0.04 350);
+  --secondary: #f9dcc0;
   --secondary-foreground: oklch(0.4 0.01 345.14);
 
-  --muted: oklch(0.95 0.01 260);
+  --muted: #ffe5e7;
   --muted-foreground: oklch(0.55 0.02 260);
 
   --accent: oklch(0.93 0.04 270);
