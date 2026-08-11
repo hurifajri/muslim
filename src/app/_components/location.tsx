@@ -44,9 +44,9 @@ const Location = ({ isOpen, onClose }: LocationProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent showCloseButton={false} className="bg-app-1">
+      <DialogContent showCloseButton={false} className="bg-app-1 p-4">
         <DialogHeader className="flex-row items-center justify-between">
-          <DialogTitle>Ubah Lokasi</DialogTitle>
+          <DialogTitle className="text-app-1-1">Ubah Lokasi</DialogTitle>
           <DialogClose asChild>
             <Button
               size="icon"
@@ -62,7 +62,7 @@ const Location = ({ isOpen, onClose }: LocationProps) => {
           placeholder="Contoh: Bogor"
           value={tempLocation}
           onChange={handleChangeLocation}
-          className="bg-app-2"
+          className="bg-app-2 text-app-2-2 capitalize"
         />
         <DialogFooter>
           <Button
