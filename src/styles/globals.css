@@ -19,6 +19,8 @@
   /* --- Extra Large Screens (Multiples of 20rem / 320px from 80rem) --- */
   --breakpoint-2xl: 100rem; /* 1600px (Large desktop monitors) */
   --breakpoint-3xl: 120rem; /* 1920px (Full HD screens) */
+
+  --shadow-1: 0px 8px 32px rgba(0, 0, 0, 0.1);
 }
 
 @theme inline {
@@ -67,11 +69,11 @@
 }
 
 :root {
-  --background: oklch(0.99 0.005 260);
-  --foreground: oklch(0.45 0 0);
+  --background: oklch(0.84 0.08 354.51);
+  --foreground: oklch(0.34 0.02 350.42);
 
-  --card: oklch(0.9309 0.0269 285.86);
-  --card-foreground: oklch(0.41 0.01 0);
+  --card: oklch(0.91 0.02 354.37);
+  --card-foreground: oklch(0.4 0.01 0);
 
   --popover: oklch(0.995 0.002 260);
   --popover-foreground: oklch(0.3 0.03 260);
