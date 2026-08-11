@@ -18,5 +18,8 @@
     "**/.DS_Store": true,
     "**/.next": true
   },
+  "css.lint.unknownAtRules": "ignore",
+  "css.lint.universalSelector": "ignore",
+  "css.lint.importStatement": "ignore",
   "typescript.tsdk": "node_modules/typescript/lib"
 }
