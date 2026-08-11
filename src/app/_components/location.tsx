@@ -1,8 +1,10 @@
+import { XIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -42,17 +44,31 @@ const Location = ({ isOpen, onClose }: LocationProps) => {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent>
-        <DialogHeader>
+      <DialogContent showCloseButton={false} className="bg-app-1">
+        <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle>Ubah Lokasi</DialogTitle>
+          <DialogClose asChild>
+            <Button
+              size="icon"
+              aria-label="Tutup dialog lokasi"
+              onClick={onClose}
+              className="bg-app-6 hover:bg-app-6/80"
+            >
+              <XIcon />
+            </Button>
+          </DialogClose>
         </DialogHeader>
         <Input
           placeholder="Contoh: Bogor"
           value={tempLocation}
           onChange={handleChangeLocation}
+          className="bg-app-2"
         />
         <DialogFooter>
-          <Button onClick={handleClickLocation} className="hover:opacity-90">
+          <Button
+            onClick={handleClickLocation}
+            className="bg-app-6 text-app-6-6 hover:bg-app-6/80"
+          >
             Simpan
           </Button>
         </DialogFooter>

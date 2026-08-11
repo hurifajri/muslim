@@ -77,9 +77,9 @@ export function HomeShell() {
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
-                    aria-label="Buka modal lokasi"
+                    aria-label="Buka dialog lokasi"
                     onClick={() => setIsOpenLocation(true)}
-                    className="text-app-3-3 -ml-4 text-xl font-bold capitalize"
+                    className="text-app-3-3 hover:bg-app-3 -ml-4 text-xl font-bold capitalize"
                   >
                     {city}
                     <Pencil />
