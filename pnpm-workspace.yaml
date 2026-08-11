@@ -1,7 +1,0 @@
-packages:
-  - "."
-allowBuilds:
-  unrs-resolver: set this to true or false
-minimumReleaseAgeExclude:
-  - eslint@10.8.1
-  - lucide-react@1.30.0
