@@ -1,19 +1,12 @@
 import '@/styles/globals.css';
 
 import type { Metadata, Viewport } from 'next';
-import { Amiri, EB_Garamond, Outfit } from 'next/font/google';
+import { Amiri, Outfit } from 'next/font/google';
 
 import { cn } from '@/lib/utils';
 import { QueryProvider } from '@/providers/query-provider';
 import { SettingsStoreProvider } from '@/providers/settings-store-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
-
-const ebGaramond = EB_Garamond({
-  variable: '--font-serif',
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true,
-});
 
 const outfit = Outfit({
   variable: '--font-sans',
@@ -92,12 +85,7 @@ export default function RootLayout({ children }: RootLayoutProps) {
   return (
     <html lang="id" suppressHydrationWarning>
       <body
-        className={cn(
-          'font-sans antialiased',
-          ebGaramond.variable,
-          outfit.variable,
-          amiri.variable
-        )}
+        className={cn('font-sans antialiased', outfit.variable, amiri.variable)}
       >
         <ThemeProvider
           attribute="class"
