@@ -45,15 +45,15 @@ export function HomeShell() {
   const { quote, narrator } = useQuote();
 
   return (
-    <div className="bg-background relative flex flex-col gap-4 overflow-hidden p-4 sm:min-h-dvh">
-      {/* Subtle Grid Pattern */}
+    <div className="bg-app-1 relative flex flex-col gap-4 overflow-hidden p-4 sm:min-h-dvh">
+      {/* Subtle grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
 
       <CherryBlossomsIcon className="absolute top-8 left-[-2%] w-1/2 rotate-180 opacity-25 sm:w-1/3" />
       <CherryBlossomsIcon className="absolute right-[-2%] bottom-8 opacity-25 sm:w-1/2" />
 
       <header className="relative flex items-center justify-between">
-        <div className="text-foreground flex flex-col">
+        <div className="text-app-1-1 flex flex-col">
           <span className="text-base font-bold">{hijriDate}</span>
           <span className="text-xs font-bold">{gregDate}</span>
         </div>
@@ -72,22 +72,22 @@ export function HomeShell() {
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="from-primary/50 to-secondary/50 2xs:p-8 shadow-1 flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-bl p-4 backdrop-blur-xs">
+              <div className="from-app-3/50 to-app-6/50 2xs:p-8 shadow-1 flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
                     aria-label="Buka modal lokasi"
                     onClick={() => setIsOpenLocation(true)}
-                    className="text-secondary-foreground -ml-4 text-xl font-bold capitalize"
+                    className="text-app-3-3 -ml-4 text-xl font-bold capitalize"
                   >
                     {city}
                     <Pencil />
                   </Button>
-                  <span className="text-primary-foreground text-xl font-bold">
+                  <span className="text-app-6-6 text-xl font-bold">
                     {gregTime}
                   </span>
                 </div>
-                <div className="text-secondary-foreground flex items-center justify-between">
+                <div className="text-app-3-3 flex items-center justify-between">
                   {prayingTimes.map(item => (
                     <div key={item.id} className="flex flex-col items-center">
                       <span className="text-sm font-bold">{item.name}</span>
@@ -105,11 +105,9 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass = id === 1 ? 'bg-primary' : 'bg-secondary';
-                  const textClass =
-                    id === 1
-                      ? 'text-primary-foreground'
-                      : 'text-secondary-foreground';
+                  const bgClass = id === 1 ? 'bg-app-3' : 'bg-app-6';
+                  const textClass = id === 1 ? 'text-app-3-3' : 'text-app-6-6';
+
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
@@ -142,9 +140,9 @@ export function HomeShell() {
                   return (
                     <Link href={link} key={id} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="shadow-1 bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
+                        <div className="shadow-1 bg-app-2/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
                           {Icons[id]}
-                          <span className="text-card-foreground text-xs font-bold">
+                          <span className="text-app-2-2 text-xs font-bold">
                             {title}
                           </span>
                         </div>
@@ -155,13 +153,13 @@ export function HomeShell() {
             </div>
 
             {/* Quotes */}
-            <div className="bg-card/50 flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
-              <h2 className="text-card-foreground text-base font-bold">
+            <div className="bg-app-2/50 flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
+              <h2 className="text-app-2-2 text-base font-bold">
                 Mutiara Hikmah
               </h2>
               <div className="flex flex-col gap-2">
-                <p className="text-card-foreground text-sm">{quote}</p>
-                <span className="text-card-foreground text-xs">{narrator}</span>
+                <p className="text-app-2-2 text-sm">{quote}</p>
+                <span className="text-app-2-2 text-xs">{narrator}</span>
               </div>
             </div>
           </div>

@@ -69,11 +69,15 @@
 
   /* Custom app colors */
   --color-app-1: var(--app-1);
+  --color-app-1-1: var(--app-1-1);
   --color-app-2: var(--app-2);
+  --color-app-2-2: var(--app-2-2);
   --color-app-3: var(--app-3);
+  --color-app-3-3: var(--app-3-3);
   --color-app-4: var(--app-4);
   --color-app-5: var(--app-5);
   --color-app-6: var(--app-6);
+  --color-app-6-6: var(--app-6-6);
 }
 
 :root {
@@ -122,11 +126,15 @@
 
   /* Custom app colors */
   --app-1: #ffd3d6;
+  --app-1-1: #504243;
   --app-2: #ffe5e7;
+  --app-2-2: #544b4c;
   --app-3: #f9dcc0;
+  --app-3-3: #4f463d;
   --app-4: #ffc6ca;
   --app-5: #f9e6e4;
   --app-6: #ffb0b5;
+  --app-6-6: #453031;
 }
 
 .dark {
