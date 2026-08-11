@@ -181,11 +181,15 @@
 
   /* Custom app colors */
   --app-1: #ffd3d6;
+  --app-1-1: #504243;
   --app-2: #ffe5e7;
+  --app-2-2: #544b4c;
   --app-3: #f9dcc0;
+  --app-3-3: #4f463d;
   --app-4: #ffc6ca;
   --app-5: #f9e6e4;
   --app-6: #ffb0b5;
+  --app-6-6: #453031;
 }
 
 @layer base {

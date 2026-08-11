@@ -49,8 +49,8 @@ export function HomeShell() {
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
 
-      <CherryBlossomsIcon className="absolute top-8 left-[-2%] w-1/2 rotate-180 opacity-25 sm:w-1/3" />
-      <CherryBlossomsIcon className="absolute right-[-2%] bottom-8 opacity-25 sm:w-1/2" />
+      <CherryBlossomsIcon className="fixed top-8 left-[-4%] w-1/2 rotate-180 opacity-25 sm:w-1/3" />
+      <CherryBlossomsIcon className="fixed right-[-4%] bottom-8 opacity-25 sm:w-1/2" />
 
       <header className="relative flex items-center justify-between">
         <div className="text-app-1-1 flex flex-col">
@@ -61,6 +61,7 @@ export function HomeShell() {
           size="icon"
           aria-label="Buka pengaturan"
           onClick={() => setIsOpenSettings(true)}
+          className="bg-app-6 hover:bg-app-6/80"
         >
           <MenuIcon />
         </Button>
