@@ -52,7 +52,7 @@ const Location = ({ isOpen, onClose }: LocationProps) => {
               size="icon"
               aria-label="Tutup dialog lokasi"
               onClick={onClose}
-              className="bg-app-6 hover:bg-app-6/80"
+              className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
             >
               <XIcon />
             </Button>

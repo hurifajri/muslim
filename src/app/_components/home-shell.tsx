@@ -61,7 +61,7 @@ export function HomeShell() {
           size="icon"
           aria-label="Buka pengaturan"
           onClick={() => setIsOpenSettings(true)}
-          className="bg-app-6 hover:bg-app-6/80"
+          className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
         >
           <MenuIcon />
         </Button>
