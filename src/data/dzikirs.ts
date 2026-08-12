@@ -39,7 +39,7 @@ const dzikirs = [
   },
   {
     id: 3,
-    title: `Membaca Surat Al-Ikhlas, Al-Falaq, dan An-Naas`,
+    title: `Membaca 3 Qul`,
     note: `Dibaca 3x`,
     category: [`pagi`, `petang`],
     items: [

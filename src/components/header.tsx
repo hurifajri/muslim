@@ -28,24 +28,23 @@ const Header = () => {
 
   return (
     <>
-      <header className="fixed top-0 right-0 left-0 z-[2] flex items-center justify-between p-3">
+      <header className="fixed top-0 right-0 left-0 flex items-center justify-between p-4 backdrop-blur-xs">
         <div className="flex items-center gap-1">
           <Button
-            aria-label="Back"
-            variant="ghost"
             size="icon"
+            aria-label="Kembali"
             onClick={back}
-            className="hover:bg-transparent active:bg-transparent"
+            className="bg-app-6 hover:bg-app-6/80"
           >
             <ChevronLeft />
           </Button>
           <h1 className="text-lg font-bold capitalize">{title}</h1>
         </div>
         <Button
-          variant="ghost"
           size="icon"
           aria-label="Buka pengaturan"
           onClick={() => setIsOpenSettings(true)}
+          className="bg-app-6 hover:bg-app-6/80"
         >
           <MenuIcon />
         </Button>

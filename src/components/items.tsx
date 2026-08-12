@@ -1,12 +1,11 @@
-// Eksternal
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import type { Benefit } from '@/components/benefits';
-// Internal
 import { Counter } from '@/components/counter';
 import { Button } from '@/components/ui/button';
+import { Separator } from '@/components/ui/separator';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 
 interface ContentItem {
@@ -36,15 +35,12 @@ const Benefits = dynamic(() =>
 
 const Items = ({ items }: ItemsProps) => {
   const pathname = usePathname();
-  // Settings
   const { settings } = useSettingsStore(state => state);
 
-  // Open/close drawer (now sheet) benefits handler
   const [isOpen, setIsOpen] = useState(false);
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
-  // Set selected item benefits data
   const [benefits, setBenefits] = useState<Benefit[] | null>(null);
   const [title, setTitle] = useState('');
 
@@ -59,34 +55,26 @@ const Items = ({ items }: ItemsProps) => {
 
   return (
     <>
-      <div className="flex flex-col gap-[30px] pb-10">
-        {items.length > 0 &&
-          items.map(pItem => {
-            return (
-              <div
-                key={pItem.id}
-                className="bg-card flex flex-col gap-[15px] rounded-[25px] p-5 shadow-sm"
-              >
-                {/* Title */}
-                <h2 className="text-xl leading-tight font-bold">
-                  {pItem.title}
-                </h2>
-                {/* Condition to render note */}
+      <div className="py-17">
+        {items.map(pItem => {
+          return (
+            <div
+              key={pItem.id}
+              className="odd:bg-app-2 even:bg-app-5 flex flex-col"
+            >
+              <Separator className="bg-app-1" />
+              <div className="flex items-center justify-between p-4">
+                <h2 className="text-base font-semibold">{pItem.title}</h2>
                 {pItem.note && (
-                  <span className="text-sm font-bold uppercase">
-                    {pItem.note}
-                  </span>
+                  <span className="text-sm font-semibold">{pItem.note}</span>
                 )}
-                {/* Condition to render arabic if exist outside content object */}
-                {pItem.arabic && settings.arabic === true && (
+              </div>
+              <Separator className="bg-app-1" />
+              <div className="p-4">
+                {pItem.arabic && (
                   <p className="font-arabic mt-2.5 text-right text-[32px] leading-loose font-normal tracking-wide">
                     {pItem.arabic}
                   </p>
-                )}
-                {/* Condition to separate line */}
-                {(settings.translation === true ||
-                  settings.transliteration === true) && (
-                  <hr className="border-border my-2 border-t-[1.5px]" />
                 )}
                 {pItem.items.map((cItem, i) => {
                   return (
@@ -98,7 +86,7 @@ const Items = ({ items }: ItemsProps) => {
                         </h2>
                       )}
                       {/* Condition to render arabic */}
-                      {settings.arabic === true && (
+                      {cItem.arabic && (
                         <p className="font-arabic text-right text-[32px] leading-loose font-normal tracking-wide">
                           {cItem.arabic}
                         </p>
@@ -166,8 +154,9 @@ const Items = ({ items }: ItemsProps) => {
                   );
                 })}
               </div>
-            );
-          })}
+            </div>
+          );
+        })}
       </div>
       {/* Benefits of each item Dzikir or Doa */}
       {settings.benefits === true && (
