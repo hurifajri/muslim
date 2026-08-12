@@ -1,4 +1,4 @@
-const quotes = [
+export const quotes = [
   {
     id: 1,
     quote: `Malik bin Dinar sepanjang malam bangun sambil memegang janggutnya, ucapnya: "Wahai Rabbi, Engkau telah mengetahui siapa calon penghuni surga dan neraka. Dimanakah Malik akan berada?"`,
@@ -25,5 +25,3 @@ const quotes = [
     narrator: `Hilyatul Aulia, 5/184`,
   },
 ];
-
-export { quotes };

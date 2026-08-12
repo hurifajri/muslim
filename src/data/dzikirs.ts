@@ -1,4 +1,4 @@
-const dzikirs = [
+export const dzikirs = [
   {
     id: 1,
     title: `Membaca Isti'adzah atau Ta'awudz`,
@@ -483,5 +483,3 @@ const dzikirs = [
     ],
   },
 ];
-
-export { dzikirs };

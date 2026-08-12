@@ -1,4 +1,4 @@
-const toc = [
+export const toc = [
   {
     id: 1,
     title: 'Dzikir Pagi',
@@ -30,5 +30,3 @@ const toc = [
     category: 'doa',
   },
 ];
-
-export { toc };

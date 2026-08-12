@@ -1,4 +1,4 @@
-const sources = [
+export const sources = [
   {
     id: 1,
     title: 'Dzikir Pagi',
@@ -25,5 +25,3 @@ const sources = [
     url: 'https://rumaysho.com/1997-dzikir-setelah-shalat.html',
   },
 ];
-
-export { sources };
