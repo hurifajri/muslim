@@ -1,7 +1,6 @@
 'use client';
 
 import dynamic from 'next/dynamic';
-import { usePathname } from 'next/navigation';
 import { useState } from 'react';
 
 import type { Benefit } from '@/components/benefits';
@@ -37,7 +36,6 @@ const Benefits = dynamic(() =>
 );
 
 const Items = ({ items }: ItemsProps) => {
-  const pathname = usePathname();
   const { settings } = useSettingsStore(state => state);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -73,10 +71,10 @@ const Items = ({ items }: ItemsProps) => {
                 )}
               </div>
               <Separator className="bg-app-1" />
-              <div className="p-4">
+              <div className="flex flex-col gap-8 p-4 pb-8">
                 {pItem.items.map(cItem => {
                   return (
-                    <div key={cItem.id} className="flex flex-col gap-2">
+                    <div key={cItem.id} className="flex flex-col gap-4">
                       <p className="font-arabic text-right text-2xl leading-loose">
                         {cItem.arabic}
                       </p>
