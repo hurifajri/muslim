@@ -54,8 +54,8 @@ export function HomeShell() {
 
       <header className="relative flex items-center justify-between">
         <div className="text-app-1-1 flex flex-col">
-          <span className="text-base font-bold">{hijriDate}</span>
-          <span className="text-xs font-bold">{gregDate}</span>
+          <span className="font-bold">{hijriDate}</span>
+          <span className="text-sm font-bold">{gregDate}</span>
         </div>
         <Button
           size="icon"
@@ -84,7 +84,7 @@ export function HomeShell() {
                     {city}
                     <Pencil />
                   </Button>
-                  <span className="text-app-6-6 text-xl font-bold">
+                  <span className="text-app-6-6 text-4xl font-bold">
                     {gregTime}
                   </span>
                 </div>
@@ -102,6 +102,7 @@ export function HomeShell() {
 
             {/* Dzikir */}
             <div className="flex gap-4">
+              <h2 className="sr-only">Kumpulan Dzikir</h2>
               {toc
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
@@ -110,7 +111,7 @@ export function HomeShell() {
                   const textClass = id === 1 ? 'text-app-3-3' : 'text-app-6-6';
 
                   return (
-                    <Link href={link} key={id} className="flex-1">
+                    <Link key={id} href={link} title={title} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
                         <div
                           className={cn(
@@ -119,9 +120,9 @@ export function HomeShell() {
                           )}
                         >
                           {Icons[id]}
-                          <span className={cn(textClass, 'text-sm font-bold')}>
+                          <h3 className={cn(textClass, 'text-sm font-bold')}>
                             {title}
-                          </span>
+                          </h3>
                         </div>
                       </AspectRatio>
                     </Link>
@@ -134,18 +135,19 @@ export function HomeShell() {
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Dua */}
             <div className="flex gap-4">
+              <h2 className="sr-only">Kumpulan Doa</h2>
               {toc
                 .filter(({ category }) => category === 'doa')
                 .map(content => {
                   const { id, title, link } = content;
                   return (
-                    <Link href={link} key={id} className="flex-1">
+                    <Link key={id} href={link} title={title} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
                         <div className="shadow-1 bg-app-2/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
                           {Icons[id]}
-                          <span className="text-app-2-2 text-xs font-bold">
+                          <h3 className="text-app-2-2 text-sm font-bold">
                             {title}
-                          </span>
+                          </h3>
                         </div>
                       </AspectRatio>
                     </Link>
@@ -155,9 +157,7 @@ export function HomeShell() {
 
             {/* Quotes */}
             <div className="bg-app-2/50 flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
-              <h2 className="text-app-2-2 text-base font-bold">
-                Mutiara Hikmah
-              </h2>
+              <h2 className="text-app-2-2 font-bold">Serpihan Faidah</h2>
               <div className="flex flex-col gap-2">
                 <p className="text-app-2-2 text-sm">{quote}</p>
                 <span className="text-app-2-2 text-xs">{narrator}</span>
