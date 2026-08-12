@@ -91,7 +91,7 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
                   key={source.id}
                   href={source.url}
                   target="_blank"
-                  rel="noreferrer"
+                  rel="noopener noreferrer"
                   className="text-app-1-1 flex items-center text-xs"
                 >
                   {source.title}&nbsp;
