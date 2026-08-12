@@ -1,4 +1,4 @@
-const doas = [
+export const doas = [
   {
     id: 1,
     title: `Meminta Ampunan dan Rahmat Allah`,
@@ -902,5 +902,3 @@ const doas = [
     ],
   },
 ];
-
-export { doas };
