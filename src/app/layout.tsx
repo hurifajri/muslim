@@ -3,6 +3,7 @@ import '@/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
 
+import { env } from '@/env';
 import { cn } from '@/lib/utils';
 import { QueryProvider } from '@/providers/query-provider';
 import { SettingsStoreProvider } from '@/providers/settings-store-provider';
@@ -24,7 +25,11 @@ const amiri = Amiri({
 });
 
 export const metadata: Metadata = {
-  title: 'Muslim • Jadwal Sholat, Dzikir, dan Doa',
+  metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
+  title: {
+    default: 'Muslim • Jadwal Sholat, Dzikir, dan Doa',
+    template: '%s | Muslim',
+  },
   description:
     'Aplikasi web harian untuk jadwal sholat, dzikir pagi petang, dan kumpulan doa sehari-hari umat Muslim.',
   applicationName: 'Muslim',
