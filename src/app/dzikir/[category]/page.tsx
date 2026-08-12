@@ -33,7 +33,7 @@ export default async function DzikirPage({ params }: PageProps) {
   );
 
   return (
-    <div className="bg-app-2">
+    <div className="bg-app-2 flex min-h-dvh flex-col overflow-hidden">
       <Header title={title} />
       <Items items={filteredDzikirs} />
     </div>

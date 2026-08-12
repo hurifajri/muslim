@@ -19,7 +19,7 @@ export function Header({ title }: HeaderProps) {
   return (
     <>
       <header className="fixed top-0 right-0 left-0 flex items-center justify-between p-4 backdrop-blur-xs">
-        <div className="flex items-center gap-1">
+        <div className="flex items-center gap-2">
           <Button
             size="icon"
             aria-label="Kembali"
@@ -28,7 +28,7 @@ export function Header({ title }: HeaderProps) {
           >
             <ChevronLeft />
           </Button>
-          <h1 className="text-lg font-bold capitalize">{title}</h1>
+          <h1 className="text-app-2-2 text-lg font-bold capitalize">{title}</h1>
         </div>
         <Button
           size="icon"

@@ -39,7 +39,7 @@ export function Items({ items }: ItemsProps) {
 
   return (
     <>
-      <div className="py-17">
+      <div className="py-17 sm:max-w-2xl sm:self-center">
         {items.map(pItem => {
           return (
             <div
