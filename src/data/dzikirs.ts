@@ -39,7 +39,7 @@ export const dzikirs = [
   },
   {
     id: 3,
-    title: `Membaca Al-Ikhlas`,
+    title: `Membaca 3 Qul`,
     note: `Dibaca 3x`,
     categories: [`pagi`, `petang`],
     items: [
@@ -57,14 +57,6 @@ export const dzikirs = [
           },
         ],
       },
-    ],
-  },
-  {
-    id: 4,
-    title: `Membaca Al-Falaq`,
-    note: `Dibaca 3x`,
-    categories: [`pagi`, `petang`],
-    items: [
       {
         id: 2,
         arabic: `بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِقُلْ أَعُوذُ بِرَبِّ الْفَلَقِ مِن شَرِّ مَا خَلَقَ وَمِن شَرِّ غَاسِقٍ إِذَا وَقَبَ وَمِن شَرِّ النَّفَّاثَاتِ فِي الْعُقَدِ  وَمِن شَرِّ حَاسِدٍ إِذَا حَسَدَ`,
@@ -79,14 +71,6 @@ export const dzikirs = [
           },
         ],
       },
-    ],
-  },
-  {
-    id: 5,
-    title: `Membaca An-Nas`,
-    note: `Dibaca 3x`,
-    categories: [`pagi`, `petang`],
-    items: [
       {
         id: 3,
         arabic: `بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِقُلْ أَعُوذُ بِرَبِّ النَّاسِ مَلِكِ النَّاسِ إِلَهِ النَّاسِ مِن شَرِّ الْوَسْوَاسِ الْخَنَّاسِ الَّذِي يُوَسْوِسُ فِي صُدُورِ النَّاسِ مِنَ الْجِنَّةِ وَ النَّاسِ`,
@@ -104,7 +88,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 6,
+    id: 4,
     title: `Meminta Kebaikan dan Perlindungan`,
     note: `Dibaca 1x`,
     categories: [`pagi`],
@@ -126,7 +110,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 7,
+    id: 5,
     title: `Meminta Kebaikan dan Perlindungan`,
     note: `Dibaca 1x`,
     categories: [`petang`],
@@ -148,7 +132,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 8,
+    id: 6,
     title: `Memuji Allah Ketika Memasuki Waktu Pagi`,
     note: `Dibaca 1x`,
     categories: [`pagi`],
@@ -164,7 +148,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 9,
+    id: 7,
     title: `Memuji Allah Ketika Memasuki Waktu Petang`,
     note: `Dibaca 1x`,
     categories: [`petang`],
@@ -180,7 +164,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 10,
+    id: 8,
     title: `Membaca Sayyidul Istighfar`,
     note: `Dibaca 1x`,
     categories: [`pagi`, `petang`],
@@ -202,7 +186,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 11,
+    id: 9,
     title: `Memuji dan Mentauhidkan Allah di Waktu Pagi`,
     note: `Dibaca 4x`,
     categories: [`pagi`],
@@ -224,7 +208,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 12,
+    id: 10,
     title: `Memuji dan Mentauhidkan Allah di Waktu Petang`,
     note: `Dibaca 4x`,
     categories: [`petang`],
@@ -246,7 +230,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 13,
+    id: 11,
     title: `Meminta Kebaikan dan Keselamatan Dunia dan Akhirat`,
     note: `Dibaca 1x`,
     categories: [`pagi`, `petang`],
@@ -268,7 +252,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 14,
+    id: 12,
     title: `Meminta Perlindungan dari Kejahatan Diri dan Syaitan`,
     note: `Dibaca 1x`,
     categories: [`pagi`, `petang`],
@@ -290,7 +274,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 15,
+    id: 13,
     title: `Meminta Dihindarkan dari Bahaya yang Tiba-tiba`,
     note: `Dibaca 3x`,
     categories: [`pagi`, `petang`],
@@ -312,7 +296,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 16,
+    id: 14,
     title: `Memohon Keridhoan Allah`,
     note: `Dibaca 3x`,
     categories: [`pagi`, `petang`],
@@ -334,7 +318,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 17,
+    id: 15,
     title: `Meminta Pertolongan dalam Segala Urusan`,
     note: `Dibaca 1x`,
     categories: [`pagi`, `petang`],
@@ -356,7 +340,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 18,
+    id: 16,
     title: 'Mengikrarkan Tauhid di Waktu Pagi',
     note: `Dibaca 1x`,
     categories: [`pagi`],
@@ -372,7 +356,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 19,
+    id: 17,
     title: `Bertasbih Kepada Allah`,
     note: `Dibaca 100x`,
     categories: [`pagi`, `petang`],
@@ -394,7 +378,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 20,
+    id: 18,
     title: `Mentauhidkan Allah`,
     note: `Dibaca 10x`,
     categories: [`pagi`, `petang`],
@@ -423,7 +407,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 21,
+    id: 19,
     title: `Memuji Allah`,
     note: `Dibaca 3x`,
     categories: [`pagi`],
@@ -445,7 +429,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 22,
+    id: 20,
     title: `Meminta Ilmu yang Bermanfaat`,
     note: `Dibaca 1x`,
     categories: [`pagi`],
@@ -461,7 +445,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 23,
+    id: 21,
     title: `Membaca Istighfar`,
     note: `Dibaca 100x`,
     categories: [`pagi`],
@@ -477,7 +461,7 @@ export const dzikirs = [
     ],
   },
   {
-    id: 24,
+    id: 22,
     title: `Meminta Perlindungan dari Kejahatan`,
     note: `Dibaca 3x`,
     categories: [`petang`],
