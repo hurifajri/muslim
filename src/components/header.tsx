@@ -1,29 +1,19 @@
 'use client';
 
 import { ChevronLeft, MenuIcon } from 'lucide-react';
-import { useParams, usePathname, useRouter } from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 
 import { Settings } from './settings';
 
-const Header = () => {
+type HeaderProps = Readonly<{
+  title: string;
+}>;
+
+const Header = ({ title }: HeaderProps) => {
   const { back } = useRouter();
-  const pathname = usePathname();
-  const params = useParams();
-  const isDzikir = pathname?.startsWith('/dzikir/');
-  const isDoa = pathname?.startsWith('/doa/');
-  const category = Array.isArray(params?.category)
-    ? params.category[0]
-    : (params?.category ?? '');
-
-  const title = isDzikir
-    ? `Dzikir ${category}`
-    : isDoa
-      ? `Kumpulan Doa ${category}`
-      : '';
-
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
   return (
