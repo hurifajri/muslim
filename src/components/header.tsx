@@ -28,7 +28,7 @@ const Header = ({ title }: HeaderProps) => {
           >
             <ChevronLeft />
           </Button>
-          <h2 className="text-lg font-bold capitalize">{title}</h2>
+          <h1 className="text-lg font-bold capitalize">{title}</h1>
         </div>
         <Button
           size="icon"

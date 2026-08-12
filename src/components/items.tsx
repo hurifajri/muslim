@@ -66,7 +66,7 @@ const Items = ({ items }: ItemsProps) => {
             >
               <Separator className="bg-app-1" />
               <div className="flex items-center justify-between p-4">
-                <h3 className="text-base font-semibold">{pItem.title}</h3>
+                <h2 className="text-base font-semibold">{pItem.title}</h2>
                 {pItem.note && (
                   <span className="text-sm font-semibold">{pItem.note}</span>
                 )}
@@ -81,12 +81,6 @@ const Items = ({ items }: ItemsProps) => {
                 {pItem.items.map((cItem, i) => {
                   return (
                     <div key={cItem.id} className="mt-2.5 flex flex-col gap-5">
-                      {/* Sub title */}
-                      {pItem.items.length > 1 && (
-                        <h4 className="text-xl leading-tight font-bold">
-                          Bagian {i + 1}
-                        </h4>
-                      )}
                       {/* Condition to render arabic */}
                       {cItem.arabic && (
                         <p className="font-arabic text-right text-[32px] leading-loose font-normal tracking-wide">
