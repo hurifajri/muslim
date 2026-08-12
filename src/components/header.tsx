@@ -38,7 +38,7 @@ const Header = () => {
           >
             <ChevronLeft />
           </Button>
-          <h1 className="text-lg font-bold capitalize">{title}</h1>
+          <h2 className="text-lg font-bold capitalize">{title}</h2>
         </div>
         <Button
           size="icon"

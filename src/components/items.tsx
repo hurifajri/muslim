@@ -1,3 +1,5 @@
+'use client';
+
 import dynamic from 'next/dynamic';
 import { usePathname } from 'next/navigation';
 import { useState } from 'react';
@@ -64,7 +66,7 @@ const Items = ({ items }: ItemsProps) => {
             >
               <Separator className="bg-app-1" />
               <div className="flex items-center justify-between p-4">
-                <h2 className="text-base font-semibold">{pItem.title}</h2>
+                <h3 className="text-base font-semibold">{pItem.title}</h3>
                 {pItem.note && (
                   <span className="text-sm font-semibold">{pItem.note}</span>
                 )}
@@ -81,9 +83,9 @@ const Items = ({ items }: ItemsProps) => {
                     <div key={cItem.id} className="mt-2.5 flex flex-col gap-5">
                       {/* Sub title */}
                       {pItem.items.length > 1 && (
-                        <h2 className="text-xl leading-tight font-bold">
+                        <h4 className="text-xl leading-tight font-bold">
                           Bagian {i + 1}
-                        </h2>
+                        </h4>
                       )}
                       {/* Condition to render arabic */}
                       {cItem.arabic && (
