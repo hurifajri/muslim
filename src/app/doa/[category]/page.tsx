@@ -1,25 +1,18 @@
 import type { Metadata } from 'next';
 
-import { Header } from '@/components/header';
-import { Items } from '@/components/items';
-import { doas } from '@/data/doas';
+import { capitalize } from '@/lib/utils';
+
+import { DoaShell } from './_components/doa-shell';
 
 type PageProps = {
   params: Promise<{ category: string }>;
 };
 
-function toTitleCase(str: string) {
-  return str
-    .split('-')
-    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-    .join(' ');
-}
-
 export async function generateMetadata({
   params,
 }: PageProps): Promise<Metadata> {
   const { category } = await params;
-  const title = `Doa ${toTitleCase(category)}`;
+  const title = `Doa ${capitalize(category)}`;
 
   return {
     title,
@@ -30,14 +23,11 @@ export async function generateMetadata({
   };
 }
 
-export default async function DoaPage({ params }: PageProps) {
-  const { category } = await params;
-  const filteredDoas = doas.filter((doa) => doa.category.includes(category));
-
+export default function DoaPage() {
   return (
     <>
-      <Header />
-      <Items items={filteredDoas} />
+      <h1 className="sr-only">Placeholder</h1>
+      <DoaShell />
     </>
   );
 }
