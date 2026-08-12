@@ -28,7 +28,7 @@ export default async function DzikirPage({ params }: PageProps) {
   const { category } = await params;
   const title = `Dzikir ${capitalize(category)}`;
   const filteredDzikirs = dzikirs.filter(dzikir =>
-    dzikir.category.includes(category)
+    dzikir.categories.includes(category)
   );
 
   return (
