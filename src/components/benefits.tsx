@@ -1,3 +1,7 @@
+import { XIcon } from 'lucide-react';
+import React from 'react';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -8,6 +12,7 @@ import {
 } from '@/components/ui/dialog';
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
@@ -28,18 +33,28 @@ export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
-        <DrawerContent className="max-h-[80vh] rounded-t-[35px] py-2">
-          <DrawerHeader>
-            <DrawerTitle className="text-center text-base font-bold">
+        <DrawerContent className="before:bg-app-1">
+          <DrawerHeader className="flex-row items-center justify-between p-4">
+            <DrawerTitle className="text-app-1-1 text-left">
               Keutamaan {title}
             </DrawerTitle>
+            <DrawerClose asChild>
+              <Button
+                size="icon"
+                aria-label="Tutup drawer keutamaan"
+                onClick={onClose}
+                className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+              >
+                <XIcon />
+              </Button>
+            </DrawerClose>
           </DrawerHeader>
-          <div className="flex flex-col gap-[15px] overflow-y-auto px-6 pb-6">
+          <div className="flex flex-col gap-4 overflow-y-auto p-4">
             {benefits.map(benefit => (
-              <p key={benefit.id} className="text-sm">
-                {benefit.translation}
-                <span className="text-xs opacity-80">{` [${benefit.narrator}]`}</span>
-              </p>
+              <div key={benefit.id} className="flex flex-col gap-2">
+                <p className="text-app-1-1 text-base">{benefit.translation}</p>
+                <p className="text-app-1-1 text-sm">{` [${benefit.narrator}]`}</p>
+              </div>
             ))}
           </div>
         </DrawerContent>

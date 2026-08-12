@@ -44,7 +44,7 @@ export function Items({ items }: ItemsProps) {
           return (
             <div
               key={pItem.id}
-              className="odd:bg-app-2 even:bg-app-5 flex flex-col"
+              className="odd:bg-app-2 even:bg-app-5 odd:*:text-app-2-2 even:*:text-app-5-5 flex flex-col"
             >
               <Separator className="bg-app-1" />
               <div className="flex items-center justify-between p-4">
@@ -65,14 +65,12 @@ export function Items({ items }: ItemsProps) {
                         <p className="italic">{cItem.transliteration}</p>
                       )}
                       {settings.translation && (
-                        <p>
-                          {`"${cItem.translation}"`}&nbsp;
+                        <div className="flex flex-col gap-2">
+                          <p>{`"${cItem.translation}"`}</p>
                           {cItem.narrator && (
-                            <span className="text-sm">
-                              {`[${cItem.narrator}]`}
-                            </span>
+                            <p className="text-sm">{`[${cItem.narrator}]`}</p>
                           )}
-                        </p>
+                        </div>
                       )}
                       <div
                         className={cn(
@@ -85,7 +83,7 @@ export function Items({ items }: ItemsProps) {
                         {settings.benefits && cItem.benefits.length > 0 && (
                           <Button
                             size="lg"
-                            aria-label="Lihat Keutamaan"
+                            aria-label="Lihat keutamaan"
                             onClick={() =>
                               handleClickBenefits(pItem.title, cItem.benefits)
                             }
