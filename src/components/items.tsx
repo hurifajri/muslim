@@ -3,29 +3,12 @@
 import dynamic from 'next/dynamic';
 import { useState } from 'react';
 
-import type { Benefit } from '@/components/benefits';
 import { Counter } from '@/components/counter';
 import { Button } from '@/components/ui/button';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useSettingsStore } from '@/providers/settings-store-provider';
-
-type ContentItem = {
-  id: number;
-  arabic: string;
-  transliteration: string | null;
-  translation: string;
-  narrator: string | null;
-  benefits: Benefit[] | null;
-};
-
-type ParentItem = {
-  id: number;
-  title: string;
-  note: string | null;
-  arabic?: string | null;
-  items: ContentItem[];
-};
+import type { Benefit, ParentItem } from '@/schemas/items';
 
 type ItemsProps = Readonly<{
   items: ParentItem[];
@@ -42,12 +25,12 @@ export function Items({ items }: ItemsProps) {
   const onOpen = () => setIsOpen(true);
   const onClose = () => setIsOpen(false);
 
-  const [benefits, setBenefits] = useState<Benefit[] | null>(null);
+  const [benefits, setBenefits] = useState<Benefit[]>([]);
   const [title, setTitle] = useState('');
 
   const handleClickBenefits = (
     currentTitle: string,
-    currentBenefits: Benefit[] | null
+    currentBenefits: Benefit[]
   ) => {
     setTitle(currentTitle);
     setBenefits(currentBenefits);
@@ -94,13 +77,14 @@ export function Items({ items }: ItemsProps) {
                       <div
                         className={cn(
                           'flex w-full items-center',
-                          settings.benefits && cItem.benefits
+                          settings.benefits && cItem.benefits.length > 0
                             ? 'justify-between'
                             : 'justify-end'
                         )}
                       >
-                        {settings.benefits && cItem.benefits && (
+                        {settings.benefits && cItem.benefits.length > 0 && (
                           <Button
+                            size="lg"
                             aria-label="Lihat Keutamaan"
                             onClick={() =>
                               handleClickBenefits(pItem.title, cItem.benefits)

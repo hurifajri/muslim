@@ -1,35 +1,31 @@
-// Eksternal
-import { Plus, RotateCcw } from 'lucide-react';
+import { PlusIcon, RotateCcw } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
 
 export function Counter() {
   const [value, setValue] = useState(0);
 
   return (
-    <div className="flex items-center">
+    <ButtonGroup aria-label="Tombol hitung" className="items-center">
       <Button
-        aria-label="Reset"
-        variant="ghost"
-        size="icon"
+        size="icon-lg"
         onClick={() => setValue(0)}
-        className="rounded-r-none hover:opacity-90"
+        className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
       >
-        <RotateCcw className="pointer-events-none" />
+        <RotateCcw />
       </Button>
-      <div className="flex h-10 w-12 items-center justify-center text-base font-bold">
+      <div className="border-app-6 -ml-1 flex h-9.5 w-12 items-center justify-center border-y font-bold">
         {value}
       </div>
       <Button
-        aria-label="Hitung"
-        variant="ghost"
-        size="icon"
+        size="icon-lg"
         onClick={() => setValue(v => v + 1)}
-        className="rounded-l-none hover:opacity-90"
+        className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
       >
-        <Plus className="pointer-events-none" />
+        <PlusIcon />
       </Button>
-    </div>
+    </ButtonGroup>
   );
 }
