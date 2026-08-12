@@ -50,7 +50,9 @@ export function Items({ items }: ItemsProps) {
               <div className="flex items-center justify-between p-4">
                 <h2 className="font-bold">{pItem.title}</h2>
                 {pItem.note && (
-                  <span className="text-sm font-bold">{pItem.note}</span>
+                  <span className="shrink-0 text-sm font-bold">
+                    {pItem.note}
+                  </span>
                 )}
               </div>
               <Separator className="bg-app-1" />

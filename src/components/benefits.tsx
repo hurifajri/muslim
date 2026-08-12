@@ -1,18 +1,15 @@
 import { XIcon } from 'lucide-react';
-import React from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
-  DialogDescription,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from '@/components/ui/dialog';
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerHeader,
   DrawerTitle,
@@ -34,20 +31,10 @@ export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
         <DrawerContent className="before:bg-app-1">
-          <DrawerHeader className="flex-row items-center justify-between p-4">
+          <DrawerHeader>
             <DrawerTitle className="text-app-1-1 text-left">
               Keutamaan {title}
             </DrawerTitle>
-            <DrawerClose asChild>
-              <Button
-                size="icon"
-                aria-label="Tutup drawer keutamaan"
-                onClick={onClose}
-                className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-              >
-                <XIcon />
-              </Button>
-            </DrawerClose>
           </DrawerHeader>
           <div className="flex flex-col gap-4 overflow-y-auto p-4">
             {benefits.map(benefit => (
@@ -64,15 +51,28 @@ export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogTrigger>Open</DialogTrigger>
-      <DialogContent>
-        <DialogHeader>
-          <DialogTitle>Are you absolutely sure?</DialogTitle>
-          <DialogDescription>
-            This action cannot be undone. This will permanently delete your
-            account and remove your data from our servers.
-          </DialogDescription>
+      <DialogContent showCloseButton={false} className="bg-app-1 p-4">
+        <DialogHeader className="flex-row items-center justify-between">
+          <DialogTitle className="text-app-1-1">Keutamaan {title}</DialogTitle>
+          <DialogClose asChild>
+            <Button
+              size="icon"
+              aria-label="Tutup dialog keutamaan"
+              onClick={onClose}
+              className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+            >
+              <XIcon />
+            </Button>
+          </DialogClose>
         </DialogHeader>
+        <div className="flex flex-col gap-4">
+          {benefits.map(benefit => (
+            <div key={benefit.id} className="flex flex-col gap-2">
+              <p className="text-app-1-1 text-base">{benefit.translation}</p>
+              <p className="text-app-1-1 text-sm">{` [${benefit.narrator}]`}</p>
+            </div>
+          ))}
+        </div>
       </DialogContent>
     </Dialog>
   );
