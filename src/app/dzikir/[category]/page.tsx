@@ -4,6 +4,7 @@ import { Header } from '@/components/header';
 import { Items } from '@/components/items';
 import { dzikirs } from '@/data/dzikirs';
 import { capitalize } from '@/lib/utils';
+import type { Category } from '@/schemas/items';
 
 type PageProps = Readonly<{
   params: Promise<{ category: string }>;
@@ -28,7 +29,7 @@ export default async function DzikirPage({ params }: PageProps) {
   const { category } = await params;
   const title = `Dzikir ${capitalize(category)}`;
   const filteredDzikirs = dzikirs.filter(dzikir =>
-    dzikir.categories.includes(category)
+    dzikir.categories.includes(category as Category)
   );
 
   return (
