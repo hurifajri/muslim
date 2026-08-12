@@ -10,32 +10,32 @@ import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 
-interface ContentItem {
+type ContentItem = {
   id: number;
   arabic: string;
   transliteration: string | null;
   translation: string;
   narrator: string | null;
   benefits: Benefit[] | null;
-}
+};
 
-interface ParentItem {
+type ParentItem = {
   id: number;
   title: string;
   note: string | null;
   arabic?: string | null;
   items: ContentItem[];
-}
+};
 
-interface ItemsProps {
+type ItemsProps = Readonly<{
   items: ParentItem[];
-}
+}>;
 
 const Benefits = dynamic(() =>
   import('@/components/benefits').then(mod => mod.Benefits)
 );
 
-const Items = ({ items }: ItemsProps) => {
+export function Items({ items }: ItemsProps) {
   const { settings } = useSettingsStore(state => state);
 
   const [isOpen, setIsOpen] = useState(false);
@@ -112,10 +112,9 @@ const Items = ({ items }: ItemsProps) => {
                             Lihat Keutamaan
                           </Button>
                         )}
-                        {/* Condition to render counter button */}
-                        {pItem.note !== null &&
-                          pItem.note !== 'Dibaca 1x' &&
-                          settings.counter === true && <Counter />}
+                        {settings.counter &&
+                          pItem.note &&
+                          pItem.note !== 'Dibaca 1x' && <Counter />}
                       </div>
                     </div>
                   );
@@ -126,8 +125,7 @@ const Items = ({ items }: ItemsProps) => {
         })}
       </div>
 
-      {/* Benefits of each item Dzikir or Doa */}
-      {settings.benefits === true && (
+      {settings.benefits && (
         <Benefits
           benefits={benefits}
           title={title}
@@ -137,6 +135,4 @@ const Items = ({ items }: ItemsProps) => {
       )}
     </>
   );
-};
-
-export { Items };
+}

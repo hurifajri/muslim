@@ -5,20 +5,20 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 
-export interface Benefit {
+export type Benefit = {
   id: number;
   translation: string;
   narrator: string;
-}
+};
 
-interface BenefitsProps {
+type BenefitsProps = Readonly<{
   benefits: Benefit[] | null;
   title: string;
   isOpen: boolean;
   onClose: () => void;
-}
+}>;
 
-const Benefits = ({ benefits, title, isOpen, onClose }: BenefitsProps) => {
+export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
   return (
     <Drawer open={isOpen} onOpenChange={onClose}>
       <DrawerContent className="max-h-[80vh] rounded-t-[35px] py-2">
@@ -38,6 +38,4 @@ const Benefits = ({ benefits, title, isOpen, onClose }: BenefitsProps) => {
       </DrawerContent>
     </Drawer>
   );
-};
-
-export { Benefits };
+}

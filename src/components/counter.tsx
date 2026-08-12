@@ -4,7 +4,7 @@ import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 
-const Counter = () => {
+export function Counter() {
   const [value, setValue] = useState(0);
 
   return (
@@ -32,6 +32,4 @@ const Counter = () => {
       </Button>
     </div>
   );
-};
-
-export { Counter };
+}

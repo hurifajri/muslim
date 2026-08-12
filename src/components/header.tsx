@@ -12,7 +12,7 @@ type HeaderProps = Readonly<{
   title: string;
 }>;
 
-const Header = ({ title }: HeaderProps) => {
+export function Header({ title }: HeaderProps) {
   const { back } = useRouter();
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
@@ -47,6 +47,4 @@ const Header = ({ title }: HeaderProps) => {
       />
     </>
   );
-};
-
-export { Header };
+}
