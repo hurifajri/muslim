@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 
+import { Header } from '@/components/header';
+import { Items } from '@/components/items';
+import { dzikirs } from '@/data/dzikirs';
 import { capitalize } from '@/lib/utils';
 
-import { DzikirShell } from './_components/dzikir-shell';
-
-type PageProps = {
+type PageProps = Readonly<{
   params: Promise<{ category: string }>;
-};
+}>;
 
 export async function generateMetadata({
   params,
@@ -23,11 +24,18 @@ export async function generateMetadata({
   };
 }
 
-export default function DzikirPage() {
+export default async function DzikirPage({ params }: PageProps) {
+  const { category } = await params;
+  const title = `Dzikir ${capitalize(category)}`;
+  const filteredDzikirs = dzikirs.filter(dzikir =>
+    dzikir.category.includes(category)
+  );
+
   return (
-    <>
-      <h1 className="sr-only">Placeholder</h1>
-      <DzikirShell />
-    </>
+    <div className="bg-app-2">
+      <h1 className="sr-only">{title}</h1>
+      <Header />
+      <Items items={filteredDzikirs} />
+    </div>
   );
 }

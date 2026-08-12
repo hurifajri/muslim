@@ -1,12 +1,13 @@
 import type { Metadata } from 'next';
 
+import { Header } from '@/components/header';
+import { Items } from '@/components/items';
+import { doas } from '@/data/doas';
 import { capitalize } from '@/lib/utils';
 
-import { DoaShell } from './_components/doa-shell';
-
-type PageProps = {
+type PageProps = Readonly<{
   params: Promise<{ category: string }>;
-};
+}>;
 
 export async function generateMetadata({
   params,
@@ -23,11 +24,16 @@ export async function generateMetadata({
   };
 }
 
-export default function DoaPage() {
+export default async function DoaPage({ params }: PageProps) {
+  const { category } = await params;
+  const title = `Doa ${capitalize(category)}`;
+  const filteredDoas = doas.filter(doa => doa.category.includes(category));
+
   return (
-    <>
-      <h1 className="sr-only">Placeholder</h1>
-      <DoaShell />
-    </>
+    <div className="bg-app-2">
+      <h1 className="sr-only">{title}</h1>
+      <Header />
+      <Items items={filteredDoas} />
+    </div>
   );
 }
