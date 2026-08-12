@@ -1,18 +1,38 @@
-'use client';
-
-import { useParams } from 'next/navigation';
+import type { Metadata } from 'next';
 
 import { Header } from '@/components/header';
 import { Items } from '@/components/items';
 import { doas } from '@/data/doas';
 
-const Doa = () => {
-  const params = useParams();
-  const category = Array.isArray(params?.category)
-    ? params.category[0]
-    : (params?.category ?? '');
+type PageProps = {
+  params: Promise<{ category: string }>;
+};
 
-  const filteredDoas = doas.filter(doa => doa.category.includes(category));
+function toTitleCase(str: string) {
+  return str
+    .split('-')
+    .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
+    .join(' ');
+}
+
+export async function generateMetadata({
+  params,
+}: PageProps): Promise<Metadata> {
+  const { category } = await params;
+  const title = `Doa ${toTitleCase(category)}`;
+
+  return {
+    title,
+    description: `Kumpulan ${title.toLowerCase()} sehari-hari untuk umat Muslim.`,
+    alternates: {
+      canonical: `/doa/${category}`,
+    },
+  };
+}
+
+export default async function DoaPage({ params }: PageProps) {
+  const { category } = await params;
+  const filteredDoas = doas.filter((doa) => doa.category.includes(category));
 
   return (
     <>
@@ -20,6 +40,4 @@ const Doa = () => {
       <Items items={filteredDoas} />
     </>
   );
-};
-
-export default Doa;
+}
