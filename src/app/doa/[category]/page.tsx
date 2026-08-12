@@ -27,7 +27,7 @@ export async function generateMetadata({
 export default async function DoaPage({ params }: PageProps) {
   const { category } = await params;
   const title = `Doa ${capitalize(category)}`;
-  const filteredDoas = doas.filter(doa => doa.category.includes(category));
+  const filteredDoas = doas.filter(doa => doa.categories.includes(category));
 
   return (
     <div className="bg-app-2">

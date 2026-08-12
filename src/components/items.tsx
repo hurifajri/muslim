@@ -78,7 +78,7 @@ const Items = ({ items }: ItemsProps) => {
                     {pItem.arabic}
                   </p>
                 )}
-                {pItem.items.map((cItem, i) => {
+                {pItem.items.map(cItem => {
                   return (
                     <div key={cItem.id} className="mt-2.5 flex flex-col gap-5">
                       {/* Condition to render arabic */}
