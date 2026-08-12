@@ -13,14 +13,14 @@ import {
 import { Input } from '@/components/ui/input';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 
-interface LocationProps {
-  isOpen: boolean;
-  onClose: () => void;
-}
-
 type HandleChangeLocation = React.ChangeEvent<HTMLInputElement>;
 
-const Location = ({ isOpen, onClose }: LocationProps) => {
+type LocationProps = Readonly<{
+  isOpen: boolean;
+  onClose: () => void;
+}>;
+
+export function Location({ isOpen, onClose }: LocationProps) {
   const { location: savedLocation, setLocation: setSavedLocation } =
     useSettingsStore(state => state);
   const [tempLocation, setTempLocation] = useState(savedLocation);
@@ -75,6 +75,4 @@ const Location = ({ isOpen, onClose }: LocationProps) => {
       </DialogContent>
     </Dialog>
   );
-};
-
-export { Location };
+}

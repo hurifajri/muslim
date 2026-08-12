@@ -18,12 +18,12 @@ import { sources } from '@/data/sources';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 import { SETTINGS_CONFIG } from '@/stores/settings-store';
 
-interface SettingsProps {
+type SettingsProps = Readonly<{
   isOpen: boolean;
   onClose: () => void;
-}
+}>;
 
-const Settings = ({ isOpen, onClose }: SettingsProps) => {
+export function Settings({ isOpen, onClose }: SettingsProps) {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
   const { settings, setSettings } = useSettingsStore(state => state);
@@ -104,6 +104,4 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
       </SheetContent>
     </Sheet>
   );
-};
-
-export { Settings };
+}
