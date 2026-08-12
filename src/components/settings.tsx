@@ -41,7 +41,7 @@ const Settings = ({ isOpen, onClose }: SettingsProps) => {
               size="icon"
               aria-label="Tutup pengaturan"
               onClick={onClose}
-              className="bg-app-6 hover:bg-app-6/80"
+              className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
             >
               <XIcon />
             </Button>
