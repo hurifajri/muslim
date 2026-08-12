@@ -32,7 +32,7 @@ export default async function DoaPage({ params }: PageProps) {
   return (
     <div className="bg-app-2">
       <h1 className="sr-only">{title}</h1>
-      <Header />
+      <Header title={title} />
       <Items items={filteredDoas} />
     </div>
   );
