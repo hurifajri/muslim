@@ -180,18 +180,27 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.542 0.034 322.5);
 
+  /*
+#744b93 5
+#c889b5 4
+#f0f0f0 2
+#fce5cc 3
+#d0adc4 6
+#736eae 1
+*/
+
   /* Custom app colors */
-  --app-1: #ffd3d6;
-  --app-1-1: #504243;
-  --app-2: #ffe5e7;
-  --app-2-2: #544b4c;
-  --app-3: #f9dcc0;
-  --app-3-3: #4f463d;
-  --app-4: #ffc6ca;
-  --app-5: #f9e6e4;
-  --app-5-5: #514b4a;
-  --app-6: #ffb0b5;
-  --app-6-6: #453031;
+  --app-1: #afabf1;
+  --app-1-1: #262534;
+  --app-2: #f0f0f0;
+  --app-2-2: #505050;
+  --app-3: #fce5cc;
+  --app-3-3: #3f3933;
+  --app-4: #c889b5;
+  --app-5: #744b93;
+  --app-5-5: #744b93;
+  --app-6: #d0adc4;
+  --app-6-6: #2e262b;
 }
 
 @layer base {

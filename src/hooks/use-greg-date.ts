@@ -1,23 +1,24 @@
-// Eksternal
 import { useEffect, useState } from 'react';
 
-interface GregDate {
-  gregDate: string;
-  gregTime: string;
-}
+import type { GregDateResult } from '@/schemas/praying-time';
 
-const useGregDate = (): GregDate => {
+export type { GregDateResult };
+
+/**
+ * Returns the current Gregorian date and time, updating every second.
+ */
+export const useGregDate = (): GregDateResult => {
   const [now, setNow] = useState<Date | null>(null);
-  const [blink, setBlink] = useState(true);
 
   useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setNow(new Date());
+    const timeout = setTimeout(() => setNow(new Date()), 0);
     const timer = setInterval(() => {
       setNow(new Date());
-      setBlink(b => !b);
     }, 1000);
-    return () => clearInterval(timer);
+    return () => {
+      clearTimeout(timeout);
+      clearInterval(timer);
+    };
   }, []);
 
   const date = now ?? new Date(0); // safe fallback for SSR
@@ -29,13 +30,9 @@ const useGregDate = (): GregDate => {
     year: 'numeric',
   });
 
-  const addLeadingZero = (t: number) => `${t < 10 ? '0' : ''}${t}`;
-  const formattedHours = addLeadingZero(date.getHours());
-  const formattedMinutes = addLeadingZero(date.getMinutes());
-  const separator = now ? (blink ? ':' : ' ') : ':';
-  const gregTime = `${formattedHours}${separator}${formattedMinutes}`;
+  const pad = (t: number) => String(t).padStart(2, '0');
+  const gregTime = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
+  const gregSeconds = pad(date.getSeconds());
 
-  return { gregDate, gregTime };
+  return { gregDate, gregTime, gregSeconds };
 };
-
-export { useGregDate };

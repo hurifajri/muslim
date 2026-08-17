@@ -1,35 +1,35 @@
-// Eksternal
-// Internal
 import { useEffect, useState } from 'react';
 
 import { quotes } from '@/data/quotes';
+import type { Quote } from '@/schemas/common';
 
-interface Quote {
-  id: number;
-  quote: string;
-  narrator: string;
-}
+const QUOTE_INTERVAL_MS = 30_000; // 30 seconds
 
-const useQuote = (): Quote => {
-  const totalQuotes = quotes?.length ?? 0;
-  const [randomNumber, setRandomNumber] = useState(0);
+/**
+ * Returns a randomly selected quote that changes every 30 seconds.
+ * The first quote is randomized immediately on mount.
+ */
+export const useQuote = (): Quote => {
+  const total = quotes?.length ?? 0;
+  const [index, setIndex] = useState(0);
 
-  const delay = 1000 * 30; // Change quote every 30 seconds
   useEffect(() => {
-    const timeout = setTimeout(() => {
-      setRandomNumber(Math.floor(Math.random() * totalQuotes));
-    }, 0);
-    const timer = setInterval(
-      () => setRandomNumber(Math.floor(Math.random() * totalQuotes)),
-      delay
-    );
+    const randomize = () => {
+      if (total === 0) return;
+      const array = new Uint32Array(1);
+      window.crypto.getRandomValues(array);
+      setIndex(array[0] % total);
+    };
+
+    // Randomize immediately on mount (deferred to avoid SSR mismatch)
+    const timeout = setTimeout(randomize, 0);
+    const interval = setInterval(randomize, QUOTE_INTERVAL_MS);
+
     return () => {
       clearTimeout(timeout);
-      clearInterval(timer);
+      clearInterval(interval);
     };
-  }, [delay, totalQuotes]);
+  }, [total]);
 
-  return quotes[randomNumber] ?? quotes[0];
+  return quotes[index] ?? quotes[0];
 };
-
-export { useQuote };
