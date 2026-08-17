@@ -1,70 +1,68 @@
-import { queryOptions, useQuery } from '@tanstack/react-query';
+import { useQuery } from '@tanstack/react-query';
+import { safeParse } from 'valibot';
 
-interface PrayingTime {
-  id: number;
-  name: string;
-  time: string;
-}
+import { hijriDateQueryOptions } from '@/queries/hijri-date';
+import {
+  type AladhanTimingsByLocationParams,
+  type HijriDateResult,
+  HijriDateResultSchema,
+  type PrayingTime,
+} from '@/schemas/praying-time';
 
-interface HijriDate {
-  isError: boolean | undefined;
-  isLoading: boolean | undefined;
-  hijriDate: string;
-  prayingTimes: PrayingTime[];
-}
+export type { AladhanTimingsByLocationParams, HijriDateResult, PrayingTime };
 
-const hijriDateQueryOptions = (city: string) =>
-  queryOptions({
-    queryKey: ['hijri-date', city],
-    queryFn: async () => {
-      const res = await fetch(
-        `https://api.aladhan.com/v1/timingsByCity?city=${city}&country=ID&method=11&adjustment=0`
-      );
-      if (!res.ok) {
-        throw new Error('Network response was not ok');
-      }
-      return res.json();
-    },
-  });
-
-const useHijriDate = (city: string): HijriDate => {
-  // Get current hijri date and praying times
-  const { data, isError, isLoading } = useQuery(hijriDateQueryOptions(city));
-
-  // Set hijri date
-  const date = data?.data?.date;
-  const [hDay, hMonth, hYear] = [
-    date?.hijri.day,
-    date?.hijri.month.en,
-    date?.hijri.year,
-  ];
-  const hijriDate = `${hDay ?? ''} ${hMonth ?? ''} ${hYear ?? ''}`;
-
-  // Set praying times
-  const pt = data?.data?.timings;
-  const timings = {
-    Subuh: pt?.Fajr,
-    Dzuhur: pt?.Dhuhr,
-    Ashar: pt?.Asr,
-    Maghrib: pt?.Maghrib,
-    Isya: pt?.Isha,
-  };
-
-  // Destructure praying times
-  const ptKeys = Object.keys(timings);
-  const ptValues = Object.values(timings);
-  const prayingTimes = ptKeys.map((key, i) => ({
-    id: i,
-    name: key,
-    time: ptValues[i],
-  }));
-
-  return {
-    isError,
-    isLoading,
-    prayingTimes,
-    hijriDate,
-  };
+/**
+ * Maps localized names for prayer times from English API names.
+ */
+const PRAYING_TIME_LABELS: Record<string, string> = {
+  Fajr: 'Subuh',
+  Dhuhr: 'Dzuhur',
+  Asr: 'Ashar',
+  Maghrib: 'Maghrib',
+  Isha: 'Isya',
 };
 
-export { useHijriDate };
+const DISPLAYED_PRAYERS = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'] as const;
+
+/**
+ * Hook to fetch the current Hijri date and prayer times.
+ * Accepts either city+country or GPS coordinates.
+ */
+export const useHijriDate = (
+  params: AladhanTimingsByLocationParams
+): HijriDateResult => {
+  const { data, isError, isLoading } = useQuery(hijriDateQueryOptions(params));
+
+  // Parse Hijri date
+  const date = data?.data?.date;
+  const hijriDate = date
+    ? `${date.hijri.day} ${date.hijri.month.en} ${date.hijri.year}`
+    : '';
+
+  // Build ordered prayer times list
+  const timings = data?.data?.timings;
+  const prayingTimes: PrayingTime[] = timings
+    ? DISPLAYED_PRAYERS.map((key, i) => ({
+        id: i,
+        name: PRAYING_TIME_LABELS[key] ?? key,
+        time: timings[key],
+      }))
+    : [];
+
+  const result: HijriDateResult = {
+    isError,
+    isLoading,
+    hijriDate,
+    prayingTimes,
+  };
+
+  // Runtime validation (dev-only guard)
+  if (process.env.NODE_ENV === 'development') {
+    const parsed = safeParse(HijriDateResultSchema, result);
+    if (!parsed.success) {
+      console.warn('[useHijriDate] Schema validation failed:', parsed.issues);
+    }
+  }
+
+  return result;
+};

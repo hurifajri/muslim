@@ -39,9 +39,13 @@ export function HomeShell() {
   const [isOpenLocation, setIsOpenLocation] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
-  const { location: city } = useSettingsStore(state => state);
-  const { gregDate, gregTime } = useGregDate();
-  const { prayingTimes, hijriDate } = useHijriDate(city);
+  const { city, country } = useSettingsStore(state => state);
+  const { gregDate, gregTime, gregSeconds } = useGregDate();
+  const { prayingTimes, hijriDate } = useHijriDate({
+    mode: 'city',
+    city,
+    country,
+  });
   const { quote, narrator } = useQuote();
 
   return (
@@ -84,8 +88,9 @@ export function HomeShell() {
                     {city}
                     <Pencil />
                   </Button>
-                  <span className="text-app-6-6 text-4xl font-bold">
-                    {gregTime}
+                  <span className="text-app-6-6 flex items-baseline font-bold tabular-nums">
+                    <span className="text-4xl">{gregTime}</span>
+                    <span className="ml-0.5 text-xl">{gregSeconds}</span>
                   </span>
                 </div>
                 <div className="text-app-3-3 flex items-center justify-between">

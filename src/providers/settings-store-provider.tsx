@@ -14,9 +14,9 @@ export const SettingsStoreContext = createContext<SettingsStoreApi | undefined>(
   undefined
 );
 
-export interface SettingsStoreProviderProps {
+export type SettingsStoreProviderProps = Readonly<{
   children: ReactNode;
-}
+}>;
 
 export const SettingsStoreProvider = ({
   children,

@@ -1,0 +1,25 @@
+import {
+  boolean,
+  type InferOutput,
+  literal,
+  object,
+  record,
+  string,
+  union,
+} from 'valibot';
+
+export const SettingKeySchema = union([
+  literal('darkMode'),
+  literal('counter'),
+  literal('translation'),
+  literal('transliteration'),
+  literal('benefits'),
+]);
+export type SettingKey = InferOutput<typeof SettingKeySchema>;
+
+export const SettingsStateSchema = object({
+  settings: record(string(), boolean()),
+  city: string(),
+  country: string(),
+});
+export type SettingsState = InferOutput<typeof SettingsStateSchema>;

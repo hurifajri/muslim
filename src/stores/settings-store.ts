@@ -1,8 +1,9 @@
 import { persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
-export type SettingKey =
-  'darkMode' | 'counter' | 'translation' | 'transliteration' | 'benefits';
+import type { SettingKey, SettingsState } from '@/schemas/settings';
+
+export type { SettingKey, SettingsState };
 
 export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
   { name: 'darkMode', label: 'Mode Gelap' },
@@ -12,14 +13,10 @@ export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
   { name: 'benefits', label: 'Keutamaan' },
 ];
 
-export type SettingsState = {
-  settings: Record<SettingKey, boolean>;
-  location: string;
-};
-
 export type SettingsActions = {
   setSettings: (name: SettingKey, isActive: boolean) => void;
-  setLocation: (location: string) => void;
+  setCity: (city: string) => void;
+  setCountry: (country: string) => void;
 };
 
 export type SettingsStore = SettingsState & SettingsActions;
@@ -32,7 +29,8 @@ export const defaultInitState: SettingsState = {
     transliteration: false,
     benefits: true,
   },
-  location: 'bogor',
+  city: 'bogor',
+  country: 'ID',
 };
 
 export const createSettingsStore = (
@@ -49,7 +47,8 @@ export const createSettingsStore = (
               [name]: isActive,
             },
           })),
-        setLocation: location => set({ location }),
+        setCity: city => set({ city }),
+        setCountry: country => set({ country }),
       }),
       {
         name: 'muslim-settings',
