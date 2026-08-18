@@ -9,7 +9,6 @@ import {
 } from 'valibot';
 
 export const SettingKeySchema = union([
-  literal('darkMode'),
   literal('counter'),
   literal('translation'),
   literal('transliteration'),

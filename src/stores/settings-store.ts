@@ -6,7 +6,6 @@ import type { SettingKey, SettingsState } from '@/schemas/settings';
 export type { SettingKey, SettingsState };
 
 export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
-  { name: 'darkMode', label: 'Mode Gelap' },
   { name: 'counter', label: 'Tombol Hitung' },
   { name: 'translation', label: 'Terjemahan' },
   { name: 'transliteration', label: 'Transliterasi' },
@@ -21,7 +20,6 @@ export type SettingsStore = SettingsState & SettingsActions;
 
 export const defaultInitState: SettingsState = {
   settings: {
-    darkMode: false,
     counter: true,
     translation: true,
     transliteration: false,

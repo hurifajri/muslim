@@ -48,32 +48,41 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
           </SheetClose>
         </SheetHeader>
         <div className="flex flex-col gap-4 overflow-y-auto p-4">
-          {SETTINGS_CONFIG.map(setting => {
-            const isDarkMode = setting.name === 'darkMode';
+          <div className="flex items-center justify-between">
+            <Label htmlFor="darkMode" className="text-app-1-1">
+              Mode Gelap
+            </Label>
+            <Switch
+              id="darkMode"
+              name="darkMode"
+              checked={isDark}
+              onCheckedChange={checked => {
+                setTheme(checked ? 'dark' : 'light');
+              }}
+              className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
+            />
+          </div>
+          <Separator className="bg-app-2" />
 
-            return (
-              <Fragment key={setting.name}>
-                <div className="flex items-center justify-between">
-                  <Label htmlFor={setting.name} className="text-app-1-1">
-                    {setting.label}
-                  </Label>
-                  <Switch
-                    id={setting.name}
-                    name={setting.name}
-                    checked={isDarkMode ? isDark : settings[setting.name]}
-                    onCheckedChange={checked => {
-                      if (isDarkMode) {
-                        setTheme(checked ? 'dark' : 'light');
-                      }
-                      setSettings(setting.name, checked);
-                    }}
-                    className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
-                  />
-                </div>
-                <Separator className="bg-app-2" />
-              </Fragment>
-            );
-          })}
+          {SETTINGS_CONFIG.map(setting => (
+            <Fragment key={setting.name}>
+              <div className="flex items-center justify-between">
+                <Label htmlFor={setting.name} className="text-app-1-1">
+                  {setting.label}
+                </Label>
+                <Switch
+                  id={setting.name}
+                  name={setting.name}
+                  checked={settings[setting.name]}
+                  onCheckedChange={checked => {
+                    setSettings(setting.name, checked);
+                  }}
+                  className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
+                />
+              </div>
+              <Separator className="bg-app-2" />
+            </Fragment>
+          ))}
         </div>
         <SheetFooter className="gap-4 p-4">
           <div className="flex flex-col gap-1">
