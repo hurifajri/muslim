@@ -1,14 +1,18 @@
-import { useEffect, useState } from 'react';
+import { format } from 'date-fns';
+import { useEffect, useMemo, useState } from 'react';
 
+import { getDateFnsLocale } from '@/lib/locale';
 import type { GregDateResult } from '@/schemas/praying-time';
 
 export type { GregDateResult };
 
 /**
  * Returns the current Gregorian date and time, updating every second.
+ * Date and time format adapts to the user's browser locale.
  */
 export const useGregDate = (): GregDateResult => {
   const [now, setNow] = useState<Date | null>(null);
+  const locale = useMemo(() => getDateFnsLocale(), []);
 
   useEffect(() => {
     const timeout = setTimeout(() => setNow(new Date()), 0);
@@ -21,18 +25,10 @@ export const useGregDate = (): GregDateResult => {
     };
   }, []);
 
-  const date = now ?? new Date(0); // safe fallback for SSR
+  const gregDate = now ? format(now, 'PPPP', { locale }) : '';
 
-  const gregDate = date.toLocaleDateString('id-ID', {
-    day: 'numeric',
-    month: 'long',
-    weekday: 'long',
-    year: 'numeric',
-  });
-
-  const pad = (t: number) => String(t).padStart(2, '0');
-  const gregTime = `${pad(date.getHours())}:${pad(date.getMinutes())}`;
-  const gregSeconds = pad(date.getSeconds());
+  const gregTime = now ? format(now, 'HH:mm', { locale }) : '--:--';
+  const gregSeconds = now ? format(now, 'ss', { locale }) : '--';
 
   return { gregDate, gregTime, gregSeconds };
 };

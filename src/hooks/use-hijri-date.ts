@@ -27,6 +27,9 @@ const DISPLAYED_PRAYERS = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'] as const;
 /**
  * Hook to fetch the current Hijri date and prayer times.
  * Accepts either city+country or GPS coordinates.
+ *
+ * Prayer times are returned in the selected city's local timezone
+ * (as provided by the Aladhan API), regardless of the user's device timezone.
  */
 export const useHijriDate = (
   params: AladhanTimingsByLocationParams
@@ -40,6 +43,7 @@ export const useHijriDate = (
     : '';
 
   // Build ordered prayer times list
+  // Times are in HH:mm format from the API, already in the city's timezone
   const timings = data?.data?.timings;
   const prayingTimes: PrayingTime[] = timings
     ? DISPLAYED_PRAYERS.map((key, i) => ({
