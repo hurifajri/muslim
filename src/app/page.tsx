@@ -4,9 +4,11 @@ import {
   QueryClient,
 } from '@tanstack/react-query';
 import type { Metadata } from 'next';
+import { cookies } from 'next/headers';
 
+import { parseLocationCookie } from '@/lib/parse-location-cookie';
 import { hijriDateQueryOptions } from '@/queries/hijri-date';
-import { defaultInitState } from '@/stores/settings-store';
+import { LOCATION_COOKIE_NAME } from '@/stores/location-store';
 
 import { HomeShell } from './_components/home-shell';
 
@@ -17,12 +19,16 @@ export const metadata: Metadata = {
 };
 
 export default async function HomePage() {
+  const cookieStore = await cookies();
+  const locationCookie = cookieStore.get(LOCATION_COOKIE_NAME);
+  const { city, country } = parseLocationCookie(locationCookie?.value);
+
   const queryClient = new QueryClient();
   await queryClient.prefetchQuery(
     hijriDateQueryOptions({
       mode: 'city',
-      city: defaultInitState.city,
-      country: defaultInitState.country,
+      city,
+      country,
     })
   );
 

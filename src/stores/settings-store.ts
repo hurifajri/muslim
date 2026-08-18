@@ -15,8 +15,6 @@ export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
 
 export type SettingsActions = {
   setSettings: (name: SettingKey, isActive: boolean) => void;
-  setCity: (city: string) => void;
-  setCountry: (country: string) => void;
 };
 
 export type SettingsStore = SettingsState & SettingsActions;
@@ -29,8 +27,6 @@ export const defaultInitState: SettingsState = {
     transliteration: false,
     benefits: true,
   },
-  city: 'bogor',
-  country: 'ID',
 };
 
 export const createSettingsStore = (
@@ -47,8 +43,6 @@ export const createSettingsStore = (
               [name]: isActive,
             },
           })),
-        setCity: city => set({ city }),
-        setCountry: country => set({ country }),
       }),
       {
         name: 'muslim-settings',
