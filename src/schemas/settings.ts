@@ -19,7 +19,5 @@ export type SettingKey = InferOutput<typeof SettingKeySchema>;
 
 export const SettingsStateSchema = object({
   settings: record(string(), boolean()),
-  city: string(),
-  country: string(),
 });
 export type SettingsState = InferOutput<typeof SettingsStateSchema>;

@@ -35,7 +35,7 @@ import {
 import { Item, ItemContent, ItemGroup, ItemTitle } from '@/components/ui/item';
 import { Label } from '@/components/ui/label';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { useSettingsStore } from '@/providers/settings-store-provider';
+import { useLocationStore } from '@/providers/location-store-provider';
 import {
   reverseGeocodeQueryOptions,
   searchLocationsQueryOptions,
@@ -200,7 +200,7 @@ export function Location({ isOpen, onClose }: LocationProps) {
     country: savedCountry,
     setCity: saveCity,
     setCountry: saveCountry,
-  } = useSettingsStore(state => state);
+  } = useLocationStore(state => state);
 
   const { isMobile } = useIsMobile();
 

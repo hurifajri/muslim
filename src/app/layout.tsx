@@ -2,12 +2,16 @@ import '@/styles/globals.css';
 
 import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
+import { cookies } from 'next/headers';
 
 import { env } from '@/env';
+import { parseLocationCookie } from '@/lib/parse-location-cookie';
 import { cn } from '@/lib/utils';
+import { LocationStoreProvider } from '@/providers/location-store-provider';
 import { QueryProvider } from '@/providers/query-provider';
 import { SettingsStoreProvider } from '@/providers/settings-store-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
+import { LOCATION_COOKIE_NAME } from '@/stores/location-store';
 
 const outfit = Outfit({
   variable: '--font-sans',
@@ -86,7 +90,11 @@ type RootLayoutProps = Readonly<{
   children: React.ReactNode;
 }>;
 
-export default function RootLayout({ children }: RootLayoutProps) {
+export default async function RootLayout({ children }: RootLayoutProps) {
+  const cookieStore = await cookies();
+  const locationCookie = cookieStore.get(LOCATION_COOKIE_NAME);
+  const locationState = parseLocationCookie(locationCookie?.value);
+
   return (
     <html lang="id" suppressHydrationWarning>
       <body
@@ -99,7 +107,9 @@ export default function RootLayout({ children }: RootLayoutProps) {
           disableTransitionOnChange
         >
           <QueryProvider>
-            <SettingsStoreProvider>{children}</SettingsStoreProvider>
+            <LocationStoreProvider initialState={locationState}>
+              <SettingsStoreProvider>{children}</SettingsStoreProvider>
+            </LocationStoreProvider>
           </QueryProvider>
         </ThemeProvider>
       </body>

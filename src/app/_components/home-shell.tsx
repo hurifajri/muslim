@@ -19,7 +19,7 @@ import { useGregDate } from '@/hooks/use-greg-date';
 import { useHijriDate } from '@/hooks/use-hijri-date';
 import { useQuote } from '@/hooks/use-quote';
 import { cn } from '@/lib/utils';
-import { useSettingsStore } from '@/providers/settings-store-provider';
+import { useLocationStore } from '@/providers/location-store-provider';
 
 const Location = dynamic(() => import('./location').then(mod => mod.Location));
 const Settings = dynamic(() =>
@@ -39,7 +39,7 @@ export function HomeShell() {
   const [isOpenLocation, setIsOpenLocation] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
-  const { city, country } = useSettingsStore(state => state);
+  const { city, country } = useLocationStore(state => state);
   const { gregDate, gregTime, gregSeconds } = useGregDate();
   const { prayingTimes, hijriDate } = useHijriDate({
     mode: 'city',
