@@ -13,7 +13,7 @@ export const CategorySchema = union([
   literal('petang'),
   literal('quran'),
   literal('nabi'),
-  literal('sholat'),
+  literal('salat'),
 ]);
 export type Category = InferOutput<typeof CategorySchema>;
 
