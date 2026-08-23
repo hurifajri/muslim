@@ -4,10 +4,10 @@ import {
   Settings as SettingsIcon,
   XIcon,
 } from 'lucide-react';
-import { useTheme } from 'next-themes';
 import { Fragment } from 'react';
 
 import { Button } from '@/components/ui/button';
+import { ButtonGroup } from '@/components/ui/button-group';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -22,7 +22,6 @@ import { Switch } from '@/components/ui/switch';
 import { COLOR_PALETTES } from '@/data/color-palettes';
 import { sources } from '@/data/sources';
 import { cn } from '@/lib/utils';
-import { usePaletteStore } from '@/providers/palette-store-provider';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 import { SETTINGS_CONFIG } from '@/stores/settings-store';
 
@@ -32,10 +31,9 @@ type SettingsProps = Readonly<{
 }>;
 
 export function Settings({ isOpen, onClose }: SettingsProps) {
-  const { resolvedTheme, setTheme } = useTheme();
-  const isDark = resolvedTheme === 'dark';
-  const { settings, setSettings } = useSettingsStore(state => state);
-  const { paletteId, setPaletteId } = usePaletteStore(state => state);
+  const { settings, paletteId, setSettings, setPaletteId } = useSettingsStore(
+    state => state
+  );
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -57,63 +55,39 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
           </SheetClose>
         </SheetHeader>
         <div className="flex flex-col gap-4 overflow-y-auto p-4">
-          <div className="flex items-center justify-between">
-            <Label htmlFor="darkMode" className="text-app-1-1">
-              Mode Gelap
-            </Label>
-            <Switch
-              id="darkMode"
-              name="darkMode"
-              checked={isDark}
-              onCheckedChange={checked => {
-                setTheme(checked ? 'dark' : 'light');
-              }}
-              className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
-            />
-          </div>
-          <Separator className="bg-app-2" />
-
           <div className="flex flex-col gap-2">
             <Label className="text-app-1-1">Tema Warna</Label>
-            <div className="flex flex-wrap gap-2">
+            <ButtonGroup orientation="horizontal" className="flex-wrap">
               {COLOR_PALETTES.map(palette => {
                 const isActive = paletteId === palette.id;
                 return (
-                  <button
+                  <Button
                     key={palette.id}
-                    type="button"
+                    size="icon"
                     aria-label={`${palette.flower} (${palette.name})`}
                     aria-pressed={isActive}
                     onClick={() => setPaletteId(palette.id)}
                     className={cn(
-                      'relative flex size-9 items-center justify-center rounded-full border-2 transition-all',
+                      'relative size-9 rounded-full! border-2 p-0',
                       isActive
-                        ? 'border-app-1-1 scale-110'
-                        : 'border-transparent hover:scale-105'
+                        ? 'border-app-1-1 ring-app-1-1/30 ring-2'
+                        : 'hover:border-app-1-1/30 border-transparent'
                     )}
+                    style={{ backgroundColor: palette.previewColor }}
                   >
-                    <span
-                      className="block size-7 rounded-full"
-                      style={{
-                        background: isDark
-                          ? palette.previewColorDark
-                          : palette.previewColor,
-                      }}
-                    />
                     {isActive && (
                       <CheckIcon
-                        className="absolute size-3.5"
+                        className="size-3.5"
                         style={{
-                          color: isDark
-                            ? palette.previewColor
-                            : palette.previewColorDark,
+                          color:
+                            palette.mode === 'dark' ? '#e0e0e0' : '#2a2a2a',
                         }}
                       />
                     )}
-                  </button>
+                  </Button>
                 );
               })}
-            </div>
+            </ButtonGroup>
             <span className="text-app-1-1 text-xs opacity-70">
               {COLOR_PALETTES.find(p => p.id === paletteId)?.flower ?? ''}
             </span>

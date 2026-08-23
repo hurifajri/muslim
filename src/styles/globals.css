@@ -180,21 +180,21 @@
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.542 0.034 322.5);
 
-  /* Custom app colors */
-  --app-1: #ffd3d6;
-  --app-1-1: #504243;
-  --app-2: #ffe5e7;
-  --app-2-2: #544b4c;
-  --app-3: #f9dcc0;
-  --app-3-3: #4f463d;
-  --app-4: #ffc6ca;
-  --app-5: #f9e6e4;
-  --app-5-5: #514b4a;
-  --app-6: #ffb0b5;
-  --app-6-6: #453031;
+  /* Custom app colors (dark sakura fallback) */
+  --app-1: #5c2d33;
+  --app-1-1: #f5d0d4;
+  --app-2: #4a2228;
+  --app-2-2: #ecc4c8;
+  --app-3: #5a3928;
+  --app-3-3: #f0d4b8;
+  --app-4: #6b2f36;
+  --app-5: #4e2a2e;
+  --app-5-5: #e8c5c3;
+  --app-6: #8c3a42;
+  --app-6-6: #f5cfd3;
 }
 
-/* ===== Palette: Sakura (Pink) — Default, same as :root/.dark ===== */
+/* ===== Palette: Sakura (Pink) — Default ===== */
 .palette-sakura {
   --app-1: #ffd3d6;
   --app-1-1: #504243;
@@ -207,20 +207,6 @@
   --app-5-5: #514b4a;
   --app-6: #ffb0b5;
   --app-6-6: #453031;
-}
-.dark.palette-sakura,
-.dark .palette-sakura {
-  --app-1: #5c2d33;
-  --app-1-1: #f5d0d4;
-  --app-2: #4a2228;
-  --app-2-2: #ecc4c8;
-  --app-3: #5a3928;
-  --app-3-3: #f0d4b8;
-  --app-4: #6b2f36;
-  --app-5: #4e2a2e;
-  --app-5-5: #e8c5c3;
-  --app-6: #8c3a42;
-  --app-6-6: #f5cfd3;
 }
 
 /* ===== Palette: Lavender (Ungu) ===== */
@@ -237,48 +223,20 @@
   --app-6: #c4a0e8;
   --app-6-6: #2e2338;
 }
-.dark.palette-lavender,
-.dark .palette-lavender {
-  --app-1: #3d2854;
-  --app-1-1: #e0cff0;
-  --app-2: #321f47;
-  --app-2-2: #d6c3e8;
-  --app-3: #3a2555;
-  --app-3-3: #d4bfe8;
-  --app-4: #4a2e66;
-  --app-5: #352248;
-  --app-5-5: #d2c0e5;
-  --app-6: #6b3d96;
-  --app-6-6: #e4d2f2;
-}
 
 /* ===== Palette: Rose (Merah) ===== */
 .palette-rose {
-  --app-1: #f5c6c6;
-  --app-1-1: #4a2e2e;
-  --app-2: #fadada;
-  --app-2-2: #4d3535;
-  --app-3: #f0b0b0;
-  --app-3-3: #462929;
-  --app-4: #f0a0a0;
-  --app-5: #fce8e8;
-  --app-5-5: #4e3c3c;
-  --app-6: #e87878;
-  --app-6-6: #3a1818;
-}
-.dark.palette-rose,
-.dark .palette-rose {
-  --app-1: #5c2222;
-  --app-1-1: #f0c4c4;
-  --app-2: #4a1a1a;
-  --app-2-2: #e8b8b8;
-  --app-3: #551e1e;
-  --app-3-3: #ebbaba;
-  --app-4: #6b2828;
-  --app-5: #4c1e1e;
-  --app-5-5: #e5b5b5;
-  --app-6: #8c3535;
-  --app-6-6: #f2cccc;
+  --app-1: #f0c4be;
+  --app-1-1: #4a2a24;
+  --app-2: #f5d5cf;
+  --app-2-2: #4d3230;
+  --app-3: #e8a89e;
+  --app-3-3: #462420;
+  --app-4: #e89888;
+  --app-5: #f8e2de;
+  --app-5-5: #4e3838;
+  --app-6: #d45050;
+  --app-6-6: #3a1515;
 }
 
 /* ===== Palette: Sunflower (Kuning) ===== */
@@ -295,20 +253,6 @@
   --app-6: #f0c850;
   --app-6-6: #3a3015;
 }
-.dark.palette-sunflower,
-.dark .palette-sunflower {
-  --app-1: #504418;
-  --app-1-1: #f5e8c0;
-  --app-2: #433812;
-  --app-2-2: #edddb5;
-  --app-3: #4d4015;
-  --app-3-3: #f0deb0;
-  --app-4: #5e5020;
-  --app-5: #453a14;
-  --app-5-5: #e8d8b0;
-  --app-6: #7a6828;
-  --app-6-6: #f5eacc;
-}
 
 /* ===== Palette: Forget-me-not (Biru) ===== */
 .palette-forget-me-not {
@@ -323,20 +267,6 @@
   --app-5-5: #3c4450;
   --app-6: #78a8e8;
   --app-6-6: #18283a;
-}
-.dark.palette-forget-me-not,
-.dark .palette-forget-me-not {
-  --app-1: #1e2e4a;
-  --app-1-1: #c4d4f0;
-  --app-2: #182540;
-  --app-2-2: #b8cae8;
-  --app-3: #1c2b48;
-  --app-3-3: #bacce8;
-  --app-4: #253660;
-  --app-5: #1a2840;
-  --app-5-5: #b5c5e5;
-  --app-6: #355090;
-  --app-6-6: #ccdaf2;
 }
 
 /* ===== Palette: Jasmine (Putih) ===== */
@@ -353,20 +283,6 @@
   --app-6: #d4c8b0;
   --app-6-6: #2e2b24;
 }
-.dark.palette-jasmine,
-.dark .palette-jasmine {
-  --app-1: #38342c;
-  --app-1-1: #e8e2d8;
-  --app-2: #302c25;
-  --app-2-2: #e0d8ce;
-  --app-3: #35312a;
-  --app-3-3: #e2dbd0;
-  --app-4: #423d34;
-  --app-5: #322e28;
-  --app-5-5: #ddd6cc;
-  --app-6: #5a5345;
-  --app-6-6: #eae4da;
-}
 
 /* ===== Palette: Marigold (Oranye) ===== */
 .palette-marigold {
@@ -381,20 +297,6 @@
   --app-5-5: #4e4238;
   --app-6: #f0a848;
   --app-6-6: #3a2a10;
-}
-.dark.palette-marigold,
-.dark .palette-marigold {
-  --app-1: #503818;
-  --app-1-1: #f5d8b5;
-  --app-2: #432e12;
-  --app-2-2: #edccaa;
-  --app-3: #4d3515;
-  --app-3-3: #f0d0a8;
-  --app-4: #5e4420;
-  --app-5: #453014;
-  --app-5-5: #e8c8a8;
-  --app-6: #7a5828;
-  --app-6-6: #f5e0c5;
 }
 
 /* ===== Palette: Jade Vine (Hijau) ===== */
@@ -411,37 +313,9 @@
   --app-6: #70c088;
   --app-6-6: #14281c;
 }
-.dark.palette-jade,
-.dark .palette-jade {
-  --app-1: #1e3828;
-  --app-1-1: #c0e0cc;
-  --app-2: #182e22;
-  --app-2-2: #b5d8c2;
-  --app-3: #1c3526;
-  --app-3-3: #b8dac5;
-  --app-4: #254530;
-  --app-5: #1a3024;
-  --app-5-5: #b2d4c0;
-  --app-6: #35603f;
-  --app-6-6: #c8e6d2;
-}
 
-/* ===== Palette: Black Dahlia (Hitam) ===== */
+/* ===== Palette: Black Dahlia (Hitam) — Dark mode ===== */
 .palette-dahlia {
-  --app-1: #d0cdd0;
-  --app-1-1: #2e2c30;
-  --app-2: #e0dde0;
-  --app-2-2: #383638;
-  --app-3: #c0bcc2;
-  --app-3-3: #282628;
-  --app-4: #b8b4b8;
-  --app-5: #e8e6e8;
-  --app-5-5: #3e3c3e;
-  --app-6: #9a959c;
-  --app-6-6: #1a181c;
-}
-.dark.palette-dahlia,
-.dark .palette-dahlia {
   --app-1: #2a2830;
   --app-1-1: #d0ccd2;
   --app-2: #222028;
@@ -468,20 +342,6 @@
   --app-5-5: #484240;
   --app-6: #d8c4a0;
   --app-6-6: #302818;
-}
-.dark.palette-magnolia,
-.dark .palette-magnolia {
-  --app-1: #3a3228;
-  --app-1-1: #eae0d2;
-  --app-2: #302a20;
-  --app-2-2: #e2d8ca;
-  --app-3: #383026;
-  --app-3-3: #e4dccf;
-  --app-4: #443a2e;
-  --app-5: #342c22;
-  --app-5-5: #dfd6c8;
-  --app-6: #5c4e38;
-  --app-6-6: #ece4d8;
 }
 
 @layer base {
