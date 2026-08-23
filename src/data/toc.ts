@@ -1,19 +1,19 @@
 export const toc = [
   {
     id: 1,
-    title: 'Dzikir Pagi',
+    title: 'Zikir Pagi',
     link: '/dzikir/pagi',
     category: 'dzikir',
   },
   {
     id: 2,
-    title: 'Dzikir Petang',
+    title: 'Zikir Petang',
     link: '/dzikir/petang',
     category: 'dzikir',
   },
   {
     id: 3,
-    title: 'Doa Quran',
+    title: "Doa Al-Qur'an",
     link: '/doa/quran',
     category: 'doa',
   },
@@ -25,8 +25,8 @@ export const toc = [
   },
   {
     id: 5,
-    title: 'Doa Sholat',
-    link: '/doa/sholat',
+    title: 'Doa Salat',
+    link: '/doa/salat',
     category: 'doa',
   },
 ];
