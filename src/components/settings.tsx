@@ -7,7 +7,6 @@ import {
 import { Fragment } from 'react';
 
 import { Button } from '@/components/ui/button';
-import { ButtonGroup } from '@/components/ui/button-group';
 import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import {
@@ -57,18 +56,18 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
         <div className="flex flex-col gap-4 overflow-y-auto p-4">
           <div className="flex flex-col gap-2">
             <Label className="text-app-1-1">Tema Warna</Label>
-            <ButtonGroup orientation="horizontal" className="flex-wrap">
+            <div className="flex flex-wrap items-center gap-1">
               {COLOR_PALETTES.map(palette => {
                 const isActive = paletteId === palette.id;
                 return (
                   <Button
                     key={palette.id}
-                    size="icon"
+                    size="icon-xs"
                     aria-label={`${palette.flower} (${palette.name})`}
                     aria-pressed={isActive}
                     onClick={() => setPaletteId(palette.id)}
                     className={cn(
-                      'relative size-9 rounded-full! border-2 p-0',
+                      '',
                       isActive
                         ? 'border-app-1-1 ring-app-1-1/30 ring-2'
                         : 'hover:border-app-1-1/30 border-transparent'
@@ -87,7 +86,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                   </Button>
                 );
               })}
-            </ButtonGroup>
+            </div>
             <span className="text-app-1-1 text-xs opacity-70">
               {COLOR_PALETTES.find(p => p.id === paletteId)?.flower ?? ''}
             </span>
