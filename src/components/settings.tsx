@@ -1,4 +1,9 @@
-import { ExternalLink, Settings as SettingsIcon, XIcon } from 'lucide-react';
+import {
+  CheckIcon,
+  ExternalLink,
+  Settings as SettingsIcon,
+  XIcon,
+} from 'lucide-react';
 import { useTheme } from 'next-themes';
 import { Fragment } from 'react';
 
@@ -14,7 +19,10 @@ import {
   SheetTitle,
 } from '@/components/ui/sheet';
 import { Switch } from '@/components/ui/switch';
+import { COLOR_PALETTES } from '@/data/color-palettes';
 import { sources } from '@/data/sources';
+import { cn } from '@/lib/utils';
+import { usePaletteStore } from '@/providers/palette-store-provider';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 import { SETTINGS_CONFIG } from '@/stores/settings-store';
 
@@ -27,6 +35,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
   const { resolvedTheme, setTheme } = useTheme();
   const isDark = resolvedTheme === 'dark';
   const { settings, setSettings } = useSettingsStore(state => state);
+  const { paletteId, setPaletteId } = usePaletteStore(state => state);
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -61,6 +70,53 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
               }}
               className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
             />
+          </div>
+          <Separator className="bg-app-2" />
+
+          <div className="flex flex-col gap-2">
+            <Label className="text-app-1-1">Tema Warna</Label>
+            <div className="flex flex-wrap gap-2">
+              {COLOR_PALETTES.map(palette => {
+                const isActive = paletteId === palette.id;
+                return (
+                  <button
+                    key={palette.id}
+                    type="button"
+                    aria-label={`${palette.flower} (${palette.name})`}
+                    aria-pressed={isActive}
+                    onClick={() => setPaletteId(palette.id)}
+                    className={cn(
+                      'relative flex size-9 items-center justify-center rounded-full border-2 transition-all',
+                      isActive
+                        ? 'border-app-1-1 scale-110'
+                        : 'border-transparent hover:scale-105'
+                    )}
+                  >
+                    <span
+                      className="block size-7 rounded-full"
+                      style={{
+                        background: isDark
+                          ? palette.previewColorDark
+                          : palette.previewColor,
+                      }}
+                    />
+                    {isActive && (
+                      <CheckIcon
+                        className="absolute size-3.5"
+                        style={{
+                          color: isDark
+                            ? palette.previewColor
+                            : palette.previewColorDark,
+                        }}
+                      />
+                    )}
+                  </button>
+                );
+              })}
+            </div>
+            <span className="text-app-1-1 text-xs opacity-70">
+              {COLOR_PALETTES.find(p => p.id === paletteId)?.flower ?? ''}
+            </span>
           </div>
           <Separator className="bg-app-2" />
 
