@@ -86,9 +86,9 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                 );
               })}
             </div>
-            <span className="text-app-1-1 text-xs">
+            {/* <span className="text-app-1-1 text-xs">
               {COLOR_PALETTES.find(p => p.id === paletteId)?.flower ?? ''}
-            </span>
+            </span> */}
           </div>
           <Separator className="bg-app-2" />
 
