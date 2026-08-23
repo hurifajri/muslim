@@ -8,6 +8,7 @@ import { env } from '@/env';
 import { parseLocationCookie } from '@/lib/parse-location-cookie';
 import { cn } from '@/lib/utils';
 import { LocationStoreProvider } from '@/providers/location-store-provider';
+import { PaletteStoreProvider } from '@/providers/palette-store-provider';
 import { QueryProvider } from '@/providers/query-provider';
 import { SettingsStoreProvider } from '@/providers/settings-store-provider';
 import { ThemeProvider } from '@/providers/theme-provider';
@@ -108,7 +109,9 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         >
           <QueryProvider>
             <LocationStoreProvider initialState={locationState}>
-              <SettingsStoreProvider>{children}</SettingsStoreProvider>
+              <SettingsStoreProvider>
+                <PaletteStoreProvider>{children}</PaletteStoreProvider>
+              </SettingsStoreProvider>
             </LocationStoreProvider>
           </QueryProvider>
         </ThemeProvider>
