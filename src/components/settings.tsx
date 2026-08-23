@@ -21,6 +21,7 @@ import { Switch } from '@/components/ui/switch';
 import { COLOR_PALETTES } from '@/data/color-palettes';
 import { sources } from '@/data/sources';
 import { cn } from '@/lib/utils';
+import { usePaletteStore } from '@/providers/palette-store-provider';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 import { SETTINGS_CONFIG } from '@/stores/settings-store';
 
@@ -30,9 +31,8 @@ type SettingsProps = Readonly<{
 }>;
 
 export function Settings({ isOpen, onClose }: SettingsProps) {
-  const { settings, paletteId, setSettings, setPaletteId } = useSettingsStore(
-    state => state
-  );
+  const { settings, setSettings } = useSettingsStore(state => state);
+  const { paletteId, setPaletteId } = usePaletteStore(state => state);
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
@@ -67,7 +67,6 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                     aria-pressed={isActive}
                     onClick={() => setPaletteId(palette.id)}
                     className={cn(
-                      '',
                       isActive
                         ? 'border-app-1-1 ring-app-1-1/30 ring-2'
                         : 'hover:border-app-1-1/30 border-transparent'
@@ -87,7 +86,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                 );
               })}
             </div>
-            <span className="text-app-1-1 text-xs opacity-70">
+            <span className="text-app-1-1 text-xs">
               {COLOR_PALETTES.find(p => p.id === paletteId)?.flower ?? ''}
             </span>
           </div>

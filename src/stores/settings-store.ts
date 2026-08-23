@@ -1,7 +1,6 @@
 import { persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
-import { type ColorPaletteId, DEFAULT_PALETTE } from '@/data/color-palettes';
 import type { SettingKey, SettingsState } from '@/schemas/settings';
 
 export type { SettingKey, SettingsState };
@@ -15,7 +14,6 @@ export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
 
 export type SettingsActions = {
   setSettings: (name: SettingKey, isActive: boolean) => void;
-  setPaletteId: (id: ColorPaletteId) => void;
 };
 
 export type SettingsStore = SettingsState & SettingsActions;
@@ -27,7 +25,6 @@ export const defaultInitState: SettingsState = {
     transliteration: false,
     benefits: true,
   },
-  paletteId: DEFAULT_PALETTE,
 };
 
 export const createSettingsStore = (
@@ -44,7 +41,6 @@ export const createSettingsStore = (
               [name]: isActive,
             },
           })),
-        setPaletteId: id => set({ paletteId: id }),
       }),
       {
         name: 'muslim-settings',
