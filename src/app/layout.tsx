@@ -4,14 +4,17 @@ import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
 import { cookies } from 'next/headers';
 
+import { COLOR_PALETTES, DEFAULT_PALETTE } from '@/data/color-palettes';
 import { env } from '@/env';
 import { parseLocationCookie } from '@/lib/parse-location-cookie';
+import { parsePaletteCookie } from '@/lib/parse-palette-cookie';
 import { cn } from '@/lib/utils';
 import { LocationStoreProvider } from '@/providers/location-store-provider';
+import { PaletteStoreProvider } from '@/providers/palette-store-provider';
 import { QueryProvider } from '@/providers/query-provider';
 import { SettingsStoreProvider } from '@/providers/settings-store-provider';
-import { ThemeProvider } from '@/providers/theme-provider';
 import { LOCATION_COOKIE_NAME } from '@/stores/location-store';
+import { PALETTE_COOKIE_NAME } from '@/stores/palette-store';
 
 const outfit = Outfit({
   variable: '--font-sans',
@@ -77,14 +80,23 @@ export const metadata: Metadata = {
   },
 };
 
-export const viewport: Viewport = {
-  width: 'device-width',
-  initialScale: 1,
-  themeColor: [
-    { media: '(prefers-color-scheme: light)', color: '#faf5ff' },
-    { media: '(prefers-color-scheme: dark)', color: '#322659' },
-  ],
-};
+export async function generateViewport(): Promise<Viewport> {
+  const cookieStore = await cookies();
+  const paletteCookie = cookieStore.get(PALETTE_COOKIE_NAME);
+
+  // Try parsing in case it's zustand JSON, else raw string
+  const parsed = parsePaletteCookie(paletteCookie?.value);
+  const paletteId = parsed.paletteId || DEFAULT_PALETTE;
+  const palette =
+    COLOR_PALETTES.find(p => p.id === paletteId) ||
+    COLOR_PALETTES.find(p => p.id === DEFAULT_PALETTE)!;
+
+  return {
+    width: 'device-width',
+    initialScale: 1,
+    themeColor: palette.backgroundColor,
+  };
+}
 
 type RootLayoutProps = Readonly<{
   children: React.ReactNode;
@@ -92,25 +104,36 @@ type RootLayoutProps = Readonly<{
 
 export default async function RootLayout({ children }: RootLayoutProps) {
   const cookieStore = await cookies();
+
   const locationCookie = cookieStore.get(LOCATION_COOKIE_NAME);
   const locationState = parseLocationCookie(locationCookie?.value);
+
+  const paletteCookie = cookieStore.get(PALETTE_COOKIE_NAME);
+  const paletteState = parsePaletteCookie(paletteCookie?.value);
+
+  const activePaletteId = paletteState.paletteId;
+  const palette =
+    COLOR_PALETTES.find(p => p.id === activePaletteId) ||
+    COLOR_PALETTES.find(p => p.id === DEFAULT_PALETTE)!;
 
   return (
     <html lang="id" suppressHydrationWarning>
       <body
-        className={cn('font-sans antialiased', outfit.variable, amiri.variable)}
+        className={cn(
+          'font-sans antialiased',
+          outfit.variable,
+          amiri.variable,
+          `palette-${activePaletteId}`,
+          palette.mode === 'dark' && 'dark'
+        )}
       >
-        <ThemeProvider
-          attribute="class"
-          defaultTheme="light"
-          disableTransitionOnChange
-        >
-          <QueryProvider>
-            <LocationStoreProvider initialState={locationState}>
+        <QueryProvider>
+          <LocationStoreProvider initialState={locationState}>
+            <PaletteStoreProvider initialState={paletteState}>
               <SettingsStoreProvider>{children}</SettingsStoreProvider>
-            </LocationStoreProvider>
-          </QueryProvider>
-        </ThemeProvider>
+            </PaletteStoreProvider>
+          </LocationStoreProvider>
+        </QueryProvider>
       </body>
     </html>
   );

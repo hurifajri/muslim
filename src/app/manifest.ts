@@ -1,15 +1,30 @@
 import { MetadataRoute } from 'next';
+import { cookies } from 'next/headers';
 
-export default function manifest(): MetadataRoute.Manifest {
+import { COLOR_PALETTES, DEFAULT_PALETTE } from '@/data/color-palettes';
+import { parsePaletteCookie } from '@/lib/parse-palette-cookie';
+import { PALETTE_COOKIE_NAME } from '@/stores/palette-store';
+
+export default async function manifest(): Promise<MetadataRoute.Manifest> {
+  const cookieStore = await cookies();
+  const paletteCookie = cookieStore.get(PALETTE_COOKIE_NAME);
+
+  const parsed = parsePaletteCookie(paletteCookie?.value);
+  const paletteId = parsed.paletteId || DEFAULT_PALETTE;
+
+  const palette =
+    COLOR_PALETTES.find(p => p.id === paletteId) ||
+    COLOR_PALETTES.find(p => p.id === DEFAULT_PALETTE)!;
+
   return {
     name: 'Muslim • Jadwal Sholat, Dzikir, dan Doa',
     short_name: 'Muslim',
     description: 'Jadwal sholat, dzikir, dan doa harian.',
     start_url: '/',
     display: 'standalone',
-    background_color: '#faf5ff',
-    theme_color: '#322659',
-    orientation: 'portrait',
+    background_color: palette.backgroundColor,
+    theme_color: palette.backgroundColor,
+    orientation: 'any',
     icons: [
       {
         src: '/icon-192x192.png',
