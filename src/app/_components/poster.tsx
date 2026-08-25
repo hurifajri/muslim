@@ -195,7 +195,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
 
               <div className="relative flex h-full w-full flex-col p-4">
                 <div
-                  className="my-auto flex flex-col gap-4 rounded-xl p-4"
+                  className="my-auto flex flex-col gap-8 rounded-xl p-4"
                   style={{
                     backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
                   }}
@@ -211,40 +211,42 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
                       {doa.title}
                     </h2>
                   )}
-                  {showArabic && (
-                    <p
-                      className={cn(
-                        'font-arabic text-right leading-loose',
-                        sizes.arabic,
-                        textOutline && 'text-outline'
-                      )}
-                      dir="rtl"
-                    >
-                      {doa.arabic}
-                    </p>
-                  )}
-                  {showTranslation && (
-                    <p
-                      className={cn(
-                        'font-medium',
-                        sizes.translation,
-                        textOutline && 'text-outline'
-                      )}
-                    >
-                      {doa.translation}
-                    </p>
-                  )}
-                  {doa.narrator && (
-                    <p
-                      className={cn(
-                        'font-medium',
-                        sizes.narrator,
-                        textOutline && 'text-outline'
-                      )}
-                    >
-                      {doa.narrator}
-                    </p>
-                  )}
+                  <div className="flex flex-col gap-4">
+                    {showArabic && (
+                      <p
+                        className={cn(
+                          'font-arabic text-right leading-loose',
+                          sizes.arabic,
+                          textOutline && 'text-outline'
+                        )}
+                        dir="rtl"
+                      >
+                        {doa.arabic}
+                      </p>
+                    )}
+                    {showTranslation && (
+                      <p
+                        className={cn(
+                          'font-medium',
+                          sizes.translation,
+                          textOutline && 'text-outline'
+                        )}
+                      >
+                        {doa.translation}
+                      </p>
+                    )}
+                    {doa.narrator && (
+                      <p
+                        className={cn(
+                          'font-medium',
+                          sizes.narrator,
+                          textOutline && 'text-outline'
+                        )}
+                      >
+                        {doa.narrator}
+                      </p>
+                    )}
+                  </div>
                 </div>
 
                 <p className="text-outline mt-auto flex items-end justify-end text-[8px] font-medium opacity-50">
