@@ -11,7 +11,6 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
   DialogClose,
@@ -26,6 +25,8 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import { Label } from '@/components/ui/label';
+import { Slider } from '@/components/ui/slider';
+import { Switch } from '@/components/ui/switch';
 import { useIsMobile } from '@/hooks/use-mobile';
 import { RandomDoa } from '@/hooks/use-random-doa';
 import { cn } from '@/lib/utils';
@@ -51,6 +52,9 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
   const [showTitle, setShowTitle] = useState(true);
   const [showArabic, setShowArabic] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
+
+  const [fontSizeLevel, setFontSizeLevel] = useState([1]);
+  const [overlayOpacity, setOverlayOpacity] = useState([60]);
 
   const handleShare = async () => {
     if (!posterRef.current) return;
@@ -91,15 +95,31 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     }
   };
 
+  const sizeLevel = fontSizeLevel[0];
+  const uiSizes = {
+    title: ['text-xs', 'text-sm', 'text-base'][sizeLevel],
+    arabic: ['text-base', 'text-lg', 'text-xl'][sizeLevel],
+    translation: ['text-[10px]', 'text-xs', 'text-sm'][sizeLevel],
+    narrator: ['text-[8px]', 'text-[10px]', 'text-xs'][sizeLevel],
+  };
+  const offSizes = {
+    title: ['text-[38px]', 'text-[48px]', 'text-[60px]'][sizeLevel],
+    arabic: ['text-[58px]', 'text-[72px]', 'text-[90px]'][sizeLevel],
+    translation: ['text-[34px]', 'text-[42px]', 'text-[52px]'][sizeLevel],
+    narrator: ['text-[22px]', 'text-[28px]', 'text-[35px]'][sizeLevel],
+  };
+
   const modalContent = (
-    <div className={cn('flex flex-col gap-4', isMobile ? 'p-4' : '')}>
+    <div
+      className={cn('flex flex-col gap-4 sm:flex-row', isMobile ? 'p-4' : '')}
+    >
       {/* Unified Preview Container Group */}
-      <div className="bg-app-6/30 relative flex w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4">
+      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-354px)] w-fit flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-full sm:flex-1">
         {/* Preview Image */}
-        <div className="w-67.5 max-w-full shrink-0">
+        <div className="w-67.5 max-w-full">
           <AspectRatio
             ratio={9 / 16}
-            className="overflow-hidden rounded-xl shadow-2xl"
+            className="shrink-0 overflow-hidden rounded-xl shadow-2xl"
           >
             {/* This is a visual clone for the user to see */}
             <Image
@@ -111,23 +131,37 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
             />
 
             <div className="relative flex h-full w-full flex-col p-4">
-              <div className="my-auto flex flex-col gap-4 rounded-xl bg-white/60 p-4">
+              <div
+                className="my-auto flex flex-col gap-4 rounded-xl p-4"
+                style={{
+                  backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
+                }}
+              >
                 {showTitle && (
-                  <h2 className="text-sm font-semibold">{doa.title}</h2>
+                  <h2 className={cn('font-semibold', uiSizes.title)}>
+                    {doa.title}
+                  </h2>
                 )}
                 {showArabic && (
                   <p
-                    className="font-arabic text-right text-lg leading-relaxed"
+                    className={cn(
+                      'font-arabic text-right leading-relaxed',
+                      uiSizes.arabic
+                    )}
                     dir="rtl"
                   >
                     {doa.arabic}
                   </p>
                 )}
                 {showTranslation && (
-                  <p className="text-xs font-medium">{doa.translation}</p>
+                  <p className={cn('font-medium', uiSizes.translation)}>
+                    {doa.translation}
+                  </p>
                 )}
                 {doa.narrator && (
-                  <p className="text-[10px] font-medium">{doa.narrator}</p>
+                  <p className={cn('font-medium', uiSizes.narrator)}>
+                    {doa.narrator}
+                  </p>
                 )}
               </div>
 
@@ -196,27 +230,47 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
               alt=""
             />
             <div className="relative z-10 flex h-full w-full flex-col p-20 text-slate-800">
-              <div className="my-auto flex flex-col gap-15 rounded-[32px] bg-white/60 p-12">
+              <div
+                className="my-auto flex flex-col gap-[60px] rounded-[32px] p-[48px]"
+                style={{
+                  backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
+                }}
+              >
                 {showTitle && (
-                  <h3 className="text-[48px] font-bold text-slate-900">
+                  <h3
+                    className={cn('font-bold text-slate-900', offSizes.title)}
+                  >
                     {doa.title}
                   </h3>
                 )}
                 {showArabic && (
                   <p
                     dir="rtl"
-                    className="font-arabic text-right text-[72px] leading-[1.6] text-slate-900"
+                    className={cn(
+                      'font-arabic text-right leading-[1.6] text-slate-900',
+                      offSizes.arabic
+                    )}
                   >
                     {doa.arabic}
                   </p>
                 )}
                 {showTranslation && (
-                  <p className="text-[42px] leading-normal font-medium">
+                  <p
+                    className={cn(
+                      'leading-[1.5] font-medium',
+                      offSizes.translation
+                    )}
+                  >
                     {doa.translation}
                   </p>
                 )}
                 {doa.narrator && (
-                  <p className="mt-5 text-right text-[28px] font-medium">
+                  <p
+                    className={cn(
+                      'mt-[20px] text-right font-medium',
+                      offSizes.narrator
+                    )}
+                  >
                     {doa.narrator}
                   </p>
                 )}
@@ -232,58 +286,108 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
         </div>
       </div>
 
-      {/* Text Toggles */}
-      <div className="text-app-1-1 flex flex-wrap justify-center gap-6 text-sm">
-        {[
-          {
-            id: 'showTitle',
-            label: 'Judul',
-            checked: showTitle,
-            onChange: setShowTitle,
-          },
-          {
-            id: 'showArabic',
-            label: 'Teks Arab',
-            checked: showArabic,
-            onChange: setShowArabic,
-          },
-          {
-            id: 'showTranslation',
-            label: 'Terjemahan',
-            checked: showTranslation,
-            onChange: setShowTranslation,
-          },
-        ].map(({ id, label, checked, onChange }) => (
-          <div key={id} className="flex cursor-pointer items-center gap-2">
-            <Checkbox
-              id={id}
-              checked={checked}
-              onCheckedChange={val => onChange(val === true)}
-              className="bg-app-4 data-checked:border-app-6 data-checked:bg-app-6 data-checked:text-app-5"
-            />
-            <Label htmlFor={id} className="cursor-pointer">
-              {label}
-            </Label>
-          </div>
-        ))}
-      </div>
+      {/* Settings */}
+      <div className="flex flex-col gap-4 sm:flex-1">
+        {/* Text Toggles */}
+        <div className="flex flex-col gap-4">
+          {[
+            {
+              id: 'showTitle',
+              label: 'Judul',
+              checked: showTitle,
+              onChange: setShowTitle,
+            },
+            {
+              id: 'showArabic',
+              label: 'Teks Arab',
+              checked: showArabic,
+              onChange: setShowArabic,
+            },
+            {
+              id: 'showTranslation',
+              label: 'Terjemahan',
+              checked: showTranslation,
+              onChange: setShowTranslation,
+            },
+          ].map(option => (
+            <div key={option.id} className="flex items-center justify-between">
+              <Label htmlFor={option.id} className="text-app-1-1">
+                {option.label}
+              </Label>
+              <Switch
+                id={option.id}
+                checked={option.checked}
+                onCheckedChange={val => option.onChange(val === true)}
+                className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
+              />
+            </div>
+          ))}
+        </div>
 
-      {/* Share Button */}
-      <Button
-        onClick={handleShare}
-        className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-        disabled={isGenerating}
-      >
-        <Share2 />
-        {isGenerating ? 'Memproses...' : 'Bagikan'}
-      </Button>
+        {/* Visual Adjustments */}
+        <div className="flex flex-col gap-4">
+          {[
+            {
+              id: 'fontSize',
+              label: 'Ukuran Teks',
+              value: fontSizeLevel,
+              onChange: setFontSizeLevel,
+              min: 0,
+              max: 2,
+              step: 1,
+              displayValue:
+                fontSizeLevel[0] === 0
+                  ? 'Kecil'
+                  : fontSizeLevel[0] === 1
+                    ? 'Sedang'
+                    : 'Besar',
+            },
+            {
+              id: 'overlayOpacity',
+              label: 'Latar Teks',
+              value: overlayOpacity,
+              onChange: setOverlayOpacity,
+              min: 50,
+              max: 100,
+              step: 1,
+              displayValue: `${overlayOpacity[0]}%`,
+            },
+          ].map(option => (
+            <div key={option.id} className="flex flex-col gap-2">
+              <div className="flex w-full items-center justify-between">
+                <Label htmlFor={option.id}>{option.label}</Label>
+                <span className="text-xs">{option.displayValue}</span>
+              </div>
+              <Slider
+                id={option.id}
+                value={option.value}
+                onValueChange={option.onChange}
+                min={option.min}
+                max={option.max}
+                step={option.step}
+                className="**:data-[slot=slider-track]:bg-app-4 **:data-[slot=slider-range]:bg-app-6 **:data-[slot=slider-thumb]:bg-app-5"
+              />
+            </div>
+          ))}
+        </div>
+
+        {/* Share Button */}
+        <Button
+          onClick={handleShare}
+          className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+          disabled={isGenerating}
+        >
+          <Share2 />
+          {isGenerating ? 'Memproses...' : 'Bagikan'}
+        </Button>
+      </div>
     </div>
   );
 
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
-        <DrawerContent className="before:bg-app-1 data-[vaul-drawer-direction=bottom]:max-h-[90vh]">
+        <DrawerContent className="before:bg-app-1 data-[vaul-drawer-direction=bottom]:max-h-dvh">
           <DrawerHeader>
             <DrawerTitle className="text-app-1-1 text-left">
               Buat Poster Doa
@@ -299,7 +403,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         showCloseButton={false}
-        className="bg-app-1 flex max-h-[90vh] flex-col overflow-hidden p-4 sm:max-w-xl"
+        className="bg-app-1 flex max-h-dvh flex-col overflow-hidden p-4 sm:max-w-xl"
       >
         <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle className="text-app-1-1">Buat Poster Doa</DialogTitle>
