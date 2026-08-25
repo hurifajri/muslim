@@ -35,6 +35,7 @@ import {
 import { Item, ItemContent, ItemGroup, ItemTitle } from '@/components/ui/item';
 import { Label } from '@/components/ui/label';
 import { useIsMobile } from '@/hooks/use-mobile';
+import { cn } from '@/lib/utils';
 import { useLocationStore } from '@/providers/location-store-provider';
 import {
   reverseGeocodeQueryOptions,
@@ -54,6 +55,7 @@ export type LocationProps = Readonly<{
 // ─── Shared Form Body ─────────────────────────────────────────────────────────
 
 type LocationFormProps = Readonly<{
+  isMobile?: boolean;
   query: string;
   suggestions: LocationSuggestion[];
   selected: LocationSuggestion | null;
@@ -68,6 +70,7 @@ type LocationFormProps = Readonly<{
 }>;
 
 function LocationForm({
+  isMobile = false,
   query,
   suggestions,
   selected,
@@ -83,7 +86,7 @@ function LocationForm({
   const showDropdown = suggestions.length > 0 && !selected;
 
   return (
-    <div className="flex flex-col gap-3 px-4">
+    <div className={cn('flex flex-col gap-3', isMobile && 'p-4')}>
       {/* Search input */}
       <div className="flex flex-col gap-1.5">
         <Label htmlFor="city-search" className="text-app-1-1">
@@ -314,6 +317,7 @@ export function Location({ isOpen, onClose }: LocationProps) {
   };
 
   const formProps: LocationFormProps = {
+    isMobile,
     query,
     suggestions,
     selected,
@@ -341,13 +345,13 @@ export function Location({ isOpen, onClose }: LocationProps) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
         <DrawerContent className="before:bg-app-1">
-          <DrawerHeader>
+          <DrawerHeader className="pb-0">
             <DrawerTitle className="text-app-1-1 text-left">
               Ubah Lokasi
             </DrawerTitle>
           </DrawerHeader>
           <LocationForm {...formProps} />
-          <DrawerFooter>{saveButton}</DrawerFooter>
+          <DrawerFooter className="pt-0">{saveButton}</DrawerFooter>
         </DrawerContent>
       </Drawer>
     );
@@ -355,7 +359,7 @@ export function Location({ isOpen, onClose }: LocationProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent showCloseButton={false} className="bg-app-1 p-4">
+      <DialogContent showCloseButton={false} className="bg-app-1 gap-4 p-4">
         <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle className="text-app-1-1">Ubah Lokasi</DialogTitle>
           <DialogClose asChild>

@@ -31,7 +31,7 @@ export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
         <DrawerContent className="before:bg-app-1">
-          <DrawerHeader>
+          <DrawerHeader className="pb-0">
             <DrawerTitle className="text-app-1-1 text-left">
               Keutamaan {title}
             </DrawerTitle>
@@ -51,7 +51,7 @@ export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent showCloseButton={false} className="bg-app-1 p-4">
+      <DialogContent showCloseButton={false} className="bg-app-1 gap-4 p-4">
         <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle className="text-app-1-1">Keutamaan {title}</DialogTitle>
           <DialogClose asChild>
