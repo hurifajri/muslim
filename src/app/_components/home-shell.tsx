@@ -53,10 +53,8 @@ export function HomeShell() {
     <div className="bg-app-1 relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4">
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
-
       {/* <CherryBlossomsIcon className="fixed top-8 left-[-4%] w-1/2 rotate-180 opacity-25 sm:w-1/3" />
       <CherryBlossomsIcon className="fixed right-[-4%] bottom-8 opacity-25 sm:w-1/2" /> */}
-
       <header className="relative flex items-center justify-between">
         <div className="text-app-1-1 flex flex-col">
           <span className="font-bold">{hijriDate}</span>
@@ -73,14 +71,13 @@ export function HomeShell() {
           <MenuIcon />
         </Button>
       </header>
-
       <main className="w-full sm:flex sm:flex-1 sm:items-center sm:portrait:max-w-md sm:portrait:self-center sm:landscape:max-w-3xl sm:landscape:self-center">
         <div className="flex w-full flex-col gap-4 sm:landscape:flex-row">
           {/* Praying times and dzikir */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="from-app-3/50 to-app-6/50 2xs:p-8 shadow-1 flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs">
+              <div className="from-app-3/50 to-app-6/50 2xs:p-8 shadow-glass flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
@@ -128,7 +125,7 @@ export function HomeShell() {
                         <div
                           className={cn(
                             bgClass,
-                            'shadow-1 flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 backdrop-blur-xs'
+                            'shadow-glass flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 backdrop-blur-xs'
                           )}
                         >
                           {Icons[id]}
@@ -155,7 +152,7 @@ export function HomeShell() {
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="shadow-1 bg-app-2/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
+                        <div className="shadow-glass bg-app-2/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
                           {Icons[id]}
                           <h3 className="text-app-2-2 text-sm font-bold">
                             {title}
@@ -196,25 +193,24 @@ export function HomeShell() {
           </div>
         </div>
       </main>
-
       {/* Settings */}
       <Settings
         isOpen={isOpenSettings}
         onClose={() => setIsOpenSettings(false)}
       />
-
       {/* Location picker */}
       <Location
         isOpen={isOpenLocation}
         onClose={() => setIsOpenLocation(false)}
       />
-
       {/* Share Poster Modal */}
-      <Poster
-        isOpen={isShareModalOpen}
-        onClose={() => setIsShareModalOpen(false)}
-        doa={randomDoa}
-      />
+      {randomDoa && (
+        <Poster
+          isOpen={isShareModalOpen}
+          onClose={() => setIsShareModalOpen(false)}
+          doa={randomDoa}
+        />
+      )}
     </div>
   );
 }
