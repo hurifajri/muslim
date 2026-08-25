@@ -48,6 +48,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
   const [isGenerating, setIsGenerating] = useState(false);
   const posterRef = useRef<HTMLDivElement>(null);
 
+  const [showTitle, setShowTitle] = useState(true);
   const [showArabic, setShowArabic] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
 
@@ -111,7 +112,9 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
 
             <div className="relative flex h-full w-full flex-col p-4">
               <div className="my-auto flex flex-col gap-4 rounded-xl bg-white/60 p-4">
-                <h2 className="text-sm font-semibold">{doa.title}</h2>
+                {showTitle && (
+                  <h2 className="text-sm font-semibold">{doa.title}</h2>
+                )}
                 {showArabic && (
                   <p
                     className="font-arabic text-right text-lg leading-relaxed"
@@ -194,9 +197,11 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
             />
             <div className="relative z-10 flex h-full w-full flex-col p-20 text-slate-800">
               <div className="my-auto flex flex-col gap-15 rounded-[32px] bg-white/60 p-12">
-                <h3 className="text-[48px] font-bold text-slate-900">
-                  {doa.title}
-                </h3>
+                {showTitle && (
+                  <h3 className="text-[48px] font-bold text-slate-900">
+                    {doa.title}
+                  </h3>
+                )}
                 {showArabic && (
                   <p
                     dir="rtl"
@@ -228,8 +233,14 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
       </div>
 
       {/* Text Toggles */}
-      <div className="text-app-1-1 flex justify-center gap-6 text-sm">
+      <div className="text-app-1-1 flex flex-wrap justify-center gap-6 text-sm">
         {[
+          {
+            id: 'showTitle',
+            label: 'Judul',
+            checked: showTitle,
+            onChange: setShowTitle,
+          },
           {
             id: 'showArabic',
             label: 'Teks Arab',
