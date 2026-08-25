@@ -219,6 +219,7 @@ export function HomeShell() {
           isOpen={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}
           doa={randomDoa}
+          onRollNewDoa={rollNewDoa}
         />
       )}
     </div>

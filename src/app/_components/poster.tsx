@@ -1,5 +1,5 @@
 import { toBlob } from 'html-to-image';
-import { Share2Icon, XIcon } from 'lucide-react';
+import { RefreshCwIcon, Share2Icon, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
@@ -69,9 +69,10 @@ type PosterProps = Readonly<{
   isOpen: boolean;
   onClose: () => void;
   doa: RandomDoa;
+  onRollNewDoa?: () => void;
 }>;
 
-export function Poster({ isOpen, onClose, doa }: PosterProps) {
+export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
   const { isMobile } = useIsMobile();
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [bgIndex, setBgIndex] = useState(0);
@@ -81,6 +82,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
   const [showTitle, setShowTitle] = useState(true);
   const [showArabic, setShowArabic] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
+  const [textOutline, setTextOutline] = useState(false);
 
   const [fontSizeLevel, setFontSizeLevel] = useState([1]);
   const [overlayOpacity, setOverlayOpacity] = useState([60]);
@@ -141,6 +143,12 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
       checked: showTranslation,
       onChange: setShowTranslation,
     },
+    {
+      id: 'textOutline',
+      label: 'Garis Tepi Teks',
+      checked: textOutline,
+      onChange: setTextOutline,
+    },
   ];
 
   const sliders = [
@@ -159,7 +167,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
       label: 'Latar Teks',
       value: overlayOpacity,
       onChange: setOverlayOpacity,
-      min: 50,
+      min: 0,
       max: 100,
       step: 1,
       displayValue: `${overlayOpacity[0]}%`,
@@ -193,7 +201,13 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                   }}
                 >
                   {showTitle && (
-                    <h2 className={cn('font-semibold', sizes.title)}>
+                    <h2
+                      className={cn(
+                        'font-semibold',
+                        sizes.title,
+                        textOutline && 'text-outline'
+                      )}
+                    >
                       {doa.title}
                     </h2>
                   )}
@@ -201,7 +215,8 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                     <p
                       className={cn(
                         'font-arabic text-right leading-loose',
-                        sizes.arabic
+                        sizes.arabic,
+                        textOutline && 'text-outline'
                       )}
                       dir="rtl"
                     >
@@ -209,12 +224,24 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                     </p>
                   )}
                   {showTranslation && (
-                    <p className={cn('font-medium', sizes.translation)}>
+                    <p
+                      className={cn(
+                        'font-medium',
+                        sizes.translation,
+                        textOutline && 'text-outline'
+                      )}
+                    >
                       {doa.translation}
                     </p>
                   )}
                   {doa.narrator && (
-                    <p className={cn('font-medium', sizes.narrator)}>
+                    <p
+                      className={cn(
+                        'font-medium',
+                        sizes.narrator,
+                        textOutline && 'text-outline'
+                      )}
+                    >
                       {doa.narrator}
                     </p>
                   )}
@@ -311,15 +338,27 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
           ))}
         </div>
 
-        {/* Share Button */}
-        <Button
-          onClick={handleShare}
-          className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-          disabled={isGenerating}
-        >
-          <Share2Icon />
-          {isGenerating ? 'Memproses...' : 'Bagikan'}
-        </Button>
+        {/* Actions */}
+        <div className="flex gap-2">
+          {onRollNewDoa && (
+            <Button
+              size="icon"
+              aria-label="Ganti doa"
+              onClick={onRollNewDoa}
+              className="bg-app-3 hover:bg-app-3/80 text-app-3-3"
+            >
+              <RefreshCwIcon />
+            </Button>
+          )}
+          <Button
+            onClick={handleShare}
+            className="bg-app-6 hover:bg-app-6/80 text-app-6-6 flex-1"
+            disabled={isGenerating}
+          >
+            <Share2Icon />
+            {isGenerating ? 'Memproses...' : 'Bagikan'}
+          </Button>
+        </div>
       </div>
     </div>
   );
