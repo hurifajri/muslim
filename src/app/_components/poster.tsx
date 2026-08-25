@@ -42,6 +42,35 @@ const BACKGROUNDS = Array.from(
   (_, i) => `/bgs/bg-${i + 1}.jpeg`
 );
 
+const FONT_SIZE_LABELS = ['Kecil', 'Sedang', 'Besar'] as const;
+
+const FONT_SIZES = [
+  {
+    title: 'text-xs',
+    arabic: 'text-base',
+    translation: 'text-[10px]',
+    narrator: 'text-[8px]',
+  },
+  {
+    title: 'text-sm',
+    arabic: 'text-lg',
+    translation: 'text-xs',
+    narrator: 'text-[10px]',
+  },
+  {
+    title: 'text-base',
+    arabic: 'text-xl',
+    translation: 'text-sm',
+    narrator: 'text-xs',
+  },
+] as const;
+
+const SWITCH_CLASSNAME =
+  '*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!';
+
+const SLIDER_CLASSNAME =
+  '**:data-[slot=slider-track]:bg-app-4 **:data-[slot=slider-range]:bg-app-6 **:data-[slot=slider-thumb]:bg-app-5';
+
 export function Poster({ isOpen, onClose, doa }: PosterProps) {
   const { isMobile } = useIsMobile();
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
@@ -60,10 +89,9 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     if (!posterRef.current) return;
     try {
       setIsGenerating(true);
-      // Generate image blob
       const blob = await toBlob(posterRef.current, {
         quality: 1,
-        pixelRatio: 2, // High resolution
+        pixelRatio: 4,
         cacheBust: true,
       });
 
@@ -71,7 +99,6 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
 
       const file = new File([blob], 'doa-poster.png', { type: 'image/png' });
 
-      // Check if Web Share API is supported and can share files
       if (navigator.canShare?.({ files: [file] })) {
         await navigator.share({
           files: [file],
@@ -79,7 +106,6 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
           text: 'Selected Dua from Dua App',
         });
       } else {
-        // Fallback to download
         const url = URL.createObjectURL(blob);
         const a = document.createElement('a');
         a.href = url;
@@ -88,31 +114,60 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
         URL.revokeObjectURL(url);
       }
     } catch (err) {
-      console.error(err);
-      alert('Failed to share image.');
+      console.error('Failed to share image:', err);
     } finally {
       setIsGenerating(false);
     }
   };
 
-  const sizeLevel = fontSizeLevel[0];
-  const uiSizes = {
-    title: ['text-xs', 'text-sm', 'text-base'][sizeLevel],
-    arabic: ['text-base', 'text-lg', 'text-xl'][sizeLevel],
-    translation: ['text-[10px]', 'text-xs', 'text-sm'][sizeLevel],
-    narrator: ['text-[8px]', 'text-[10px]', 'text-xs'][sizeLevel],
-  };
-  const offSizes = {
-    title: ['text-[38px]', 'text-[48px]', 'text-[60px]'][sizeLevel],
-    arabic: ['text-[58px]', 'text-[72px]', 'text-[90px]'][sizeLevel],
-    translation: ['text-[34px]', 'text-[42px]', 'text-[52px]'][sizeLevel],
-    narrator: ['text-[22px]', 'text-[28px]', 'text-[35px]'][sizeLevel],
-  };
+  const sizes = FONT_SIZES[fontSizeLevel[0]] ?? FONT_SIZES[1];
+
+  const toggles = [
+    {
+      id: 'showTitle',
+      label: 'Judul',
+      checked: showTitle,
+      onChange: setShowTitle,
+    },
+    {
+      id: 'showArabic',
+      label: 'Teks Arab',
+      checked: showArabic,
+      onChange: setShowArabic,
+    },
+    {
+      id: 'showTranslation',
+      label: 'Terjemahan',
+      checked: showTranslation,
+      onChange: setShowTranslation,
+    },
+  ];
+
+  const sliders = [
+    {
+      id: 'fontSize',
+      label: 'Ukuran Teks',
+      value: fontSizeLevel,
+      onChange: setFontSizeLevel,
+      min: 0,
+      max: 2,
+      step: 1,
+      displayValue: FONT_SIZE_LABELS[fontSizeLevel[0]] ?? FONT_SIZE_LABELS[1],
+    },
+    {
+      id: 'overlayOpacity',
+      label: 'Latar Teks',
+      value: overlayOpacity,
+      onChange: setOverlayOpacity,
+      min: 50,
+      max: 100,
+      step: 1,
+      displayValue: `${overlayOpacity[0]}%`,
+    },
+  ];
 
   const modalContent = (
-    <div
-      className={cn('flex flex-col gap-4 sm:flex-row', isMobile ? 'p-4' : '')}
-    >
+    <div className={cn('flex flex-col gap-4 sm:flex-row', isMobile && 'p-4')}>
       {/* Unified Preview Container Group */}
       <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-398px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-full sm:w-fit sm:flex-1">
         {/* Preview Image */}
@@ -121,53 +176,54 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
             ratio={9 / 16}
             className="shrink-0 overflow-hidden rounded-xl shadow-2xl"
           >
-            {/* This is a visual clone for the user to see */}
-            <Image
-              src={BACKGROUNDS[bgIndex]}
-              alt="Background"
-              fill
-              sizes="270px"
-              className="object-cover"
-            />
+            <div ref={posterRef} className="absolute inset-0">
+              <Image
+                src={BACKGROUNDS[bgIndex]}
+                alt="Background"
+                fill
+                sizes="270px"
+                className="object-cover"
+              />
 
-            <div className="relative flex h-full w-full flex-col p-4">
-              <div
-                className="my-auto flex flex-col gap-2 rounded-xl p-4"
-                style={{
-                  backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
-                }}
-              >
-                {showTitle && (
-                  <h2 className={cn('font-semibold', uiSizes.title)}>
-                    {doa.title}
-                  </h2>
-                )}
-                {showArabic && (
-                  <p
-                    className={cn(
-                      'font-arabic text-right leading-relaxed',
-                      uiSizes.arabic
-                    )}
-                    dir="rtl"
-                  >
-                    {doa.arabic}
-                  </p>
-                )}
-                {showTranslation && (
-                  <p className={cn('font-medium', uiSizes.translation)}>
-                    {doa.translation}
-                  </p>
-                )}
-                {doa.narrator && (
-                  <p className={cn('font-medium', uiSizes.narrator)}>
-                    {doa.narrator}
-                  </p>
-                )}
+              <div className="relative flex h-full w-full flex-col p-4">
+                <div
+                  className="my-auto flex flex-col gap-2 rounded-xl p-4"
+                  style={{
+                    backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
+                  }}
+                >
+                  {showTitle && (
+                    <h2 className={cn('font-semibold', sizes.title)}>
+                      {doa.title}
+                    </h2>
+                  )}
+                  {showArabic && (
+                    <p
+                      className={cn(
+                        'font-arabic text-right leading-relaxed',
+                        sizes.arabic
+                      )}
+                      dir="rtl"
+                    >
+                      {doa.arabic}
+                    </p>
+                  )}
+                  {showTranslation && (
+                    <p className={cn('font-medium', sizes.translation)}>
+                      {doa.translation}
+                    </p>
+                  )}
+                  {doa.narrator && (
+                    <p className={cn('font-medium', sizes.narrator)}>
+                      {doa.narrator}
+                    </p>
+                  )}
+                </div>
+
+                <p className="text-outline mt-auto flex items-end justify-end text-[8px] font-medium opacity-50">
+                  muslim.vercel.app
+                </p>
               </div>
-
-              <p className="text-outline mt-auto flex items-end justify-end text-[8px] font-medium opacity-50">
-                muslim.vercel.app
-              </p>
             </div>
           </AspectRatio>
         </div>
@@ -213,103 +269,13 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
             </CarouselContent>
           </Carousel>
         </div>
-
-        {/* THE REAL ELEMENT USED FOR IMAGE CAPTURE (Offscreen, full resolution) */}
-        <div className="fixed top-[-9999px] left-[-9999px]">
-          <div
-            ref={posterRef}
-            className="relative flex h-[1920px] w-270 justify-center overflow-hidden bg-black"
-          >
-            {/* Fallback styling explicitly needed for html-to-image */}
-            <Image
-              src={BACKGROUNDS[bgIndex]}
-              unoptimized
-              fill
-              sizes="1080px"
-              className="object-cover"
-              alt=""
-            />
-            <div className="relative z-10 flex h-full w-full flex-col p-20 text-slate-800">
-              <div
-                className="my-auto flex flex-col gap-15 rounded-[32px] p-12"
-                style={{
-                  backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
-                }}
-              >
-                {showTitle && (
-                  <h3
-                    className={cn('font-bold text-slate-900', offSizes.title)}
-                  >
-                    {doa.title}
-                  </h3>
-                )}
-                {showArabic && (
-                  <p
-                    dir="rtl"
-                    className={cn(
-                      'font-arabic text-right leading-[1.6] text-slate-900',
-                      offSizes.arabic
-                    )}
-                  >
-                    {doa.arabic}
-                  </p>
-                )}
-                {showTranslation && (
-                  <p
-                    className={cn(
-                      'leading-normal font-medium',
-                      offSizes.translation
-                    )}
-                  >
-                    {doa.translation}
-                  </p>
-                )}
-                {doa.narrator && (
-                  <p
-                    className={cn(
-                      'mt-5 text-right font-medium',
-                      offSizes.narrator
-                    )}
-                  >
-                    {doa.narrator}
-                  </p>
-                )}
-              </div>
-
-              <div className="mt-auto -mb-2 flex items-end justify-end pt-10">
-                <span className="text-outline-poster text-[32px] leading-none font-medium opacity-75">
-                  muslim.vercel.app
-                </span>
-              </div>
-            </div>
-          </div>
-        </div>
       </div>
 
       {/* Settings */}
       <div className="flex flex-col gap-4 sm:flex-1">
         {/* Text Toggles */}
         <div className="flex flex-col gap-4">
-          {[
-            {
-              id: 'showTitle',
-              label: 'Judul',
-              checked: showTitle,
-              onChange: setShowTitle,
-            },
-            {
-              id: 'showArabic',
-              label: 'Teks Arab',
-              checked: showArabic,
-              onChange: setShowArabic,
-            },
-            {
-              id: 'showTranslation',
-              label: 'Terjemahan',
-              checked: showTranslation,
-              onChange: setShowTranslation,
-            },
-          ].map(option => (
+          {toggles.map(option => (
             <div key={option.id} className="flex items-center justify-between">
               <Label htmlFor={option.id} className="text-app-1-1">
                 {option.label}
@@ -318,7 +284,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                 id={option.id}
                 checked={option.checked}
                 onCheckedChange={val => option.onChange(val === true)}
-                className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
+                className={SWITCH_CLASSNAME}
               />
             </div>
           ))}
@@ -326,28 +292,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
 
         {/* Visual Adjustments */}
         <div className="flex flex-col gap-4">
-          {[
-            {
-              id: 'fontSize',
-              label: 'Ukuran Teks',
-              value: fontSizeLevel,
-              onChange: setFontSizeLevel,
-              min: 0,
-              max: 2,
-              step: 1,
-              displayValue: ['Kecil', 'Sedang', 'Besar'][fontSizeLevel[0]],
-            },
-            {
-              id: 'overlayOpacity',
-              label: 'Latar Teks',
-              value: overlayOpacity,
-              onChange: setOverlayOpacity,
-              min: 50,
-              max: 100,
-              step: 1,
-              displayValue: `${overlayOpacity[0]}%`,
-            },
-          ].map(option => (
+          {sliders.map(option => (
             <div key={option.id} className="flex flex-col gap-2">
               <div className="flex w-full items-center justify-between">
                 <Label htmlFor={option.id}>{option.label}</Label>
@@ -360,7 +305,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                 min={option.min}
                 max={option.max}
                 step={option.step}
-                className="**:data-[slot=slider-track]:bg-app-4 **:data-[slot=slider-range]:bg-app-6 **:data-[slot=slider-thumb]:bg-app-5"
+                className={SLIDER_CLASSNAME}
               />
             </div>
           ))}
