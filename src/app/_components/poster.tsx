@@ -328,7 +328,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
         <DrawerContent className="before:bg-app-1 data-[vaul-drawer-direction=bottom]:max-h-dvh">
-          <DrawerHeader>
+          <DrawerHeader className="pb-0">
             <DrawerTitle className="text-app-1-1 text-left">
               Buat Poster Doa
             </DrawerTitle>
@@ -343,7 +343,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         showCloseButton={false}
-        className="bg-app-1 flex max-h-dvh flex-col overflow-hidden p-4 sm:max-w-2xl"
+        className="bg-app-1 flex max-h-dvh flex-col gap-4 overflow-hidden p-4 sm:max-w-2xl"
       >
         <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle className="text-app-1-1">Buat Poster Doa</DialogTitle>
