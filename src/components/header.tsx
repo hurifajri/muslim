@@ -1,6 +1,6 @@
 'use client';
 
-import { ChevronLeft, MenuIcon } from 'lucide-react';
+import { ChevronLeftIcon, MenuIcon } from 'lucide-react';
 import { useRouter } from 'next/navigation';
 import { useState } from 'react';
 
@@ -26,7 +26,7 @@ export function Header({ title }: HeaderProps) {
             onClick={back}
             className="bg-app-6 hover:bg-app-6/80"
           >
-            <ChevronLeft />
+            <ChevronLeftIcon />
           </Button>
           <h1 className="text-app-2-2 text-lg font-bold capitalize">{title}</h1>
         </div>

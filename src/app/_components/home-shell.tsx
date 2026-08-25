@@ -1,6 +1,6 @@
 'use client';
 
-import { MenuIcon, Pencil, Share2 } from 'lucide-react';
+import { MenuIcon, PencilIcon, RefreshCwIcon, Share2Icon } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { ReactNode, useState } from 'react';
@@ -46,7 +46,7 @@ export function HomeShell() {
     city,
     country,
   });
-  const { randomDoa } = useRandomDoa();
+  const { randomDoa, rollNewDoa } = useRandomDoa();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   return (
@@ -86,7 +86,7 @@ export function HomeShell() {
                     className="text-app-3-3 hover:bg-app-3 -ml-4 text-xl font-bold capitalize"
                   >
                     {city}
-                    <Pencil />
+                    <PencilIcon />
                   </Button>
                   <span className="text-app-6-6 flex items-baseline font-bold tabular-nums">
                     <span className="text-4xl" suppressHydrationWarning>
@@ -168,12 +168,22 @@ export function HomeShell() {
             <div className="bg-app-2/50 relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="text-app-2-2 font-bold">Doa Pilihan</h2>
-                <Button
-                  onClick={() => setIsShareModalOpen(true)}
-                  className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-                >
-                  <Share2 /> Bagikan
-                </Button>
+                <div className="flex items-center gap-2">
+                  <Button
+                    size="icon"
+                    aria-label="Ganti doa"
+                    onClick={rollNewDoa}
+                    className="bg-app-3 hover:bg-app-3/80 text-app-3-3"
+                  >
+                    <RefreshCwIcon />
+                  </Button>
+                  <Button
+                    onClick={() => setIsShareModalOpen(true)}
+                    className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+                  >
+                    <Share2Icon /> Bagikan
+                  </Button>
+                </div>
               </div>
               <div className="relative flex flex-col gap-2">
                 <h3 className="text-app-2-2 text-sm font-medium">

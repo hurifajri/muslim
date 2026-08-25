@@ -1,5 +1,5 @@
 import { toBlob } from 'html-to-image';
-import { Share2, XIcon } from 'lucide-react';
+import { Share2Icon, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
@@ -317,7 +317,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
           className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
           disabled={isGenerating}
         >
-          <Share2 />
+          <Share2Icon />
           {isGenerating ? 'Memproses...' : 'Bagikan'}
         </Button>
       </div>
