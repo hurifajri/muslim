@@ -31,14 +31,6 @@
     1px 1px 0 #fff;
 }
 
-@utility text-outline-poster {
-  text-shadow:
-    -3px -3px 0 #fff,
-    3px -3px 0 #fff,
-    -3px 3px 0 #fff,
-    3px 3px 0 #fff;
-}
-
 @theme inline {
   --font-heading: var(--font-sans);
   --font-sans: var(--font-sans);
