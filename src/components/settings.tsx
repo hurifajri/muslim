@@ -1,9 +1,4 @@
-import {
-  CheckIcon,
-  ExternalLink,
-  Settings as SettingsIcon,
-  XIcon,
-} from 'lucide-react';
+import { CheckIcon, ExternalLinkIcon, SettingsIcon, XIcon } from 'lucide-react';
 import { Fragment } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -132,7 +127,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                   className="text-app-1-1 flex items-center text-xs"
                 >
                   {source.title}&nbsp;
-                  <ExternalLink className="text-app-1-1 size-3" />
+                  <ExternalLinkIcon className="text-app-1-1 size-3" />
                 </a>
               ))}
             </div>

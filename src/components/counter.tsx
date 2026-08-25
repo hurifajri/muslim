@@ -1,4 +1,4 @@
-import { PlusIcon, RotateCcw } from 'lucide-react';
+import { PlusIcon, RotateCcwIcon } from 'lucide-react';
 import { useState } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -14,7 +14,7 @@ export function Counter() {
         onClick={() => setValue(0)}
         className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
       >
-        <RotateCcw />
+        <RotateCcwIcon />
       </Button>
       <div className="border-app-6 -ml-1 flex h-9.5 w-12 items-center justify-center border-y font-bold">
         {value}
