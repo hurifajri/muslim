@@ -114,7 +114,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
       className={cn('flex flex-col gap-4 sm:flex-row', isMobile ? 'p-4' : '')}
     >
       {/* Unified Preview Container Group */}
-      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-354px)] w-fit flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-full sm:flex-1">
+      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-398px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-full sm:w-fit sm:flex-1">
         {/* Preview Image */}
         <div className="w-67.5 max-w-full">
           <AspectRatio
@@ -132,7 +132,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
 
             <div className="relative flex h-full w-full flex-col p-4">
               <div
-                className="my-auto flex flex-col gap-4 rounded-xl p-4"
+                className="my-auto flex flex-col gap-2 rounded-xl p-4"
                 style={{
                   backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
                 }}
@@ -231,7 +231,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
             />
             <div className="relative z-10 flex h-full w-full flex-col p-20 text-slate-800">
               <div
-                className="my-auto flex flex-col gap-[60px] rounded-[32px] p-[48px]"
+                className="my-auto flex flex-col gap-15 rounded-[32px] p-12"
                 style={{
                   backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
                 }}
@@ -257,7 +257,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                 {showTranslation && (
                   <p
                     className={cn(
-                      'leading-[1.5] font-medium',
+                      'leading-normal font-medium',
                       offSizes.translation
                     )}
                   >
@@ -267,7 +267,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                 {doa.narrator && (
                   <p
                     className={cn(
-                      'mt-[20px] text-right font-medium',
+                      'mt-5 text-right font-medium',
                       offSizes.narrator
                     )}
                   >
@@ -277,7 +277,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
               </div>
 
               <div className="mt-auto -mb-2 flex items-end justify-end pt-10">
-                <span className="text-outline-poster text-[32px] leading-none font-medium opacity-50">
+                <span className="text-outline-poster text-[32px] leading-none font-medium opacity-75">
                   muslim.vercel.app
                 </span>
               </div>
@@ -335,12 +335,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
               min: 0,
               max: 2,
               step: 1,
-              displayValue:
-                fontSizeLevel[0] === 0
-                  ? 'Kecil'
-                  : fontSizeLevel[0] === 1
-                    ? 'Sedang'
-                    : 'Besar',
+              displayValue: ['Kecil', 'Sedang', 'Besar'][fontSizeLevel[0]],
             },
             {
               id: 'overlayOpacity',
