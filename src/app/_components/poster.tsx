@@ -171,7 +171,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
       {/* Unified Preview Container Group */}
       <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-398px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-full sm:w-fit sm:flex-1">
         {/* Preview Image */}
-        <div className="w-67.5 max-w-full">
+        <div className="w-full">
           <AspectRatio
             ratio={9 / 16}
             className="shrink-0 overflow-hidden rounded-xl shadow-2xl"

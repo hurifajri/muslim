@@ -195,7 +195,7 @@ export function HomeShell() {
                 >
                   {randomDoa.arabic}
                 </p>
-                <p className="text-app-2-2 text-sm opacity-90 sm:line-clamp-3">
+                <p className="text-app-2-2 text-sm opacity-90 sm:line-clamp-2">
                   {randomDoa.translation}
                 </p>
               </div>
