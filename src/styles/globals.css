@@ -20,7 +20,15 @@
   --breakpoint-2xl: 100rem; /* 1600px (Large desktop monitors) */
   --breakpoint-3xl: 120rem; /* 1920px (Full HD screens) */
 
-  --shadow-1: 0px 8px 32px rgba(0, 0, 0, 0.1);
+  --shadow-glass: 0px 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+@utility text-outline {
+  text-shadow:
+    -1px -1px 0 #fff,
+    1px -1px 0 #fff,
+    -1px 1px 0 #fff,
+    1px 1px 0 #fff;
 }
 
 @theme inline {
@@ -78,6 +86,30 @@
   --color-app-5-5: var(--app-5-5);
   --color-app-6: var(--app-6);
   --color-app-6-6: var(--app-6-6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role='button']:not(:disabled) {
+    cursor: pointer;
+  }
+  html {
+    @apply font-sans;
+  }
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    @apply font-heading;
+  }
 }
 
 :root {
@@ -342,28 +374,4 @@
   --app-5-5: #484240;
   --app-6: #d8c4a0;
   --app-6-6: #302818;
-}
-
-@layer base {
-  * {
-    @apply border-border outline-ring/50;
-  }
-  body {
-    @apply bg-background text-foreground;
-  }
-  button:not(:disabled),
-  [role='button']:not(:disabled) {
-    cursor: pointer;
-  }
-  html {
-    @apply font-sans;
-  }
-  h1,
-  h2,
-  h3,
-  h4,
-  h5,
-  h6 {
-    @apply font-heading;
-  }
 }

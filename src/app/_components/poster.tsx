@@ -1,12 +1,20 @@
 import { toBlob } from 'html-to-image';
-import { Share2 } from 'lucide-react';
+import { Share2, XIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
+import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
+import {
+  Carousel,
+  type CarouselApi,
+  CarouselContent,
+  CarouselItem,
+} from '@/components/ui/carousel';
 import { Checkbox } from '@/components/ui/checkbox';
 import {
   Dialog,
+  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -28,20 +36,20 @@ type PosterProps = Readonly<{
   doa: RandomDoa;
 }>;
 
-const BACKGROUNDS = Array.from({ length: 12 }, (_, i) => `/bgs/bg-${i + 1}.jpeg`);
+const BACKGROUNDS = Array.from(
+  { length: 12 },
+  (_, i) => `/bgs/bg-${i + 1}.jpeg`
+);
 
 export function Poster({ isOpen, onClose, doa }: PosterProps) {
   const { isMobile } = useIsMobile();
-
-  const [ratio, setRatio] = useState<'1:1' | '9:16'>('9:16');
+  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
   const [bgIndex, setBgIndex] = useState(0);
   const [isGenerating, setIsGenerating] = useState(false);
   const posterRef = useRef<HTMLDivElement>(null);
 
   const [showArabic, setShowArabic] = useState(true);
   const [showTranslation, setShowTranslation] = useState(true);
-
-  if (!doa) return null;
 
   const handleShare = async () => {
     if (!posterRef.current) return;
@@ -82,293 +90,274 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     }
   };
 
-  const is916 = ratio === '9:16';
-
   const modalContent = (
-    <>
-      <div
-        className={cn(
-          'flex flex-1 flex-col gap-4 overflow-x-hidden overflow-y-auto',
-          isMobile ? 'p-4' : ''
-        )}
-      >
-        {/* Ratio Selector */}
-        <div className="flex gap-2">
-          <Button
-            variant="outline"
-            className={cn(
-              'bg-app-1 text-app-1-1 border-app-6-6 hover:bg-app-6 flex-1',
-              ratio === '1:1' && 'bg-app-6 text-app-6-6 border-app-6-6'
-            )}
-            onClick={() => setRatio('1:1')}
+    <div
+      className={cn(
+        'flex flex-1 flex-col gap-4 overflow-hidden',
+        isMobile ? 'p-4' : ''
+      )}
+    >
+      {/* Unified Preview Container Group */}
+      <div className="relative flex w-full flex-1 flex-col items-center justify-start gap-4 overflow-x-hidden overflow-y-auto rounded-xl bg-black/10 p-4">
+        {/* Preview Image */}
+        <div className="w-67.5 max-w-full shrink-0">
+          <AspectRatio
+            ratio={9 / 16}
+            className="relative flex overflow-hidden rounded-lg shadow-2xl"
           >
-            1:1 (Feed)
-          </Button>
-          <Button
-            variant="outline"
-            className={cn(
-              'bg-app-1 text-app-1-1 border-app-6-6 hover:bg-app-6 flex-1',
-              ratio === '9:16' && 'bg-app-6 text-app-6-6 border-app-6-6'
-            )}
-            onClick={() => setRatio('9:16')}
-          >
-            9:16 (Story)
-          </Button>
-        </div>
+            {/* This is a visual clone for the user to see */}
+            <Image
+              src={BACKGROUNDS[bgIndex]}
+              alt="bg"
+              fill
+              sizes="270px"
+              className="object-cover"
+            />
 
-        {/* Text Toggles */}
-        <div className="text-app-1-1 flex gap-2 text-sm">
-          <div className="flex cursor-pointer items-center gap-2">
-            <Checkbox
-              id="showArabic"
-              checked={showArabic}
-              onCheckedChange={checked => setShowArabic(checked === true)}
-            />
-            <Label htmlFor="showArabic" className="cursor-pointer">
-              Teks Arab
-            </Label>
-          </div>
-          <div className="flex cursor-pointer items-center gap-2">
-            <Checkbox
-              id="showTranslation"
-              checked={showTranslation}
-              onCheckedChange={checked => setShowTranslation(checked === true)}
-            />
-            <Label htmlFor="showTranslation" className="cursor-pointer">
-              Terjemahan
-            </Label>
-          </div>
+            <div className="relative z-10 flex h-full w-full flex-col p-4">
+              <div className="my-auto flex flex-col gap-3 rounded-xl bg-white/60 p-4 shadow-sm">
+                <h2 className="text-sm font-semibold">{doa.title}</h2>
+                {showArabic && (
+                  <p
+                    className="font-arabic text-right text-lg leading-relaxed"
+                    dir="rtl"
+                  >
+                    {doa.arabic}
+                  </p>
+                )}
+                {showTranslation && (
+                  <p className="text-xs font-medium">{doa.translation}</p>
+                )}
+                {doa.narrator && (
+                  <p className="text-[10px] font-medium">{doa.narrator}</p>
+                )}
+              </div>
+
+              <p className="text-outline mt-auto flex items-end justify-end text-[8px] font-medium">
+                muslim.vercel.app
+              </p>
+            </div>
+          </AspectRatio>
         </div>
 
         {/* Background Selector */}
-        <div className="flex min-h-20 snap-x gap-2 overflow-x-auto py-2">
-          {BACKGROUNDS.map((bg, idx) => (
-            <Button
-              variant="ghost"
-              key={bg}
-              onClick={() => setBgIndex(idx)}
-              className={cn(
-                'relative h-16 w-16 shrink-0 snap-center overflow-hidden rounded-lg border-2 p-0 transition-all',
-                bgIndex === idx
-                  ? 'border-app-6'
-                  : 'border-transparent opacity-50 hover:opacity-100'
-              )}
-            >
-              <Image
-                src={bg}
-                alt={`Background ${idx + 1}`}
-                fill
-                className="object-cover"
-              />
-            </Button>
-          ))}
+        <div className="w-full">
+          <Carousel
+            setApi={setCarouselApi}
+            opts={{
+              align: 'center',
+              dragFree: true,
+            }}
+            orientation="horizontal"
+            className="w-full"
+          >
+            <CarouselContent className="-ms-2 px-1">
+              {BACKGROUNDS.map((bg, idx) => (
+                <CarouselItem key={bg} className="basis-auto ps-2">
+                  <div
+                    onClick={() => {
+                      setBgIndex(idx);
+                      carouselApi?.scrollTo(idx);
+                    }}
+                    className={cn(
+                      'relative w-12 cursor-pointer overflow-hidden rounded-lg border-2 p-0 transition-all',
+                      bgIndex === idx
+                        ? 'border-app-6'
+                        : 'border-transparent opacity-50 hover:opacity-100'
+                    )}
+                  >
+                    <AspectRatio ratio={9 / 16} className="h-full w-full">
+                      <Image
+                        src={bg}
+                        alt={`Background ${idx + 1}`}
+                        fill
+                        sizes="48px"
+                        className="object-cover"
+                      />
+                    </AspectRatio>
+                  </div>
+                </CarouselItem>
+              ))}
+            </CarouselContent>
+          </Carousel>
         </div>
 
-        {/* Preview Container (Scaled down for UI) */}
-        <div className="relative flex w-full justify-center overflow-hidden rounded-xl bg-black/10 py-4">
-          {/* The Actual High-Res Poster Element (rendered off-screen to avoid scaling issues, but we show a scaled preview using transform) */}
+        {/* THE REAL ELEMENT USED FOR IMAGE CAPTURE (Offscreen, full resolution) */}
+        <div className="fixed top-[-9999px] left-[-9999px]">
           <div
-            className="transform-origin-top relative flex justify-center overflow-hidden shadow-2xl transition-all duration-300"
+            ref={posterRef}
+            className="relative flex justify-center overflow-hidden bg-black"
             style={{
-              width: is916 ? '270px' : '300px', // Scaled down UI width
-              aspectRatio: ratio === '9:16' ? '9/16' : '1/1',
+              width: '1080px',
+              height: '1920px',
             }}
           >
-            {/* This is a visual clone for the user to see */}
-            <div className="absolute inset-0 z-0">
-              <Image
-                src={BACKGROUNDS[bgIndex]}
-                alt="bg"
-                fill
-                className="object-cover"
-              />
-              <div className="absolute inset-0 bg-black/50" />
-            </div>
-
-            <div className="relative z-10 flex h-full w-full flex-col p-4 text-white">
-              <h3 className="text-app-3 mb-auto text-sm font-bold">
-                {doa.title}
-              </h3>
-
-              {(showArabic || showTranslation) && (
-                <div className="my-auto flex flex-col gap-3 rounded-xl bg-gradient-to-t from-black/60 to-black/10 p-4 backdrop-blur-sm">
-                  {showArabic && (
-                    <p
-                      className="font-arabic text-right text-lg leading-relaxed"
-                      dir="rtl"
-                    >
-                      {doa.arabic}
-                    </p>
-                  )}
-                  {showTranslation && (
-                    <p className="text-xs leading-relaxed opacity-90">
-                      {doa.translation}
-                    </p>
-                  )}
-                </div>
-              )}
-
-              <div className="mt-auto flex items-end justify-between pt-4">
-                <span className="text-[10px] opacity-70">
-                  Aplikasi Dua Muslim
-                </span>
-                {doa.narrator && (
-                  <span className="max-w-[50%] truncate text-right text-[10px] opacity-70">
-                    {doa.narrator}
-                  </span>
-                )}
-              </div>
-            </div>
-          </div>
-
-          {/* THE REAL ELEMENT USED FOR IMAGE CAPTURE (Offscreen, full resolution) */}
-          <div className="fixed top-[-9999px] left-[-9999px]">
+            {/* Fallback styling explicitly needed for html-to-image */}
+            <Image
+              src={BACKGROUNDS[bgIndex]}
+              unoptimized
+              fill
+              sizes="1080px"
+              style={{ objectFit: 'cover' }}
+              alt=""
+            />
             <div
-              ref={posterRef}
-              className="relative flex justify-center overflow-hidden bg-black"
               style={{
-                width: '1080px',
-                height: is916 ? '1920px' : '1080px',
+                position: 'relative',
+                zIndex: 10,
+                width: '100%',
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                padding: '80px',
+                color: '#1e293b',
               }}
             >
-              {/* Fallback styling explicitly needed for html-to-image */}
-              <Image
-                src={BACKGROUNDS[bgIndex]}
-                unoptimized
-                fill
-                style={{ objectFit: 'cover' }}
-                alt=""
-              />
               <div
                 style={{
-                  position: 'absolute',
-                  top: 0,
-                  left: 0,
-                  width: '100%',
-                  height: '100%',
-                  backgroundColor: 'rgba(0,0,0,0.6)',
-                }}
-              />
-
-              <div
-                style={{
-                  position: 'relative',
-                  zIndex: 10,
-                  width: '100%',
-                  height: '100%',
                   display: 'flex',
                   flexDirection: 'column',
-                  padding: '80px',
-                  color: 'white',
+                  gap: '60px',
+                  marginTop: 'auto',
+                  marginBottom: 'auto',
+                  background: 'rgba(255, 255, 255, 0.6)',
+                  padding: '48px',
+                  borderRadius: '32px',
+                  boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
                 }}
               >
                 <h3
                   style={{
                     fontSize: '48px',
                     fontWeight: 'bold',
-                    color: '#fbbf24',
-                    marginBottom: 'auto',
+                    color: '#0f172a',
+                    textShadow:
+                      '0px 4px 16px rgba(255, 255, 255, 1), 0px 2px 6px rgba(0, 0, 0, 0.15)',
                   }}
                 >
                   {doa.title}
                 </h3>
-
-                {(showArabic || showTranslation) && (
-                  <div
+                {showArabic && (
+                  <p
                     style={{
-                      display: 'flex',
-                      flexDirection: 'column',
-                      gap: '60px',
-                      marginTop: 'auto',
-                      marginBottom: 'auto',
-                      background: 'linear-gradient(to top, rgba(0, 0, 0, 0.6), rgba(0, 0, 0, 0.1))',
-                      padding: '48px',
-                      borderRadius: '32px',
-                      backdropFilter: 'blur(8px)',
+                      textAlign: 'right',
+                      fontSize: '72px',
+                      lineHeight: '1.6',
+                      direction: 'rtl',
+                      fontFamily: 'serif',
+                      color: '#0f172a',
+                      textShadow:
+                        '0px 4px 16px rgba(255, 255, 255, 1), 0px 2px 6px rgba(0, 0, 0, 0.2)',
                     }}
                   >
-                    {showArabic && (
-                      <p
-                        style={{
-                          textAlign: 'right',
-                          fontSize: '72px',
-                          lineHeight: '1.6',
-                          direction: 'rtl',
-                          fontFamily: 'serif',
-                        }}
-                      >
-                        {doa.arabic}
-                      </p>
-                    )}
-                    {showTranslation && (
-                      <p
-                        style={{
-                          fontSize: '42px',
-                          opacity: 0.9,
-                          lineHeight: '1.5',
-                        }}
-                      >
-                        {doa.translation}
-                      </p>
-                    )}
-                  </div>
+                    {doa.arabic}
+                  </p>
                 )}
+                {showTranslation && (
+                  <p
+                    style={{
+                      fontSize: '42px',
+                      opacity: 0.9,
+                      lineHeight: '1.5',
+                      fontWeight: 500,
+                      textShadow:
+                        '0px 4px 16px rgba(255, 255, 255, 1), 0px 2px 6px rgba(0, 0, 0, 0.15)',
+                    }}
+                  >
+                    {doa.translation}
+                  </p>
+                )}
+                {doa.narrator && (
+                  <p
+                    style={{
+                      textAlign: 'right',
+                      fontSize: '28px',
+                      opacity: 0.7,
+                      fontWeight: 500,
+                      marginTop: '20px',
+                      textShadow:
+                        '0px 4px 16px rgba(255, 255, 255, 1), 0px 2px 6px rgba(0, 0, 0, 0.1)',
+                    }}
+                  >
+                    {doa.narrator}
+                  </p>
+                )}
+              </div>
 
-                <div
+              <div
+                style={{
+                  marginTop: 'auto',
+                  paddingTop: '40px',
+                  display: 'flex',
+                  justifyContent: 'flex-end',
+                  alignItems: 'flex-end',
+                  marginBottom: '-8px',
+                }}
+              >
+                <span
                   style={{
-                    marginTop: 'auto',
-                    paddingTop: '40px',
-                    display: 'flex',
-                    justifyContent: 'space-between',
-                    alignItems: 'flex-end',
-                    borderTop: '2px solid rgba(255,255,255,0.2)',
+                    fontSize: '32px',
+                    opacity: 0.8,
+                    fontWeight: 500,
+                    lineHeight: 1,
+                    textShadow:
+                      '-3px -3px 0 #fff, 3px -3px 0 #fff, -3px 3px 0 #fff, 3px 3px 0 #fff',
                   }}
                 >
-                  <span style={{ fontSize: '32px', opacity: 0.8 }}>
-                    Aplikasi Dua - Muslim
-                  </span>
-                  {doa.narrator && (
-                    <span
-                      style={{
-                        fontSize: '32px',
-                        opacity: 0.8,
-                        maxWidth: '60%',
-                        textAlign: 'right',
-                      }}
-                    >
-                      {doa.narrator}
-                    </span>
-                  )}
-                </div>
+                  muslim.vercel.app
+                </span>
               </div>
             </div>
           </div>
         </div>
       </div>
 
-      <div className={cn('flex gap-2', isMobile ? 'p-4 pt-0' : 'pt-4')}>
-        <Button
-          className="bg-app-6 text-app-6-6 hover:bg-app-6/80 flex-1"
-          onClick={handleShare}
-          disabled={isGenerating}
-        >
-          {isGenerating ? (
-            'Memproses...'
-          ) : (
-            <>
-              <Share2 className="mr-2 h-4 w-4" />
-              Bagikan
-            </>
-          )}
-        </Button>
+      {/* Text Toggles */}
+      <div className="text-app-1-1 flex justify-center gap-6 text-sm">
+        {[
+          {
+            id: 'showArabic',
+            label: 'Teks Arab',
+            checked: showArabic,
+            onChange: setShowArabic,
+          },
+          {
+            id: 'showTranslation',
+            label: 'Terjemahan',
+            checked: showTranslation,
+            onChange: setShowTranslation,
+          },
+        ].map(({ id, label, checked, onChange }) => (
+          <div key={id} className="flex cursor-pointer items-center gap-2">
+            <Checkbox
+              id={id}
+              checked={checked}
+              onCheckedChange={val => onChange(val === true)}
+              className="bg-app-4 data-checked:border-app-6 data-checked:bg-app-6 data-checked:text-app-5"
+            />
+            <Label htmlFor={id} className="cursor-pointer">
+              {label}
+            </Label>
+          </div>
+        ))}
       </div>
-    </>
+
+      {/* Share Button */}
+      <Button
+        onClick={handleShare}
+        className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+        disabled={isGenerating}
+      >
+        <Share2 />
+        {isGenerating ? 'Memproses...' : 'Bagikan'}
+      </Button>
+    </div>
   );
 
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
-        <DrawerContent className="before:bg-app-1 max-h-[90dvh]">
+        <DrawerContent className="before:bg-app-1 data-[vaul-drawer-direction=bottom]:max-h-[90vh]">
           <DrawerHeader>
             <DrawerTitle className="text-app-1-1 text-left">
               Buat Poster Doa
@@ -382,9 +371,22 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="bg-app-1 flex max-h-[90dvh] max-w-md flex-col overflow-hidden p-4 sm:p-6">
-        <DialogHeader>
+      <DialogContent
+        showCloseButton={false}
+        className="bg-app-1 flex max-h-[90vh] flex-col overflow-hidden p-4 sm:max-w-xl"
+      >
+        <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle className="text-app-1-1">Buat Poster Doa</DialogTitle>
+          <DialogClose asChild>
+            <Button
+              size="icon"
+              aria-label="Tutup dialog poster"
+              onClick={onClose}
+              className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+            >
+              <XIcon />
+            </Button>
+          </DialogClose>
         </DialogHeader>
         {modalContent}
       </DialogContent>
