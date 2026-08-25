@@ -31,12 +31,6 @@ import { useIsMobile } from '@/hooks/use-mobile';
 import { RandomDoa } from '@/hooks/use-random-doa';
 import { cn } from '@/lib/utils';
 
-type PosterProps = Readonly<{
-  isOpen: boolean;
-  onClose: () => void;
-  doa: RandomDoa;
-}>;
-
 const BACKGROUNDS = Array.from(
   { length: 12 },
   (_, i) => `/bgs/bg-${i + 1}.jpeg`
@@ -70,6 +64,12 @@ const SWITCH_CLASSNAME =
 
 const SLIDER_CLASSNAME =
   '**:data-[slot=slider-track]:bg-app-4 **:data-[slot=slider-range]:bg-app-6 **:data-[slot=slider-thumb]:bg-app-5';
+
+type PosterProps = Readonly<{
+  isOpen: boolean;
+  onClose: () => void;
+  doa: RandomDoa;
+}>;
 
 export function Poster({ isOpen, onClose, doa }: PosterProps) {
   const { isMobile } = useIsMobile();
@@ -272,7 +272,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
       </div>
 
       {/* Settings */}
-      <div className="flex flex-col gap-4 sm:flex-1">
+      <div className="flex flex-col gap-4 sm:min-w-60">
         {/* Text Toggles */}
         <div className="flex flex-col gap-4">
           {toggles.map(option => (
@@ -343,7 +343,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         showCloseButton={false}
-        className="bg-app-1 flex max-h-dvh flex-col overflow-hidden p-4 sm:max-w-xl"
+        className="bg-app-1 flex max-h-dvh flex-col overflow-hidden p-4 sm:max-w-2xl"
       >
         <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle className="text-app-1-1">Buat Poster Doa</DialogTitle>
