@@ -169,7 +169,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
   const modalContent = (
     <div className={cn('flex flex-col gap-4 sm:flex-row', isMobile && 'p-4')}>
       {/* Unified Preview Container Group */}
-      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-398px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-full sm:w-fit sm:flex-1">
+      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-398px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-124px)] sm:w-fit sm:flex-1">
         {/* Preview Image */}
         <div className="w-full">
           <AspectRatio
@@ -181,13 +181,13 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                 src={BACKGROUNDS[bgIndex]}
                 alt="Background"
                 fill
-                sizes="270px"
+                sizes="(max-width: 640px) 100vw, 280px"
                 className="object-cover"
               />
 
               <div className="relative flex h-full w-full flex-col p-4">
                 <div
-                  className="my-auto flex flex-col gap-2 rounded-xl p-4"
+                  className="my-auto flex flex-col gap-4 rounded-xl p-4"
                   style={{
                     backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
                   }}
@@ -200,7 +200,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
                   {showArabic && (
                     <p
                       className={cn(
-                        'font-arabic text-right leading-relaxed',
+                        'font-arabic text-right leading-loose',
                         sizes.arabic
                       )}
                       dir="rtl"
@@ -343,7 +343,7 @@ export function Poster({ isOpen, onClose, doa }: PosterProps) {
     <Dialog open={isOpen} onOpenChange={onClose}>
       <DialogContent
         showCloseButton={false}
-        className="bg-app-1 flex max-h-dvh flex-col gap-4 overflow-hidden p-4 sm:max-w-2xl"
+        className="bg-app-1 flex max-h-[95dvh] flex-col gap-4 overflow-hidden p-4 sm:max-w-2xl"
       >
         <DialogHeader className="flex-row items-center justify-between">
           <DialogTitle className="text-app-1-1">Buat Poster Doa</DialogTitle>
