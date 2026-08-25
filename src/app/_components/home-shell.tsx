@@ -1,6 +1,6 @@
 'use client';
 
-import { MenuIcon, Pencil } from 'lucide-react';
+import { MenuIcon, Pencil, Share2 } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { ReactNode, useState } from 'react';
@@ -16,11 +16,12 @@ import { Button } from '@/components/ui/button';
 import { toc } from '@/data/toc';
 import { useGregDate } from '@/hooks/use-greg-date';
 import { useHijriDate } from '@/hooks/use-hijri-date';
-import { useQuote } from '@/hooks/use-quote';
+import { useRandomDoa } from '@/hooks/use-random-doa';
 import { cn } from '@/lib/utils';
 import { useLocationStore } from '@/providers/location-store-provider';
 
 const Location = dynamic(() => import('./location').then(mod => mod.Location));
+const Poster = dynamic(() => import('./poster').then(mod => mod.Poster));
 const Settings = dynamic(() =>
   import('@/components/settings').then(mod => mod.Settings)
 );
@@ -45,7 +46,8 @@ export function HomeShell() {
     city,
     country,
   });
-  const { quote, narrator } = useQuote();
+  const { randomDoa } = useRandomDoa();
+  const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   return (
     <div className="bg-app-1 relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4">
@@ -72,8 +74,8 @@ export function HomeShell() {
         </Button>
       </header>
 
-      <main className="sm:flex sm:flex-1 sm:items-center sm:portrait:max-w-md sm:portrait:self-center sm:landscape:max-w-3xl sm:landscape:self-center">
-        <div className="flex flex-col gap-4 sm:landscape:flex-row">
+      <main className="w-full sm:flex sm:flex-1 sm:items-center sm:portrait:max-w-md sm:portrait:self-center sm:landscape:max-w-3xl sm:landscape:self-center">
+        <div className="flex w-full flex-col gap-4 sm:landscape:flex-row">
           {/* Praying times and dzikir */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
@@ -141,7 +143,7 @@ export function HomeShell() {
             </div>
           </div>
 
-          {/* Dua and quotes */}
+          {/* Dua and selected dua */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Dua */}
             <div className="flex gap-4">
@@ -165,12 +167,30 @@ export function HomeShell() {
                 })}
             </div>
 
-            {/* Quotes */}
-            <div className="bg-app-2/50 flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
-              <h2 className="text-app-2-2 font-bold">Serpihan Faidah</h2>
-              <div className="flex flex-col gap-2">
-                <p className="text-app-2-2 text-sm">{quote}</p>
-                <span className="text-app-2-2 text-xs">{narrator}</span>
+            {/* Selected Dua */}
+            <div className="bg-app-2/50 relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
+              <div className="flex items-center justify-between gap-2">
+                <h2 className="text-app-2-2 font-bold">Doa Pilihan</h2>
+                <Button
+                  onClick={() => setIsShareModalOpen(true)}
+                  className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+                >
+                  <Share2 /> Bagikan
+                </Button>
+              </div>
+              <div className="relative flex flex-col gap-2">
+                <h3 className="text-app-2-2 text-sm font-medium">
+                  {randomDoa.title}
+                </h3>
+                <p
+                  className="text-app-2-2 font-arabic text-right text-base leading-loose sm:line-clamp-3"
+                  dir="rtl"
+                >
+                  {randomDoa.arabic}
+                </p>
+                <p className="text-app-2-2 text-sm opacity-90 sm:line-clamp-3">
+                  {randomDoa.translation}
+                </p>
               </div>
             </div>
           </div>
@@ -187,6 +207,13 @@ export function HomeShell() {
       <Location
         isOpen={isOpenLocation}
         onClose={() => setIsOpenLocation(false)}
+      />
+
+      {/* Share Poster Modal */}
+      <Poster
+        isOpen={isShareModalOpen}
+        onClose={() => setIsShareModalOpen(false)}
+        doa={randomDoa}
       />
     </div>
   );
