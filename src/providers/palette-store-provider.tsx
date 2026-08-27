@@ -46,26 +46,12 @@ export const PaletteStoreProvider = ({
       if (paletteId) {
         target.classList.add(`palette-${paletteId}`);
 
-        // Auto-set light/dark theme based on palette mode manually
         const paletteData = COLOR_PALETTES.find(p => p.id === paletteId);
         if (paletteData) {
           if (paletteData.mode === 'dark') {
             target.classList.add('dark');
           } else {
             target.classList.remove('dark');
-          }
-
-          // Update theme-color meta tag instantly for address bar / status bar
-          let metaThemeColor = document.querySelector(
-            'meta[name="theme-color"]'
-          );
-          if (metaThemeColor) {
-            metaThemeColor.setAttribute('content', paletteData.backgroundColor);
-          } else {
-            metaThemeColor = document.createElement('meta');
-            metaThemeColor.setAttribute('name', 'theme-color');
-            metaThemeColor.setAttribute('content', paletteData.backgroundColor);
-            document.head.appendChild(metaThemeColor);
           }
         }
       }
