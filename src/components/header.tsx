@@ -18,7 +18,7 @@ export function Header({ title }: HeaderProps) {
 
   return (
     <>
-      <header className="fixed top-0 right-0 left-0 flex items-center justify-between p-4 backdrop-blur-xs">
+      <header className="fixed top-0 right-0 left-0 flex items-center justify-between p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pl-[max(1rem,env(safe-area-inset-left))] backdrop-blur-xs">
         <div className="flex items-center gap-2">
           <Button
             size="icon"

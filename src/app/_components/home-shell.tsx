@@ -50,7 +50,7 @@ export function HomeShell() {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   return (
-    <div className="bg-app-1 relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4">
+    <div className="bg-app-1 relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))]">
       {/* Subtle grid pattern */}
       <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
       {/* <CherryBlossomsIcon className="fixed top-8 left-[-4%] w-1/2 rotate-180 opacity-25 sm:w-1/3" />
