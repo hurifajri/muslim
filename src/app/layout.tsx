@@ -4,6 +4,7 @@ import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
 import { cookies } from 'next/headers';
 
+import { RouteBackground } from '@/components/route-background';
 import { COLOR_PALETTES, DEFAULT_PALETTE } from '@/data/color-palettes';
 import { env } from '@/env';
 import { parseLocationCookie } from '@/lib/parse-location-cookie';
@@ -95,7 +96,7 @@ export async function generateViewport(): Promise<Viewport> {
     width: 'device-width',
     initialScale: 1,
     viewportFit: 'cover',
-    themeColor: palette.backgroundColor,
+    themeColor: palette.previewColor,
   };
 }
 
@@ -131,7 +132,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
         <QueryProvider>
           <LocationStoreProvider initialState={locationState}>
             <PaletteStoreProvider initialState={paletteState}>
-              <SettingsStoreProvider>{children}</SettingsStoreProvider>
+              <SettingsStoreProvider>
+                <RouteBackground />
+                {children}
+              </SettingsStoreProvider>
             </PaletteStoreProvider>
           </LocationStoreProvider>
         </QueryProvider>
