@@ -54,7 +54,7 @@ export const metadata: Metadata = {
   ],
   appleWebApp: {
     capable: true,
-    statusBarStyle: 'default',
+    statusBarStyle: 'black-translucent',
     title: 'Muslim',
   },
   formatDetection: {
@@ -94,6 +94,7 @@ export async function generateViewport(): Promise<Viewport> {
   return {
     width: 'device-width',
     initialScale: 1,
+    viewportFit: 'cover',
     themeColor: palette.backgroundColor,
   };
 }
