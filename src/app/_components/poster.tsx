@@ -1,5 +1,10 @@
 import { toBlob } from 'html-to-image';
-import { RefreshCwIcon, Share2Icon, XIcon } from 'lucide-react';
+import {
+  RefreshCwIcon,
+  Share2Icon,
+  SlidersHorizontalIcon,
+  XIcon,
+} from 'lucide-react';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
@@ -24,6 +29,11 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from '@/components/ui/drawer';
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from '@/components/ui/dropdown-menu';
 import { Label } from '@/components/ui/label';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
@@ -191,10 +201,59 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
     },
   ];
 
+  const settingsContent = (
+    <div className="flex flex-col gap-6">
+      {/* Text Toggles */}
+      <div className="flex flex-col gap-4">
+        {toggles.map(option => (
+          <div
+            key={option.id}
+            className="flex items-center justify-between gap-4"
+          >
+            <Label htmlFor={option.id} className="text-app-1-1">
+              {option.label}
+            </Label>
+            <Switch
+              id={option.id}
+              checked={option.checked}
+              onCheckedChange={val => option.onChange(val === true)}
+              className={SWITCH_CLASSNAME}
+            />
+          </div>
+        ))}
+      </div>
+
+      {/* Visual Adjustments */}
+      <div className="flex flex-col gap-4">
+        {sliders.map(option => (
+          <div key={option.id} className="flex flex-col gap-2">
+            <div className="flex w-full items-center justify-between">
+              <Label htmlFor={option.id} className="text-app-1-1">
+                {option.label}
+              </Label>
+              <span className="text-app-1-1 text-xs">
+                {option.displayValue}
+              </span>
+            </div>
+            <Slider
+              id={option.id}
+              value={option.value}
+              onValueChange={option.onChange}
+              min={option.min}
+              max={option.max}
+              step={option.step}
+              className={SLIDER_CLASSNAME}
+            />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+
   const modalContent = (
     <div className={cn('flex flex-col gap-4 sm:flex-row', isMobile && 'p-4')}>
       {/* Unified Preview Container Group */}
-      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-418px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
+      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-178px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
         {/* Preview Image */}
         <div className="w-full">
           <AspectRatio
@@ -281,6 +340,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
             setApi={setCarouselApi}
             opts={{
               align: 'center',
+              dragFree: true,
             }}
           >
             <CarouselContent className="-ms-2 px-1">
@@ -319,46 +379,10 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
 
       {/* Settings */}
       <div className="flex flex-col gap-4 sm:min-w-60">
-        {/* Text Toggles */}
-        <div className="flex flex-col gap-4">
-          {toggles.map(option => (
-            <div key={option.id} className="flex items-center justify-between">
-              <Label htmlFor={option.id} className="text-app-1-1">
-                {option.label}
-              </Label>
-              <Switch
-                id={option.id}
-                checked={option.checked}
-                onCheckedChange={val => option.onChange(val === true)}
-                className={SWITCH_CLASSNAME}
-              />
-            </div>
-          ))}
-        </div>
-
-        {/* Visual Adjustments */}
-        <div className="flex flex-col gap-4">
-          {sliders.map(option => (
-            <div key={option.id} className="flex flex-col gap-2">
-              <div className="flex w-full items-center justify-between">
-                <Label htmlFor={option.id}>{option.label}</Label>
-                <span className="text-xs">{option.displayValue}</span>
-              </div>
-              <Slider
-                id={option.id}
-                value={option.value}
-                onValueChange={option.onChange}
-                min={option.min}
-                max={option.max}
-                step={option.step}
-                className={SLIDER_CLASSNAME}
-              />
-            </div>
-          ))}
-        </div>
+        {!isMobile && settingsContent}
 
         {/* Actions */}
-        <div className="flex gap-2">
+        <div className="mt-auto flex gap-2">
           {onRollNewDoa && (
             <Button
               size="icon"
@@ -369,6 +393,24 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
               <RefreshCwIcon />
             </Button>
           )}
+
+          {isMobile && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button
+                  size="icon"
+                  aria-label="Pengaturan poster"
+                  className="bg-app-3 hover:bg-app-3/80 text-app-3-3"
+                >
+                  <SlidersHorizontalIcon />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end" className="w-72 p-4">
+                {settingsContent}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
+
           <Button
             onClick={handleShare}
             className="bg-app-6 hover:bg-app-6/80 text-app-6-6 flex-1"
