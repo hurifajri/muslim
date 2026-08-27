@@ -65,6 +65,15 @@ const SWITCH_CLASSNAME =
 const SLIDER_CLASSNAME =
   '**:data-[slot=slider-track]:bg-app-4 **:data-[slot=slider-range]:bg-app-6 **:data-[slot=slider-thumb]:bg-app-5';
 
+const POSTER_FILENAME = 'doa-poster.jpg';
+const POSTER_MIME_TYPE = 'image/jpeg';
+
+function buildShareText(doa: RandomDoa): string {
+  return [doa.title, doa.arabic, doa.translation, doa.narrator]
+    .filter(Boolean)
+    .join('\n\n');
+}
+
 type PosterProps = Readonly<{
   isOpen: boolean;
   onClose: () => void;
@@ -89,33 +98,41 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
 
   const handleShare = async () => {
     if (!posterRef.current) return;
+
+    setIsGenerating(true);
     try {
-      setIsGenerating(true);
       const blob = await toBlob(posterRef.current, {
-        quality: 1,
+        type: POSTER_MIME_TYPE,
+        quality: 0.92,
         pixelRatio: 4,
         cacheBust: true,
       });
 
       if (!blob) throw new Error('Failed to generate image');
 
-      const file = new File([blob], 'doa-poster.png', { type: 'image/png' });
+      const file = new File([blob], POSTER_FILENAME, {
+        type: POSTER_MIME_TYPE,
+      });
 
       if (navigator.canShare?.({ files: [file] })) {
         await navigator.share({
           files: [file],
           title: doa.title,
-          text: 'Selected Dua from Dua App',
+          text: buildShareText(doa),
         });
       } else {
         const url = URL.createObjectURL(blob);
-        const a = document.createElement('a');
-        a.href = url;
-        a.download = 'doa-poster.png';
-        a.click();
-        URL.revokeObjectURL(url);
+        try {
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = POSTER_FILENAME;
+          a.click();
+        } finally {
+          URL.revokeObjectURL(url);
+        }
       }
     } catch (err) {
+      if (err instanceof DOMException && err.name === 'AbortError') return;
       console.error('Failed to share image:', err);
     } finally {
       setIsGenerating(false);
@@ -249,7 +266,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
                   </div>
                 </div>
 
-                <p className="text-outline mt-auto flex items-end justify-end text-[8px] font-medium opacity-50">
+                <p className="text-outline mt-auto flex items-end justify-end text-[8px] font-medium">
                   muslim.vercel.app
                 </p>
               </div>
