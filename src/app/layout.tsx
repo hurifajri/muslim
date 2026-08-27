@@ -3,7 +3,6 @@ import '@/styles/globals.css';
 import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
 import { cookies } from 'next/headers';
-import Script from 'next/script';
 
 import { COLOR_PALETTES, DEFAULT_PALETTE } from '@/data/color-palettes';
 import { env } from '@/env';
@@ -135,19 +134,6 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             </PaletteStoreProvider>
           </LocationStoreProvider>
         </QueryProvider>
-        <Script
-          id="sw-cleanup"
-          strategy="beforeInteractive"
-          dangerouslySetInnerHTML={{
-            __html: `
-              if ('serviceWorker' in navigator) {
-                navigator.serviceWorker.getRegistrations().then(function(regs) {
-                  regs.forEach(function(r) { r.unregister(); });
-                });
-              }
-            `,
-          }}
-        />
       </body>
     </html>
   );

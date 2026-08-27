@@ -57,7 +57,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                 return (
                   <Button
                     key={palette.id}
-                    size="icon-xs"
+                    size="icon"
                     aria-label={`${palette.flower} (${palette.name})`}
                     aria-pressed={isActive}
                     onClick={() => setPaletteId(palette.id)}
