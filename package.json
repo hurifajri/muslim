@@ -2,15 +2,12 @@
   "name": "muslim",
   "version": "2.0.0",
   "private": true,
-  "engines": {
-    "node": "24.x"
-  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint . --fix",
-    "format": "prettier --write .",
+    "lint": "eslint src --fix",
+    "format": "prettier --write src",
     "check": "pnpm lint && pnpm format",
     "check:types": "tsc --noEmit --pretty",
     "check:packages": "npm exec npm-check-updates -- -u"
