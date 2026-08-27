@@ -54,6 +54,19 @@ export const PaletteStoreProvider = ({
           } else {
             target.classList.remove('dark');
           }
+
+          // Update theme-color meta tag instantly for address bar / status bar
+          let metaThemeColor = document.querySelector(
+            'meta[name="theme-color"]'
+          );
+          if (metaThemeColor) {
+            metaThemeColor.setAttribute('content', paletteData.backgroundColor);
+          } else {
+            metaThemeColor = document.createElement('meta');
+            metaThemeColor.setAttribute('name', 'theme-color');
+            metaThemeColor.setAttribute('content', paletteData.backgroundColor);
+            document.head.appendChild(metaThemeColor);
+          }
         }
       }
     };
