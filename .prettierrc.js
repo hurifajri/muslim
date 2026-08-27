@@ -1,7 +1,7 @@
 module.exports = {
   arrowParens: 'avoid',
   bracketSpacing: true,
-  endOfLine: 'auto',
+  endOfLine: 'lf',
   jsxBracketSameLine: false,
   jsxSingleQuote: false,
   printWidth: 80,
@@ -10,4 +10,5 @@ module.exports = {
   tabWidth: 2,
   trailingComma: 'es5',
   useTabs: false,
+  plugins: ['prettier-plugin-tailwindcss'],
 };
