@@ -37,11 +37,13 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@serwist/turbopack": "^9.5.12",
     "@tanstack/eslint-plugin-query": "^5.101.4",
     "@types/node": "26.1.2",
     "@types/react": "19.2.18",
     "@typescript-eslint/eslint-plugin": "^8.66.0",
     "@typescript-eslint/parser": "^8.66.0",
+    "esbuild": "^0.28.2",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.0",
     "eslint-config-prettier": "^10.1.8",
@@ -49,6 +51,7 @@
     "eslint-plugin-unused-imports": "^4.4.1",
     "prettier": "3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "serwist": "^9.5.12",
     "typescript": "^6.0.3"
   }
 }
