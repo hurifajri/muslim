@@ -72,7 +72,7 @@ export function HomeShell() {
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="from-secondary/50 to-primary/50 2xs:p-8 shadow-glass flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs">
+              <div className="from-secondary/50 to-primary/50 2xs:p-8 shadow-glass flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs dark:border-white/30 dark:bg-linear-to-bl">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
@@ -112,11 +112,13 @@ export function HomeShell() {
                 .map(content => {
                   const { id, title, link } = content;
                   const bgClass =
-                    id === 1 ? 'bg-secondary/50' : 'bg-primary/50';
+                    id === 1
+                      ? 'bg-secondary/50 dark:bg-primary/50'
+                      : 'bg-primary/50 dark:bg-secondary/50';
                   const textClass =
                     id === 1
-                      ? 'text-secondary-foreground'
-                      : 'text-primary-foreground';
+                      ? 'text-secondary-foreground dark:text-primary-foreground'
+                      : 'text-primary-foreground dark:text-secondary-foreground';
 
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
@@ -124,7 +126,7 @@ export function HomeShell() {
                         <div
                           className={cn(
                             bgClass,
-                            'shadow-glass flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 backdrop-blur-xs'
+                            'shadow-glass flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 backdrop-blur-xs dark:border-white/30'
                           )}
                         >
                           {Icons[id]}
@@ -151,7 +153,7 @@ export function HomeShell() {
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="shadow-glass bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
+                        <div className="shadow-glass bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs dark:border-white/30">
                           {Icons[id]}
                           <h3 className="text-sm font-bold">{title}</h3>
                         </div>
@@ -162,7 +164,7 @@ export function HomeShell() {
             </div>
 
             {/* Selected Dua */}
-            <div className="bg-card/50 shadow-glass relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
+            <div className="bg-card/50 shadow-glass relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1 dark:border-white/30">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="font-bold">Doa Pilihan</h2>
                 <div className="flex items-center gap-2">
