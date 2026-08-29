@@ -111,7 +111,8 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass = id === 1 ? 'bg-secondary' : 'bg-primary';
+                  const bgClass =
+                    id === 1 ? 'bg-secondary/50' : 'bg-primary/50';
                   const textClass =
                     id === 1
                       ? 'text-secondary-foreground'
@@ -150,7 +151,7 @@ export function HomeShell() {
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="shadow-glass bg-card flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
+                        <div className="shadow-glass bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
                           {Icons[id]}
                           <h3 className="text-sm font-bold">{title}</h3>
                         </div>
@@ -161,7 +162,7 @@ export function HomeShell() {
             </div>
 
             {/* Selected Dua */}
-            <div className="bg-card relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
+            <div className="bg-card/50 shadow-glass relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
               <div className="flex items-center justify-between gap-2">
                 <h2 className="font-bold">Doa Pilihan</h2>
                 <div className="flex items-center gap-2">
