@@ -39,14 +39,14 @@ export function Items({ items }: ItemsProps) {
 
   return (
     <>
-      <div className="py-17 sm:max-w-2xl sm:self-center">
-        {items.map(pItem => {
+      <div className="mx-4 my-25.5 overflow-hidden rounded-4xl sm:max-w-2xl sm:self-center">
+        {items.map((pItem, index) => {
           return (
             <div
               key={pItem.id}
               className="bg-card text-card-foreground flex flex-col"
             >
-              <Separator />
+              {index !== 0 && <Separator />}
               <div className="flex items-center justify-between gap-2 p-4">
                 <h2 className="font-bold">{pItem.title}</h2>
                 {pItem.note && (
