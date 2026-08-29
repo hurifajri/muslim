@@ -18,26 +18,22 @@ export function Header({ title }: HeaderProps) {
 
   return (
     <>
-      <header className="fixed top-0 right-0 left-0 flex items-center justify-between p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pl-[max(1rem,env(safe-area-inset-left))] backdrop-blur-xs">
-        <div className="flex items-center gap-2">
+      <header className="fixed top-0 right-0 left-0 p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pl-[max(1rem,env(safe-area-inset-left))]">
+        <div className="from-app-3/50 to-primary/50 shadow-glass flex items-center justify-between rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs">
+          <div className="flex items-center gap-2">
+            <Button size="icon" aria-label="Kembali" onClick={back}>
+              <ChevronLeftIcon />
+            </Button>
+            <h1 className="text-lg font-bold capitalize">{title}</h1>
+          </div>
           <Button
             size="icon"
-            aria-label="Kembali"
-            onClick={back}
-            className="bg-app-6 hover:bg-app-6/80"
+            aria-label="Buka pengaturan"
+            onClick={() => setIsOpenSettings(true)}
           >
-            <ChevronLeftIcon />
+            <MenuIcon />
           </Button>
-          <h1 className="text-app-2-2 text-lg font-bold capitalize">{title}</h1>
         </div>
-        <Button
-          size="icon"
-          aria-label="Buka pengaturan"
-          onClick={() => setIsOpenSettings(true)}
-          className="bg-app-6 hover:bg-app-6/80"
-        >
-          <MenuIcon />
-        </Button>
       </header>
 
       {/* Settings */}

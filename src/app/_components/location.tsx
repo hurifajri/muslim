@@ -13,7 +13,6 @@ import { useEffect, useRef, useState } from 'react';
 import { Button } from '@/components/ui/button';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogFooter,
   DialogHeader,
@@ -89,10 +88,8 @@ function LocationForm({
     <div className={cn('flex flex-col gap-3', isMobile && 'p-4')}>
       {/* Search input */}
       <div className="flex flex-col gap-1.5">
-        <Label htmlFor="city-search" className="text-app-1-1">
-          Lokasi
-        </Label>
-        <InputGroup className="bg-app-2 text-app-2-2">
+        <Label htmlFor="city-search">Lokasi</Label>
+        <InputGroup>
           <InputGroupAddon align="inline-start">
             {isSearching ? (
               <LoaderIcon className="size-4 animate-spin" />
@@ -128,7 +125,7 @@ function LocationForm({
 
         {/* Suggestions dropdown */}
         {showDropdown && (
-          <ItemGroup className="bg-app-2 mt-1 max-h-48 gap-0! overflow-y-auto rounded-2xl shadow-lg">
+          <ItemGroup className="mt-1 max-h-48 gap-0! overflow-y-auto rounded-2xl">
             {suggestions.map(s => (
               <Item
                 key={s.placeId}
@@ -137,18 +134,14 @@ function LocationForm({
                 tabIndex={0}
                 variant="default"
                 size="xs"
-                className="hover:bg-app-1/10 cursor-pointer rounded-none first:rounded-t-2xl last:rounded-b-2xl"
                 onClick={() => onSelect(s)}
                 onKeyDown={e =>
                   (e.key === 'Enter' || e.key === ' ') && onSelect(s)
                 }
               >
                 <ItemContent>
-                  <ItemTitle className="text-app-2-2 line-clamp-1 capitalize">
-                    {s.city} -{' '}
-                    <span className="text-muted-foreground capitalize">
-                      {s.country}
-                    </span>
+                  <ItemTitle className="line-clamp-1 capitalize">
+                    {s.city} - <span className="capitalize">{s.country}</span>
                   </ItemTitle>
                 </ItemContent>
               </Item>
@@ -158,7 +151,7 @@ function LocationForm({
 
         {/* Selected badge */}
         {selected && (
-          <p className="text-app-1-1 flex items-center gap-1 text-xs">
+          <p className="flex items-center gap-1 text-xs">
             <CheckIcon className="size-3 shrink-0" />
             <span>
               <span className="font-medium capitalize">{selected.city}</span>
@@ -175,7 +168,7 @@ function LocationForm({
         variant="ghost"
         onClick={onUseGeolocation}
         disabled={geoState === 'loading'}
-        className="text-app-1-1 -mx-1 justify-start gap-2 text-sm hover:bg-transparent"
+        className="justify-start"
       >
         {geoState === 'loading' ? (
           <LoaderIcon className="size-4 animate-spin" />
@@ -187,7 +180,7 @@ function LocationForm({
 
       {/* Geo error */}
       {geoState === 'error' && (
-        <p className="text-xs text-red-400">{geoError}</p>
+        <p className="text-destructive text-xs">{geoError}</p>
       )}
     </div>
   );
@@ -332,11 +325,7 @@ export function Location({ isOpen, onClose }: LocationProps) {
   };
 
   const saveButton = (
-    <Button
-      onClick={handleSave}
-      disabled={!selected}
-      className="bg-app-6 text-app-6-6 hover:bg-app-6/80 w-full"
-    >
+    <Button onClick={handleSave} disabled={!selected} className="w-full">
       Simpan
     </Button>
   );
@@ -344,11 +333,9 @@ export function Location({ isOpen, onClose }: LocationProps) {
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
-        <DrawerContent className="before:bg-app-1">
+        <DrawerContent>
           <DrawerHeader className="pb-0">
-            <DrawerTitle className="text-app-1-1 text-left">
-              Ubah Lokasi
-            </DrawerTitle>
+            <DrawerTitle className="text-left">Ubah Lokasi</DrawerTitle>
           </DrawerHeader>
           <LocationForm {...formProps} />
           <DrawerFooter className="pt-0">{saveButton}</DrawerFooter>
@@ -359,19 +346,9 @@ export function Location({ isOpen, onClose }: LocationProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent showCloseButton={false} className="bg-app-1 gap-4 p-4">
-        <DialogHeader className="flex-row items-center justify-between">
-          <DialogTitle className="text-app-1-1">Ubah Lokasi</DialogTitle>
-          <DialogClose asChild>
-            <Button
-              size="icon"
-              aria-label="Tutup dialog lokasi"
-              onClick={onClose}
-              className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-            >
-              <XIcon />
-            </Button>
-          </DialogClose>
+      <DialogContent>
+        <DialogHeader>
+          <DialogTitle>Ubah Lokasi</DialogTitle>
         </DialogHeader>
         <LocationForm {...formProps} />
         <DialogFooter>{saveButton}</DialogFooter>
