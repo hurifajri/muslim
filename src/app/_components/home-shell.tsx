@@ -52,7 +52,7 @@ export function HomeShell() {
   return (
     <div className="bg-background relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))]">
       <header className="relative flex items-center justify-between">
-        <div className="text-foreground flex flex-col">
+        <div className="flex flex-col">
           <span className="font-bold">{hijriDate}</span>
           <span className="text-sm font-bold" suppressHydrationWarning>
             {gregDate}
@@ -62,7 +62,6 @@ export function HomeShell() {
           size="icon"
           aria-label="Buka pengaturan"
           onClick={() => setIsOpenSettings(true)}
-          className="bg-primary hover:bg-primary/80 text-primary-foreground"
         >
           <MenuIcon />
         </Button>
@@ -84,7 +83,7 @@ export function HomeShell() {
                     {city}
                     <PencilIcon />
                   </Button>
-                  <span className="text-primary-foreground flex items-baseline font-bold tabular-nums">
+                  <span className="flex items-baseline font-bold tabular-nums">
                     <span className="text-4xl" suppressHydrationWarning>
                       {gregTime}
                     </span>
@@ -112,8 +111,7 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass =
-                    id === 1 ? 'bg-secondary/50' : 'bg-primary/50';
+                  const bgClass = id === 1 ? 'bg-secondary' : 'bg-primary';
                   const textClass =
                     id === 1
                       ? 'text-secondary-foreground'
@@ -152,11 +150,9 @@ export function HomeShell() {
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="shadow-glass bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
+                        <div className="shadow-glass bg-card flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
                           {Icons[id]}
-                          <h3 className="text-card-foreground text-sm font-bold">
-                            {title}
-                          </h3>
+                          <h3 className="text-sm font-bold">{title}</h3>
                         </div>
                       </AspectRatio>
                     </Link>
@@ -165,36 +161,32 @@ export function HomeShell() {
             </div>
 
             {/* Selected Dua */}
-            <div className="bg-card/50 relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
+            <div className="bg-card relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
               <div className="flex items-center justify-between gap-2">
-                <h2 className="text-card-foreground font-bold">Doa Pilihan</h2>
+                <h2 className="font-bold">Doa Pilihan</h2>
                 <div className="flex items-center gap-2">
                   <Button
-                    size="icon"
                     aria-label="Ganti doa"
+                    size="icon"
+                    variant="outline"
                     onClick={rollNewDoa}
                   >
                     <RefreshCwIcon />
                   </Button>
-                  <Button
-                    onClick={() => setIsShareModalOpen(true)}
-                    className="bg-primary hover:bg-primary/80 text-primary-foreground"
-                  >
+                  <Button onClick={() => setIsShareModalOpen(true)}>
                     <Share2Icon /> Bagikan
                   </Button>
                 </div>
               </div>
               <div className="relative flex flex-col gap-2">
-                <h3 className="text-card-foreground text-sm font-medium">
-                  {randomDoa.title}
-                </h3>
+                <h3 className="text-sm font-medium">{randomDoa.title}</h3>
                 <p
-                  className="text-card-foreground font-arabic text-right text-base leading-loose sm:line-clamp-3"
+                  className="font-arabic text-right text-base leading-loose sm:line-clamp-3"
                   dir="rtl"
                 >
                   {randomDoa.arabic}
                 </p>
-                <p className="text-card-foreground text-sm opacity-90 sm:line-clamp-2">
+                <p className="text-sm opacity-90 sm:line-clamp-2">
                   {randomDoa.translation}
                 </p>
               </div>
