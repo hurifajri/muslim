@@ -233,7 +233,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
   const modalContent = (
     <div className={cn('flex flex-col gap-4 sm:flex-row', isMobile && 'p-4')}>
       {/* Unified Preview Container Group */}
-      <div className="bg-input/90 relative flex max-h-[calc(100dvh-178px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
+      <div className="bg-input/90 relative flex max-h-[calc(100dvh-222px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
         {/* Preview Image */}
         <div className="w-full">
           <AspectRatio
@@ -362,29 +362,42 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
         {!isMobile && settingsContent}
 
         {/* Actions */}
-        <div className="mt-auto flex gap-2">
-          {onRollNewDoa && (
-            <Button size="icon" aria-label="Ganti doa" onClick={onRollNewDoa}>
-              <RefreshCwIcon />
-            </Button>
-          )}
-
-          {isMobile && (
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button size="icon" aria-label="Pengaturan poster">
-                  <SlidersHorizontalIcon />
+        <div className="mt-auto flex flex-col items-center gap-2 sm:flex-row">
+          {(onRollNewDoa || isMobile) && (
+            <div className="flex w-full items-center gap-2 sm:flex-1">
+              {onRollNewDoa && (
+                <Button
+                  aria-label="Ganti doa"
+                  variant="outline"
+                  onClick={onRollNewDoa}
+                  className="flex-1"
+                >
+                  <RefreshCwIcon /> Ganti Doa
                 </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-72 p-4">
-                {settingsContent}
-              </DropdownMenuContent>
-            </DropdownMenu>
+              )}
+
+              {isMobile && (
+                <DropdownMenu>
+                  <DropdownMenuTrigger asChild>
+                    <Button
+                      aria-label="Pengaturan poster"
+                      variant="outline"
+                      className="flex-1"
+                    >
+                      <SlidersHorizontalIcon /> Pengaturan
+                    </Button>
+                  </DropdownMenuTrigger>
+                  <DropdownMenuContent align="end" className="w-72 p-4">
+                    {settingsContent}
+                  </DropdownMenuContent>
+                </DropdownMenu>
+              )}
+            </div>
           )}
 
           <Button
             onClick={handleShare}
-            className="flex-1"
+            className="w-full sm:w-auto sm:flex-1"
             disabled={isGenerating}
           >
             <Share2Icon />
