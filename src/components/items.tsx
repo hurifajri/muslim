@@ -44,9 +44,9 @@ export function Items({ items }: ItemsProps) {
           return (
             <div
               key={pItem.id}
-              className="odd:bg-app-2 even:bg-app-5 odd:*:text-app-2-2 even:*:text-app-5-5 flex flex-col"
+              className="bg-card text-card-foreground flex flex-col"
             >
-              <Separator className="bg-app-1" />
+              <Separator />
               <div className="flex items-center justify-between gap-2 p-4">
                 <h2 className="font-bold">{pItem.title}</h2>
                 {pItem.note && (
@@ -55,7 +55,7 @@ export function Items({ items }: ItemsProps) {
                   </span>
                 )}
               </div>
-              <Separator className="bg-app-1" />
+              <Separator />
               <div className="flex flex-col gap-8 p-4 pb-8">
                 {pItem.items.map(cItem => {
                   return (
@@ -89,9 +89,7 @@ export function Items({ items }: ItemsProps) {
                             onClick={() =>
                               handleClickBenefits(pItem.title, cItem.benefits)
                             }
-                            className={cn(
-                              'bg-app-6 hover:bg-app-6/80 text-app-6-6 w-auto'
-                            )}
+                            className="w-auto"
                           >
                             Lihat Keutamaan
                           </Button>

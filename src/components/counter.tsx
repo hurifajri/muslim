@@ -12,17 +12,17 @@ export function Counter() {
       <Button
         size="icon-lg"
         onClick={() => setValue(0)}
-        className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+        className="bg-primary hover:bg-primary/80 text-primary-foreground"
       >
         <RotateCcwIcon />
       </Button>
-      <div className="border-app-6 -ml-1 flex h-9.5 w-12 items-center justify-center border-y font-bold">
+      <div className="border-primary -ml-1 flex h-9.5 w-12 items-center justify-center border-y font-bold">
         {value}
       </div>
       <Button
         size="icon-lg"
         onClick={() => setValue(v => v + 1)}
-        className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
+        className="bg-primary hover:bg-primary/80 text-primary-foreground"
       >
         <PlusIcon />
       </Button>

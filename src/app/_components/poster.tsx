@@ -1,10 +1,5 @@
 import { toBlob } from 'html-to-image';
-import {
-  RefreshCwIcon,
-  Share2Icon,
-  SlidersHorizontalIcon,
-  XIcon,
-} from 'lucide-react';
+import { RefreshCwIcon, Share2Icon, SlidersHorizontalIcon } from 'lucide-react';
 import Image from 'next/image';
 import { useRef, useState } from 'react';
 
@@ -18,7 +13,6 @@ import {
 } from '@/components/ui/carousel';
 import {
   Dialog,
-  DialogClose,
   DialogContent,
   DialogHeader,
   DialogTitle,
@@ -68,12 +62,6 @@ const FONT_SIZES = [
     narrator: 'text-xs',
   },
 ] as const;
-
-const SWITCH_CLASSNAME =
-  '*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!';
-
-const SLIDER_CLASSNAME =
-  '**:data-[slot=slider-track]:bg-app-4 **:data-[slot=slider-range]:bg-app-6 **:data-[slot=slider-thumb]:bg-app-5';
 
 const POSTER_FILENAME = 'doa-poster.jpg';
 const POSTER_MIME_TYPE = 'image/jpeg';
@@ -210,14 +198,11 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
             key={option.id}
             className="flex items-center justify-between gap-4"
           >
-            <Label htmlFor={option.id} className="text-app-1-1">
-              {option.label}
-            </Label>
+            <Label htmlFor={option.id}>{option.label}</Label>
             <Switch
               id={option.id}
               checked={option.checked}
               onCheckedChange={val => option.onChange(val === true)}
-              className={SWITCH_CLASSNAME}
             />
           </div>
         ))}
@@ -228,12 +213,8 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
         {sliders.map(option => (
           <div key={option.id} className="flex flex-col gap-2">
             <div className="flex w-full items-center justify-between">
-              <Label htmlFor={option.id} className="text-app-1-1">
-                {option.label}
-              </Label>
-              <span className="text-app-1-1 text-xs">
-                {option.displayValue}
-              </span>
+              <Label htmlFor={option.id}>{option.label}</Label>
+              <span className="text-xs">{option.displayValue}</span>
             </div>
             <Slider
               id={option.id}
@@ -242,7 +223,6 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
               min={option.min}
               max={option.max}
               step={option.step}
-              className={SLIDER_CLASSNAME}
             />
           </div>
         ))}
@@ -253,12 +233,12 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
   const modalContent = (
     <div className={cn('flex flex-col gap-4 sm:flex-row', isMobile && 'p-4')}>
       {/* Unified Preview Container Group */}
-      <div className="bg-app-6/30 relative flex max-h-[calc(100dvh-178px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
+      <div className="bg-input/90 relative flex max-h-[calc(100dvh-178px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
         {/* Preview Image */}
         <div className="w-full">
           <AspectRatio
             ratio={9 / 16}
-            className="shrink-0 overflow-hidden rounded-xl shadow-2xl"
+            className="shrink-0 overflow-hidden rounded-xl"
           >
             <div ref={posterRef} className="absolute inset-0">
               <Image
@@ -356,7 +336,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
                     className={cn(
                       'relative block h-auto w-12 cursor-pointer overflow-hidden rounded-lg border-2 p-0 transition-all hover:bg-transparent',
                       bgIndex === idx
-                        ? 'border-app-6'
+                        ? 'border-primary'
                         : 'border-transparent opacity-50 hover:opacity-100'
                     )}
                   >
@@ -384,12 +364,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
         {/* Actions */}
         <div className="mt-auto flex gap-2">
           {onRollNewDoa && (
-            <Button
-              size="icon"
-              aria-label="Ganti doa"
-              onClick={onRollNewDoa}
-              className="bg-app-3 hover:bg-app-3/80 text-app-3-3"
-            >
+            <Button size="icon" aria-label="Ganti doa" onClick={onRollNewDoa}>
               <RefreshCwIcon />
             </Button>
           )}
@@ -397,11 +372,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
           {isMobile && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
-                <Button
-                  size="icon"
-                  aria-label="Pengaturan poster"
-                  className="bg-app-3 hover:bg-app-3/80 text-app-3-3"
-                >
+                <Button size="icon" aria-label="Pengaturan poster">
                   <SlidersHorizontalIcon />
                 </Button>
               </DropdownMenuTrigger>
@@ -413,7 +384,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
 
           <Button
             onClick={handleShare}
-            className="bg-app-6 hover:bg-app-6/80 text-app-6-6 flex-1"
+            className="flex-1"
             disabled={isGenerating}
           >
             <Share2Icon />
@@ -427,11 +398,9 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
-        <DrawerContent className="before:bg-app-1 data-[vaul-drawer-direction=bottom]:max-h-dvh">
+        <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-dvh">
           <DrawerHeader className="pb-0">
-            <DrawerTitle className="text-app-1-1 text-left">
-              Buat Poster Doa
-            </DrawerTitle>
+            <DrawerTitle className="text-left">Buat Poster Doa</DrawerTitle>
           </DrawerHeader>
           {modalContent}
         </DrawerContent>
@@ -441,22 +410,9 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent
-        showCloseButton={false}
-        className="bg-app-1 flex max-h-[95dvh] flex-col gap-4 overflow-hidden p-4 sm:max-w-2xl"
-      >
+      <DialogContent className="flex max-h-[95dvh] flex-col sm:max-w-2xl">
         <DialogHeader className="flex-row items-center justify-between">
-          <DialogTitle className="text-app-1-1">Buat Poster Doa</DialogTitle>
-          <DialogClose asChild>
-            <Button
-              size="icon"
-              aria-label="Tutup dialog poster"
-              onClick={onClose}
-              className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-            >
-              <XIcon />
-            </Button>
-          </DialogClose>
+          <DialogTitle>Buat Poster Doa</DialogTitle>
         </DialogHeader>
         {modalContent}
       </DialogContent>

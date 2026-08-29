@@ -1,4 +1,4 @@
-import { CheckIcon, ExternalLinkIcon, SettingsIcon, XIcon } from 'lucide-react';
+import { CheckIcon, ExternalLinkIcon, SettingsIcon } from 'lucide-react';
 import { Fragment } from 'react';
 
 import { Button } from '@/components/ui/button';
@@ -6,7 +6,6 @@ import { Label } from '@/components/ui/label';
 import { Separator } from '@/components/ui/separator';
 import {
   Sheet,
-  SheetClose,
   SheetContent,
   SheetFooter,
   SheetHeader,
@@ -31,26 +30,14 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
 
   return (
     <Sheet open={isOpen} onOpenChange={onClose}>
-      <SheetContent side="right" showCloseButton={false} className="bg-app-1">
-        <SheetHeader className="flex-row items-center justify-between p-4">
-          <div className="flex items-center gap-2">
-            <SettingsIcon className="text-app-1-1" />
-            <SheetTitle className="text-app-1-1">Pengaturan</SheetTitle>
-          </div>
-          <SheetClose asChild>
-            <Button
-              size="icon"
-              aria-label="Tutup pengaturan"
-              onClick={onClose}
-              className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-            >
-              <XIcon />
-            </Button>
-          </SheetClose>
+      <SheetContent side="right">
+        <SheetHeader className="flex flex-row items-center gap-2">
+          <SettingsIcon />
+          <SheetTitle>Pengaturan</SheetTitle>
         </SheetHeader>
         <div className="flex flex-col gap-4 overflow-y-auto p-4">
           <div className="flex flex-col gap-2">
-            <Label className="text-app-1-1">Tema Warna</Label>
+            <Label>Tema Warna</Label>
             <div className="flex flex-wrap items-center gap-1">
               {COLOR_PALETTES.map(palette => {
                 const isActive = paletteId === palette.id;
@@ -63,8 +50,8 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                     onClick={() => setPaletteId(palette.id)}
                     className={cn(
                       isActive
-                        ? 'border-app-1-1 ring-app-1-1/30 ring-2'
-                        : 'hover:border-app-1-1/30 border-transparent'
+                        ? 'border-foreground ring-foreground/30 ring-2'
+                        : 'hover:border-foreground/30 border-transparent'
                     )}
                     style={{ backgroundColor: palette.previewColor }}
                   >
@@ -81,18 +68,16 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                 );
               })}
             </div>
-            {/* <span className="text-app-1-1 text-xs">
+            {/* <span className="text-xs">
               {COLOR_PALETTES.find(p => p.id === paletteId)?.flower ?? ''}
             </span> */}
           </div>
-          <Separator className="bg-app-2" />
+          <Separator />
 
           {SETTINGS_CONFIG.map(setting => (
             <Fragment key={setting.name}>
               <div className="flex items-center justify-between">
-                <Label htmlFor={setting.name} className="text-app-1-1">
-                  {setting.label}
-                </Label>
+                <Label htmlFor={setting.name}>{setting.label}</Label>
                 <Switch
                   id={setting.name}
                   name={setting.name}
@@ -100,23 +85,22 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                   onCheckedChange={checked => {
                     setSettings(setting.name, checked);
                   }}
-                  className="*:data-[slot=switch-thumb]:bg-app-5 dark:*:data-[slot=switch-thumb]:bg-app-5 data-checked:border-app-6 data-checked:bg-app-6! bg-app-4!"
                 />
               </div>
-              <Separator className="bg-app-2" />
+              <Separator />
             </Fragment>
           ))}
         </div>
         <SheetFooter className="gap-4 p-4">
           <div className="flex flex-col gap-1">
-            <span className="text-app-1-1 text-sm">Tentang Aplikasi</span>
+            <span className="text-sm">Tentang Aplikasi</span>
             <div className="flex items-center justify-between">
-              <span className="text-app-1-1 text-xs">Versi</span>
-              <span className="text-app-1-1 text-xs">2.0.0</span>
+              <span className="text-xs">Versi</span>
+              <span className="text-xs">2.0.0</span>
             </div>
           </div>
           <div className="flex flex-col gap-1">
-            <span className="text-app-1-1 text-sm">Sumber</span>
+            <span className="text-sm">Sumber</span>
             <div className="flex flex-wrap items-center gap-2">
               {sources.map(source => (
                 <a
@@ -124,10 +108,10 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                   href={source.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-app-1-1 flex items-center text-xs"
+                  className="flex items-center text-xs"
                 >
                   {source.title}&nbsp;
-                  <ExternalLinkIcon className="text-app-1-1 size-3" />
+                  <ExternalLinkIcon className="size-3" />
                 </a>
               ))}
             </div>
