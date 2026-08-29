@@ -53,7 +53,7 @@ export function InstallPrompt() {
 
   return (
     <div className="fixed right-0 bottom-0 left-0 z-50 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-      <div className="from-secondary/50 to-primary/50 shadow-glass flex flex-col gap-3 rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs sm:flex-row sm:items-center sm:justify-between">
+      <div className="from-secondary/50 to-primary/50 flex flex-col gap-3 rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-foreground font-bold">Install Muslim App</h3>
           {isIOS ? (
