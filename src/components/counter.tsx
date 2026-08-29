@@ -9,21 +9,13 @@ export function Counter() {
 
   return (
     <ButtonGroup aria-label="Tombol hitung" className="items-center">
-      <Button
-        size="icon-lg"
-        onClick={() => setValue(0)}
-        className="bg-primary hover:bg-primary/80 text-primary-foreground"
-      >
+      <Button size="icon-lg" onClick={() => setValue(0)}>
         <RotateCcwIcon />
       </Button>
-      <div className="border-primary -ml-1 flex h-9.5 w-12 items-center justify-center border-y font-bold">
+      <div className="bg-primary/90 text-primary-foreground -ml-1 flex h-9.5 w-12 items-center justify-center font-bold">
         {value}
       </div>
-      <Button
-        size="icon-lg"
-        onClick={() => setValue(v => v + 1)}
-        className="bg-primary hover:bg-primary/80 text-primary-foreground"
-      >
+      <Button size="icon-lg" onClick={() => setValue(v => v + 1)}>
         <PlusIcon />
       </Button>
     </ButtonGroup>
