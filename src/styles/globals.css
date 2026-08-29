@@ -245,45 +245,45 @@
 /* ===== Palette: Black Dahlia (Black) — Dark mode ===== */
 .palette-dahlia {
   --background: #2a2830;
-  --foreground: #d0ccd2;
+  --foreground: #dbd8e1;
 
-  --card: #222028;
-  --card-foreground: #c8c4ca;
+  --card: #282530; /* darker than --background */
+  --card-foreground: #dbd8e1;
 
-  --popover: red;
-  --popover-foreground: blue;
+  --popover: #282530;
+  --popover-foreground: #dbd8e1;
 
-  --primary: #484050;
-  --primary-foreground: #d8d2da;
+  --primary: #dad5e4;
+  --primary-foreground: #282530;
 
-  --secondary: #242228;
-  --secondary-foreground: #c5c0c5;
+  --secondary: #3a3646;
+  --secondary-foreground: #dbd8e1;
 
-  --muted: green;
-  --muted-foreground: purple;
+  --muted: #3a3646;
+  --muted-foreground: #b1adbd;
 
-  --accent: oklch(0.96 0.003 325.6);
-  --accent-foreground: oklch(0.212 0.019 322.12);
+  --accent: #3a3646;
+  --accent-foreground: #dbd8e1;
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2e1e1;
-  --input: #e2e1e1;
-  --ring: oklch(0.711 0.019 323.02);
+  --border: #383443;
+  --input: #413f4b;
+  --ring: #eceaef;
 
-  --chart-1: oklch(0.865 0.012 325.68);
-  --chart-2: oklch(0.542 0.034 322.5);
-  --chart-3: oklch(0.435 0.029 321.78);
-  --chart-4: oklch(0.364 0.029 323.89);
-  --chart-5: oklch(0.263 0.024 320.12);
+  --chart-1: #eceaef;
+  --chart-2: #eceaef;
+  --chart-3: #eceaef;
+  --chart-4: #eceaef;
+  --chart-5: #eceaef;
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: #373737;
-  --sidebar-primary: oklch(0.212 0.019 322.12);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.003 325.6);
-  --sidebar-accent-foreground: oklch(0.212 0.019 322.12);
-  --sidebar-border: oklch(0.922 0.005 325.62);
-  --sidebar-ring: oklch(0.711 0.019 323.02);
+  --sidebar: #282530;
+  --sidebar-foreground: #dbd8e1;
+  --sidebar-primary: oklch(0.488 0.243 264.376);
+  --sidebar-primary-foreground: #dbd8e1;
+  --sidebar-accent: #3a3646;
+  --sidebar-accent-foreground: #dbd8e1;
+  --sidebar-border: #383443;
+  --sidebar-ring: #eceaef;
 }
 
 /* ===== Palette: Sakura (Pink) ===== */
