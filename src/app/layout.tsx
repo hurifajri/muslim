@@ -1,9 +1,11 @@
 import '@/styles/globals.css';
 
+import { SerwistProvider } from '@serwist/turbopack/react';
 import type { Metadata, Viewport } from 'next';
 import { Amiri, Outfit } from 'next/font/google';
 import { cookies } from 'next/headers';
 
+import { InstallPrompt } from '@/components/install-prompt';
 import { RouteBackground } from '@/components/route-background';
 import { COLOR_PALETTES, DEFAULT_PALETTE } from '@/data/color-palettes';
 import { env } from '@/env';
@@ -85,7 +87,6 @@ export async function generateViewport(): Promise<Viewport> {
   const cookieStore = await cookies();
   const paletteCookie = cookieStore.get(PALETTE_COOKIE_NAME);
 
-  // Try parsing in case it's zustand JSON, else raw string
   const parsed = parsePaletteCookie(paletteCookie?.value);
   const paletteId = parsed.paletteId || DEFAULT_PALETTE;
   const palette =
@@ -134,7 +135,10 @@ export default async function RootLayout({ children }: RootLayoutProps) {
             <PaletteStoreProvider initialState={paletteState}>
               <SettingsStoreProvider>
                 <RouteBackground />
-                {children}
+                <SerwistProvider swUrl="/serwist/sw.js">
+                  {children}
+                </SerwistProvider>
+                <InstallPrompt />
               </SettingsStoreProvider>
             </PaletteStoreProvider>
           </LocationStoreProvider>
