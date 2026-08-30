@@ -377,45 +377,45 @@
 /* ===== Palette: Marigold (Orange) ===== */
 .palette-marigold {
   --background: #f8d8b8;
-  --foreground: #4a3a28;
+  --foreground: #322b24;
 
-  --card: #fce6d0;
-  --card-foreground: #4d4035;
+  --card: #ffe2c6; /* lighter than --background */
+  --card-foreground: #38312b;
 
-  --popover: red;
-  --popover-foreground: blue;
+  --popover: #f8d8b8;
+  --popover-foreground: #322b24;
 
   --primary: #f0a848;
-  --primary-foreground: #3a2a10;
+  --primary-foreground: #030201;
 
   --secondary: #fef0e4;
-  --secondary-foreground: #4e4238;
+  --secondary-foreground: #463032;
 
-  --muted: green;
-  --muted-foreground: purple;
+  --muted: #fef0e4;
+  --muted-foreground: #55504c;
 
-  --accent: oklch(0.96 0.003 325.6);
-  --accent-foreground: oklch(0.212 0.019 322.12);
+  --accent: #fef0e4;
+  --accent-foreground: #463032;
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2e1e1;
-  --input: #e2e1e1;
-  --ring: oklch(0.711 0.019 323.02);
+  --border: #e7cfb7;
+  --input: #e2bb94;
+  --ring: #b39a82;
 
-  --chart-1: oklch(0.865 0.012 325.68);
-  --chart-2: oklch(0.542 0.034 322.5);
-  --chart-3: oklch(0.435 0.029 321.78);
-  --chart-4: oklch(0.364 0.029 323.89);
-  --chart-5: oklch(0.263 0.024 320.12);
+  --chart-1: #55504c;
+  --chart-2: #55504c;
+  --chart-3: #55504c;
+  --chart-4: #55504c;
+  --chart-5: #55504c;
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0.008 326);
-  --sidebar-primary: oklch(0.212 0.019 322.12);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.003 325.6);
-  --sidebar-accent-foreground: oklch(0.212 0.019 322.12);
-  --sidebar-border: oklch(0.922 0.005 325.62);
-  --sidebar-ring: oklch(0.711 0.019 323.02);
+  --sidebar: #030201;
+  --sidebar-foreground: #322b24;
+  --sidebar-primary: #463032;
+  --sidebar-primary-foreground: #030201;
+  --sidebar-accent: #fef0e4;
+  --sidebar-accent-foreground: #463032;
+  --sidebar-border: #e7cfb7;
+  --sidebar-ring: #b39a82;
 }
 
 /* ===== Palette: Jade Vine (Green) ===== */
