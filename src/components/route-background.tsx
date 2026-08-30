@@ -11,27 +11,52 @@ export function RouteBackground() {
   const paletteId = usePaletteStore(state => state.paletteId);
 
   useEffect(() => {
-    // Determine if we are on a secondary page
     const paletteData = COLOR_PALETTES.find(p => p.id === paletteId);
-    if (paletteData) {
-      // Set body background to primary background color to prevent white/black flashes on iOS overscroll
-      const bodyColor = paletteData.backgroundColor;
+    if (!paletteData) return;
 
-      // Update body background color so transparent status bars/safe areas match
-      document.body.style.backgroundColor = bodyColor;
+    const themeColor = paletteData.themeColor;
+    const backgroundColor = paletteData.backgroundColor;
 
-      // Update theme-color meta tag for Android PWA / Chrome
-      const themeColor = paletteData.previewColor;
-      let metaThemeColor = document.querySelector('meta[name="theme-color"]');
-      if (metaThemeColor) {
-        metaThemeColor.setAttribute('content', themeColor);
-      } else {
-        metaThemeColor = document.createElement('meta');
-        metaThemeColor.setAttribute('name', 'theme-color');
-        metaThemeColor.setAttribute('content', themeColor);
-        document.head.appendChild(metaThemeColor);
+    // 1. Set body background
+    document.body.style.backgroundColor = backgroundColor;
+
+    // 2. Force update theme-color meta tag
+    const updateMetaTag = () => {
+      let meta = document.querySelector('meta[name="theme-color"]');
+      if (!meta) {
+        meta = document.createElement('meta');
+        meta.setAttribute('name', 'theme-color');
+        document.head.appendChild(meta);
       }
-    }
+      if (meta.getAttribute('content') !== themeColor) {
+        meta.setAttribute('content', themeColor);
+      }
+    };
+
+    updateMetaTag();
+
+    // 3. Next.js sometimes overwrites the <head> asynchronously on client navigation.
+    // We use a MutationObserver to ensure our dynamic themeColor stays locked.
+    const observerOptions: MutationObserverInit = {
+      childList: true,
+      subtree: true,
+      attributes: true,
+      attributeFilter: ['content'],
+    };
+
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      updateMetaTag();
+      observer.observe(document.head, observerOptions);
+    });
+
+    observer.observe(document.head, observerOptions);
+
+    return () => {
+      observer.disconnect();
+    };
+    // Re-run on pathname change to re-assert theme-color after Next.js
+    // client navigation overwrites <head>.
   }, [pathname, paletteId]);
 
   return null;

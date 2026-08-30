@@ -50,13 +50,9 @@ export function HomeShell() {
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   return (
-    <div className="bg-app-1 relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))]">
-      {/* Subtle grid pattern */}
-      <div className="absolute inset-0 bg-[linear-gradient(to_right,#ffffff1a_1px,transparent_1px),linear-gradient(to_bottom,#ffffff1a_1px,transparent_1px)] bg-size-[32px_32px] dark:bg-[linear-gradient(to_right,#ffffff0d_1px,transparent_1px),linear-gradient(to_bottom,#ffffff0d_1px,transparent_1px)]" />
-      {/* <CherryBlossomsIcon className="fixed top-8 left-[-4%] w-1/2 rotate-180 opacity-25 sm:w-1/3" />
-      <CherryBlossomsIcon className="fixed right-[-4%] bottom-8 opacity-25 sm:w-1/2" /> */}
+    <div className="bg-background relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))]">
       <header className="relative flex items-center justify-between">
-        <div className="text-app-1-1 flex flex-col">
+        <div className="flex flex-col">
           <span className="font-bold">{hijriDate}</span>
           <span className="text-sm font-bold" suppressHydrationWarning>
             {gregDate}
@@ -66,7 +62,6 @@ export function HomeShell() {
           size="icon"
           aria-label="Buka pengaturan"
           onClick={() => setIsOpenSettings(true)}
-          className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
         >
           <MenuIcon />
         </Button>
@@ -77,18 +72,18 @@ export function HomeShell() {
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
             <AspectRatio asChild ratio={16 / 9}>
-              <div className="from-app-3/50 to-app-6/50 2xs:p-8 shadow-glass flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs">
+              <div className="from-secondary/50 to-primary/50 2xs:p-8 shadow-glass flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs dark:border-white/30 dark:bg-linear-to-bl">
                 <div className="flex items-center justify-between">
                   <Button
                     variant="ghost"
                     aria-label="Buka dialog lokasi"
                     onClick={() => setIsOpenLocation(true)}
-                    className="text-app-3-3 hover:bg-app-3 -ml-4 text-xl font-bold capitalize"
+                    className="-ml-4 text-xl font-bold capitalize"
                   >
                     {city}
                     <PencilIcon />
                   </Button>
-                  <span className="text-app-6-6 flex items-baseline font-bold tabular-nums">
+                  <span className="flex items-baseline font-bold tabular-nums">
                     <span className="text-4xl" suppressHydrationWarning>
                       {gregTime}
                     </span>
@@ -97,7 +92,7 @@ export function HomeShell() {
                     </span>
                   </span>
                 </div>
-                <div className="text-app-3-3 flex items-center justify-between">
+                <div className="flex items-center justify-between">
                   {prayingTimes.map(item => (
                     <div key={item.id} className="flex flex-col items-center">
                       <span className="text-sm font-bold">{item.name}</span>
@@ -116,8 +111,14 @@ export function HomeShell() {
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
                   const { id, title, link } = content;
-                  const bgClass = id === 1 ? 'bg-app-3/50' : 'bg-app-6/50';
-                  const textClass = id === 1 ? 'text-app-3-3' : 'text-app-6-6';
+                  const bgClass =
+                    id === 1
+                      ? 'bg-secondary/50 dark:bg-primary/50'
+                      : 'bg-primary/50 dark:bg-secondary/50';
+                  const textClass =
+                    id === 1
+                      ? 'text-secondary-foreground dark:text-primary-foreground'
+                      : 'text-primary-foreground dark:text-secondary-foreground';
 
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
@@ -125,7 +126,7 @@ export function HomeShell() {
                         <div
                           className={cn(
                             bgClass,
-                            'shadow-glass flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 backdrop-blur-xs'
+                            'shadow-glass flex flex-col items-center justify-center gap-4 rounded-4xl border border-white/50 backdrop-blur-xs dark:border-white/30'
                           )}
                         >
                           {Icons[id]}
@@ -152,11 +153,9 @@ export function HomeShell() {
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
                       <AspectRatio asChild ratio={1 / 1}>
-                        <div className="shadow-glass bg-app-2/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs">
+                        <div className="shadow-glass bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs dark:border-white/30">
                           {Icons[id]}
-                          <h3 className="text-app-2-2 text-sm font-bold">
-                            {title}
-                          </h3>
+                          <h3 className="text-sm font-bold">{title}</h3>
                         </div>
                       </AspectRatio>
                     </Link>
@@ -165,37 +164,32 @@ export function HomeShell() {
             </div>
 
             {/* Selected Dua */}
-            <div className="bg-app-2/50 relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1">
+            <div className="bg-card/50 shadow-glass relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1 dark:border-white/30">
               <div className="flex items-center justify-between gap-2">
-                <h2 className="text-app-2-2 font-bold">Doa Pilihan</h2>
+                <h2 className="font-bold">Doa Pilihan</h2>
                 <div className="flex items-center gap-2">
                   <Button
-                    size="icon"
                     aria-label="Ganti doa"
+                    size="icon"
+                    variant="outline"
                     onClick={rollNewDoa}
-                    className="bg-app-3 hover:bg-app-3/80 text-app-3-3"
                   >
                     <RefreshCwIcon />
                   </Button>
-                  <Button
-                    onClick={() => setIsShareModalOpen(true)}
-                    className="bg-app-6 hover:bg-app-6/80 text-app-6-6"
-                  >
+                  <Button onClick={() => setIsShareModalOpen(true)}>
                     <Share2Icon /> Bagikan
                   </Button>
                 </div>
               </div>
               <div className="relative flex flex-col gap-2">
-                <h3 className="text-app-2-2 text-sm font-medium">
-                  {randomDoa.title}
-                </h3>
+                <h3 className="text-sm font-medium">{randomDoa.title}</h3>
                 <p
-                  className="text-app-2-2 font-arabic text-right text-base leading-loose sm:line-clamp-3"
+                  className="font-arabic text-right text-base leading-loose sm:line-clamp-3"
                   dir="rtl"
                 >
                   {randomDoa.arabic}
                 </p>
-                <p className="text-app-2-2 text-sm opacity-90 sm:line-clamp-2">
+                <p className="text-sm opacity-90 sm:line-clamp-2">
                   {randomDoa.translation}
                 </p>
               </div>

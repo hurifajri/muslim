@@ -13,6 +13,7 @@ export const SettingKeySchema = union([
   literal('translation'),
   literal('transliteration'),
   literal('benefits'),
+  literal('clickSound'),
 ]);
 export type SettingKey = InferOutput<typeof SettingKeySchema>;
 
