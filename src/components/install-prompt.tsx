@@ -1,6 +1,6 @@
 'use client';
 
-import { DownloadIcon, XIcon } from 'lucide-react';
+import { DownloadIcon, ShareIcon, XIcon } from 'lucide-react';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import { Button } from './ui/button';
@@ -91,20 +91,25 @@ export function InstallPrompt() {
 
   return (
     <div className="fixed right-0 bottom-0 left-0 z-50 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-      <div className="from-secondary/50 to-primary/50 relative flex flex-col gap-3 rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs sm:flex-row sm:items-center sm:justify-between">
-        <div>
-          <h3 className="text-foreground font-bold">Install Muslim App</h3>
+      <div className="bg-card border-border relative flex flex-col gap-2 rounded-4xl border p-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-2">
+          <h3 className="text-card-foreground font-bold">Install Muslim App</h3>
           {isIOS ? (
-            <p className="text-muted-foreground text-sm">
-              Tekan tombol <b>Share</b>{' '}
-              <span className="inline-block text-xl">⎋</span> di bawah, lalu
-              pilih <b>&quot;Add to Home Screen&quot;</b>{' '}
-              <span className="inline-block text-xl">➕</span> untuk pengalaman
-              lebih baik.
+            <p className="text-card-foreground flex flex-wrap items-center text-sm">
+              Tekan tombol&nbsp;<span className="font-semibold">Share</span>
+              &nbsp;
+              <ShareIcon className="size-4" />
+              &nbsp;di bawah, lalu pilih&nbsp;
+              <span className="font-semibold">Add to Home Screen</span>
+              &nbsp;atau&nbsp;{' '}
+              <span className="font-semibold">
+                Tambahkan ke Layar Utama
+              </span>{' '}
+              &nbsp;untuk dapat mengakses aplikasi secara offline.
             </p>
           ) : (
-            <p className="text-muted-foreground text-sm">
-              Install aplikasi untuk akses offline!
+            <p className="text-card-foreground text-sm">
+              Install untuk dapat mengakses aplikasi secara offline.
             </p>
           )}
         </div>
