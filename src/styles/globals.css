@@ -421,45 +421,45 @@
 /* ===== Palette: Jade Vine (Green) ===== */
 .palette-jade {
   --background: #c2e6d0;
-  --foreground: #2a3e32;
+  --foreground: #272e29;
 
-  --card: #d8f0e0;
-  --card-foreground: #324538;
+  --card: #cbefd9; /* lighter than --background */
+  --card-foreground: #2c342f;
 
-  --popover: red;
-  --popover-foreground: blue;
+  --popover: #c2e6d0;
+  --popover-foreground: #272e29;
 
   --primary: #70c088;
-  --primary-foreground: #14281c;
+  --primary-foreground: #000000;
 
-  --secondary: #e6f4ec;
-  --secondary-foreground: #3a4a40;
+  --secondary: #bfeecd;
+  --secondary-foreground: #28322b;
 
-  --muted: green;
-  --muted-foreground: purple;
+  --muted: #bfeecd;
+  --muted-foreground: #3d4c41;
 
-  --accent: oklch(0.96 0.003 325.6);
-  --accent-foreground: oklch(0.212 0.019 322.12);
+  --accent: #bfeecd;
+  --accent-foreground: #28322b;
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2e1e1;
-  --input: #e2e1e1;
-  --ring: oklch(0.711 0.019 323.02);
+  --border: #b4d9c2;
+  --input: #abd8bd;
+  --ring: #96b09d;
 
-  --chart-1: oklch(0.865 0.012 325.68);
-  --chart-2: oklch(0.542 0.034 322.5);
-  --chart-3: oklch(0.435 0.029 321.78);
-  --chart-4: oklch(0.364 0.029 323.89);
-  --chart-5: oklch(0.263 0.024 320.12);
+  --chart-1: #3d4c41;
+  --chart-2: #3d4c41;
+  --chart-3: #3d4c41;
+  --chart-4: #3d4c41;
+  --chart-5: #3d4c41;
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0.008 326);
-  --sidebar-primary: oklch(0.212 0.019 322.12);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.003 325.6);
-  --sidebar-accent-foreground: oklch(0.212 0.019 322.12);
-  --sidebar-border: oklch(0.922 0.005 325.62);
-  --sidebar-ring: oklch(0.711 0.019 323.02);
+  --sidebar: #000000;
+  --sidebar-foreground: #272e29;
+  --sidebar-primary: #28322b;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #bfeecd;
+  --sidebar-accent-foreground: #28322b;
+  --sidebar-border: #b4d9c2;
+  --sidebar-ring: #96b09d;
 }
 
 /* ===== Palette: Forget-me-not (Blue) ===== */
