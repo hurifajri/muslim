@@ -2,13 +2,11 @@ export const COLOR_PALETTE_IDS = [
   'jasmine',
   'dahlia',
   'sakura',
-  'rose',
   'sunflower',
   'marigold',
   'jade',
   'forget-me-not',
   'lavender',
-  'magnolia',
 ] as const;
 
 export type ColorPaletteId = (typeof COLOR_PALETTE_IDS)[number];
@@ -89,22 +87,6 @@ export const COLOR_PALETTES: ColorPalette[] = [
     mode: 'light',
     themeColor: '#c4a0e8',
     backgroundColor: '#e8d5f5',
-  },
-  {
-    id: 'magnolia',
-    name: 'Krem',
-    flower: 'Cempaka Putih',
-    mode: 'light',
-    themeColor: '#d8c4a0',
-    backgroundColor: '#f2e8da',
-  },
-  {
-    id: 'rose',
-    name: 'Merah',
-    flower: 'Mawar',
-    mode: 'light',
-    themeColor: '#d45050',
-    backgroundColor: '#f0c4be',
   },
 ];
 
