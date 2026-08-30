@@ -7,6 +7,7 @@ export type { SettingKey, SettingsState };
 
 export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
   { name: 'counter', label: 'Tombol Hitung' },
+  { name: 'clickSound', label: 'Bunyi Klik' },
   { name: 'translation', label: 'Terjemahan' },
   { name: 'transliteration', label: 'Transliterasi' },
   { name: 'benefits', label: 'Keutamaan' },
@@ -21,6 +22,7 @@ export type SettingsStore = SettingsState & SettingsActions;
 export const defaultInitState: SettingsState = {
   settings: {
     counter: true,
+    clickSound: false,
     translation: true,
     transliteration: false,
     benefits: true,
