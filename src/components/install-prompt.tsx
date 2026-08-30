@@ -1,6 +1,6 @@
 'use client';
 
-import { DownloadIcon, ShareIcon, XIcon } from 'lucide-react';
+import { DownloadIcon, ShareIcon, SquarePlusIcon, XIcon } from 'lucide-react';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import { Button } from './ui/button';
@@ -96,14 +96,15 @@ export function InstallPrompt() {
           <h3 className="text-card-foreground font-bold">Install Muslim App</h3>
           {isIOS ? (
             <p className="text-card-foreground flex flex-wrap items-center text-sm">
-              Tekan tombol&nbsp;<span className="font-semibold">Share</span>
-              &nbsp;
-              <ShareIcon className="size-4" />
-              &nbsp;di bawah, lalu pilih&nbsp;
-              <span className="font-semibold">Add to Home Screen</span>
-              &nbsp;atau&nbsp;{' '}
-              <span className="font-semibold">
-                Tambahkan ke Layar Utama
+              Tekan tombol&nbsp;{' '}
+              <span className="flex items-center font-semibold">
+                <ShareIcon className="size-4" />
+                &nbsp;Share
+              </span>{' '}
+              &nbsp;lalu pilih&nbsp;
+              <span className="flex items-center font-semibold">
+                <SquarePlusIcon className="size-4" />
+                &nbsp;Add to Home Screen
               </span>{' '}
               &nbsp;untuk dapat mengakses aplikasi secara offline.
             </p>
@@ -122,9 +123,9 @@ export function InstallPrompt() {
           </Button>
         )}
         <Button
-          variant="ghost"
-          className="bg-secondary absolute -inset-e-2 -top-2"
           size="icon-xs"
+          variant="outline"
+          className="absolute -inset-e-2 -top-2"
           onClick={handleDismiss}
         >
           <XIcon />
