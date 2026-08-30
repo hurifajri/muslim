@@ -14,11 +14,11 @@ export function RouteBackground() {
     const paletteData = COLOR_PALETTES.find(p => p.id === paletteId);
     if (!paletteData) return;
 
-    const themeColor = paletteData.previewColor;
-    const bodyColor = paletteData.backgroundColor;
+    const themeColor = paletteData.themeColor;
+    const backgroundColor = paletteData.backgroundColor;
 
     // 1. Set body background
-    document.body.style.backgroundColor = bodyColor;
+    document.body.style.backgroundColor = backgroundColor;
 
     // 2. Force update theme-color meta tag
     const updateMetaTag = () => {

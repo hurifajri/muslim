@@ -53,7 +53,7 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
                         ? 'border-foreground ring-foreground/30 ring-2'
                         : 'hover:border-foreground/30 border-transparent'
                     )}
-                    style={{ backgroundColor: palette.previewColor }}
+                    style={{ backgroundColor: palette.themeColor }}
                   >
                     {isActive && (
                       <CheckIcon
