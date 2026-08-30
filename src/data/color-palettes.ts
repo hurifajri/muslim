@@ -51,14 +51,6 @@ export const COLOR_PALETTES: ColorPalette[] = [
     backgroundColor: '#ffd3d6',
   },
   {
-    id: 'rose',
-    name: 'Merah',
-    flower: 'Mawar',
-    mode: 'light',
-    themeColor: '#d45050',
-    backgroundColor: '#f0c4be',
-  },
-  {
     id: 'sunflower',
     name: 'Kuning',
     flower: 'Bunga Matahari',
@@ -105,6 +97,14 @@ export const COLOR_PALETTES: ColorPalette[] = [
     mode: 'light',
     themeColor: '#d8c4a0',
     backgroundColor: '#f2e8da',
+  },
+  {
+    id: 'rose',
+    name: 'Merah',
+    flower: 'Mawar',
+    mode: 'light',
+    themeColor: '#d45050',
+    backgroundColor: '#f0c4be',
   },
 ];
 
