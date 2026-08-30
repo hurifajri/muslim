@@ -333,45 +333,45 @@
 /* ===== Palette: Sunflower (Yellow) ===== */
 .palette-sunflower {
   --background: #faedc5;
-  --foreground: #4a4230;
+  --foreground: #3b3528;
+  /* #fdf4dc */
+  --card: #fff4d4; /* lighter than --background */
+  --card-foreground: #3d3b33;
 
-  --card: #fdf4dc;
-  --card-foreground: #4d4635;
-
-  --popover: red;
-  --popover-foreground: blue;
+  --popover: #faedc5;
+  --popover-foreground: #3b3528;
 
   --primary: #f0c850;
-  --primary-foreground: #3a3015;
+  --primary-foreground: #251e0e;
 
   --secondary: #fef8ea;
-  --secondary-foreground: #4e4738;
+  --secondary-foreground: #3a362b;
 
-  --muted: green;
-  --muted-foreground: purple;
+  --muted: #fef8ea;
+  --muted-foreground: #565450;
 
-  --accent: oklch(0.96 0.003 325.6);
-  --accent-foreground: oklch(0.212 0.019 322.12);
+  --accent: #fef8ea;
+  --accent-foreground: #3a362b;
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2e1e1;
-  --input: #e2e1e1;
-  --ring: oklch(0.711 0.019 323.02);
+  --border: #e5dcc1;
+  --input: #d7c99e;
+  --ring: #8a806b;
 
-  --chart-1: oklch(0.865 0.012 325.68);
-  --chart-2: oklch(0.542 0.034 322.5);
-  --chart-3: oklch(0.435 0.029 321.78);
-  --chart-4: oklch(0.364 0.029 323.89);
-  --chart-5: oklch(0.263 0.024 320.12);
+  --chart-1: #565450;
+  --chart-2: #565450;
+  --chart-3: #565450;
+  --chart-4: #565450;
+  --chart-5: #565450;
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0.008 326);
-  --sidebar-primary: oklch(0.212 0.019 322.12);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.003 325.6);
-  --sidebar-accent-foreground: oklch(0.212 0.019 322.12);
-  --sidebar-border: oklch(0.922 0.005 325.62);
-  --sidebar-ring: oklch(0.711 0.019 323.02);
+  --sidebar: #251e0e;
+  --sidebar-foreground: #3b3528;
+  --sidebar-primary: #3a362b;
+  --sidebar-primary-foreground: #251e0e;
+  --sidebar-accent: #fef8ea;
+  --sidebar-accent-foreground: #3a362b;
+  --sidebar-border: #e5dcc1;
+  --sidebar-ring: #8a806b;
 }
 
 /* ===== Palette: Marigold (Orange) ===== */
