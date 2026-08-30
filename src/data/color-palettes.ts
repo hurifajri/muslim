@@ -20,7 +20,7 @@ export type ColorPalette = {
   /** Whether this palette uses light or dark base theme */
   mode: 'light' | 'dark';
   /** The swatch preview color (used for theme_color) */
-  previewColor: string;
+  themeColor: string;
   /** The background color (used for background_color) */
   backgroundColor: string;
 };
@@ -31,7 +31,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Putih',
     flower: 'Melati',
     mode: 'light',
-    previewColor: '#d4c8b0',
+    themeColor: '#d4c8b0',
     backgroundColor: '#f0ebe2',
   },
   {
@@ -39,7 +39,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Hitam',
     flower: 'Dahlia Hitam',
     mode: 'dark',
-    previewColor: '#484050',
+    themeColor: '#484050',
     backgroundColor: '#2a2830',
   },
   {
@@ -47,7 +47,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Merah Muda',
     flower: 'Sakura',
     mode: 'light',
-    previewColor: '#ffb0b5',
+    themeColor: '#ffb0b5',
     backgroundColor: '#ffd3d6',
   },
   {
@@ -55,7 +55,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Merah',
     flower: 'Mawar',
     mode: 'light',
-    previewColor: '#d45050',
+    themeColor: '#d45050',
     backgroundColor: '#f0c4be',
   },
   {
@@ -63,7 +63,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Kuning',
     flower: 'Bunga Matahari',
     mode: 'light',
-    previewColor: '#f0c850',
+    themeColor: '#f0c850',
     backgroundColor: '#faedc5',
   },
   {
@@ -71,7 +71,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Oranye',
     flower: 'Kenikir',
     mode: 'light',
-    previewColor: '#f0a848',
+    themeColor: '#f0a848',
     backgroundColor: '#f8d8b8',
   },
   {
@@ -79,7 +79,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Hijau',
     flower: 'Bunga Giok',
     mode: 'light',
-    previewColor: '#70c088',
+    themeColor: '#70c088',
     backgroundColor: '#c2e6d0',
   },
   {
@@ -87,7 +87,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Biru',
     flower: 'Bunga Telang',
     mode: 'light',
-    previewColor: '#78a8e8',
+    themeColor: '#78a8e8',
     backgroundColor: '#c5d8f5',
   },
   {
@@ -95,7 +95,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Ungu',
     flower: 'Lavender',
     mode: 'light',
-    previewColor: '#c4a0e8',
+    themeColor: '#c4a0e8',
     backgroundColor: '#e8d5f5',
   },
   {
@@ -103,7 +103,7 @@ export const COLOR_PALETTES: ColorPalette[] = [
     name: 'Krem',
     flower: 'Cempaka Putih',
     mode: 'light',
-    previewColor: '#d8c4a0',
+    themeColor: '#d8c4a0',
     backgroundColor: '#f2e8da',
   },
 ];
