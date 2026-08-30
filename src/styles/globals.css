@@ -509,45 +509,45 @@
 /* ===== Palette: Lavender (Purple) ===== */
 .palette-lavender {
   --background: #e8d5f5;
-  --foreground: #3d3348;
+  --foreground: #2d2a30;
 
-  --card: #f0e4f7;
-  --card-foreground: #443a4d;
+  --card: #eeddf9; /* lighter than --background */
+  --card-foreground: #322e34;
 
-  --popover: red;
-  --popover-foreground: blue;
+  --popover: #e8d5f5;
+  --popover-foreground: #2d2a30;
 
   --primary: #c4a0e8;
-  --primary-foreground: #2e2338;
+  --primary-foreground: #000000;
 
-  --secondary: #f2e8f9;
-  --secondary-foreground: #463d4e;
+  --secondary: #dfccf1;
+  --secondary-foreground: #27232a;
 
-  --muted: green;
-  --muted-foreground: purple;
+  --muted: #dfccf1;
+  --muted-foreground: #423d47;
 
-  --accent: oklch(0.96 0.003 325.6);
-  --accent-foreground: oklch(0.212 0.019 322.12);
+  --accent: #dfccf1;
+  --accent-foreground: #27232a;
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2e1e1;
-  --input: #e2e1e1;
-  --ring: oklch(0.711 0.019 323.02);
+  --border: #dcc6ea;
+  --input: #d9c2e9;
+  --ring: #b5a9c1;
 
-  --chart-1: oklch(0.865 0.012 325.68);
-  --chart-2: oklch(0.542 0.034 322.5);
-  --chart-3: oklch(0.435 0.029 321.78);
-  --chart-4: oklch(0.364 0.029 323.89);
-  --chart-5: oklch(0.263 0.024 320.12);
+  --chart-1: #423d47;
+  --chart-2: #423d47;
+  --chart-3: #423d47;
+  --chart-4: #423d47;
+  --chart-5: #423d47;
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0.008 326);
-  --sidebar-primary: oklch(0.212 0.019 322.12);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.003 325.6);
-  --sidebar-accent-foreground: oklch(0.212 0.019 322.12);
-  --sidebar-border: oklch(0.922 0.005 325.62);
-  --sidebar-ring: oklch(0.711 0.019 323.02);
+  --sidebar: #000000;
+  --sidebar-foreground: #2d2a30;
+  --sidebar-primary: #27232a;
+  --sidebar-primary-foreground: #000000;
+  --sidebar-accent: #dfccf1;
+  --sidebar-accent-foreground: #27232a;
+  --sidebar-border: #dcc6ea;
+  --sidebar-ring: #b5a9c1;
 }
 
 /* ===== Palette: Magnolia (Cream/Ivory) ===== */
