@@ -37,20 +37,26 @@ export function RouteBackground() {
 
     // 3. Next.js sometimes overwrites the <head> asynchronously on client navigation.
     // We use a MutationObserver to ensure our dynamic themeColor stays locked.
-    const observer = new MutationObserver(() => {
-      updateMetaTag();
-    });
-
-    observer.observe(document.head, {
+    const observerOptions: MutationObserverInit = {
       childList: true,
       subtree: true,
       attributes: true,
       attributeFilter: ['content'],
+    };
+
+    const observer = new MutationObserver(() => {
+      observer.disconnect();
+      updateMetaTag();
+      observer.observe(document.head, observerOptions);
     });
+
+    observer.observe(document.head, observerOptions);
 
     return () => {
       observer.disconnect();
     };
+    // Re-run on pathname change to re-assert theme-color after Next.js
+    // client navigation overwrites <head>.
   }, [pathname, paletteId]);
 
   return null;

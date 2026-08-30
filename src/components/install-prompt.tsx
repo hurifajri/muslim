@@ -1,69 +1,88 @@
 'use client';
 
 import { DownloadIcon, XIcon } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useSyncExternalStore } from 'react';
 
 import { Button } from './ui/button';
 
+interface BeforeInstallPromptEvent extends Event {
+  prompt(): Promise<void>;
+  userChoice: Promise<{ outcome: 'accepted' | 'dismissed' }>;
+}
+
+const SEVEN_DAYS_IN_MS = 7 * 24 * 60 * 60 * 1000;
+
+// Static subscribe — these values never change during a session
+const noop = () => () => {};
+const returnFalse = () => false;
+
+function getIsIOS() {
+  return (
+    /iPad|iPhone|iPod/.test(navigator.userAgent) ||
+    (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1)
+  );
+}
+
+function getIsStandalone() {
+  return window.matchMedia('(display-mode: standalone)').matches;
+}
+
+function getIsDismissed() {
+  const dismissedAt = localStorage.getItem('installPromptDismissedAt');
+  if (!dismissedAt) return false;
+  const dismissedTime = Number.parseInt(dismissedAt, 10);
+  return Date.now() - dismissedTime < SEVEN_DAYS_IN_MS;
+}
+
 export function InstallPrompt() {
-  const [isIOS, setIsIOS] = useState(false);
-  const [isStandalone, setIsStandalone] = useState(false);
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const isIOS = useSyncExternalStore(noop, getIsIOS, returnFalse);
+  const isStandalone = useSyncExternalStore(noop, getIsStandalone, returnFalse);
+  const wasDismissed = useSyncExternalStore(noop, getIsDismissed, returnFalse);
+
+  const [deferredPrompt, setDeferredPrompt] =
+    useState<BeforeInstallPromptEvent | null>(null);
   const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
-    let mounted = true;
-    Promise.resolve().then(() => {
-      if (!mounted) return;
-      setIsIOS(
-        /iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window)
-      );
-      setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
-      const dismissedAt = localStorage.getItem('installPromptDismissedAt');
-      if (dismissedAt) {
-        const dismissedTime = Number.parseInt(dismissedAt, 10);
-        const SEVEN_DAYS_IN_MS = 7 * 24 * 60 * 60 * 1000;
-
-        if (Date.now() - dismissedTime < SEVEN_DAYS_IN_MS) {
-          setIsDismissed(true);
-        } else {
-          localStorage.removeItem('installPromptDismissedAt');
-        }
+    // Clean up expired dismissal from localStorage
+    const dismissedAt = localStorage.getItem('installPromptDismissedAt');
+    if (dismissedAt) {
+      const dismissedTime = Number.parseInt(dismissedAt, 10);
+      if (Date.now() - dismissedTime >= SEVEN_DAYS_IN_MS) {
+        localStorage.removeItem('installPromptDismissedAt');
       }
-    });
+    }
 
     const handleBeforeInstall = (e: Event) => {
       e.preventDefault();
-      setDeferredPrompt(e);
+      setDeferredPrompt(e as BeforeInstallPromptEvent);
     };
 
     window.addEventListener('beforeinstallprompt', handleBeforeInstall);
 
     return () => {
-      mounted = false;
       window.removeEventListener('beforeinstallprompt', handleBeforeInstall);
     };
   }, []);
 
-  if (isStandalone) {
-    return null;
-  }
+  if (isStandalone) return null;
 
   const handleInstall = async () => {
-    if (deferredPrompt) {
+    if (!deferredPrompt) return;
+    try {
       deferredPrompt.prompt();
-      const { outcome } = await deferredPrompt.userChoice;
-      if (outcome === 'accepted') {
-        setDeferredPrompt(null);
-      }
+      await deferredPrompt.userChoice;
+    } catch {
+      // prompt() can throw if already called or dismissed
+    } finally {
+      setDeferredPrompt(null);
     }
   };
 
   // If it's already installed or neither iOS nor Android prompt is available, don't show
   if (!isIOS && !deferredPrompt) return null;
 
-  if (isDismissed) return null;
+  if (isDismissed || wasDismissed) return null;
 
   const handleDismiss = () => {
     setIsDismissed(true);
