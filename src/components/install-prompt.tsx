@@ -1,6 +1,6 @@
 'use client';
 
-import { DownloadIcon } from 'lucide-react';
+import { DownloadIcon, XIcon } from 'lucide-react';
 import { useEffect, useState } from 'react';
 
 import { Button } from './ui/button';
@@ -10,6 +10,7 @@ export function InstallPrompt() {
   const [isStandalone, setIsStandalone] = useState(false);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [deferredPrompt, setDeferredPrompt] = useState<any>(null);
+  const [isDismissed, setIsDismissed] = useState(false);
 
   useEffect(() => {
     let mounted = true;
@@ -19,6 +20,17 @@ export function InstallPrompt() {
         /iPad|iPhone|iPod/.test(navigator.userAgent) && !('MSStream' in window)
       );
       setIsStandalone(window.matchMedia('(display-mode: standalone)').matches);
+      const dismissedAt = localStorage.getItem('installPromptDismissedAt');
+      if (dismissedAt) {
+        const dismissedTime = Number.parseInt(dismissedAt, 10);
+        const SEVEN_DAYS_IN_MS = 7 * 24 * 60 * 60 * 1000;
+
+        if (Date.now() - dismissedTime < SEVEN_DAYS_IN_MS) {
+          setIsDismissed(true);
+        } else {
+          localStorage.removeItem('installPromptDismissedAt');
+        }
+      }
     });
 
     const handleBeforeInstall = (e: Event) => {
@@ -51,9 +63,16 @@ export function InstallPrompt() {
   // If it's already installed or neither iOS nor Android prompt is available, don't show
   if (!isIOS && !deferredPrompt) return null;
 
+  if (isDismissed) return null;
+
+  const handleDismiss = () => {
+    setIsDismissed(true);
+    localStorage.setItem('installPromptDismissedAt', Date.now().toString());
+  };
+
   return (
     <div className="fixed right-0 bottom-0 left-0 z-50 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
-      <div className="from-secondary/50 to-primary/50 flex flex-col gap-3 rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs sm:flex-row sm:items-center sm:justify-between">
+      <div className="from-secondary/50 to-primary/50 relative flex flex-col gap-3 rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs sm:flex-row sm:items-center sm:justify-between">
         <div>
           <h3 className="text-foreground font-bold">Install Muslim App</h3>
           {isIOS ? (
@@ -78,6 +97,15 @@ export function InstallPrompt() {
             <DownloadIcon className="size-4" /> Install
           </Button>
         )}
+        <Button
+          variant="ghost"
+          className="bg-secondary absolute -inset-e-2 -top-2"
+          size="icon-xs"
+          onClick={handleDismiss}
+        >
+          <XIcon />
+          <span className="sr-only">Close</span>
+        </Button>
       </div>
     </div>
   );
