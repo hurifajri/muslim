@@ -288,46 +288,46 @@
 
 /* ===== Palette: Sakura (Pink) ===== */
 .palette-sakura {
-  --background: #ffd3d6;
-  --foreground: #504243;
+  --background: #f2c9cc;
+  --foreground: #2a2223;
 
-  --card: #ffe5e7;
-  --card-foreground: #544b4c;
+  --card: #ffd5d8; /* lighter than --background */
+  --card-foreground: #342b2c;
 
-  --popover: red;
-  --popover-foreground: blue;
+  --popover: #f2c9cc;
+  --popover-foreground: #2a2223;
 
   --primary: #ffb0b5;
-  --primary-foreground: #453031;
+  --primary-foreground: #171717;
 
-  --secondary: #f9e6e4;
-  --secondary-foreground: #514b4a;
+  --secondary: #ffdbde;
+  --secondary-foreground: #463032;
 
-  --muted: green;
-  --muted-foreground: purple;
+  --muted: #ffdbde;
+  --muted-foreground: #625455;
 
-  --accent: oklch(0.96 0.003 325.6);
-  --accent-foreground: oklch(0.212 0.019 322.12);
+  --accent: #ffdbde;
+  --accent-foreground: #463032;
 
   --destructive: oklch(0.577 0.245 27.325);
-  --border: #e2e1e1;
-  --input: #e2e1e1;
-  --ring: oklch(0.711 0.019 323.02);
+  --border: #be9d9f;
+  --input: #daaeb1;
+  --ring: #998789;
 
-  --chart-1: oklch(0.865 0.012 325.68);
-  --chart-2: oklch(0.542 0.034 322.5);
-  --chart-3: oklch(0.435 0.029 321.78);
-  --chart-4: oklch(0.364 0.029 323.89);
-  --chart-5: oklch(0.263 0.024 320.12);
+  --chart-1: #625455;
+  --chart-2: #625455;
+  --chart-3: #625455;
+  --chart-4: #625455;
+  --chart-5: #625455;
 
-  --sidebar: oklch(0.985 0 0);
-  --sidebar-foreground: oklch(0.145 0.008 326);
-  --sidebar-primary: oklch(0.212 0.019 322.12);
-  --sidebar-primary-foreground: oklch(0.985 0 0);
-  --sidebar-accent: oklch(0.96 0.003 325.6);
-  --sidebar-accent-foreground: oklch(0.212 0.019 322.12);
-  --sidebar-border: oklch(0.922 0.005 325.62);
-  --sidebar-ring: oklch(0.711 0.019 323.02);
+  --sidebar: #171717;
+  --sidebar-foreground: #2a2223;
+  --sidebar-primary: #463032;
+  --sidebar-primary-foreground: #171717;
+  --sidebar-accent: #ffdbde;
+  --sidebar-accent-foreground: #463032;
+  --sidebar-border: #be9d9f;
+  --sidebar-ring: #998789;
 }
 
 /* ===== Palette: Rose (Red) ===== */
