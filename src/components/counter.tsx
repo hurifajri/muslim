@@ -5,8 +5,34 @@ import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 
-function playClickSound() {
-  const ctx = new AudioContext();
+const AudioCtx =
+  typeof window !== 'undefined'
+    ? (window.AudioContext ??
+      (
+        window as unknown as {
+          webkitAudioContext: typeof AudioContext;
+        }
+      ).webkitAudioContext)
+    : undefined;
+
+let sharedCtx: AudioContext | undefined;
+
+function getAudioContext(): AudioContext {
+  if (!sharedCtx || sharedCtx.state === 'closed') {
+    sharedCtx = new AudioCtx!();
+  }
+  return sharedCtx;
+}
+
+async function playClickSound() {
+  const ctx = getAudioContext();
+
+  // iOS Safari creates AudioContext in 'suspended' state — must resume on
+  // user gesture before any sound can play.
+  if (ctx.state === 'suspended') {
+    await ctx.resume();
+  }
+
   const oscillator = ctx.createOscillator();
   const gain = ctx.createGain();
 

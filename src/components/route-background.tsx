@@ -14,13 +14,15 @@ export function RouteBackground() {
     const paletteData = COLOR_PALETTES.find(p => p.id === paletteId);
     if (!paletteData) return;
 
-    const themeColor = paletteData.themeColor;
     const backgroundColor = paletteData.backgroundColor;
 
     // 1. Set body background
     document.body.style.backgroundColor = backgroundColor;
 
-    // 2. Force update theme-color meta tag
+    // 2. Force update theme-color meta tag to match body background so
+    //    Android's status bar blends seamlessly with the page background.
+    //    iOS standalone PWA with `black-translucent` already shows the body
+    //    backgroundColor through its transparent status bar.
     const updateMetaTag = () => {
       let meta = document.querySelector('meta[name="theme-color"]');
       if (!meta) {
@@ -28,8 +30,8 @@ export function RouteBackground() {
         meta.setAttribute('name', 'theme-color');
         document.head.appendChild(meta);
       }
-      if (meta.getAttribute('content') !== themeColor) {
-        meta.setAttribute('content', themeColor);
+      if (meta.getAttribute('content') !== backgroundColor) {
+        meta.setAttribute('content', backgroundColor);
       }
     };
 
