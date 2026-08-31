@@ -99,12 +99,23 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
 
     setIsGenerating(true);
     try {
-      const blob = await toBlob(posterRef.current, {
+      // Ensure the active background image is fully decoded before capture.
+      const img = posterRef.current.querySelector('img');
+      if (img && !img.complete) {
+        await img.decode().catch(() => {});
+      }
+
+      const opts = {
         type: POSTER_MIME_TYPE,
         quality: 0.92,
         pixelRatio: 4,
-        cacheBust: true,
-      });
+      } as const;
+
+      // html-to-image has a known first-render issue where external resources
+      // (images, fonts) are not yet in its internal cache on the first call,
+      // resulting in blank/missing backgrounds. A warmup pass primes the cache.
+      await toBlob(posterRef.current, opts);
+      const blob = await toBlob(posterRef.current, opts);
 
       if (!blob) throw new Error('Failed to generate image');
 
@@ -249,7 +260,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
                 className="object-cover"
               />
 
-              <div className="relative flex h-full w-full flex-col p-4">
+              <div className="relative flex h-full w-full flex-col p-4 text-black">
                 <div
                   className="my-auto flex flex-col gap-8 rounded-xl p-4"
                   style={{
