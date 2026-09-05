@@ -244,7 +244,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
   const modalContent = (
     <div className={cn('flex flex-col gap-4 sm:flex-row', isMobile && 'p-4')}>
       {/* Unified Preview Container Group */}
-      <div className="bg-input/90 relative flex max-h-[calc(100dvh-222px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
+      <div className="bg-input/90 relative flex max-h-[calc(100dvh-268px)] w-full flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-120px)] sm:w-fit sm:flex-1">
         {/* Preview Image */}
         <div className="w-full">
           <AspectRatio
@@ -422,7 +422,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
   if (isMobile) {
     return (
       <Drawer open={isOpen} onOpenChange={onClose}>
-        <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-dvh">
+        <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[95dvh]">
           <DrawerHeader className="pb-0">
             <DrawerTitle className="text-left">Buat Poster Doa</DrawerTitle>
           </DrawerHeader>
