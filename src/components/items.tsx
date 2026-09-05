@@ -94,9 +94,7 @@ export function Items({ items }: ItemsProps) {
                             Lihat Keutamaan
                           </Button>
                         )}
-                        {settings.counter &&
-                          pItem.note &&
-                          pItem.note !== 'Dibaca 1x' && <Counter />}
+                        {settings.counter && pItem.note && <Counter />}
                       </div>
                     </div>
                   );
