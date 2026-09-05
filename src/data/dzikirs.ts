@@ -20,7 +20,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 2,
     title: 'Membaca Ayat Kursi',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -43,7 +43,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 3,
     title: 'Membaca 3 Qul',
-    note: 'Dibaca 3 kali',
+    note: '3x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -71,7 +71,7 @@ export const dzikirs: ParentItem[] = [
         benefits: [
           {
             id: 1,
-            translation: `Siapa yang mengucapkannya masing-masing tiga kali ketika pagi dan petang, maka segala sesuatu akan dicukupkan untuknya.`,
+            translation: `Siapa yang mengucapkannya masing-masing 3x ketika pagi dan petang, maka segala sesuatu akan dicukupkan untuknya.`,
             narrator:
               'HR. Abu Daud no. 5082, Tirmidzi no. 3575. Al-Hafizh Abu Thohir mengatakan bahwa sanad hadis ini hasan',
           },
@@ -82,7 +82,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 4,
     title: 'Memohon Kebaikan dan Perlindungan',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi'],
     items: [
       {
@@ -105,7 +105,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 5,
     title: 'Memohon Kebaikan dan Perlindungan',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['petang'],
     items: [
       {
@@ -128,7 +128,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 6,
     title: 'Memuji Allah Ketika Memasuki Waktu Pagi',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi'],
     items: [
       {
@@ -145,7 +145,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 7,
     title: 'Memuji Allah Ketika Memasuki Waktu Petang',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['petang'],
     items: [
       {
@@ -162,7 +162,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 8,
     title: 'Membaca Sayyidul Istighfar',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -184,7 +184,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 9,
     title: 'Memuji dan Mentauhidkan Allah di Waktu Pagi',
-    note: 'Dibaca 4 kali',
+    note: '4x',
     categories: ['pagi'],
     items: [
       {
@@ -196,7 +196,7 @@ export const dzikirs: ParentItem[] = [
         benefits: [
           {
             id: 1,
-            translation: `Barang siapa yang mengucapkan zikir ini ketika pagi dan petang hari sebanyak empat kali, maka Allah akan membebaskan dirinya dari siksa neraka.`,
+            translation: `Barang siapa yang mengucapkan zikir ini ketika pagi dan petang hari sebanyak 4x, maka Allah akan membebaskan dirinya dari siksa neraka.`,
             narrator:
               'HR. Abu Daud no. 5069. Al Hafizh Abu Thohir mengatakan bahwa hadis ini hasan',
           },
@@ -207,7 +207,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 10,
     title: 'Memuji dan Mentauhidkan Allah di Waktu Petang',
-    note: 'Dibaca 4 kali',
+    note: '4x',
     categories: ['petang'],
     items: [
       {
@@ -219,7 +219,7 @@ export const dzikirs: ParentItem[] = [
         benefits: [
           {
             id: 1,
-            translation: `Barang siapa yang mengucapkan zikir ini ketika pagi dan petang hari sebanyak empat kali, maka Allah akan membebaskan dirinya dari siksa neraka.`,
+            translation: `Barang siapa yang mengucapkan zikir ini ketika pagi dan petang hari sebanyak 4x, maka Allah akan membebaskan dirinya dari siksa neraka.`,
             narrator:
               'HR. Abu Daud no. 5069. Al Hafizh Abu Thohir mengatakan bahwa hadis ini hasan',
           },
@@ -230,7 +230,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 11,
     title: 'Memohon Kebaikan dan Keselamatan Dunia dan Akhirat',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -253,7 +253,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 12,
     title: 'Memohon Perlindungan dari Kejahatan Diri dan Setan',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -276,7 +276,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 13,
     title: 'Memohon Dihindarkan dari Bahaya yang Tiba-tiba',
-    note: 'Dibaca 3 kali',
+    note: '3x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -288,7 +288,7 @@ export const dzikirs: ParentItem[] = [
         benefits: [
           {
             id: 1,
-            translation: `Barang siapa yang mengucapkan zikir tersebut sebanyak tiga kali di pagi hari dan tiga kali di petang hari, maka tidak akan ada bahaya yang tiba-tiba memudaratkannya.`,
+            translation: `Barang siapa yang mengucapkan zikir tersebut sebanyak 3x di pagi hari dan 3x di petang hari, maka tidak akan ada bahaya yang tiba-tiba memudaratkannya.`,
             narrator:
               'HR. Abu Daud no. 5088, 5089, Tirmidzi no. 3388, dan Ibnu Majah no. 3869. Al Hafizh Abu Thohir mengatakan bahwa sanad hadis ini hasan',
           },
@@ -299,7 +299,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 14,
     title: 'Memohon Keridaan Allah',
-    note: 'Dibaca 3 kali',
+    note: '3x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -311,7 +311,7 @@ export const dzikirs: ParentItem[] = [
         benefits: [
           {
             id: 1,
-            translation: `Barang siapa yang mengucapkan zikir ini sebanyak tiga kali di pagi hari dan tiga kali di petang hari, maka pantas baginya mendapatkan rida Allah.`,
+            translation: `Barang siapa yang mengucapkan zikir ini sebanyak 3x di pagi hari dan 3x di petang hari, maka pantas baginya mendapatkan rida Allah.`,
             narrator:
               'HR. Abu Daud no. 5072, Tirmidzi no. 3389. Al Hafizh Abu Thohir mengatakan bahwa hadis ini hasan',
           },
@@ -322,7 +322,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 15,
     title: 'Memohon Pertolongan dalam Segala Urusan',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -345,7 +345,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 16,
     title: 'Mengikrarkan Tauhid di Waktu Pagi',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi'],
     items: [
       {
@@ -362,7 +362,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 17,
     title: 'Bertasbih kepada Allah',
-    note: 'Dibaca 100 kali',
+    note: '100x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -384,7 +384,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 18,
     title: 'Mentauhidkan Allah',
-    note: 'Dibaca 10 kali',
+    note: '10x',
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -397,7 +397,7 @@ export const dzikirs: ParentItem[] = [
           {
             id: 1,
             translation: `
-          Barang siapa yang membaca zikir tersebut di pagi hari sebanyak sepuluh kali, Allah akan mencatatkan baginya 10 kebaikan, menghapuskan baginya 10 kesalahan, ia juga mendapatkan kebaikan semisal memerdekakan 10 budak, Allah akan melindunginya dari gangguan setan hingga petang hari. Siapa yang mengucapkannya di petang hari, ia akan mendapatkan keutamaan semisal itu pula.`,
+          Barang siapa yang membaca zikir tersebut di pagi hari sebanyak 10x, Allah akan mencatatkan baginya 10 kebaikan, menghapuskan baginya 10 kesalahan, ia juga mendapatkan kebaikan semisal memerdekakan 10 budak, Allah akan melindunginya dari gangguan setan hingga petang hari. Siapa yang mengucapkannya di petang hari, ia akan mendapatkan keutamaan semisal itu pula.`,
             narrator: 'HR. An Nasai Al Kubra 6: 10',
           },
           {
@@ -413,7 +413,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 19,
     title: 'Memuji Allah',
-    note: 'Dibaca 3 kali',
+    note: '3x',
     categories: ['pagi'],
     items: [
       {
@@ -435,7 +435,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 20,
     title: 'Memohon Ilmu yang Bermanfaat',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['pagi'],
     items: [
       {
@@ -452,7 +452,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 21,
     title: 'Membaca Istighfar',
-    note: 'Dibaca 100 kali',
+    note: '100x',
     categories: ['pagi'],
     items: [
       {
@@ -468,7 +468,7 @@ export const dzikirs: ParentItem[] = [
   {
     id: 22,
     title: 'Memohon Perlindungan dari Kejahatan',
-    note: 'Dibaca 3 kali',
+    note: '3x',
     categories: ['petang'],
     items: [
       {
