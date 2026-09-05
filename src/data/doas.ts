@@ -645,7 +645,7 @@ export const doas: ParentItem[] = [
   {
     id: 31,
     title: 'Membaca Istighfar',
-    note: 'Dibaca 3 kali',
+    note: '3x',
     categories: ['salat'],
     items: [
       {
@@ -657,7 +657,7 @@ export const doas: ParentItem[] = [
         benefits: [
           {
             id: 1,
-            translation: `Rasulullah shallallahu 'alaihi wa sallam jika selesai dari salatnya beliau beristighfar sebanyak tiga kali dan membaca zikir di atas. Al Auza'i menyatakan bahwa bacaan istighfar adalah astaghfirullah, astaghfirullah.`,
+            translation: `Rasulullah shallallahu 'alaihi wa sallam jika selesai dari salatnya beliau beristighfar sebanyak 3x dan membaca zikir di atas. Al Auza'i menyatakan bahwa bacaan istighfar adalah astaghfirullah, astaghfirullah.`,
             narrator: 'HR. Muslim no. 591',
           },
         ],
@@ -667,7 +667,7 @@ export const doas: ParentItem[] = [
   {
     id: 32,
     title: 'Memuji dan Mengagungkan Allah',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['salat'],
     items: [
       {
@@ -679,7 +679,7 @@ export const doas: ParentItem[] = [
         benefits: [
           {
             id: 1,
-            translation: `Rasulullah shallallahu 'alaihi wa sallam jika selesai dari salatnya beliau beristighfar sebanyak tiga kali dan membaca zikir di atas. Al Auza'i menyatakan bahwa bacaan istighfar adalah astaghfirullah, astaghfirullah.`,
+            translation: `Rasulullah shallallahu 'alaihi wa sallam jika selesai dari salatnya beliau beristighfar sebanyak 3x dan membaca zikir di atas. Al Auza'i menyatakan bahwa bacaan istighfar adalah astaghfirullah, astaghfirullah.`,
             narrator: 'HR. Muslim no. 591',
           },
         ],
@@ -689,7 +689,7 @@ export const doas: ParentItem[] = [
   {
     id: 33,
     title: 'Memuji dan Mengagungkan Allah',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['salat'],
     items: [
       {
@@ -706,7 +706,7 @@ export const doas: ParentItem[] = [
   {
     id: 34,
     title: 'Memuji dan Mengagungkan Allah',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['salat'],
     items: [
       {
@@ -730,7 +730,7 @@ export const doas: ParentItem[] = [
   {
     id: 35,
     title: 'Membaca Tasbih, Tahmid, dan Takbir',
-    note: 'Dibaca 33 kali',
+    note: '33x',
     categories: ['salat'],
     items: [
       {
@@ -747,7 +747,7 @@ export const doas: ParentItem[] = [
           },
           {
             id: 2,
-            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33x secara terpisah.`,
             narrator: 'Lihat Syarh Shahih Muslim, 5: 84',
           },
         ],
@@ -766,7 +766,7 @@ export const doas: ParentItem[] = [
           },
           {
             id: 2,
-            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33x secara terpisah.`,
             narrator: 'Lihat Syarh Shahih Muslim, 5: 84',
           },
         ],
@@ -785,7 +785,7 @@ export const doas: ParentItem[] = [
           },
           {
             id: 2,
-            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33x secara terpisah.`,
             narrator: 'Lihat Syarh Shahih Muslim, 5: 84',
           },
         ],
@@ -795,7 +795,7 @@ export const doas: ParentItem[] = [
   {
     id: 36,
     title: 'Mentauhidkan Allah',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['salat'],
     items: [
       {
@@ -812,7 +812,7 @@ export const doas: ParentItem[] = [
           },
           {
             id: 2,
-            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33 kali secara terpisah.`,
+            translation: `Kata Imam Nawawi rahimahullah, tekstual hadis menunjukkan bahwa bacaan Subhanallah, Alhamdulillah, Allahu akbar, masing-masing dibaca 33x secara terpisah.`,
             narrator: 'Lihat Syarh Shahih Muslim, 5: 84',
           },
         ],
@@ -822,7 +822,7 @@ export const doas: ParentItem[] = [
   {
     id: 37,
     title: 'Membaca Ayat Kursi',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['salat'],
     items: [
       {
@@ -845,7 +845,7 @@ export const doas: ParentItem[] = [
   {
     id: 38,
     title: 'Membaca Surat Al-Ikhlas, Al-Falaq, dan An-Nas',
-    note: 'Dibaca 1 kali',
+    note: '1x',
     categories: ['salat'],
     items: [
       {
@@ -898,7 +898,7 @@ export const doas: ParentItem[] = [
   {
     id: 39,
     title: 'Memohon Ilmu yang Bermanfaat',
-    note: 'Dibaca 1 kali (Subuh)',
+    note: '1x (Subuh)',
     categories: ['salat'],
     items: [
       {

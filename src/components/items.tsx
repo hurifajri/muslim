@@ -39,7 +39,7 @@ export function Items({ items }: ItemsProps) {
 
   return (
     <>
-      <div className="mx-4 mt-[calc(6.375rem+env(safe-area-inset-top))] mb-25.5 overflow-hidden rounded-4xl sm:max-w-2xl sm:self-center">
+      <div className="mt-[calc(6.375rem+env(safe-area-inset-top))] mb-25.5 overflow-hidden rounded-4xl sm:max-w-2xl sm:self-center">
         {items.map((pItem, index) => {
           return (
             <div
@@ -94,9 +94,7 @@ export function Items({ items }: ItemsProps) {
                             Lihat Keutamaan
                           </Button>
                         )}
-                        {settings.counter &&
-                          pItem.note &&
-                          pItem.note !== 'Dibaca 1x' && <Counter />}
+                        {settings.counter && pItem.note && <Counter />}
                       </div>
                     </div>
                   );
