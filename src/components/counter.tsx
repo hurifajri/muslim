@@ -17,40 +17,55 @@ const AudioCtx =
 
 let sharedCtx: AudioContext | undefined;
 
-function getAudioContext(): AudioContext {
+function getAudioContext(): AudioContext | undefined {
+  if (!AudioCtx) return;
+
   if (!sharedCtx || sharedCtx.state === 'closed') {
-    sharedCtx = new AudioCtx!();
+    sharedCtx = new AudioCtx();
   }
   return sharedCtx;
 }
 
 async function playClickSound() {
-  const ctx = getAudioContext();
+  let ctx: AudioContext | undefined;
 
-  // iOS Safari creates AudioContext in 'suspended' state — must resume on
-  // user gesture before any sound can play.
-  if (ctx.state === 'suspended') {
-    await ctx.resume();
+  try {
+    ctx = getAudioContext();
+    if (!ctx) return;
+
+    // Resume from the click gesture, including Safari's interrupted state.
+    if (ctx.state !== 'running') {
+      await ctx.resume();
+    }
+    if (ctx.state !== 'running') return;
+
+    const oscillator = ctx.createOscillator();
+    const gain = ctx.createGain();
+    const now = ctx.currentTime;
+
+    oscillator.connect(gain);
+    gain.connect(ctx.destination);
+    oscillator.onended = () => {
+      oscillator.disconnect();
+      gain.disconnect();
+    };
+
+    oscillator.type = 'sine';
+    oscillator.frequency.setValueAtTime(600, now);
+    oscillator.frequency.exponentialRampToValueAtTime(400, now + 0.03);
+
+    gain.gain.setValueAtTime(0.15, now);
+    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
+
+    oscillator.start(now);
+    oscillator.stop(now + 0.04);
+  } catch {
+    // Discard a failed context so the next click can try a fresh one.
+    if (ctx && sharedCtx === ctx) {
+      sharedCtx = undefined;
+      void ctx.close().catch(() => {});
+    }
   }
-
-  const oscillator = ctx.createOscillator();
-  const gain = ctx.createGain();
-
-  oscillator.connect(gain);
-  gain.connect(ctx.destination);
-
-  oscillator.type = 'sine';
-  oscillator.frequency.setValueAtTime(600, ctx.currentTime);
-  oscillator.frequency.exponentialRampToValueAtTime(
-    400,
-    ctx.currentTime + 0.03
-  );
-
-  gain.gain.setValueAtTime(0.15, ctx.currentTime);
-  gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.03);
-
-  oscillator.start(ctx.currentTime);
-  oscillator.stop(ctx.currentTime + 0.04);
 }
 
 export function Counter() {
@@ -61,7 +76,7 @@ export function Counter() {
 
   const handleClick = useCallback(() => {
     if (clickSoundEnabled) {
-      playClickSound();
+      void playClickSound();
     }
   }, [clickSoundEnabled]);
 
