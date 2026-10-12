@@ -54,9 +54,7 @@ export function HomeShell() {
       <header className="relative flex items-center justify-between">
         <div className="flex flex-col">
           <span className="font-bold">{hijriDate}</span>
-          <span className="text-sm font-bold" suppressHydrationWarning>
-            {gregDate}
-          </span>
+          <span className="text-sm font-bold">{gregDate}</span>
         </div>
         <Button
           size="icon"
@@ -84,12 +82,8 @@ export function HomeShell() {
                     <PencilIcon />
                   </Button>
                   <span className="flex items-baseline font-bold tabular-nums">
-                    <span className="text-4xl" suppressHydrationWarning>
-                      {gregTime}
-                    </span>
-                    <span className="ml-0.5 text-xl" suppressHydrationWarning>
-                      {gregSeconds}
-                    </span>
+                    <span className="text-4xl">{gregTime}</span>
+                    <span className="ml-0.5 text-xl">{gregSeconds}</span>
                   </span>
                 </div>
                 <div className="flex items-center justify-between">

@@ -8,26 +8,37 @@ export type { GregDateResult };
 
 /**
  * Returns the current Gregorian date and time, updating every second.
- * Date and time format adapts to the user's browser locale.
+ * Uses the device's local time and the user's browser locale.
  *
- * Initializes with `new Date()` immediately so there's no blank flash.
- * The consuming component should use `suppressHydrationWarning` on elements
- * displaying these values, since server and client times will differ.
+ * Stable placeholders keep server-rendered or cached times out of the UI
+ * until the browser clock is available after hydration.
  */
 export const useGregDate = (): GregDateResult => {
-  const [now, setNow] = useState(() => new Date());
+  const [now, setNow] = useState<Date | null>(null);
   const locale = useMemo(() => getDateFnsLocale(), []);
 
   useEffect(() => {
-    const timer = setInterval(() => {
-      setNow(new Date());
-    }, 1000);
-    return () => clearInterval(timer);
+    const update = () => setNow(new Date());
+    const onVisibilityChange = () => {
+      if (document.visibilityState === 'visible') update();
+    };
+
+    const timeout = window.setTimeout(update, 0);
+    const timer = window.setInterval(update, 1000);
+    document.addEventListener('visibilitychange', onVisibilityChange);
+    window.addEventListener('pageshow', update);
+
+    return () => {
+      window.clearTimeout(timeout);
+      window.clearInterval(timer);
+      document.removeEventListener('visibilitychange', onVisibilityChange);
+      window.removeEventListener('pageshow', update);
+    };
   }, []);
 
   return {
-    gregDate: format(now, 'PPPP', { locale }),
-    gregTime: format(now, 'HH:mm', { locale }),
-    gregSeconds: format(now, 'ss', { locale }),
+    gregDate: now ? format(now, 'PPPP', { locale }) : '',
+    gregTime: now ? format(now, 'HH:mm', { locale }) : '--:--',
+    gregSeconds: now ? format(now, 'ss', { locale }) : '--',
   };
 };
