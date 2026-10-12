@@ -1,7 +1,12 @@
+import { safeParse } from 'valibot';
 import { persist } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
-import type { SettingKey, SettingsState } from '@/schemas/settings';
+import {
+  type SettingKey,
+  type SettingsState,
+  SettingsStateSchema,
+} from '@/schemas/settings';
 
 export type { SettingKey, SettingsState };
 
@@ -46,6 +51,18 @@ export const createSettingsStore = (
       }),
       {
         name: 'muslim-settings',
+        merge: (persistedState, currentState) => {
+          const parsed = safeParse(SettingsStateSchema, persistedState);
+          if (!parsed.success) return currentState;
+
+          return {
+            ...currentState,
+            settings: {
+              ...currentState.settings,
+              ...parsed.output.settings,
+            },
+          };
+        },
       }
     )
   );
