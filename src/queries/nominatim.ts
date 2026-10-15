@@ -8,13 +8,14 @@ import {
 export const searchLocationsQueryOptions = (query: string) =>
   queryOptions({
     queryKey: ['nominatim-search', query],
-    queryFn: () => fetchSearchLocations(query),
+    queryFn: ({ signal }) => fetchSearchLocations(query, signal),
+    retry: false,
     staleTime: 1000 * 60 * 60, // Cache for 1 hour
   });
 
 export const reverseGeocodeQueryOptions = (lat: number, lon: number) =>
   queryOptions({
     queryKey: ['nominatim-reverse', lat, lon],
-    queryFn: () => fetchReverseGeocode(lat, lon),
+    queryFn: ({ signal }) => fetchReverseGeocode(lat, lon, signal),
     staleTime: 1000 * 60 * 60,
   });

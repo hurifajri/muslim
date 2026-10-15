@@ -1,8 +1,16 @@
 import { safeParse } from 'valibot';
-import { persist } from 'zustand/middleware';
+import {
+  createJSONStorage,
+  persist,
+  type StateStorage,
+} from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
+import { safeStorage } from '@/lib/safe-storage';
 import {
+  DEFAULT_FONT_SIZES,
+  FONT_SIZE_RANGES,
+  type FontSizeKey,
   type SettingKey,
   type SettingsState,
   SettingsStateSchema,
@@ -20,11 +28,13 @@ export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
 
 export type SettingsActions = {
   setSettings: (name: SettingKey, isActive: boolean) => void;
+  setFontSize: (name: FontSizeKey, size: number) => void;
 };
 
 export type SettingsStore = SettingsState & SettingsActions;
 
 export const defaultInitState: SettingsState = {
+  fontSizes: DEFAULT_FONT_SIZES,
   settings: {
     counter: true,
     clickSound: false,
@@ -35,12 +45,25 @@ export const defaultInitState: SettingsState = {
 };
 
 export const createSettingsStore = (
-  initState: SettingsState = defaultInitState
+  initState: SettingsState = defaultInitState,
+  storage: StateStorage = safeStorage
 ) => {
   return createStore<SettingsStore>()(
     persist(
       set => ({
         ...initState,
+        setFontSize: (name, size) =>
+          set(state => ({
+            fontSizes: {
+              ...state.fontSizes,
+              [name]: Number.isFinite(size)
+                ? Math.max(
+                    FONT_SIZE_RANGES[name].min,
+                    Math.min(FONT_SIZE_RANGES[name].max, Math.round(size))
+                  )
+                : DEFAULT_FONT_SIZES[name],
+            },
+          })),
         setSettings: (name, isActive) =>
           set(state => ({
             settings: {
@@ -51,12 +74,15 @@ export const createSettingsStore = (
       }),
       {
         name: 'muslim-settings',
+        storage: createJSONStorage(() => storage),
+        skipHydration: true,
         merge: (persistedState, currentState) => {
           const parsed = safeParse(SettingsStateSchema, persistedState);
           if (!parsed.success) return currentState;
 
           return {
             ...currentState,
+            fontSizes: parsed.output.fontSizes,
             settings: {
               ...currentState.settings,
               ...parsed.output.settings,

@@ -1,20 +1,19 @@
 import {
   array,
   type InferOutput,
-  literal,
+  integer,
+  minValue,
   number,
   object,
+  optional,
+  picklist,
+  pipe,
   string,
-  union,
 } from 'valibot';
 
-export const CategorySchema = union([
-  literal('pagi'),
-  literal('petang'),
-  literal('quran'),
-  literal('nabi'),
-  literal('salat'),
-]);
+import { categories } from '@/data/categories';
+
+export const CategorySchema = picklist(categories.map(item => item.slug));
 export type Category = InferOutput<typeof CategorySchema>;
 
 export const BenefitSchema = object({
@@ -38,6 +37,7 @@ export const ParentItemSchema = object({
   id: number(),
   title: string(),
   note: string(),
+  repetitions: optional(pipe(number(), integer(), minValue(1))),
   categories: array(CategorySchema),
   items: array(ContentItemSchema),
 });

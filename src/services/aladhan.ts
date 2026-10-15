@@ -1,6 +1,8 @@
 import { parse } from 'valibot';
 
 import { env } from '@/env';
+import { readPrayerCache, writePrayerCache } from '@/lib/prayer-cache';
+import { isTimeZone, scheduleDate } from '@/lib/prayer-time';
 import {
   AladhanResponseSchema,
   type AladhanTimingsByLocationParams,
@@ -10,8 +12,9 @@ import {
  * Fetches prayer timings from the Aladhan API.
  * Supports both city-based and coordinates-based lookup.
  */
-export async function fetchAladhanTimings(
-  params: AladhanTimingsByLocationParams
+export function getAladhanUrl(
+  params: AladhanTimingsByLocationParams,
+  date: string
 ) {
   const baseUrl = env.NEXT_PUBLIC_ALADHAN_API_URL;
   const method = params.method ?? 11;
@@ -26,7 +29,7 @@ export async function fetchAladhanTimings(
       method: String(method),
       adjustment: String(adjustment),
     });
-    url = `${baseUrl}/timingsByCity?${searchParams}`;
+    url = `${baseUrl}/timingsByCity/${date.split('-').reverse().join('-')}?${searchParams}`;
   } else {
     const searchParams = new URLSearchParams({
       latitude: String(params.latitude),
@@ -34,15 +37,49 @@ export async function fetchAladhanTimings(
       method: String(method),
       adjustment: String(adjustment),
     });
-    url = `${baseUrl}/timings?${searchParams}`;
+    url = `${baseUrl}/timings/${date.split('-').reverse().join('-')}?${searchParams}`;
   }
 
-  const res = await fetch(url);
+  return url;
+}
 
-  if (!res.ok) {
-    throw new Error(`Aladhan API error: ${res.status} ${res.statusText}`);
+export async function fetchAladhanTimings(
+  params: AladhanTimingsByLocationParams,
+  date: string,
+  signal?: AbortSignal
+) {
+  const controller = new AbortController();
+  const abort = () => controller.abort();
+  signal?.addEventListener('abort', abort, { once: true });
+  if (signal?.aborted) controller.abort();
+  const timeout = setTimeout(abort, 8000);
+  try {
+    if (typeof navigator !== 'undefined' && navigator.onLine === false)
+      throw new Error('Offline');
+    const res = await fetch(getAladhanUrl(params, date), {
+      signal: controller.signal,
+    });
+    if (!res.ok) throw new Error(`Aladhan API error: ${res.status}`);
+    const response = parse(AladhanResponseSchema, await res.json());
+    if (
+      response.code !== 200 ||
+      !response.data ||
+      !isTimeZone(response.data.meta.timezone) ||
+      scheduleDate(response.data.date.gregorian) !== date
+    ) {
+      throw new Error('Jadwal yang diterima tidak sesuai tanggal permintaan.');
+    }
+    const fetchedAt = Date.now();
+    await writePrayerCache(params, response, fetchedAt);
+    return { response, fetchedAt, cached: false };
+  } catch (error) {
+    if (signal?.aborted) throw error;
+    const saved = await readPrayerCache(params, date);
+    if (saved && isTimeZone(saved.response.data!.meta.timezone))
+      return { ...saved, cached: true };
+    throw error;
+  } finally {
+    clearTimeout(timeout);
+    signal?.removeEventListener('abort', abort);
   }
-
-  const json = await res.json();
-  return parse(AladhanResponseSchema, json);
 }

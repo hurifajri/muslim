@@ -1,16 +1,12 @@
-import { toBlob } from 'html-to-image';
-import { RefreshCwIcon, Share2Icon, SlidersHorizontalIcon } from 'lucide-react';
-import Image from 'next/image';
-import { useRef, useState } from 'react';
-
-import { AspectRatio } from '@/components/ui/aspect-ratio';
-import { Button } from '@/components/ui/button';
 import {
-  Carousel,
-  type CarouselApi,
-  CarouselContent,
-  CarouselItem,
-} from '@/components/ui/carousel';
+  DownloadIcon,
+  RefreshCwIcon,
+  Share2Icon,
+  SlidersHorizontalIcon,
+} from 'lucide-react';
+import { useCallback, useRef, useState } from 'react';
+
+import { Button } from '@/components/ui/button';
 import {
   Dialog,
   DialogContent,
@@ -24,53 +20,22 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu';
-import { Label } from '@/components/ui/label';
-import { Slider } from '@/components/ui/slider';
-import { Switch } from '@/components/ui/switch';
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from '@/components/ui/popover';
 import { useIsMobile } from '@/hooks/use-mobile';
-import { RandomDoa } from '@/hooks/use-random-doa';
+import { usePosterExport } from '@/hooks/use-poster-export';
+import type { RandomDoa } from '@/hooks/use-random-doa';
 import { cn } from '@/lib/utils';
 
-const BACKGROUNDS = Array.from(
-  { length: 12 },
-  (_, i) => `/bgs/bg-${i + 1}.jpeg`
-);
-
-const FONT_SIZE_LABELS = ['Kecil', 'Sedang', 'Besar'] as const;
-
-const FONT_SIZES = [
-  {
-    title: 'text-xs',
-    arabic: 'text-base',
-    translation: 'text-[10px]',
-    narrator: 'text-[8px]',
-  },
-  {
-    title: 'text-sm',
-    arabic: 'text-lg',
-    translation: 'text-xs',
-    narrator: 'text-[10px]',
-  },
-  {
-    title: 'text-base',
-    arabic: 'text-xl',
-    translation: 'text-sm',
-    narrator: 'text-xs',
-  },
-] as const;
-
-const POSTER_FILENAME = 'doa-poster.jpg';
-const POSTER_MIME_TYPE = 'image/jpeg';
-
-function buildShareText(doa: RandomDoa): string {
-  return [doa.title, doa.arabic, doa.translation, doa.narrator]
-    .filter(Boolean)
-    .join('\n\n');
-}
+import { PosterBackgrounds, PosterControls } from './poster-controls';
+import {
+  defaultPosterOptions,
+  MAX_FONT_SIZE,
+  type PosterOptions,
+} from './poster-options';
+import { PosterPreview } from './poster-preview';
 
 type PosterProps = Readonly<{
   isOpen: boolean;
@@ -81,364 +46,151 @@ type PosterProps = Readonly<{
 
 export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
   const { isMobile } = useIsMobile();
-  const [carouselApi, setCarouselApi] = useState<CarouselApi>();
-  const [bgIndex, setBgIndex] = useState(0);
-  const [isGenerating, setIsGenerating] = useState(false);
+  const [options, setOptions] = useState(defaultPosterOptions);
+  const [maxFontSize, setMaxFontSize] = useState(MAX_FONT_SIZE);
+  const fitFontSize = useCallback((maximum: number) => {
+    setMaxFontSize(maximum);
+    setOptions(current =>
+      current.fontSize > maximum ? { ...current, fontSize: maximum } : current
+    );
+  }, []);
   const posterRef = useRef<HTMLDivElement>(null);
-
-  const [showTitle, setShowTitle] = useState(true);
-  const [showArabic, setShowArabic] = useState(true);
-  const [showTranslation, setShowTranslation] = useState(true);
-  const [textOutline, setTextOutline] = useState(false);
-
-  const [fontSizeLevel, setFontSizeLevel] = useState([1]);
-  const [overlayOpacity, setOverlayOpacity] = useState([60]);
-
-  const handleShare = async () => {
-    if (!posterRef.current) return;
-
-    setIsGenerating(true);
-    try {
-      // Ensure the active background image is fully decoded before capture.
-      const img = posterRef.current.querySelector('img');
-      if (img && !img.complete) {
-        await img.decode().catch(() => {});
-      }
-
-      const opts = {
-        type: POSTER_MIME_TYPE,
-        quality: 0.92,
-        pixelRatio: 4,
-      } as const;
-
-      // html-to-image has a known first-render issue where external resources
-      // (images, fonts) are not yet in its internal cache on the first call,
-      // resulting in blank/missing backgrounds. A warmup pass primes the cache.
-      await toBlob(posterRef.current, opts);
-      const blob = await toBlob(posterRef.current, opts);
-
-      if (!blob) throw new Error('Failed to generate image');
-
-      const file = new File([blob], POSTER_FILENAME, {
-        type: POSTER_MIME_TYPE,
-      });
-
-      if (navigator.canShare?.({ files: [file] })) {
-        await navigator.share({
-          files: [file],
-          title: doa.title,
-          text: buildShareText(doa),
-        });
-      } else {
-        const url = URL.createObjectURL(blob);
-        try {
-          const a = document.createElement('a');
-          a.href = url;
-          a.download = POSTER_FILENAME;
-          a.click();
-        } finally {
-          URL.revokeObjectURL(url);
-        }
-      }
-    } catch (err) {
-      if (err instanceof DOMException && err.name === 'AbortError') return;
-      console.error('Failed to share image:', err);
-    } finally {
-      setIsGenerating(false);
-    }
-  };
-
-  const sizes = FONT_SIZES[fontSizeLevel[0]] ?? FONT_SIZES[1];
-
-  const toggles = [
-    {
-      id: 'showTitle',
-      label: 'Judul',
-      checked: showTitle,
-      onChange: setShowTitle,
-    },
-    {
-      id: 'showArabic',
-      label: 'Teks Arab',
-      checked: showArabic,
-      onChange: setShowArabic,
-    },
-    {
-      id: 'showTranslation',
-      label: 'Terjemahan',
-      checked: showTranslation,
-      onChange: setShowTranslation,
-    },
-    {
-      id: 'textOutline',
-      label: 'Garis Tepi Teks',
-      checked: textOutline,
-      onChange: setTextOutline,
-    },
-  ];
-
-  const sliders = [
-    {
-      id: 'fontSize',
-      label: 'Ukuran Teks',
-      value: fontSizeLevel,
-      onChange: setFontSizeLevel,
-      min: 0,
-      max: 2,
-      step: 1,
-      displayValue: FONT_SIZE_LABELS[fontSizeLevel[0]] ?? FONT_SIZE_LABELS[1],
-    },
-    {
-      id: 'overlayOpacity',
-      label: 'Latar Teks',
-      value: overlayOpacity,
-      onChange: setOverlayOpacity,
-      min: 0,
-      max: 100,
-      step: 1,
-      displayValue: `${overlayOpacity[0]}%`,
-    },
-  ];
-
-  const settingsContent = (
-    <div className="flex flex-col gap-6">
-      {/* Text Toggles */}
-      <div className="flex flex-col gap-4">
-        {toggles.map(option => (
-          <div
-            key={option.id}
-            className="flex items-center justify-between gap-4"
-          >
-            <Label htmlFor={option.id}>{option.label}</Label>
-            <Switch
-              id={option.id}
-              checked={option.checked}
-              onCheckedChange={val => option.onChange(val === true)}
-            />
-          </div>
-        ))}
-      </div>
-
-      {/* Visual Adjustments */}
-      <div className="flex flex-col gap-4">
-        {sliders.map(option => (
-          <div key={option.id} className="flex flex-col gap-2">
-            <div className="flex w-full items-center justify-between">
-              <Label htmlFor={option.id}>{option.label}</Label>
-              <span className="text-xs">{option.displayValue}</span>
-            </div>
-            <Slider
-              id={option.id}
-              value={option.value}
-              onValueChange={option.onChange}
-              min={option.min}
-              max={option.max}
-              step={option.step}
-            />
-          </div>
-        ))}
-      </div>
-    </div>
+  const key = JSON.stringify([doa, options]);
+  const exporter = usePosterExport(key);
+  const changeOptions = (change: Partial<PosterOptions>) =>
+    setOptions(current => ({ ...current, ...change }));
+  const result = exporter.result;
+  const controls = (
+    <PosterControls
+      options={options}
+      maxFontSize={maxFontSize}
+      onChange={changeOptions}
+    />
   );
-
-  const modalContent = (
-    <div className={cn('flex flex-col gap-4 sm:flex-row', isMobile && 'p-4')}>
-      {/* Unified Preview Container Group */}
-      <div className="bg-input/90 scrollbar-thumb-primary relative flex max-h-[calc(100dvh-268px)] w-full scrollbar-track-transparent flex-col items-center gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-[calc(100dvh-180px)] sm:w-fit sm:flex-1">
-        {/* Preview Image */}
-        <div className="w-full">
-          <AspectRatio
-            ratio={9 / 16}
-            className="shrink-0 overflow-hidden rounded-xl"
-          >
-            <div ref={posterRef} className="absolute inset-0">
-              <Image
-                src={BACKGROUNDS[bgIndex]}
-                alt="Background"
-                fill
-                sizes="(max-width: 640px) 100vw, 280px"
-                className="object-cover"
-              />
-
-              <div className="relative flex h-full w-full flex-col p-4 text-black">
-                <div
-                  className="my-auto flex flex-col gap-8 rounded-xl p-4"
-                  style={{
-                    backgroundColor: `rgba(255, 255, 255, ${overlayOpacity[0] / 100})`,
-                  }}
-                >
-                  {showTitle && (
-                    <h2
-                      className={cn(
-                        'font-semibold',
-                        sizes.title,
-                        textOutline && 'text-outline'
-                      )}
-                    >
-                      {doa.title}
-                    </h2>
-                  )}
-                  <div className="flex flex-col gap-4">
-                    {showArabic && (
-                      <p
-                        className={cn(
-                          'font-arabic text-right leading-loose',
-                          sizes.arabic,
-                          textOutline && 'text-outline'
-                        )}
-                        dir="rtl"
-                      >
-                        {doa.arabic}
-                      </p>
-                    )}
-                    {showTranslation && (
-                      <p
-                        className={cn(
-                          'font-medium',
-                          sizes.translation,
-                          textOutline && 'text-outline'
-                        )}
-                      >
-                        {doa.translation}
-                      </p>
-                    )}
-                    {doa.narrator && (
-                      <p
-                        className={cn(
-                          'font-medium',
-                          sizes.narrator,
-                          textOutline && 'text-outline'
-                        )}
-                      >
-                        {doa.narrator}
-                      </p>
-                    )}
-                  </div>
-                </div>
-
-                <p className="text-outline mt-auto flex items-end justify-end text-[8px] font-medium">
-                  muslim.vercel.app
-                </p>
-              </div>
-            </div>
-          </AspectRatio>
+  const content = (
+    <fieldset
+      disabled={exporter.isGenerating}
+      className={cn(
+        'flex min-h-0 w-full min-w-0 flex-1 flex-col gap-4 sm:flex-row',
+        isMobile && 'p-4'
+      )}
+    >
+      <div className="bg-input/90 flex max-h-[calc(100dvh-340px)] min-h-0 min-w-0 flex-col gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-none sm:flex-1 sm:overflow-hidden">
+        <div className="w-full shrink-0 sm:[container-type:size] sm:flex sm:min-h-0 sm:flex-1 sm:items-center sm:justify-center">
+          <div className="w-full sm:w-[min(100%,56.25cqh)]">
+            <PosterPreview
+              doa={doa}
+              options={options}
+              posterRef={posterRef}
+              onMaxFontSizeChange={fitFontSize}
+            />
+          </div>
         </div>
-
-        {/* Background Selector */}
-        <div className="w-full">
-          <Carousel
-            orientation="horizontal"
-            setApi={setCarouselApi}
-            opts={{
-              align: 'center',
-              dragFree: true,
-            }}
-          >
-            <CarouselContent className="-ms-2 px-1">
-              {BACKGROUNDS.map((bg, idx) => (
-                <CarouselItem key={bg} className="basis-auto ps-2">
-                  <Button
-                    variant="ghost"
-                    aria-label={`Pilih latar belakang ${idx + 1}`}
-                    onClick={() => {
-                      setBgIndex(idx);
-                      carouselApi?.scrollTo(idx);
-                    }}
-                    className={cn(
-                      'relative block h-auto w-12 cursor-pointer overflow-hidden rounded-lg border-2 p-0 transition-all hover:bg-transparent',
-                      bgIndex === idx
-                        ? 'border-primary'
-                        : 'border-transparent opacity-50 hover:opacity-100'
-                    )}
-                  >
-                    <AspectRatio ratio={9 / 16} className="h-full w-full">
-                      <Image
-                        src={bg}
-                        alt="bg"
-                        fill
-                        sizes="48px"
-                        className="object-cover"
-                      />
-                    </AspectRatio>
-                  </Button>
-                </CarouselItem>
-              ))}
-            </CarouselContent>
-          </Carousel>
-        </div>
+        <PosterBackgrounds options={options} onChange={changeOptions} />
       </div>
-
-      {/* Settings */}
-      <div className="flex flex-col gap-4 sm:min-w-60">
-        {!isMobile && settingsContent}
-
-        {/* Actions */}
-        <div className="mt-auto flex flex-col items-center gap-2 sm:flex-row">
-          {(onRollNewDoa || isMobile) && (
-            <div className="flex w-full items-center gap-2 sm:flex-1">
-              {onRollNewDoa && (
+      <div className="flex min-w-0 shrink-0 flex-col gap-4 sm:w-60">
+        {!isMobile && controls}
+        <div className="mt-auto flex gap-2 sm:grid sm:grid-cols-2">
+          {isMobile && (
+            <Popover>
+              <PopoverTrigger asChild>
                 <Button
-                  aria-label="Ganti doa"
+                  aria-label="Pengaturan poster"
+                  title="Pengaturan poster"
+                  size="icon"
                   variant="outline"
-                  onClick={onRollNewDoa}
-                  className="flex-1"
                 >
-                  <RefreshCwIcon /> Ganti Doa
+                  <SlidersHorizontalIcon />
                 </Button>
-              )}
-
-              {isMobile && (
-                <DropdownMenu>
-                  <DropdownMenuTrigger asChild>
-                    <Button
-                      aria-label="Pengaturan poster"
-                      variant="outline"
-                      className="flex-1"
-                    >
-                      <SlidersHorizontalIcon /> Pengaturan
-                    </Button>
-                  </DropdownMenuTrigger>
-                  <DropdownMenuContent align="end" className="w-72 p-4">
-                    {settingsContent}
-                  </DropdownMenuContent>
-                </DropdownMenu>
-              )}
-            </div>
+              </PopoverTrigger>
+              <PopoverContent align="start" aria-label="Pengaturan poster">
+                {controls}
+              </PopoverContent>
+            </Popover>
           )}
-
-          <Button
-            onClick={handleShare}
-            className="w-full sm:w-auto sm:flex-1"
-            disabled={isGenerating}
-          >
-            <Share2Icon />
-            {isGenerating ? 'Memproses...' : 'Bagikan'}
-          </Button>
+          {onRollNewDoa && (
+            <Button
+              aria-label="Ganti doa"
+              title={isMobile ? 'Ganti doa' : undefined}
+              size={isMobile ? 'icon' : 'default'}
+              variant="outline"
+              onClick={onRollNewDoa}
+              className={cn(!isMobile && 'col-span-2 w-full')}
+            >
+              <RefreshCwIcon />
+              {!isMobile && 'Ganti doa'}
+            </Button>
+          )}
+          {result ? (
+            <>
+              <Button
+                asChild
+                variant="outline"
+                size={isMobile ? 'icon' : 'default'}
+                className={cn(!isMobile && 'flex-1')}
+              >
+                <a
+                  href={result.url}
+                  download={result.file.name}
+                  aria-label={isMobile ? 'Unduh poster' : undefined}
+                  title={isMobile ? 'Unduh poster' : undefined}
+                >
+                  <DownloadIcon />
+                  {!isMobile && 'Unduh'}
+                </a>
+              </Button>
+              <Button
+                className="min-w-0 flex-1"
+                onClick={() => void exporter.share(result.file, doa.title)}
+              >
+                <Share2Icon data-icon="inline-start" />
+                Bagikan
+              </Button>
+            </>
+          ) : (
+            <Button
+              className="min-w-0 flex-1 sm:col-span-2 sm:w-full"
+              disabled={exporter.isGenerating}
+              onClick={() => {
+                if (posterRef.current) void exporter.prepare(posterRef.current);
+              }}
+            >
+              <DownloadIcon data-icon="inline-start" />
+              {exporter.isGenerating ? 'Membuat poster…' : 'Buat poster'}
+            </Button>
+          )}
         </div>
       </div>
-    </div>
+    </fieldset>
   );
-
-  if (isMobile) {
+  if (isMobile)
     return (
-      <Drawer open={isOpen} onOpenChange={onClose}>
+      <Drawer
+        open={isOpen}
+        onOpenChange={open => {
+          if (!open) onClose();
+        }}
+      >
         <DrawerContent className="data-[vaul-drawer-direction=bottom]:max-h-[95dvh]">
           <DrawerHeader className="pb-0">
-            <DrawerTitle className="text-left">Buat Poster Doa</DrawerTitle>
+            <DrawerTitle className="text-left">Buat poster doa</DrawerTitle>
           </DrawerHeader>
-          {modalContent}
+          {content}
         </DrawerContent>
       </Drawer>
     );
-  }
-
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="flex max-h-[95dvh] flex-col sm:max-w-2xl">
-        <DialogHeader className="flex-row items-center justify-between">
-          <DialogTitle>Buat Poster Doa</DialogTitle>
+    <Dialog
+      open={isOpen}
+      onOpenChange={open => {
+        if (!open) onClose();
+      }}
+    >
+      <DialogContent className="flex h-[min(95dvh,48rem)] flex-col gap-4 sm:max-w-2xl">
+        <DialogHeader className="shrink-0">
+          <DialogTitle>Buat poster doa</DialogTitle>
         </DialogHeader>
-        {modalContent}
+        {content}
       </DialogContent>
     </Dialog>
   );

@@ -11,12 +11,14 @@ import {
   SheetHeader,
   SheetTitle,
 } from '@/components/ui/sheet';
+import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { COLOR_PALETTES } from '@/data/color-palettes';
 import { sources } from '@/data/sources';
 import { cn } from '@/lib/utils';
 import { usePaletteStore } from '@/providers/palette-store-provider';
 import { useSettingsStore } from '@/providers/settings-store-provider';
+import { FONT_SIZE_RANGES } from '@/schemas/settings';
 import { SETTINGS_CONFIG } from '@/stores/settings-store';
 
 type SettingsProps = Readonly<{
@@ -25,7 +27,9 @@ type SettingsProps = Readonly<{
 }>;
 
 export function Settings({ isOpen, onClose }: SettingsProps) {
-  const { settings, setSettings } = useSettingsStore(state => state);
+  const { settings, setSettings, fontSizes, setFontSize } = useSettingsStore(
+    state => state
+  );
   const { paletteId, setPaletteId } = usePaletteStore(state => state);
 
   return (
@@ -72,6 +76,39 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
               {COLOR_PALETTES.find(p => p.id === paletteId)?.flower ?? ''}
             </span> */}
           </div>
+          <Separator />
+
+          {(['arabic', 'translation'] as const).map(key => (
+            <div key={key} className="flex flex-col gap-3">
+              <Label id={`font-${key}-label`} htmlFor={`font-${key}`}>
+                {key === 'arabic'
+                  ? 'Ukuran huruf Arab'
+                  : 'Ukuran huruf terjemahan'}{' '}
+                · {fontSizes[key]}px
+              </Label>
+              <Slider
+                id={`font-${key}`}
+                aria-labelledby={`font-${key}-label`}
+                min={FONT_SIZE_RANGES[key].min}
+                max={FONT_SIZE_RANGES[key].max}
+                step={1}
+                value={[fontSizes[key]]}
+                onValueChange={([value]) => setFontSize(key, value)}
+                className="min-h-8"
+              />
+            </div>
+          ))}
+          <p
+            lang="ar"
+            dir="rtl"
+            className="font-arabic leading-loose"
+            style={{ fontSize: fontSizes.arabic }}
+          >
+            بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+          </p>
+          <p style={{ fontSize: fontSizes.translation }}>
+            Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang.
+          </p>
           <Separator />
 
           {SETTINGS_CONFIG.map(setting => (

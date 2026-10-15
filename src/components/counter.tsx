@@ -1,108 +1,69 @@
-import { PlusIcon, RotateCcwIcon } from 'lucide-react';
-import { useCallback, useState } from 'react';
+import { CheckIcon, PlusIcon, RotateCcwIcon } from 'lucide-react';
 
 import { Button } from '@/components/ui/button';
 import { ButtonGroup } from '@/components/ui/button-group';
+import { playClickSound } from '@/lib/click-sound';
+import { useReadingStore } from '@/providers/reading-store-provider';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 
-const AudioCtx =
-  typeof window !== 'undefined'
-    ? (window.AudioContext ??
-      (
-        window as unknown as {
-          webkitAudioContext: typeof AudioContext;
-        }
-      ).webkitAudioContext)
-    : undefined;
-
-let sharedCtx: AudioContext | undefined;
-
-function getAudioContext(): AudioContext | undefined {
-  if (!AudioCtx) return;
-
-  if (!sharedCtx || sharedCtx.state === 'closed') {
-    sharedCtx = new AudioCtx();
-  }
-  return sharedCtx;
-}
-
-async function playClickSound() {
-  let ctx: AudioContext | undefined;
-
-  try {
-    ctx = getAudioContext();
-    if (!ctx) return;
-
-    // Resume from the click gesture, including Safari's interrupted state.
-    if (ctx.state !== 'running') {
-      await ctx.resume();
-    }
-    if (ctx.state !== 'running') return;
-
-    const oscillator = ctx.createOscillator();
-    const gain = ctx.createGain();
-    const now = ctx.currentTime;
-
-    oscillator.connect(gain);
-    gain.connect(ctx.destination);
-    oscillator.onended = () => {
-      oscillator.disconnect();
-      gain.disconnect();
-    };
-
-    oscillator.type = 'sine';
-    oscillator.frequency.setValueAtTime(600, now);
-    oscillator.frequency.exponentialRampToValueAtTime(400, now + 0.03);
-
-    gain.gain.setValueAtTime(0.15, now);
-    gain.gain.exponentialRampToValueAtTime(0.001, now + 0.03);
-
-    oscillator.start(now);
-    oscillator.stop(now + 0.04);
-  } catch {
-    // Discard a failed context so the next click can try a fresh one.
-    if (ctx && sharedCtx === ctx) {
-      sharedCtx = undefined;
-      void ctx.close().catch(() => {});
-    }
-  }
-}
-
-export function Counter() {
-  const [value, setValue] = useState(0);
+export function Counter({
+  readingId,
+  target,
+}: {
+  readingId: string;
+  target?: number;
+}) {
+  const value = useReadingStore(state => state.counts[readingId] ?? 0);
+  const undo = useReadingStore(state => state.undoCounts[readingId]);
+  const hydrated = useReadingStore(state => state.hydrated);
+  const increment = useReadingStore(state => state.increment);
+  const reset = useReadingStore(state => state.reset);
+  const undoReset = useReadingStore(state => state.undoReset);
   const clickSoundEnabled = useSettingsStore(
     state => state.settings.clickSound
   );
-
-  const handleClick = useCallback(() => {
-    if (clickSoundEnabled) {
-      void playClickSound();
-    }
-  }, [clickSoundEnabled]);
-
+  const completed = target !== undefined && value >= target;
+  const sound = () => {
+    if (clickSoundEnabled) void playClickSound();
+  };
   return (
-    <ButtonGroup aria-label="Tombol hitung" className="items-center">
-      <Button
-        size="icon-lg"
-        onClick={() => {
-          setValue(0);
-          handleClick();
-        }}
-      >
-        <RotateCcwIcon />
-      </Button>
-      <div className="bg-primary/80 dark:bg-primary text-primary-foreground -ml-1 flex h-9.5 w-12 items-center justify-center font-bold">
-        {value}
-      </div>
-      <Button
-        size="icon-lg"
-        onClick={() => {
-          setValue(v => v + 1);
-          handleClick();
-        }}
-      >
-        <PlusIcon />
-      </Button>
-    </ButtonGroup>
+    <div className="flex flex-col items-end gap-2">
+      <ButtonGroup aria-label="Tombol hitung" className="items-center">
+        <Button
+          size="icon-lg"
+          aria-label="Reset hitungan"
+          disabled={!hydrated || value === 0}
+          onClick={() => {
+            reset(readingId);
+            sound();
+          }}
+        >
+          <RotateCcwIcon />
+        </Button>
+        <output
+          aria-label="Jumlah bacaan"
+          className="bg-primary/80 dark:bg-primary text-primary-foreground -ml-1 flex h-9.5 min-w-12 items-center justify-center px-2 font-bold tabular-nums"
+        >
+          {value}
+          {target ? `/${target}` : ''}
+        </output>
+        <Button
+          size="icon-lg"
+          aria-label={completed ? 'Target bacaan selesai' : 'Tambah hitungan'}
+          disabled={!hydrated || completed}
+          onClick={() => {
+            increment(readingId, target);
+            sound();
+          }}
+        >
+          {completed ? <CheckIcon /> : <PlusIcon />}
+        </Button>
+      </ButtonGroup>
+      {undo !== undefined && (
+        <Button variant="ghost" size="sm" onClick={() => undoReset(readingId)}>
+          Batalkan reset
+        </Button>
+      )}
+    </div>
   );
 }

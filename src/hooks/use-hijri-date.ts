@@ -1,72 +1,48 @@
 import { useQuery } from '@tanstack/react-query';
-import { safeParse } from 'valibot';
+import { useEffect } from 'react';
 
-import { hijriDateQueryOptions } from '@/queries/hijri-date';
+import { useCurrentDate } from '@/hooks/use-current-date';
 import {
-  type AladhanTimingsByLocationParams,
-  type HijriDateResult,
-  HijriDateResultSchema,
-  type PrayingTime,
-} from '@/schemas/praying-time';
+  dateInTimeZone,
+  displayedPrayers,
+  scheduleDate,
+} from '@/lib/prayer-time';
+import { useLocationStore } from '@/providers/location-store-provider';
+import { hijriDateQueryOptions } from '@/queries/hijri-date';
 
-export type { AladhanTimingsByLocationParams, HijriDateResult, PrayingTime };
-
-/**
- * Maps localized names for prayer times from English API names.
- */
-const PRAYING_TIME_LABELS: Record<string, string> = {
-  Fajr: 'Subuh',
-  Dhuhr: 'Dzuhur',
-  Asr: 'Ashar',
-  Maghrib: 'Maghrib',
-  Isha: 'Isya',
-};
-
-const DISPLAYED_PRAYERS = ['Fajr', 'Dhuhr', 'Asr', 'Maghrib', 'Isha'] as const;
-
-/**
- * Hook to fetch the current Hijri date and prayer times.
- * Accepts either city+country or GPS coordinates.
- *
- * Prayer times are returned in the selected city's local timezone
- * (as provided by the Aladhan API), regardless of the user's device timezone.
- */
-export const useHijriDate = (
-  params: AladhanTimingsByLocationParams
-): HijriDateResult => {
-  const { data, isError, isLoading } = useQuery(hijriDateQueryOptions(params));
-
-  // Parse Hijri date
-  const date = data?.data?.date;
-  const hijriDate = date
-    ? `${date.hijri.day} ${date.hijri.month.en} ${date.hijri.year}`
-    : '';
-
-  // Build ordered prayer times list
-  // Times are in HH:mm format from the API, already in the city's timezone
-  const timings = data?.data?.timings;
-  const prayingTimes: PrayingTime[] = timings
-    ? DISPLAYED_PRAYERS.map((key, i) => ({
-        id: i,
-        name: PRAYING_TIME_LABELS[key] ?? key,
-        time: timings[key],
-      }))
-    : [];
-
-  const result: HijriDateResult = {
-    isError,
-    isLoading,
-    hijriDate,
-    prayingTimes,
+export function useHijriDate() {
+  const { city, country, timeZone, setTimeZone } = useLocationStore(
+    state => state
+  );
+  const requestedDate = useCurrentDate(timeZone);
+  const query = useQuery(
+    hijriDateQueryOptions({ mode: 'city', city, country }, requestedDate)
+  );
+  const data = query.data?.response.data;
+  const resolvedZone = data?.meta.timezone;
+  useEffect(() => {
+    if (resolvedZone && resolvedZone !== timeZone)
+      setTimeZone(city, country, resolvedZone);
+  }, [city, country, resolvedZone, setTimeZone, timeZone]);
+  const date = data ? scheduleDate(data.date.gregorian) : '';
+  const currentDate =
+    requestedDate && resolvedZone
+      ? dateInTimeZone(new Date(), resolvedZone)
+      : requestedDate;
+  return {
+    isError: query.isError,
+    isFetching: query.isFetching,
+    refetch: query.refetch,
+    city,
+    date,
+    currentDate,
+    timeZone: resolvedZone ?? timeZone,
+    cached: query.data?.cached ?? false,
+    fetchedAt: query.data?.fetchedAt,
+    isCurrent: Boolean(date && date === currentDate),
+    hijriDate: data
+      ? `${data.date.hijri.day} ${data.date.hijri.month.en} ${data.date.hijri.year}`
+      : '',
+    prayingTimes: data ? displayedPrayers(data.timings) : [],
   };
-
-  // Runtime validation (dev-only guard)
-  if (process.env.NODE_ENV === 'development') {
-    const parsed = safeParse(HijriDateResultSchema, result);
-    if (!parsed.success) {
-      console.warn('[useHijriDate] Schema validation failed:', parsed.issues);
-    }
-  }
-
-  return result;
-};
+}
