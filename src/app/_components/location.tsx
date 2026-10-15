@@ -1,6 +1,5 @@
 'use client';
 
-import { useQueryClient } from '@tanstack/react-query';
 import {
   CheckIcon,
   LoaderIcon,
@@ -33,14 +32,19 @@ import {
 } from '@/components/ui/input-group';
 import { Item, ItemContent, ItemGroup, ItemTitle } from '@/components/ui/item';
 import { Label } from '@/components/ui/label';
+import { useLocationSearch } from '@/hooks/use-location-search';
 import { useIsMobile } from '@/hooks/use-mobile';
+import {
+  formatCityName,
+  formatCountryName,
+  formatLocationLabel,
+} from '@/lib/location-display';
 import { cn } from '@/lib/utils';
 import { useLocationStore } from '@/providers/location-store-provider';
-import {
-  reverseGeocodeQueryOptions,
-  searchLocationsQueryOptions,
-} from '@/queries/nominatim';
 import type { LocationSuggestion } from '@/schemas/nominatim';
+import { fetchReverseGeocode } from '@/services/nominatim';
+
+import { LocationTime } from './location-time';
 
 // ─── Types ────────────────────────────────────────────────────────────────────
 
@@ -58,7 +62,11 @@ type LocationFormProps = Readonly<{
   query: string;
   suggestions: LocationSuggestion[];
   selected: LocationSuggestion | null;
+  selectedTimeZone?: string;
   isSearching: boolean;
+  searchError: boolean;
+  isEmpty: boolean;
+  onRetry: () => void;
   geoState: GeoState;
   geoError: string;
   inputRef: React.RefObject<HTMLInputElement | null>;
@@ -73,7 +81,11 @@ function LocationForm({
   query,
   suggestions,
   selected,
+  selectedTimeZone,
   isSearching,
+  searchError,
+  isEmpty,
+  onRetry,
   geoState,
   geoError,
   inputRef,
@@ -105,7 +117,6 @@ function LocationForm({
             value={query}
             autoComplete="off"
             onChange={e => onQueryChange(e.target.value)}
-            className="capitalize"
           />
 
           {query && (
@@ -129,36 +140,53 @@ function LocationForm({
             {suggestions.map(s => (
               <Item
                 key={s.placeId}
-                role="option"
-                aria-selected={false}
+                role="button"
                 tabIndex={0}
                 variant="default"
                 size="xs"
                 onClick={() => onSelect(s)}
-                onKeyDown={e =>
-                  (e.key === 'Enter' || e.key === ' ') && onSelect(s)
-                }
+                onKeyDown={e => {
+                  if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    onSelect(s);
+                  }
+                }}
               >
                 <ItemContent>
-                  <ItemTitle className="line-clamp-1 capitalize">
-                    {s.city} - <span className="capitalize">{s.country}</span>
-                  </ItemTitle>
+                  <ItemTitle>{s.displayName}</ItemTitle>
                 </ItemContent>
               </Item>
             ))}
           </ItemGroup>
         )}
 
+        {searchError && (
+          <div role="alert" className="text-sm">
+            <p>Pencarian gagal. Periksa koneksi lalu coba lagi.</p>
+            <Button size="sm" variant="outline" onClick={onRetry}>
+              Coba lagi
+            </Button>
+          </div>
+        )}
+        {isEmpty && (
+          <output className="text-sm">
+            Kota tidak ditemukan. Coba nama lain.
+          </output>
+        )}
         {/* Selected badge */}
         {selected && (
-          <p className="flex items-center gap-1 text-xs">
-            <CheckIcon className="size-3 shrink-0" />
-            <span>
-              <span className="font-medium capitalize">{selected.city}</span>
-              {', '}
-              {selected.country}
-            </span>
-          </p>
+          <div className="flex flex-col gap-1">
+            <p className="flex items-center gap-1 text-xs">
+              <CheckIcon aria-hidden className="size-3 shrink-0" />
+              <span className="font-medium">{selected.displayName}</span>
+            </p>
+            <LocationTime
+              key={`${selected.city}:${selected.countryCode}`}
+              city={selected.city}
+              country={selected.countryCode}
+              timeZone={selectedTimeZone}
+            />
+          </div>
         )}
       </div>
 
@@ -189,114 +217,100 @@ function LocationForm({
 // ─── Main Component ───────────────────────────────────────────────────────────
 
 export function Location({ isOpen, onClose }: LocationProps) {
-  const queryClient = useQueryClient();
-
   const {
     city: savedCity,
     country: savedCountry,
-    setCity: saveCity,
-    setCountry: saveCountry,
+    timeZone: savedTimeZone,
+    setLocation,
   } = useLocationStore(state => state);
-
   const { isMobile } = useIsMobile();
-
-  const [query, setQuery] = useState('');
-  const [suggestions, setSuggestions] = useState<LocationSuggestion[]>([]);
-  const [selected, setSelected] = useState<LocationSuggestion | null>(null);
-  const [isSearching, setIsSearching] = useState(false);
+  const [query, setQuery] = useState(() =>
+    formatLocationLabel(savedCity, savedCountry)
+  );
+  const [selected, setSelected] = useState<LocationSuggestion | null>({
+    placeId: 0,
+    displayName: formatLocationLabel(savedCity, savedCountry),
+    city: formatCityName(savedCity),
+    country: formatCountryName(savedCountry),
+    countryCode: savedCountry.toUpperCase(),
+  });
   const [geoState, setGeoState] = useState<GeoState>('idle');
   const [geoError, setGeoError] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
-  const debounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const geoVersion = useRef(0);
+  const geoController = useRef<AbortController | null>(null);
+  const search = useLocationSearch(query, isOpen && !selected);
+  const { suggestions, isSearching } = search;
 
-  // Reset state when dialog opens
-  useEffect(() => {
-    if (!isOpen) return;
-    const timeout = setTimeout(() => {
-      setQuery(savedCity);
-      setSelected({
-        placeId: 0,
-        displayName: savedCity,
-        city: savedCity,
-        country: savedCountry,
-        countryCode: savedCountry,
-      });
-      setSuggestions([]);
-      setGeoState('idle');
-      setGeoError('');
-      inputRef.current?.focus();
-    }, 0);
-    return () => clearTimeout(timeout);
-  }, [isOpen, savedCity, savedCountry]);
-
-  // Debounced search
+  useEffect(
+    () => () => {
+      geoVersion.current++;
+      geoController.current?.abort();
+    },
+    []
+  );
+  const cancelGeolocation = () => {
+    geoVersion.current++;
+    geoController.current?.abort();
+    setGeoState('idle');
+  };
   const handleQueryChange = (value: string) => {
+    cancelGeolocation();
     setQuery(value);
     setSelected(null);
-    setSuggestions([]);
-
-    if (debounceRef.current) clearTimeout(debounceRef.current);
-
-    debounceRef.current = setTimeout(async () => {
-      if (value.trim().length < 2) return;
-      setIsSearching(true);
-      try {
-        const results = await queryClient.fetchQuery(
-          searchLocationsQueryOptions(value)
-        );
-        setSuggestions(results);
-      } finally {
-        setIsSearching(false);
-      }
-    }, 400);
   };
-
-  const handleSelect = (s: LocationSuggestion) => {
-    setSelected(s);
-    setQuery(s.city);
-    setSuggestions([]);
+  const handleSelect = (suggestion: LocationSuggestion) => {
+    cancelGeolocation();
+    setSelected(suggestion);
+    setQuery(suggestion.displayName);
   };
-
   const handleClear = () => {
-    setQuery('');
-    setSelected(null);
-    setSuggestions([]);
+    handleQueryChange('');
     inputRef.current?.focus();
+  };
+  const handleClose = () => {
+    cancelGeolocation();
+    onClose();
   };
 
   const handleUseGeolocation = () => {
+    cancelGeolocation();
     if (!navigator.geolocation) {
       setGeoState('error');
       setGeoError('Browser tidak mendukung geolokasi.');
       return;
     }
+    const version = geoVersion.current;
     setGeoState('loading');
     navigator.geolocation.getCurrentPosition(
-      async pos => {
+      async position => {
+        if (version !== geoVersion.current) return;
+        const controller = new AbortController();
+        geoController.current = controller;
         try {
-          const result = await queryClient.fetchQuery(
-            reverseGeocodeQueryOptions(
-              pos.coords.latitude,
-              pos.coords.longitude
-            )
+          const result = await fetchReverseGeocode(
+            position.coords.latitude,
+            position.coords.longitude,
+            controller.signal
           );
-          if (!result)
-            throw new Error('Location not found for the given coordinates.');
+          if (version !== geoVersion.current) return;
+          if (!result) throw new Error('Kota tidak ditemukan.');
           handleSelect(result);
-          setGeoState('idle');
         } catch {
+          if (version !== geoVersion.current) return;
           setGeoState('error');
-          setGeoError('Gagal mendapatkan nama kota dari koordinat.');
+          setGeoError('Gagal mendapatkan nama kota dari koordinat. Coba lagi.');
         }
       },
-      err => {
+      error => {
+        if (version !== geoVersion.current) return;
         const messages: Record<number, string> = {
           1: 'Izin lokasi ditolak. Aktifkan di pengaturan browser.',
           2: 'Posisi tidak dapat ditemukan.',
           3: 'Waktu habis. Coba lagi.',
         };
         setGeoState('error');
-        setGeoError(messages[err.code] ?? 'Gagal mendapatkan lokasi.');
+        setGeoError(messages[error.code] ?? 'Gagal mendapatkan lokasi.');
       },
       { timeout: 10_000, maximumAge: 5 * 60_000 }
     );
@@ -304,16 +318,26 @@ export function Location({ isOpen, onClose }: LocationProps) {
 
   const handleSave = () => {
     if (!selected) return;
-    saveCity(selected.city.toLowerCase());
-    saveCountry(selected.countryCode);
-    onClose();
+    setLocation({
+      city: selected.city,
+      country: selected.countryCode,
+    });
+    handleClose();
   };
 
   const formProps: LocationFormProps = {
     isMobile,
     query,
     suggestions,
+    searchError: search.isError,
+    isEmpty: search.isEmpty,
+    onRetry: search.retry,
     selected,
+    selectedTimeZone:
+      selected?.city.toLowerCase() === savedCity.toLowerCase() &&
+      selected?.countryCode === savedCountry.toUpperCase()
+        ? savedTimeZone
+        : undefined,
     isSearching,
     geoState,
     geoError,
@@ -332,7 +356,12 @@ export function Location({ isOpen, onClose }: LocationProps) {
 
   if (isMobile) {
     return (
-      <Drawer open={isOpen} onOpenChange={onClose}>
+      <Drawer
+        open={isOpen}
+        onOpenChange={open => {
+          if (!open) handleClose();
+        }}
+      >
         <DrawerContent>
           <DrawerHeader className="pb-0">
             <DrawerTitle className="text-left">Ubah Lokasi</DrawerTitle>
@@ -345,7 +374,12 @@ export function Location({ isOpen, onClose }: LocationProps) {
   }
 
   return (
-    <Dialog open={isOpen} onOpenChange={onClose}>
+    <Dialog
+      open={isOpen}
+      onOpenChange={open => {
+        if (!open) handleClose();
+      }}
+    >
       <DialogContent>
         <DialogHeader>
           <DialogTitle>Ubah Lokasi</DialogTitle>

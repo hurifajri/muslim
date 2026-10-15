@@ -1,4 +1,8 @@
 allowBuilds:
   '@swc/core': true
+  # Native binaries are included; the JS launcher handles executable permissions.
+  agent-browser: false
   esbuild: true
   unrs-resolver: true
+minimumReleaseAgeExclude:
+  - agent-browser@0.39.1

@@ -1,24 +1,22 @@
 'use client';
 
-import { MenuIcon, PencilIcon, RefreshCwIcon, Share2Icon } from 'lucide-react';
+import { MenuIcon, RefreshCwIcon, SearchIcon, Share2Icon } from 'lucide-react';
 import dynamic from 'next/dynamic';
 import Link from 'next/link';
 import { ReactNode, useState } from 'react';
 
 import { EveningIcon } from '@/components/icons/evening';
 import { MorningIcon } from '@/components/icons/morning';
-import { MosqueIcon } from '@/components/icons/mosque';
 import { PrayIcon } from '@/components/icons/pray';
 import { ProphetIcon } from '@/components/icons/prophet';
 import { QuranIcon } from '@/components/icons/quran';
 import { AspectRatio } from '@/components/ui/aspect-ratio';
 import { Button } from '@/components/ui/button';
 import { toc } from '@/data/toc';
-import { useGregDate } from '@/hooks/use-greg-date';
-import { useHijriDate } from '@/hooks/use-hijri-date';
 import { useRandomDoa } from '@/hooks/use-random-doa';
 import { cn } from '@/lib/utils';
-import { useLocationStore } from '@/providers/location-store-provider';
+
+import { HomeDate, PrayerCard } from './prayer-card';
 
 const Location = dynamic(() => import('./location').then(mod => mod.Location));
 const Poster = dynamic(() => import('./poster').then(mod => mod.Poster));
@@ -39,23 +37,13 @@ export function HomeShell() {
   const [isOpenLocation, setIsOpenLocation] = useState(false);
   const [isOpenSettings, setIsOpenSettings] = useState(false);
 
-  const { city, country } = useLocationStore(state => state);
-  const { gregDate, gregTime, gregSeconds } = useGregDate();
-  const { prayingTimes, hijriDate } = useHijriDate({
-    mode: 'city',
-    city,
-    country,
-  });
   const { randomDoa, rollNewDoa } = useRandomDoa();
   const [isShareModalOpen, setIsShareModalOpen] = useState(false);
 
   return (
     <div className="bg-background relative flex min-h-dvh flex-col gap-4 overflow-hidden p-4 pt-[max(1rem,env(safe-area-inset-top))] pr-[max(1rem,env(safe-area-inset-right))] pb-[max(1rem,env(safe-area-inset-bottom))] pl-[max(1rem,env(safe-area-inset-left))]">
       <header className="relative flex items-center justify-between">
-        <div className="flex flex-col">
-          <span className="font-bold">{hijriDate}</span>
-          <span className="text-sm font-bold">{gregDate}</span>
-        </div>
+        <HomeDate />
         <Button
           size="icon"
           aria-label="Buka pengaturan"
@@ -64,39 +52,18 @@ export function HomeShell() {
           <MenuIcon />
         </Button>
       </header>
+      <Button asChild variant="outline" className="self-center">
+        <Link href="/bacaan">
+          <SearchIcon />
+          Cari bacaan & favorit
+        </Link>
+      </Button>
       <main className="w-full sm:flex sm:flex-1 sm:items-center sm:portrait:max-w-md sm:portrait:self-center sm:landscape:max-w-3xl sm:landscape:self-center">
         <div className="flex w-full flex-col gap-4 sm:landscape:flex-row">
           {/* Praying times and dzikir */}
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Praying times */}
-            <AspectRatio asChild ratio={16 / 9}>
-              <div className="from-secondary/50 to-primary/50 2xs:p-8 shadow-glass flex h-full flex-col justify-between overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-4 backdrop-blur-xs dark:border-white/30 dark:bg-linear-to-bl">
-                <div className="flex items-center justify-between">
-                  <Button
-                    variant="ghost"
-                    aria-label="Buka dialog lokasi"
-                    onClick={() => setIsOpenLocation(true)}
-                    className="-ml-4 text-xl font-bold capitalize"
-                  >
-                    {city}
-                    <PencilIcon />
-                  </Button>
-                  <span className="flex items-baseline font-bold tabular-nums">
-                    <span className="text-4xl">{gregTime}</span>
-                    <span className="ml-0.5 text-xl">{gregSeconds}</span>
-                  </span>
-                </div>
-                <div className="flex items-center justify-between">
-                  {prayingTimes.map(item => (
-                    <div key={item.id} className="flex flex-col items-center">
-                      <span className="text-sm font-bold">{item.name}</span>
-                      <span className="text-sm font-bold">{item.time}</span>
-                    </div>
-                  ))}
-                </div>
-                <MosqueIcon className="absolute top-0 -right-3/12 size-full scale-90 opacity-10" />
-              </div>
-            </AspectRatio>
+            <PrayerCard onOpenLocation={() => setIsOpenLocation(true)} />
 
             {/* Dzikir */}
             <div className="flex gap-4">
@@ -107,12 +74,8 @@ export function HomeShell() {
                   const { id, title, link } = content;
                   const bgClass =
                     id === 1
-                      ? 'bg-secondary/50 dark:bg-primary/50'
-                      : 'bg-primary/50 dark:bg-secondary/50';
-                  const textClass =
-                    id === 1
-                      ? 'text-secondary-foreground dark:text-primary-foreground'
-                      : 'text-primary-foreground dark:text-secondary-foreground';
+                      ? 'bg-secondary/50 text-secondary-foreground'
+                      : 'bg-primary text-primary-foreground';
 
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
@@ -124,9 +87,7 @@ export function HomeShell() {
                           )}
                         >
                           {Icons[id]}
-                          <h3 className={cn(textClass, 'text-sm font-bold')}>
-                            {title}
-                          </h3>
+                          <h3 className="text-sm font-bold">{title}</h3>
                         </div>
                       </AspectRatio>
                     </Link>
@@ -179,6 +140,7 @@ export function HomeShell() {
                 <h3 className="text-sm font-medium">{randomDoa.title}</h3>
                 <p
                   className="font-arabic text-right text-base leading-loose sm:line-clamp-3"
+                  lang="ar"
                   dir="rtl"
                 >
                   {randomDoa.arabic}
@@ -186,23 +148,35 @@ export function HomeShell() {
                 <p className="text-sm opacity-90 sm:line-clamp-2">
                   {randomDoa.translation}
                 </p>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="sm"
+                  className="self-start"
+                >
+                  <Link href={randomDoa.href ?? '/bacaan'}>Baca lengkap</Link>
+                </Button>
               </div>
             </div>
           </div>
         </div>
       </main>
       {/* Settings */}
-      <Settings
-        isOpen={isOpenSettings}
-        onClose={() => setIsOpenSettings(false)}
-      />
+      {isOpenSettings && (
+        <Settings
+          isOpen={isOpenSettings}
+          onClose={() => setIsOpenSettings(false)}
+        />
+      )}
       {/* Location picker */}
-      <Location
-        isOpen={isOpenLocation}
-        onClose={() => setIsOpenLocation(false)}
-      />
+      {isOpenLocation && (
+        <Location
+          isOpen={isOpenLocation}
+          onClose={() => setIsOpenLocation(false)}
+        />
+      )}
       {/* Share Poster Modal */}
-      {randomDoa && (
+      {isShareModalOpen && (
         <Poster
           isOpen={isShareModalOpen}
           onClose={() => setIsShareModalOpen(false)}

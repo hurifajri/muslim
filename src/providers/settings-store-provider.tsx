@@ -1,6 +1,12 @@
 'use client';
 
-import { createContext, type ReactNode, useContext, useState } from 'react';
+import {
+  createContext,
+  type ReactNode,
+  useContext,
+  useEffect,
+  useState,
+} from 'react';
 import { useStore } from 'zustand';
 
 import {
@@ -22,6 +28,9 @@ export const SettingsStoreProvider = ({
   children,
 }: SettingsStoreProviderProps) => {
   const [store] = useState(() => createSettingsStore());
+  useEffect(() => {
+    void store.persist.rehydrate();
+  }, [store]);
   return (
     <SettingsStoreContext.Provider value={store}>
       {children}

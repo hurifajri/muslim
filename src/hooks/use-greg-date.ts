@@ -1,6 +1,7 @@
 import { format } from 'date-fns';
-import { useEffect, useMemo, useState } from 'react';
+import { useMemo } from 'react';
 
+import { useNow } from '@/hooks/use-now';
 import { getDateFnsLocale } from '@/lib/locale';
 import type { GregDateResult } from '@/schemas/praying-time';
 
@@ -14,27 +15,8 @@ export type { GregDateResult };
  * until the browser clock is available after hydration.
  */
 export const useGregDate = (): GregDateResult => {
-  const [now, setNow] = useState<Date | null>(null);
+  const now = useNow();
   const locale = useMemo(() => getDateFnsLocale(), []);
-
-  useEffect(() => {
-    const update = () => setNow(new Date());
-    const onVisibilityChange = () => {
-      if (document.visibilityState === 'visible') update();
-    };
-
-    const timeout = window.setTimeout(update, 0);
-    const timer = window.setInterval(update, 1000);
-    document.addEventListener('visibilitychange', onVisibilityChange);
-    window.addEventListener('pageshow', update);
-
-    return () => {
-      window.clearTimeout(timeout);
-      window.clearInterval(timer);
-      document.removeEventListener('visibilitychange', onVisibilityChange);
-      window.removeEventListener('pageshow', update);
-    };
-  }, []);
 
   return {
     gregDate: now ? format(now, 'PPPP', { locale }) : '',

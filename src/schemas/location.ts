@@ -1,9 +1,20 @@
-import { type InferOutput, object, string } from 'valibot';
+import {
+  check,
+  type InferOutput,
+  minLength,
+  object,
+  optional,
+  pipe,
+  string,
+} from 'valibot';
+
+import { isTimeZone } from '@/lib/prayer-time';
 
 // ─── Location State ───────────────────────────────────────────────────────────
 
 export const LocationStateSchema = object({
-  city: string(),
-  country: string(),
+  city: pipe(string(), minLength(1)),
+  country: pipe(string(), minLength(1)),
+  timeZone: optional(pipe(string(), check(isTimeZone))),
 });
 export type LocationState = InferOutput<typeof LocationStateSchema>;
