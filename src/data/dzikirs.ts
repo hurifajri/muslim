@@ -4,7 +4,8 @@ export const dzikirs: ParentItem[] = [
   {
     id: 1,
     title: `Membaca Isti'adzah atau Ta'awudz`,
-    note: '',
+    note: '1x',
+    repetitions: 1,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -21,6 +22,7 @@ export const dzikirs: ParentItem[] = [
     id: 2,
     title: 'Membaca Ayat Kursi',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -44,6 +46,7 @@ export const dzikirs: ParentItem[] = [
     id: 3,
     title: 'Membaca 3 Qul',
     note: '3x',
+    repetitions: 3,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -83,6 +86,7 @@ export const dzikirs: ParentItem[] = [
     id: 4,
     title: 'Memohon Kebaikan dan Perlindungan',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi'],
     items: [
       {
@@ -106,6 +110,7 @@ export const dzikirs: ParentItem[] = [
     id: 5,
     title: 'Memohon Kebaikan dan Perlindungan',
     note: '1x',
+    repetitions: 1,
     categories: ['petang'],
     items: [
       {
@@ -129,6 +134,7 @@ export const dzikirs: ParentItem[] = [
     id: 6,
     title: 'Memuji Allah Ketika Memasuki Waktu Pagi',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi'],
     items: [
       {
@@ -146,6 +152,7 @@ export const dzikirs: ParentItem[] = [
     id: 7,
     title: 'Memuji Allah Ketika Memasuki Waktu Petang',
     note: '1x',
+    repetitions: 1,
     categories: ['petang'],
     items: [
       {
@@ -163,6 +170,7 @@ export const dzikirs: ParentItem[] = [
     id: 8,
     title: 'Membaca Sayyidul Istighfar',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -185,6 +193,7 @@ export const dzikirs: ParentItem[] = [
     id: 9,
     title: 'Memuji dan Mentauhidkan Allah di Waktu Pagi',
     note: '4x',
+    repetitions: 4,
     categories: ['pagi'],
     items: [
       {
@@ -208,6 +217,7 @@ export const dzikirs: ParentItem[] = [
     id: 10,
     title: 'Memuji dan Mentauhidkan Allah di Waktu Petang',
     note: '4x',
+    repetitions: 4,
     categories: ['petang'],
     items: [
       {
@@ -231,6 +241,7 @@ export const dzikirs: ParentItem[] = [
     id: 11,
     title: 'Memohon Kebaikan dan Keselamatan Dunia dan Akhirat',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -254,6 +265,7 @@ export const dzikirs: ParentItem[] = [
     id: 12,
     title: 'Memohon Perlindungan dari Kejahatan Diri dan Setan',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -277,6 +289,7 @@ export const dzikirs: ParentItem[] = [
     id: 13,
     title: 'Memohon Dihindarkan dari Bahaya yang Tiba-tiba',
     note: '3x',
+    repetitions: 3,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -300,6 +313,7 @@ export const dzikirs: ParentItem[] = [
     id: 14,
     title: 'Memohon Keridaan Allah',
     note: '3x',
+    repetitions: 3,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -323,6 +337,7 @@ export const dzikirs: ParentItem[] = [
     id: 15,
     title: 'Memohon Pertolongan dalam Segala Urusan',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -346,6 +361,7 @@ export const dzikirs: ParentItem[] = [
     id: 16,
     title: 'Mengikrarkan Tauhid di Waktu Pagi',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi'],
     items: [
       {
@@ -363,6 +379,7 @@ export const dzikirs: ParentItem[] = [
     id: 17,
     title: 'Bertasbih kepada Allah',
     note: '100x',
+    repetitions: 100,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -385,6 +402,7 @@ export const dzikirs: ParentItem[] = [
     id: 18,
     title: 'Mentauhidkan Allah',
     note: '10x',
+    repetitions: 10,
     categories: ['pagi', 'petang'],
     items: [
       {
@@ -414,6 +432,7 @@ export const dzikirs: ParentItem[] = [
     id: 19,
     title: 'Memuji Allah',
     note: '3x',
+    repetitions: 3,
     categories: ['pagi'],
     items: [
       {
@@ -436,6 +455,7 @@ export const dzikirs: ParentItem[] = [
     id: 20,
     title: 'Memohon Ilmu yang Bermanfaat',
     note: '1x',
+    repetitions: 1,
     categories: ['pagi'],
     items: [
       {
@@ -453,6 +473,7 @@ export const dzikirs: ParentItem[] = [
     id: 21,
     title: 'Membaca Istighfar',
     note: '100x',
+    repetitions: 100,
     categories: ['pagi'],
     items: [
       {
@@ -469,6 +490,7 @@ export const dzikirs: ParentItem[] = [
     id: 22,
     title: 'Memohon Perlindungan dari Kejahatan',
     note: '3x',
+    repetitions: 3,
     categories: ['petang'],
     items: [
       {

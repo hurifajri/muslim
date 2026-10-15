@@ -10,7 +10,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ إِنِّي أَعُوذُ بِكَ أَنْ أَسْأَلَكَ مَا لَيْسَ لِي بِهِ عِلْمٌ وَإِلَّا تَغْفِرْ لِي وَتَرْحَمْنِي أَكُنْ مِنَ الْخَاسِرِينَ`,
-        transliteration: '',
+        transliteration: `Rabbi innii a'uudzu bika an as'alaka maa laisa lii bihi 'ilmun, wa illaa taghfir lii wa tarhamnii akun minal-khaasiriin.`,
         translation: `Ya Tuhanku, sesungguhnya aku berlindung kepada Engkau dari memohon kepada Engkau sesuatu yang aku tiada mengetahui (hakikat)nya. Dan sekiranya Engkau tidak memberi ampun kepadaku, dan (tidak) menaruh belas kasihan kepadaku, niscaya aku akan termasuk orang-orang yang merugi.`,
         narrator: 'QS. Hud: 47',
         benefits: [],
@@ -18,7 +18,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبَّنَا آمَنَّا فَاغْفِرْ لَنَا وَارْحَمْنَا وَأَنْتَ خَيْرُ الرَّاحِمِينَ`,
-        transliteration: '',
+        transliteration: `Rabbanaa aamannaa faghfir lanaa warhamnaa wa anta khairur-raahimiin.`,
         translation: `Ya Tuhan kami, kami telah beriman, maka ampunilah kami dan berilah kami rahmat dan Engkau adalah Pemberi rahmat Yang Paling Baik.`,
         narrator: `QS. Al-Mu'minun: 109`,
         benefits: [],
@@ -26,7 +26,7 @@ export const doas: ParentItem[] = [
       {
         id: 3,
         arabic: `رَبَّنَا اغْفِرْ لَنَا ذُنُوبَنَا وَإِسْرَافَنَا فِي أَمْرِنَا وَثَبِّتْ أَقْدَامَنَا وَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ`,
-        transliteration: '',
+        transliteration: `Rabbanaghfir lanaa dzunuubanaa wa israafanaa fii amrinaa wa tsabbit aqdaamanaa wanshurnaa 'alal-qaumil-kaafiriin.`,
         translation: `Ya Tuhan kami, ampunilah dosa-dosa kami dan tindakan-tindakan kami yang berlebih-lebihan dalam urusan kami dan tetapkanlah pendirian kami, dan tolonglah kami terhadap kaum yang kafir.`,
         narrator: `QS. Ali 'Imran: 147`,
         benefits: [],
@@ -34,7 +34,7 @@ export const doas: ParentItem[] = [
       {
         id: 4,
         arabic: `رَبَّنَا إِنَّنَا آمَنَّا فَاغْفِرْ لَنَا ذُنُوبَنَا وَقِنَا عَذَابَ النَّارِ`,
-        transliteration: '',
+        transliteration: `Rabbanaa innanaa aamannaa faghfir lanaa dzunuubanaa wa qinaa 'adzaaban-naar.`,
         translation: `Ya Tuhan kami, sesungguhnya kami telah beriman, maka ampunilah segala dosa kami dan peliharalah kami dari siksa neraka.`,
         narrator: `QS. Ali 'Imran: 16`,
         benefits: [],
@@ -42,7 +42,7 @@ export const doas: ParentItem[] = [
       {
         id: 5,
         arabic: `رَبَّنَا إِنَّنَا سَمِعْنَا مُنَادِيًا يُنَادِي لِلْإِيمَانِ أَنْ آمِنُوا بِرَبِّكُمْ فَآمَنَّا رَبَّنَا فَاغْفِرْ لَنَا ذُنُوبَنَا وَكَفِّرْ عَنَّا سَيِّئَاتِنَا وَتَوَفَّنَا مَعَ الْأَبْرَارِ رَبَّنَا وَآتِنَا مَا وَعَدْتَنَا عَلَى رُسُلِكَ وَلَا تُخْزِنَا يَوْمَ الْقِيَامَةِ إِنَّكَ لَا تُخْلِفُ الْمِيعَادَ`,
-        transliteration: '',
+        transliteration: `Rabbanaa innanaa sami'naa munaadiyan yunaadii lil-iimaani an aaminuu birabbikum fa aamannaa. Rabbanaa faghfir lanaa dzunuubanaa wa kaffir 'annaa sayyi'aatinaa wa tawaffanaa ma'al-abraar. Rabbanaa wa aatinaa maa wa'adtanaa 'alaa rusulika wa laa tukhzinaa yaumal-qiyaamah, innaka laa tukhliful-mii'aad.`,
         translation: `Ya Tuhan kami, sesungguhnya kami mendengar (seruan) yang menyeru kepada iman, (yaitu): "Berimanlah kamu kepada Tuhanmu", maka kami pun beriman. Ya Tuhan kami, ampunilah bagi kami dosa-dosa kami dan hapuskanlah dari kami kesalahan-kesalahan kami, dan wafatkanlah kami beserta orang-orang yang banyak berbakti. Ya Tuhan kami, berilah kami apa yang telah Engkau janjikan kepada kami dengan perantaraan rasul-rasul Engkau. Dan janganlah Engkau hinakan kami di hari kiamat. Sesungguhnya Engkau tidak menyalahi janji.`,
         narrator: `QS. Ali 'Imran: 193-194`,
         benefits: [],
@@ -50,7 +50,7 @@ export const doas: ParentItem[] = [
       {
         id: 6,
         arabic: `رَبِّ إِنِّي ظَلَمْتُ نَفْسِي فَاغْفِرْ لِي فَغَفَرَ لَهُ إِنَّهُ هُوَ الْغَفُورُ الرَّحِيمُ`,
-        transliteration: '',
+        transliteration: `Rabbi innii zhalamtu nafsii faghfir lii, faghafara lahuu innahuu huwal-ghafuurur-rahiim.`,
         translation: `Ya Tuhanku, sesungguhnya aku telah menganiaya diriku sendiri karena itu ampunilah aku". Maka Allah mengampuninya, sesungguhnya Allah Dialah Yang Maha Pengampun lagi Maha Penyayang.`,
         narrator: 'QS. Al-Qashash: 16',
         benefits: [],
@@ -58,7 +58,7 @@ export const doas: ParentItem[] = [
       {
         id: 7,
         arabic: `رَبَّنَا لَا تُؤَاخِذْنَا إِنْ نَسِينَا أَوْ أَخْطَأْنَا رَبَّنَا وَلَا تَحْمِلْ عَلَيْنَا إِصْرًا كَمَا حَمَلْتَهُ عَلَى الَّذِينَ مِنْ قَبْلِنَا رَبَّنَا وَلَا تُحَمِّلْنَا مَا لَا طَاقَةَ لَنَا بِهِ وَاعْفُ عَنَّا وَاغْفِرْ لَنَا وَارْحَمْنَا أَنْتَ مَوْلَانَا فَانْصُرْنَا عَلَى الْقَوْمِ الْكَافِرِينَ`,
-        transliteration: '',
+        transliteration: `Rabbanaa laa tu'aakhidznaa in nasiinaa au akhtha'naa. Rabbanaa wa laa tahmil 'alainaa ishran kamaa hamaltahuu 'alal-ladziina min qablinaa. Rabbanaa wa laa tuhammilnaa maa laa thaaqata lanaa bih. Wa'fu 'annaa, waghfir lanaa, warhamnaa. Anta maulaanaa fanshurnaa 'alal-qaumil-kaafiriin.`,
         translation: `Ya Tuhan kami, janganlah Engkau hukum kami jika kami lupa atau kami tersalah. Ya Tuhan kami, janganlah Engkau bebankan kepada kami beban yang berat sebagaimana Engkau bebankan kepada orang-orang sebelum kami. Ya Tuhan kami, janganlah Engkau pikulkan kepada kami apa yang tak sanggup kami memikulnya. Beri maaflah kami; ampunilah kami; dan rahmatilah kami. Engkaulah Penolong kami, maka tolonglah kami terhadap kaum yang kafir.`,
         narrator: 'QS. Al-Baqarah: 286',
         benefits: [],
@@ -66,7 +66,7 @@ export const doas: ParentItem[] = [
       {
         id: 8,
         arabic: `رَبَّنَا ظَلَمْنَا أَنْفُسَنَا وَإِنْ لَمْ تَغْفِرْ لَنَا وَتَرْحَمْنَا لَنَكُونَنَّ مِنَ الْخَاسِرِينَ`,
-        transliteration: '',
+        transliteration: `Rabbanaa zhalamnaa anfusanaa wa in lam taghfir lanaa wa tarhamnaa lanakuunanna minal-khaasiriin.`,
         translation: `Ya Tuhan kami, kami telah menganiaya diri kami sendiri, dan jika Engkau tidak mengampuni kami dan memberi rahmat kepada kami, niscaya pastilah kami termasuk orang-orang yang merugi.`,
         narrator: `QS. Al-A'raf: 23`,
         benefits: [],
@@ -82,7 +82,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ هَبْ لِي حُكْمًا وَأَلْحِقْنِي بِالصَّالِحِينَ وَاجْعَلْ لِي لِسَانَ صِدْقٍ فِي الْآخِرِينَ وَاجْعَلْنِي مِنْ وَرَثَةِ جَنَّةِ النَّعِيمِ`,
-        transliteration: '',
+        transliteration: `Rabbi hab lii hukman wa alhiqnii bish-shaalihiin. Waj'al lii lisaana shidqin fil-aakhiriin. Waj'alnii min waratsati jannatin-na'iim.`,
         translation: `Ya Tuhanku, berikanlah kepadaku hikmah dan masukkanlah aku ke dalam golongan orang-orang yang saleh. Dan jadikanlah aku buah tutur yang baik bagi orang-orang (yang datang) kemudian. Dan jadikanlah aku termasuk orang-orang yang mempusakai surga yang penuh kenikmatan.`,
         narrator: `QS. Asy-Syu'ara': 83-85`,
         benefits: [],
@@ -90,7 +90,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبَّنَا آمَنَّا فَاكْتُبْنَا مَعَ الشَّاهِدِينَ`,
-        transliteration: '',
+        transliteration: `Rabbanaa aamannaa faktubnaa ma'asy-syaahidiin.`,
         translation: `Ya Tuhan kami, kami telah beriman, maka catatlah kami bersama orang-orang yang menjadi saksi (atas kebenaran Al-Qur'an dan kenabian Muhammad).`,
         narrator: `QS. Al-Ma'idah: 83`,
         benefits: [],
@@ -106,7 +106,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ لَا تَذَرْنِي فَرْدًا وَأَنْتَ خَيْرُ الْوَارِثِينَ`,
-        transliteration: '',
+        transliteration: `Rabbi laa tadzarnii fardan wa anta khairul-waaritsiin.`,
         translation: `Ya Tuhanku, janganlah Engkau membiarkan aku hidup seorang diri dan Engkaulah Waris Yang Paling Baik.`,
         narrator: `QS. Al-Anbiya': 89`,
         benefits: [],
@@ -114,7 +114,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبِّ هَبْ لِي مِنَ الصَّالِحِينَ`,
-        transliteration: '',
+        transliteration: `Rabbi hab lii minash-shaalihiin.`,
         translation: `Ya Tuhanku, anugerahkanlah kepadaku (seorang anak) yang termasuk orang-orang yang saleh.`,
         narrator: 'QS. Ash-Shaffat: 100',
         benefits: [],
@@ -122,7 +122,7 @@ export const doas: ParentItem[] = [
       {
         id: 3,
         arabic: `رَبِّ هَبْ لِي مِنْ لَدُنْكَ ذُرِّيَّةً طَيِّبَةً إِنَّكَ سَمِيعُ الدُّعَاءِ`,
-        transliteration: '',
+        transliteration: `Rabbi hab lii min ladunka dzurriyyatan thayyibatan, innaka samii'ud-du'aa'.`,
         translation: `Ya Tuhanku, berilah aku dari sisi Engkau seorang anak yang baik. Sesungguhnya Engkau Maha Pendengar doa.`,
         narrator: `QS. Ali 'Imran: 38`,
         benefits: [],
@@ -130,7 +130,7 @@ export const doas: ParentItem[] = [
       {
         id: 4,
         arabic: `رَبَّنَا هَبْ لَنَا مِنْ أَزْوَاجِنَا وَذُرِّيَّاتِنَا قُرَّةَ أَعْيُنٍ وَاجْعَلْنَا لِلْمُتَّقِينَ إِمَامًا`,
-        transliteration: '',
+        transliteration: `Rabbanaa hab lanaa min azwaajinaa wa dzurriyyaatinaa qurrata a'yunin waj'alnaa lil-muttaqiina imaamaa.`,
         translation: `Ya Tuhan kami, anugerahkanlah kepada kami istri-istri kami dan keturunan kami sebagai penyenang hati (kami), dan jadikanlah kami imam bagi orang-orang yang bertakwa.`,
         narrator: 'QS. Al-Furqan: 74',
         benefits: [],
@@ -146,7 +146,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا اغْفِرْ لِي وَلِوَالِدَيَّ وَلِلْمُؤْمِنِينَ يَوْمَ يَقُومُ الْحِسَابُ`,
-        transliteration: '',
+        transliteration: `Rabbanaghfir lii wa liwaalidayya wa lil-mu'miniina yauma yaquumul-hisaab.`,
         translation: `Ya Tuhan kami, beri ampunlah aku dan kedua ibu bapakku dan sekalian orang-orang mukmin pada hari terjadinya hisab (hari kiamat).`,
         narrator: 'QS. Ibrahim: 41',
         benefits: [],
@@ -154,7 +154,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبَّنَا اغْفِرْ لَنَا وَلِإِخْوَانِنَا الَّذِينَ سَبَقُونَا بِالْإِيمَانِ وَلَا تَجْعَلْ فِي قُلُوبِنَا غِلًّا لِلَّذِينَ آمَنُوا رَبَّنَا إِنَّكَ رَءُوفٌ رَحِيمٌ`,
-        transliteration: '',
+        transliteration: `Rabbanaghfir lanaa wa li-ikhwaaninal-ladziina sabaquunaa bil-iimaani wa laa taj'al fii quluubinaa ghillan lil-ladziina aamanuu. Rabbanaa innaka ra'uufur-rahiim.`,
         translation: `Ya Rabb kami, beri ampunlah kami dan saudara-saudara kami yang telah beriman lebih dulu dari kami, dan janganlah Engkau membiarkan kedengkian dalam hati kami terhadap orang-orang yang beriman; Ya Rabb kami, Sesungguhnya Engkau Maha Penyantun lagi Maha Penyayang.`,
         narrator: 'QS. Al-Hasyr: 10',
         benefits: [],
@@ -162,7 +162,7 @@ export const doas: ParentItem[] = [
       {
         id: 3,
         arabic: `رَبِّ اغْفِرْ لِي وَلِوَالِدَيَّ وَلِمَنْ دَخَلَ بَيْتِيَ مُؤْمِنًا وَلِلْمُؤْمِنِينَ وَالْمُؤْمِنَاتِ وَلَا تَزِدِ الظَّالِمِينَ إِلَّا تَبَارًا`,
-        transliteration: '',
+        transliteration: `Rabbighfir lii wa liwaalidayya wa liman dakhala baitiya mu'minan wa lil-mu'miniina wal-mu'minaati wa laa tazidizh-zhaalimiina illaa tabaaraa.`,
         translation: `Ya Tuhanku! Ampunilah aku, ibu bapakku, orang yang masuk ke rumahku dengan beriman dan semua orang yang beriman laki-laki dan perempuan. Dan janganlah Engkau tambahkan bagi orang-orang yang zalim itu selain kebinasaan.`,
         narrator: 'QS. Nuh: 28',
         benefits: [],
@@ -178,7 +178,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ اجْعَلْنِي مُقِيمَ الصَّلَاةِ وَمِنْ ذُرِّيَّتِي رَبَّنَا وَتَقَبَّلْ دُعَاءِ`,
-        transliteration: '',
+        transliteration: `Rabbij'alnii muqiimash-shalaati wa min dzurriyyatii, rabbanaa wa taqabbal du'aa'.`,
         translation: `Ya Tuhanku, jadikanlah aku dan anak cucuku orang-orang yang tetap mendirikan salat, ya Tuhan kami, perkenankanlah doaku.`,
         narrator: 'QS. Ibrahim: 40',
         benefits: [],
@@ -194,7 +194,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ نَجِّنِي مِنَ الْقَوْمِ الظَّالِمِينَ`,
-        transliteration: '',
+        transliteration: `Rabbi najjinii minal-qaumizh-zhaalimiin.`,
         translation: `Ya Tuhanku, selamatkanlah aku dari orang-orang yang zalim.`,
         narrator: 'QS. Al-Qashash: 21',
         benefits: [],
@@ -202,7 +202,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبَّنَا لَا تَجْعَلْنَا مَعَ الْقَوْمِ الظَّالِمِينَ`,
-        transliteration: '',
+        transliteration: `Rabbanaa laa taj'alnaa ma'al-qaumizh-zhaalimiin.`,
         translation: `Ya Tuhan kami, janganlah Engkau tempatkan kami bersama-sama orang-orang yang zalim.`,
         narrator: `QS. Al-A'raf: 47`,
         benefits: [],
@@ -210,7 +210,7 @@ export const doas: ParentItem[] = [
       {
         id: 3,
         arabic: `رَبِّ انْصُرْنِي عَلَى الْقَوْمِ الْمُفْسِدِينَ`,
-        transliteration: '',
+        transliteration: `Rabbinshurnii 'alal-qaumil-mufsidiin.`,
         translation: `Ya Tuhanku, tolonglah aku (dengan menimpakan azab) atas kaum yang berbuat kerusakan.`,
         narrator: 'QS. Al-Ankabut: 30',
         benefits: [],
@@ -226,7 +226,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا تَقَبَّلْ مِنَّا إِنَّكَ أَنْتَ السَّمِيعُ الْعَلِيمُ وَتُبْ عَلَيْنَا إِنَّكَ أَنْتَ التَّوَّابُ الرَّحِيمُ`,
-        transliteration: '',
+        transliteration: `Rabbanaa taqabbal minnaa innaka antas-samii'ul-'aliim, wa tub 'alainaa innaka antat-tawwaabur-rahiim.`,
         translation: `Ya Tuhan kami, terimalah dari kami (amalan kami), dan terimalah tobat kami. Sesungguhnya Engkaulah Yang Maha Penerima tobat lagi Maha Penyayang.`,
         narrator: 'QS. Al-Baqarah: 127-128',
         benefits: [],
@@ -242,7 +242,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا عَلَيْكَ تَوَكَّلْنَا وَإِلَيْكَ أَنَبْنَا وَإِلَيْكَ الْمَصِيرُ`,
-        transliteration: '',
+        transliteration: `Rabbanaa 'alaika tawakkalnaa wa ilaika anabnaa wa ilaikal-mashiir.`,
         translation: `Ya Tuhan kami, hanya kepada Engkaulah kami bertawakal dan hanya kepada Engkaulah kami bertobat dan hanya kepada Engkaulah kami kembali.`,
         narrator: 'QS. Al-Mumtahanah: 4',
         benefits: [],
@@ -250,7 +250,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `حَسْبِيَ اللَّهُ لَا إِلَهَ إِلَّا هُوَ عَلَيْهِ تَوَكَّلْتُ وَهُوَ رَبُّ الْعَرْشِ الْعَظِيمِ`,
-        transliteration: '',
+        transliteration: `Hasbiyallaahu laa ilaaha illaa huwa, 'alaihi tawakkaltu wa huwa rabbul-'arsyil-'azhiim.`,
         translation: `Cukuplah Allah bagiku; tidak ada Tuhan selain Dia. Hanya kepada-Nya aku bertawakal dan Dia adalah Tuhan yang memiliki 'Arsy yang agung.`,
         narrator: 'QS. At Taubah: 129',
         benefits: [],
@@ -266,7 +266,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِلَّذِينَ كَفَرُوا وَاغْفِرْ لَنَا رَبَّنَا إِنَّكَ أَنْتَ الْعَزِيزُ الْحَكِيمُ`,
-        transliteration: '',
+        transliteration: `Rabbanaa laa taj'alnaa fitnatan lil-ladziina kafaruu waghfir lanaa rabbanaa, innaka antal-'aziizul-hakiim.`,
         translation: `Ya Tuhan kami, janganlah Engkau jadikan kami (sasaran) fitnah bagi orang-orang kafir. Dan ampunilah kami ya Tuhan kami. Sesungguhnya Engkaulah Yang Maha Perkasa lagi Maha Bijaksana.`,
         narrator: 'QS. Al-Mumtahanah: 5',
         benefits: [],
@@ -274,7 +274,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبَّنَا لَا تَجْعَلْنَا فِتْنَةً لِلْقَوْمِ الظَّالِمِينَ وَنَجِّنَا بِرَحْمَتِكَ مِنَ الْقَوْمِ الْكَافِرِينَ`,
-        transliteration: '',
+        transliteration: `Rabbanaa laa taj'alnaa fitnatan lil-qaumizh-zhaalimiin. Wa najjinaa birahmatika minal-qaumil-kaafiriin.`,
         translation: `Ya Tuhan kami, janganlah Engkau jadikan kami sasaran fitnah bagi kaum yang zalim dan selamatkanlah kami dengan rahmat Engkau dari (tipu daya) orang-orang yang kafir.`,
         narrator: 'QS. Yunus: 85-86',
         benefits: [],
@@ -290,7 +290,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ زِدْنِي عِلْمًا`,
-        transliteration: '',
+        transliteration: `Rabbi zidnii 'ilmaa.`,
         translation: `Ya Tuhanku, tambahkanlah aku ilmu.`,
         narrator: 'QS. Thaha: 114',
         benefits: [],
@@ -306,7 +306,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا أَتْمِمْ لَنَا نُورَنَا وَاغْفِرْ لَنَا إِنَّكَ عَلَى كُلِّ شَيْءٍ قَدِيرٌ`,
-        transliteration: '',
+        transliteration: `Rabbanaa atmim lanaa nuuranaa waghfir lanaa, innaka 'alaa kulli syai'in qadiir.`,
         translation: `Ya Rabb kami, sempurnakanlah bagi kami cahaya kami dan ampunilah kami; Sesungguhnya Engkau Mahakuasa atas segala sesuatu.`,
         narrator: 'QS. At-Tahrim: 8',
         benefits: [],
@@ -322,7 +322,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا آتِنَا فِي الدُّنْيَا حَسَنَةً وَفِي الْآخِرَةِ حَسَنَةً وَقِنَا عَذَابَ النَّارِ`,
-        transliteration: '',
+        transliteration: `Rabbanaa aatinaa fid-dunyaa hasanatan wa fil-aakhirati hasanatan wa qinaa 'adzaaban-naar.`,
         translation: `Ya Tuhan kami, berilah kami kebaikan di dunia dan kebaikan di akhirat dan peliharalah kami dari siksa neraka.`,
         narrator: 'QS. Al-Baqarah: 201',
         benefits: [],
@@ -338,7 +338,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَدْخِلْنِي بِرَحْمَتِكَ فِي عِبَادِكَ الصَّالِحِينَ`,
-        transliteration: '',
+        transliteration: `Rabbi auzi'nii an asykura ni'matakal-latii an'amta 'alayya wa 'alaa waalidayya wa an a'mala shaalihan tardhaahu wa adkhilnii birahmatika fii 'ibaadikash-shaalihiin.`,
         translation: `Ya Tuhanku, berilah aku ilham untuk tetap mensyukuri nikmat-Mu yang telah Engkau anugerahkan kepadaku dan kepada dua orang ibu bapakku dan untuk mengerjakan amal saleh yang Engkau ridai; dan masukkanlah aku dengan rahmat-Mu ke dalam golongan hamba-hamba-Mu yang saleh.`,
         narrator: 'QS. An-Naml: 19',
         benefits: [],
@@ -346,7 +346,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَى وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ وَأَصْلِحْ لِي فِي ذُرِّيَّتِي إِنِّي تُبْتُ إِلَيْكَ وَإِنِّي مِنَ الْمُسْلِمِينَ`,
-        transliteration: '',
+        transliteration: `Rabbi auzi'nii an asykura ni'matakal-latii an'amta 'alayya wa 'alaa waalidayya wa an a'mala shaalihan tardhaahu wa ashlih lii fii dzurriyyatii, innii tubtu ilaika wa innii minal-muslimiin.`,
         translation: `Ya Tuhanku, tunjukilah aku untuk mensyukuri nikmat Engkau yang telah Engkau berikan kepadaku dan kepada ibu bapakku dan supaya aku dapat berbuat amal yang saleh yang Engkau ridai; berilah kebaikan kepadaku dengan (memberi kebaikan) kepada anak cucuku. Sesungguhnya aku bertobat kepada Engkau dan sesungguhnya aku termasuk orang-orang yang berserah diri.`,
         narrator: 'QS. Al-Ahqaf: 15',
         benefits: [],
@@ -362,7 +362,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ أَعُوذُ بِكَ مِنْ هَمَزَاتِ الشَّيَاطِينِ  وَأَعُوذُ بِكَ رَبِّ أَنْ يَحْضُرُونِ`,
-        transliteration: '',
+        transliteration: `Rabbi a'uudzu bika min hamazaat isy-syayaathiin. Wa a'uudzu bika rabbi an yahdhuruun.`,
         translation: `Ya Tuhanku, aku berlindung kepada Engkau dari bisikan-bisikan setan, dan aku berlindung (pula) kepada Engkau ya Tuhanku, dari kedatangan mereka kepadaku.`,
         narrator: `QS. Al-Mu'minun: 97-98`,
         benefits: [],
@@ -378,7 +378,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا لَا تُزِغْ قُلُوبَنَا بَعْدَ إِذْ هَدَيْتَنَا وَهَبْ لَنَا مِنْ لَدُنْكَ رَحْمَةً إِنَّكَ أَنْتَ الْوَهَّابُ`,
-        transliteration: '',
+        transliteration: `Rabbanaa laa tuzigh quluubanaa ba'da idz hadaitanaa wa hab lanaa min ladunka rahmatan, innaka antal-wahhaab.`,
         translation: `Ya Tuhan kami, janganlah Engkau jadikan hati kami condong kepada kesesatan sesudah Engkau beri petunjuk kepada kami, dan karuniakanlah kepada kami rahmat dari sisi Engkau; karena sesungguhnya Engkaulah Maha Pemberi (karunia).`,
         narrator: `QS. Ali 'Imran: 8`,
         benefits: [],
@@ -394,7 +394,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ اشْرَحْ لِي صَدْرِي  وَيَسِّرْ لِي أَمْرِي وَاحْلُلْ عُقْدَةً مِنْ لِسَانِي  يَفْقَهُوا قَوْلِي`,
-        transliteration: '',
+        transliteration: `Rabbisyrah lii shadrii. Wa yassir lii amrii. Wahlul 'uqdatan min lisaanii. Yafqahuu qaulii.`,
         translation: `Ya Tuhanku, lapangkanlah untukku dadaku, dan mudahkanlah untukku urusanku, dan lepaskanlah kekakuan dari lidahku, supaya mereka mengerti perkataanku.`,
         narrator: 'QS. Thaha: 25-28',
         benefits: [],
@@ -402,7 +402,7 @@ export const doas: ParentItem[] = [
       {
         id: 2,
         arabic: `رَبَّنَا آتِنَا مِنْ لَدُنْكَ رَحْمَةً وَهَيِّئْ لَنَا مِنْ أَمْرِنَا رَشَدًا`,
-        transliteration: '',
+        transliteration: `Rabbanaa aatinaa min ladunka rahmatan wa hayyi' lanaa min amrinaa rasyadaa.`,
         translation: `Wahai Tuhan kami, berikanlah rahmat kepada kami dari sisi-Mu dan sempurnakanlah bagi kami petunjuk yang lurus dalam urusan kami (ini).`,
         narrator: 'QS. Al-Kahfi: 10',
         benefits: [],
@@ -418,7 +418,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبِّ اجْعَلْ هَذَا الْبَلَدَ آمِنًا وَاجْنُبْنِي وَبَنِيَّ أَنْ نَعْبُدَ الْأَصْنَامَ`,
-        transliteration: '',
+        transliteration: `Rabbij'al haadzal-balada aaminan wajnubnii wa baniyya an na'budal-ashnaam.`,
         translation: `Ya Tuhanku, jadikanlah negeri ini (Mekah), negeri yang aman, dan jauhkanlah aku beserta anak cucuku dari menyembah berhala-berhala.`,
         narrator: 'QS. Ibrahim: 35',
         benefits: [],
@@ -434,7 +434,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `رَبَّنَا اصْرِفْ عَنَّا عَذَابَ جَهَنَّمَ إِنَّ عَذَابَهَا كَانَ غَرَامًا  إِنَّهَا سَاءَتْ مُسْتَقَرًّا وَمُقَامًا`,
-        transliteration: '',
+        transliteration: `Rabbanashrif 'annaa 'adzaaba jahannama inna 'adzaabahaa kaana gharaamaa. Innahaa saa'at mustaqarran wa muqaamaa.`,
         translation: `Ya Tuhan kami, jauhkan azab jahannam dari kami, sesungguhnya azabnya itu adalah kebinasaan yang kekal. Sesungguhnya jahannam itu seburuk-buruk tempat menetap dan tempat kediaman.`,
         narrator: 'QS. Al-Furqan: 65-66',
         benefits: [],
@@ -450,7 +450,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اَللَّهُمَّ يا مُصَرِّفَ الْقُلُوْبِ، صَرِّفْ قُلُوْبَنَا عَلَى دِينِكَ`,
-        transliteration: '',
+        transliteration: `Allaahumma yaa musharrifal-quluub, sharrif quluubanaa 'alaa diinika.`,
         translation: `Wahai Tuhan yang membolak-balikkan hati, teguhkanlah hatiku pada agama-Mu.`,
         narrator: 'HR. Muslim No. 2654',
         benefits: [],
@@ -466,7 +466,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اَللّهُمَّ اغْفِرْ لِيْ خَطِيْئَتِيْ، وَجَهْلِيْ، وَإِسْرَافِيْ فِي أَمْرِيْ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّيْ. اللّهُمَّ اغْفِرْ لِيْ جَدِّيْ وَهَزْلِيْ، وَخَطَئِيْ وَعَمْدِيْ، وَكُلُّ ذلِكَ عِنْدِيْ، اللّهُمَّ اغْفِرْ لِيْ مَا قَدَّمْتُ، وَمَا أَخَّرْتُ، وَمَا أَسْرَرْتُ، وَمَا أَعْلَنْتُ، وَمَا أَنْتَ أَعْلَمُ بِهِ مِنِّيْ، أَنْتَ الْمُقَدِّمُ، وَأَنْتَ الْمُؤَخِّرُ، وَأَنْتَ عَلَى كُلِّ شَيْءٍ قَدِيْرٌ.`,
-        transliteration: '',
+        transliteration: `Allaahummaghfir lii khathii'atii wa jahlii wa israafii fii amrii wa maa anta a'lamu bihii minnii. Allaahummaghfir lii jiddii wa hazlii wa khatha'ii wa 'amdii wa kullu dzaalika 'indii. Allaahummaghfir lii maa qaddamtu wa maa akhkhartu wa maa asrartu wa maa a'lantu wa maa anta a'lamu bihii minnii. Antal-muqaddimu wa antal-mu'akhkhiru wa anta 'alaa kulli syai'in qadiir.`,
         translation: `Ya Allah, ampunilah kesalahanku, kebodohanku, keberlebih-lebihan dalam perkaraku, dan apa yang Engkau lebih mengetahui dariku. Ya Allah, ampunilah diriku dalam kesungguhanku, kelalaianku, kesalahanku, kesengajaanku, dan semua itu adalah berasal dari sisiku. Ya Allah, ampunilah aku dari segala dosa yang telah aku lakukan dan yang belum aku lakukan, segala dosa yang aku sembunyikan dan yang aku tampakkan, dan dosa yang Engkau lebih mengetahui dariku, Engkaulah Yang Maha Mendahulukan dan Yang mengakhirkan, dan Engkau Mahakuasa atas segala sesuatu.`,
         narrator: 'HR. Bukhari No. 6398 dan Muslim No. 2719',
         benefits: [],
@@ -482,7 +482,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اَللَّـهُـَّم أَصْلِحْ لِي دِينِي الّذِي هُوَ عِصْمَةُ أَمْرِي، وَأَصْلِحْ لِي دُنْيَايَ الّتِي فِيهَا مَعَاشِي، وَأَصْلِحْ لِي آخِرَتِي الّتِي فِيهَا مَعَادِي، وَاجْعَلِ الْحَيَاةَ زِيَادَةً لِي فِي كُلِّ خَيْرٍ، وَاجْعَلِ الْمَوْتَ رَاحَةً لِي مِنْ كُلِّ شَرٍّ`,
-        transliteration: '',
+        transliteration: `Allaahumma ashlih lii diiniyal-ladzii huwa 'ishmatu amrii, wa ashlih lii dunyaayal-latii fiihaa ma'aasyii, wa ashlih lii aakhiratiyal-latii fiihaa ma'aadii, waj'alil-hayaata ziyaadatan lii fii kulli khairin, waj'alil-mauta raahatan lii min kulli syarr.`,
         translation: `Ya Allah, mohon kebaikan pada urusan agamaku karena itu adalah penjaga semua urusanku. Aku mohon kebaikan pada urusan duniaku karena itu tempat hidupku. Aku mohon kebaikan pada urusan akhiratku karena itu tempat kembaliku. Jadikanlah hidup ini tambahan kebaikan bagiku, dan jadikanlah kematianku waktu istirahat bagiku dari segala keburukan.`,
         narrator: 'HR. Muslim No. 2720',
         benefits: [],
@@ -498,7 +498,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الكَسَلِ وَالهَرَمِ، وَالمَأْثَمِ وَالمَغْرَمِ، وَمِنْ فِتْنَةِ القَبْرِ، وَعَذَابِ القَبْرِ، وَمِنْ فِتْنَةِ النَّارِ وَعَذَابِ النَّارِ، وَمِنْ شَرِّ فِتْنَةِ الغِنَى، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الفَقْرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الَمسِيحِ الدَّجَّال`,
-        transliteration: '',
+        transliteration: `Allaahumma innii a'uudzu bika minal-kasali wal-harami, wal-ma'tsami wal-maghrami, wa min fitnatil-qabri wa 'adzaabil-qabri, wa min fitnatin-naari wa 'adzaabin-naari, wa min syarri fitnatil-ghinaa, wa a'uudzu bika min fitnatil-faqri, wa a'uudzu bika min fitnatil-masiihid-dajjaal.`,
         translation: `Ya Allah, aku berlindung kepada-Mu dari kemalasan dan usia jompo, perbuatan dosa dan utang, fitnah kubur dan azab kubur, fitnah neraka dan azab neraka, keburukan fitnah kekayaan; aku berlindung kepada-Mu dari fitnah kemiskinan dan aku berlindung kepada-Mu dari fitnah Masih Dajjal.`,
         narrator: 'HR. Bukhari No. 6368',
         benefits: [],
@@ -514,7 +514,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللَّهُمَّ إِنِّى أَعُوذُ بِكَ مِنْ زَوَالِ نِعْمَتِكَ وَتَحَوُّلِ عَافِيَتِكَ وَفُجَاءَةِ نِقْمَتِكَ وَجَمِيعِ سَخَطِكَ`,
-        transliteration: '',
+        transliteration: `Allaahumma innii a'uudzu bika min zawaali ni'matika wa tahawwuli 'aafiyatika wa fujaa'ati niqmatika wa jamii'i sakhathika.`,
         translation: `Ya Allah, sesungguhnya aku berlindung kepada-Mu dari hilangnya kenikmatan yang telah Engkau berikan, dari berubahnya kesehatan yang telah Engkau anugerahkan, dari siksa-Mu yang datang secara tiba-tiba, dan dari segala kemurkaan-Mu.`,
         narrator: 'HR. Muslim No. 2739',
         benefits: [],
@@ -530,7 +530,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللَّهُمَّ إِنِّي أَعُوذُ بِكَ مِنَ الْجُبْنِ، وَأَعُوذُ بِكَ أَنْ أُرَدَّ إِلَى أَرْذَلِ الْعُمُرِ، وَأَعُوذُ بِكَ مِنْ فِتْنَةِ الدُّنْيَا، وَأَعُوذُ بِكَ مِنْ عَذَابِ الْقَبْرِ`,
-        transliteration: '',
+        transliteration: `Allaahumma innii a'uudzu bika minal-jubni, wa a'uudzu bika an uradda ilaa ardzalil-'umuri, wa a'uudzu bika min fitnatid-dunyaa, wa a'uudzu bika min 'adzaabil-qabr.`,
         translation: `Ya Allah, aku berlindung kepada-Mu dari sikap pengecut, aku berlindung kepada-Mu dari serendah-rendahnya usia (pikun), aku berlindung kepada-Mu dari fitnah dunia, dan aku berlindung kepada-Mu dari azab kubur.`,
         narrator: 'HR. Bukhari No. 2822',
         benefits: [],
@@ -546,7 +546,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ شَرِّ مَا عَمِلْتُ، وَشَرِّ مَا لَمْ أَعْمَلْ`,
-        transliteration: '',
+        transliteration: `Allaahumma innii a'uudzu bika min syarri maa 'amiltu wa syarri maa lam a'mal.`,
         translation: `Ya Allah, aku berlindung dari keburukan yang telah aku perbuat dan keburukan yang belum aku perbuat.`,
         narrator: 'HR. Muslim No. 2716',
         benefits: [],
@@ -563,7 +563,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللهُمَّ آتِ نَفْسِي تَقْوَاهَا، وَزَكِّهَا أَنْتَ خَيْرُ مَنْ زَكَّاهَا، أَنْتَ وَلِيُّهَا وَمَوْلَاهَا، اللهُمَّ إِنِّي أَعُوذُ بِكَ مِنْ عِلْمٍ لَا يَنْفَعُ، وَمِنْ قَلْبٍ لَا يَخْشَعُ، وَمِنْ نَفْسٍ لَا تَشْبَعُ، وَمِنْ دَعْوَةٍ لَا يُسْتَجَابُ لَهَا`,
-        transliteration: '',
+        transliteration: `Allaahumma aati nafsii taqwaahaa, wa zakkihaa anta khairu man zakkaahaa, anta waliyyuhaa wa maulaahaa. Allaahumma innii a'uudzu bika min 'ilmin laa yanfa'u, wa min qalbin laa yakhsya'u, wa min nafsin laa tasyba'u, wa min da'watin laa yustajaabu lahaa.`,
         translation: `Ya Allah karuniakan ketakwaan pada jiwaku. Sucikanlah ia, sesungguhnya Engkaulah sebaik-baik yang mensucikannya, Engkaulah Yang Menjaga serta Melindunginya. Ya Allah, aku berlindung kepada-Mu dari Ilmu yang tidak manfaat, hati yang tidak khusyuk, dan doa yang tidak diijabah.`,
         narrator: 'HR. Muslim No. 2722',
         benefits: [],
@@ -579,7 +579,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللَّهُمَّ إِنِّي أَسْأَلُكَ لَذَّةَ النَّظَرِ إِلَى وَجْهِكَ، وَالشَّوْقَ إِلَى لِقَائِكَ فِي غَيْرِ ضَرَّاءَ مُضِرَّةٍ، وَلَا فِتْنَةٍ مُضِلَّةٍ`,
-        transliteration: '',
+        transliteration: `Allaahumma innii as'aluka ladzdzatan-nazhari ilaa wajhika, wasy-syauqa ilaa liqaa'ika fii ghairi dharraa'a mudhirratin, wa laa fitnatin mudhillah.`,
         translation: `Ya Allah, Aku mohon kepada-Mu kenikmatan memandang wajah-Mu (di surga), rindu bertemu dengan-Mu tanpa penderitaan yang membahayakan dan fitnah yang menyesatkan.`,
         narrator: 'HR. Nasai No. 1305 dan dishahihkan al-Albani',
         benefits: [],
@@ -595,7 +595,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللَّهُمَّ إِنِّى أَسْأَلُكَ فِعْلَ الْخَيْرَاتِ وَتَرْكَ الْمُنْكَرَاتِ وَحُبَّ الْمَسَاكِينِ وَأَنْ تَغْفِرَ لِى وَتَرْحَمَنِى وَإِذَا أَرَدْتَ فِتْنَةَ قَوْمٍ فَتَوَفَّنِى غَيْرَ مَفْتُونٍ`,
-        transliteration: '',
+        transliteration: `Allaahumma innii as'aluka fi'lal-khairaati wa tarkal-munkaraati wa hubbal-masaakiini wa an taghfira lii wa tarhamanii wa idzaa aradta fitnata qaumin fatawaffanii ghaira maftuun.`,
         translation: `Ya Allah, aku memohon kepada-Mu untuk mudah melakukan kebaikan dan meninggalkan kemungkaran serta aku memohon pada-Mu supaya bisa mencintai orang miskin, ampunilah (dosa-dosa)ku, rahmatilah aku, jika Engkau menginginkan untuk menguji suatu kaum maka wafatkanlah aku dalam keadaan tidak tenggelam dalam ujian.`,
         narrator:
           'HR. Tirmidzi No. 3235 dan Ahmad 5: 243, dan Dishahihkan al-Albani',
@@ -612,7 +612,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللَّهُمَّ إِنِّى أَسْأَلُكَ حُبَّكَ وَحُبَّ مَنْ يُحِبُّكَ وَحُبَّ عَمَلٍ يُقَرِّبُ إِلَى حُبِّكَ`,
-        transliteration: '',
+        transliteration: `Allaahumma innii as'aluka hubbaka wa hubba man yuhibbuka wa hubba 'amalin yuqarribu ilaa hubbika.`,
         translation: `Aku memohon agar dapat mencintai-Mu, mencintai orang-orang yang mencintai-Mu dan mencintai amal yang dapat mendekatkan diriku kepada cinta-Mu.`,
         narrator:
           'HR. Tirmidzi no. 3235 dan Ahmad 5: 243, dan Dishahihkan al-Albani',
@@ -629,7 +629,7 @@ export const doas: ParentItem[] = [
       {
         id: 1,
         arabic: `اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنَ الْخَيْرِ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، وَأَعُوذُ بِكَ مِنَ الشَّرِّ كُلِّهِ عَاجِلِهِ وَآجِلِهِ، مَا عَلِمْتُ مِنْهُ وَمَا لَمْ أَعْلَمْ، اللَّهُمَّ إِنِّي أَسْأَلُكَ مِنْ خَيْرِ مَا سَأَلَكَ عَبْدُكَ وَنَبِيُّكَ، وَأَعُوذُ بِكَ مِنْ شَرِّ مَا عَاذَ بِهِ عَبْدُكَ وَنَبِيُّكَ، اللَّهُمَّ إِنِّي أَسْأَلُكَ الْجَنَّةَ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَعُوذُ بِكَ مِنَ النَّارِ وَمَا قَرَّبَ إِلَيْهَا مِنْ قَوْلٍ أَوْ عَمَلٍ، وَأَسْأَلُكَ أَنْ تَجْعَلَ كُلَّ قَضَاءٍ قَضَيْتَهُ لِي خَيْرًا`,
-        transliteration: '',
+        transliteration: `Allaahumma innii as'aluka minal-khairi kullihi 'aajilihi wa aajilihi, maa 'alimtu minhu wa maa lam a'lam. Wa a'uudzu bika minasy-syarri kullihi 'aajilihi wa aajilihi, maa 'alimtu minhu wa maa lam a'lam. Allaahumma innii as'aluka min khairi maa sa'alaka 'abduka wa nabiyyuka, wa a'uudzu bika min syarri maa 'aadza bihi 'abduka wa nabiyyuka. Allaahumma innii as'alukal-jannata wa maa qarraba ilaihaa min qaulin au 'amalin, wa a'uudzu bika minan-naari wa maa qarraba ilaihaa min qaulin au 'amalin, wa as'aluka an taj'ala kulla qadhaa'in qadhaitahu lii khairaa.`,
         translation: `Ya Allah, sesungguhnya aku memohon kepada-Mu seluruh kebaikan yang segera (dunia) dan yang tertunda (akhirat), kebaikan yang aku ketahui dan yang tidak aku ketahui.
       Dan aku berlindung kepada-Mu dari segala keburukan yang segera (dunia) dan yang tertunda (akhirat), yang aku ketahui dan yang tidak aku ketahui.
       Aku meminta kepada-Mu kebaikan semua doa yang pernah diminta oleh hamba dan nabi-Mu, dan aku berlindung kepada-Mu dari keburukan, yang hamba dan nabi-Mu pernah berlindung darinya.
@@ -646,6 +646,7 @@ export const doas: ParentItem[] = [
     id: 31,
     title: 'Membaca Istighfar',
     note: '3x',
+    repetitions: 3,
     categories: ['salat'],
     items: [
       {
@@ -668,6 +669,7 @@ export const doas: ParentItem[] = [
     id: 32,
     title: 'Memuji dan Mengagungkan Allah',
     note: '1x',
+    repetitions: 1,
     categories: ['salat'],
     items: [
       {
@@ -690,6 +692,7 @@ export const doas: ParentItem[] = [
     id: 33,
     title: 'Memuji dan Mengagungkan Allah',
     note: '1x',
+    repetitions: 1,
     categories: ['salat'],
     items: [
       {
@@ -707,6 +710,7 @@ export const doas: ParentItem[] = [
     id: 34,
     title: 'Memuji dan Mengagungkan Allah',
     note: '1x',
+    repetitions: 1,
     categories: ['salat'],
     items: [
       {
@@ -731,6 +735,7 @@ export const doas: ParentItem[] = [
     id: 35,
     title: 'Membaca Tasbih, Tahmid, dan Takbir',
     note: '33x',
+    repetitions: 33,
     categories: ['salat'],
     items: [
       {
@@ -796,6 +801,7 @@ export const doas: ParentItem[] = [
     id: 36,
     title: 'Mentauhidkan Allah',
     note: '1x',
+    repetitions: 1,
     categories: ['salat'],
     items: [
       {
@@ -823,6 +829,7 @@ export const doas: ParentItem[] = [
     id: 37,
     title: 'Membaca Ayat Kursi',
     note: '1x',
+    repetitions: 1,
     categories: ['salat'],
     items: [
       {
@@ -846,6 +853,7 @@ export const doas: ParentItem[] = [
     id: 38,
     title: 'Membaca Surat Al-Ikhlas, Al-Falaq, dan An-Nas',
     note: '1x',
+    repetitions: 1,
     categories: ['salat'],
     items: [
       {
@@ -899,6 +907,7 @@ export const doas: ParentItem[] = [
     id: 39,
     title: 'Memohon Ilmu yang Bermanfaat',
     note: '1x (Subuh)',
+    repetitions: 1,
     categories: ['salat'],
     items: [
       {

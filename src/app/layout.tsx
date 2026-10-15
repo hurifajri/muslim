@@ -7,6 +7,7 @@ import { cookies } from 'next/headers';
 
 import { InstallPrompt } from '@/components/install-prompt';
 import { RouteBackground } from '@/components/route-background';
+import { Toaster } from '@/components/ui/sonner';
 import { COLOR_PALETTES, DEFAULT_PALETTE } from '@/data/color-palettes';
 import { env } from '@/env';
 import { parseLocationCookie } from '@/lib/parse-location-cookie';
@@ -15,6 +16,7 @@ import { cn } from '@/lib/utils';
 import { LocationStoreProvider } from '@/providers/location-store-provider';
 import { PaletteStoreProvider } from '@/providers/palette-store-provider';
 import { QueryProvider } from '@/providers/query-provider';
+import { ReadingStoreProvider } from '@/providers/reading-store-provider';
 import { SettingsStoreProvider } from '@/providers/settings-store-provider';
 import { LOCATION_COOKIE_NAME } from '@/stores/location-store';
 import { PALETTE_COOKIE_NAME } from '@/stores/palette-store';
@@ -134,11 +136,17 @@ export default async function RootLayout({ children }: RootLayoutProps) {
           <LocationStoreProvider initialState={locationState}>
             <PaletteStoreProvider initialState={paletteState}>
               <SettingsStoreProvider>
-                <RouteBackground />
-                <SerwistProvider swUrl="/serwist/sw.js">
-                  {children}
-                </SerwistProvider>
-                <InstallPrompt />
+                <ReadingStoreProvider>
+                  <RouteBackground />
+                  <SerwistProvider
+                    swUrl="/serwist/sw.js"
+                    reloadOnOnline={false}
+                  >
+                    {children}
+                    <Toaster />
+                  </SerwistProvider>
+                  <InstallPrompt />
+                </ReadingStoreProvider>
               </SettingsStoreProvider>
             </PaletteStoreProvider>
           </LocationStoreProvider>

@@ -1,4 +1,6 @@
-import type { LocationState } from '@/schemas/location';
+import { safeParse } from 'valibot';
+
+import { type LocationState, LocationStateSchema } from '@/schemas/location';
 import { defaultLocationState } from '@/stores/location-store';
 
 /**
@@ -12,10 +14,8 @@ export function parseLocationCookie(raw: string | undefined): LocationState {
 
   try {
     const parsed = JSON.parse(decodeURIComponent(raw));
-    const state = parsed?.state;
-    if (state?.city && state?.country) {
-      return { city: state.city, country: state.country };
-    }
+    const state = safeParse(LocationStateSchema, parsed?.state);
+    if (state.success) return state.output;
   } catch {
     // Invalid cookie — fall back to defaults
   }

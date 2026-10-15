@@ -1,12 +1,19 @@
 import { useCallback, useSyncExternalStore } from 'react';
 
 import { doas } from '@/data/doas';
+import { readingHref } from '@/lib/reading-identity';
 import type { ContentItem, ParentItem } from '@/schemas/items';
 
 export type RandomDoa = Pick<ParentItem, 'title'> &
-  Pick<ContentItem, 'arabic' | 'translation' | 'narrator'>;
+  Pick<ContentItem, 'arabic' | 'translation' | 'narrator'> & { href?: string };
 
 const SERVER_DOA: RandomDoa = {
+  href: readingHref(
+    'doa',
+    doas[0].categories[0],
+    doas[0].id,
+    doas[0].items[0].id
+  ),
   title: doas[0].title,
   arabic: doas[0].items[0].arabic,
   translation: doas[0].items[0].translation,
@@ -24,6 +31,12 @@ function generateRandomDoa(): RandomDoa {
     randomParent.items[Math.floor(random2 * randomParent.items.length)];
 
   return {
+    href: readingHref(
+      'doa',
+      randomParent.categories[0],
+      randomParent.id,
+      randomItem.id
+    ),
     title: randomParent.title,
     arabic: randomItem.arabic,
     translation: randomItem.translation,

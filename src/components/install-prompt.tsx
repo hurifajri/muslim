@@ -106,11 +106,13 @@ export function InstallPrompt() {
                 <SquarePlusIcon className="size-4" />
                 &nbsp;Add to Home Screen
               </span>{' '}
-              &nbsp;untuk dapat mengakses aplikasi secara offline.
+              &nbsp;untuk akses cepat. Halaman yang sudah dibuka dapat dibaca
+              offline.
             </p>
           ) : (
             <p className="text-card-foreground text-sm">
-              Install untuk dapat mengakses aplikasi secara offline.
+              Install untuk akses cepat. Halaman yang sudah dibuka dapat dibaca
+              offline.
             </p>
           )}
         </div>
