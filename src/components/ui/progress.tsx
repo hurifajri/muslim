@@ -5,12 +5,11 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
-function Progress({
-  className,
-  value,
-  max = 100,
-  ...props
-}: React.ComponentProps<typeof ProgressPrimitive.Root>) {
+type ProgressProps = Readonly<
+  React.ComponentProps<typeof ProgressPrimitive.Root>
+>;
+
+function Progress({ className, value, max = 100, ...props }: ProgressProps) {
   return (
     <ProgressPrimitive.Root
       data-slot="progress"

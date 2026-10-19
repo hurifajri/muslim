@@ -10,13 +10,18 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint src --fix",
-    "format": "prettier --write src",
-    "check": "pnpm lint && pnpm format",
+    "lint": "eslint src",
+    "lint:fix": "eslint src --fix",
+    "format": "prettier --check src scripts tests",
+    "format:fix": "prettier --write src scripts tests",
+    "check": "pnpm lint && pnpm format && pnpm check:types",
+    "fix": "pnpm lint:fix && pnpm format:fix",
     "check:types": "tsc --noEmit --pretty",
-    "check:packages": "npm exec npm-check-updates -- -u"
+    "check:packages": "npm exec npm-check-updates",
+    "update:packages": "npm exec npm-check-updates -- -u"
   },
   "dependencies": {
+    "@base-ui/react": "^1.9.0",
     "@t3-oss/env-nextjs": "^0.13.11",
     "@tailwindcss/postcss": "^4.3.3",
     "@tanstack/react-query": "^5.101.4",

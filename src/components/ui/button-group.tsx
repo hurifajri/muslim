@@ -21,29 +21,32 @@ const buttonGroupVariants = cva(
   }
 );
 
-function ButtonGroup({
-  className,
-  orientation,
-  ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof buttonGroupVariants>) {
+type ButtonGroupProps = Readonly<
+  React.ComponentProps<'fieldset'> & VariantProps<typeof buttonGroupVariants>
+>;
+
+function ButtonGroup({ className, orientation, ...props }: ButtonGroupProps) {
   return (
-    <div
-      role="group"
+    <fieldset
       data-slot="button-group"
       data-orientation={orientation}
-      className={cn(buttonGroupVariants({ orientation }), className)}
+      className={cn('min-w-0', buttonGroupVariants({ orientation }), className)}
       {...props}
     />
   );
 }
 
+type ButtonGroupTextProps = Readonly<
+  React.ComponentProps<'div'> & {
+    asChild?: boolean;
+  }
+>;
+
 function ButtonGroupText({
   className,
   asChild = false,
   ...props
-}: React.ComponentProps<'div'> & {
-  asChild?: boolean;
-}) {
+}: ButtonGroupTextProps) {
   const Comp = asChild ? Slot.Root : 'div';
 
   return (
@@ -57,11 +60,15 @@ function ButtonGroupText({
   );
 }
 
+type ButtonGroupSeparatorProps = Readonly<
+  React.ComponentProps<typeof Separator>
+>;
+
 function ButtonGroupSeparator({
   className,
   orientation = 'vertical',
   ...props
-}: React.ComponentProps<typeof Separator>) {
+}: ButtonGroupSeparatorProps) {
   return (
     <Separator
       data-slot="button-group-separator"

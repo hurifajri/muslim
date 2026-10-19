@@ -76,7 +76,7 @@ export function Poster({ isOpen, onClose, doa, onRollNewDoa }: PosterProps) {
       )}
     >
       <div className="bg-input/90 flex max-h-[calc(100dvh-340px)] min-h-0 min-w-0 flex-col gap-4 overflow-y-auto rounded-xl p-4 sm:max-h-none sm:flex-1 sm:overflow-hidden">
-        <div className="w-full shrink-0 sm:[container-type:size] sm:flex sm:min-h-0 sm:flex-1 sm:items-center sm:justify-center">
+        <div className="w-full shrink-0 sm:@container-size sm:flex sm:min-h-0 sm:flex-1 sm:items-center sm:justify-center">
           <div className="w-full sm:w-[min(100%,56.25cqh)]">
             <PosterPreview
               doa={doa}

@@ -29,7 +29,9 @@ function Clock() {
   );
 }
 
-function LocalClock({ timeZone }: Readonly<{ timeZone?: string }>) {
+type LocalClockProps = Readonly<{ timeZone?: string }>;
+
+function LocalClock({ timeZone }: LocalClockProps) {
   const now = useNow();
   const time = getDifferentLocationTime(now, timeZone);
   if (!now || !time) return null;
@@ -54,7 +56,7 @@ export function HomeDate() {
   return (
     <div className="flex flex-col">
       <span className="font-bold">
-        {schedule.isCurrent ? schedule.hijriDate : 'Jadwal Sholat'}
+        {schedule.isCurrent ? schedule.hijriDate : 'Jadwal salat'}
       </span>
       <span className="text-sm font-bold">
         {date
@@ -73,7 +75,7 @@ export function PrayerCard({ onOpenLocation }: PrayerCardProps) {
   const schedule = useHijriDate();
   return (
     <section
-      aria-label="Jadwal sholat"
+      aria-label="Jadwal salat"
       className="from-secondary/50 to-primary/50 shadow-glass relative flex min-h-56 flex-col justify-between gap-4 overflow-hidden rounded-4xl border border-white/50 bg-linear-to-tr p-5 backdrop-blur-xs dark:border-white/30"
     >
       <MosqueIcon
@@ -131,7 +133,7 @@ export function PrayerCard({ onOpenLocation }: PrayerCardProps) {
           <output className="text-sm">
             {schedule.isError
               ? 'Jadwal belum dapat dimuat. Periksa koneksi lalu coba lagi.'
-              : 'Memuat jadwal sholat…'}
+              : 'Memuat jadwal salat…'}
           </output>
         )}
         {(schedule.isError ||

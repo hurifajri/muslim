@@ -1,0 +1,53 @@
+name: Checks
+
+on:
+  push:
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: checks-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    env:
+      NEXT_TELEMETRY_DISABLED: '1'
+      NEXT_PUBLIC_APP_URL: https://muslim.example
+      ALADHAN_API_URL: https://api.aladhan.com/v1
+      NOMINATIM_API_URL: https://nominatim.openstreetmap.org
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+      - uses: pnpm/action-setup@v6
+        with:
+          cache: true
+      - run: pnpm install --frozen-lockfile
+      - name: Generate Next route types
+        run: pnpm exec next typegen
+      - run: pnpm check
+      - run: pnpm test
+      - run: pnpm build --webpack
+      - run: pnpm test:browser:install --with-deps
+      - name: Browser regressions
+        shell: bash
+        run: |
+          node node_modules/next/dist/bin/next start --hostname 127.0.0.1 --port 3100 > /tmp/muslim-server.log 2>&1 &
+          test_server_pid=$!
+          trap 'kill "$test_server_pid" 2>/dev/null || true; cat /tmp/muslim-server.log' EXIT
+          for attempt in {1..30}; do
+            if curl --fail --silent --output /dev/null http://127.0.0.1:3100; then
+              pnpm test:browser
+              exit $?
+            fi
+            if ! kill -0 "$test_server_pid" 2>/dev/null; then exit 1; fi
+            sleep 1
+          done
+          echo 'Production server did not become ready.' >&2
+          exit 1

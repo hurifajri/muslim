@@ -5,13 +5,13 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
-function Switch({
-  className,
-  size = 'default',
-  ...props
-}: React.ComponentProps<typeof SwitchPrimitive.Root> & {
-  size?: 'sm' | 'default';
-}) {
+type SwitchProps = Readonly<
+  React.ComponentProps<typeof SwitchPrimitive.Root> & {
+    size?: 'sm' | 'default';
+  }
+>;
+
+function Switch({ className, size = 'default', ...props }: SwitchProps) {
   return (
     <SwitchPrimitive.Root
       data-slot="switch"

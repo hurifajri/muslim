@@ -6,13 +6,12 @@ import { playClickSound } from '@/lib/click-sound';
 import { useReadingStore } from '@/providers/reading-store-provider';
 import { useSettingsStore } from '@/providers/settings-store-provider';
 
-export function Counter({
-  readingId,
-  target,
-}: {
+type CounterProps = Readonly<{
   readingId: string;
   target?: number;
-}) {
+}>;
+
+export function Counter({ readingId, target }: CounterProps) {
   const value = useReadingStore(state => state.counts[readingId] ?? 0);
   const undo = useReadingStore(state => state.undoCounts[readingId]);
   const hydrated = useReadingStore(state => state.hydrated);
@@ -34,7 +33,7 @@ export function Counter({
           aria-label="Reset hitungan"
           disabled={!hydrated || value === 0}
           onClick={() => {
-            reset(readingId);
+            void reset(readingId);
             sound();
           }}
         >
@@ -52,7 +51,7 @@ export function Counter({
           aria-label={completed ? 'Target bacaan selesai' : 'Tambah hitungan'}
           disabled={!hydrated || completed}
           onClick={() => {
-            increment(readingId, target);
+            void increment(readingId, target);
             sound();
           }}
         >
@@ -60,7 +59,11 @@ export function Counter({
         </Button>
       </ButtonGroup>
       {undo !== undefined && (
-        <Button variant="ghost" size="sm" onClick={() => undoReset(readingId)}>
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => void undoReset(readingId)}
+        >
           Batalkan reset
         </Button>
       )}

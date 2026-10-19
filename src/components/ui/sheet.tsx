@@ -7,32 +7,41 @@ import * as React from 'react';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-function Sheet({ ...props }: React.ComponentProps<typeof SheetPrimitive.Root>) {
+type SheetProps = Readonly<React.ComponentProps<typeof SheetPrimitive.Root>>;
+
+function Sheet({ ...props }: SheetProps) {
   return <SheetPrimitive.Root data-slot="sheet" {...props} />;
 }
 
-function SheetTrigger({
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Trigger>) {
+type SheetTriggerProps = Readonly<
+  React.ComponentProps<typeof SheetPrimitive.Trigger>
+>;
+
+function SheetTrigger({ ...props }: SheetTriggerProps) {
   return <SheetPrimitive.Trigger data-slot="sheet-trigger" {...props} />;
 }
 
-function SheetClose({
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Close>) {
+type SheetCloseProps = Readonly<
+  React.ComponentProps<typeof SheetPrimitive.Close>
+>;
+
+function SheetClose({ ...props }: SheetCloseProps) {
   return <SheetPrimitive.Close data-slot="sheet-close" {...props} />;
 }
 
-function SheetPortal({
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Portal>) {
+type SheetPortalProps = Readonly<
+  React.ComponentProps<typeof SheetPrimitive.Portal>
+>;
+
+function SheetPortal({ ...props }: SheetPortalProps) {
   return <SheetPrimitive.Portal data-slot="sheet-portal" {...props} />;
 }
 
-function SheetOverlay({
-  className,
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Overlay>) {
+type SheetOverlayProps = Readonly<
+  React.ComponentProps<typeof SheetPrimitive.Overlay>
+>;
+
+function SheetOverlay({ className, ...props }: SheetOverlayProps) {
   return (
     <SheetPrimitive.Overlay
       data-slot="sheet-overlay"
@@ -45,16 +54,20 @@ function SheetOverlay({
   );
 }
 
+type SheetContentProps = Readonly<
+  React.ComponentProps<typeof SheetPrimitive.Content> & {
+    side?: 'top' | 'right' | 'bottom' | 'left';
+    showCloseButton?: boolean;
+  }
+>;
+
 function SheetContent({
   className,
   children,
   side = 'right',
   showCloseButton = true,
   ...props
-}: React.ComponentProps<typeof SheetPrimitive.Content> & {
-  side?: 'top' | 'right' | 'bottom' | 'left';
-  showCloseButton?: boolean;
-}) {
+}: SheetContentProps) {
   return (
     <SheetPortal>
       <SheetOverlay />
@@ -76,7 +89,7 @@ function SheetContent({
               size="icon-sm"
             >
               <XIcon />
-              <span className="sr-only">Close</span>
+              <span className="sr-only">Tutup</span>
             </Button>
           </SheetPrimitive.Close>
         )}
@@ -85,7 +98,9 @@ function SheetContent({
   );
 }
 
-function SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
+type SheetHeaderProps = Readonly<React.ComponentProps<'div'>>;
+
+function SheetHeader({ className, ...props }: SheetHeaderProps) {
   return (
     <div
       data-slot="sheet-header"
@@ -95,7 +110,9 @@ function SheetHeader({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function SheetFooter({ className, ...props }: React.ComponentProps<'div'>) {
+type SheetFooterProps = Readonly<React.ComponentProps<'div'>>;
+
+function SheetFooter({ className, ...props }: SheetFooterProps) {
   return (
     <div
       data-slot="sheet-footer"
@@ -105,10 +122,11 @@ function SheetFooter({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function SheetTitle({
-  className,
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Title>) {
+type SheetTitleProps = Readonly<
+  React.ComponentProps<typeof SheetPrimitive.Title>
+>;
+
+function SheetTitle({ className, ...props }: SheetTitleProps) {
   return (
     <SheetPrimitive.Title
       data-slot="sheet-title"
@@ -121,10 +139,11 @@ function SheetTitle({
   );
 }
 
-function SheetDescription({
-  className,
-  ...props
-}: React.ComponentProps<typeof SheetPrimitive.Description>) {
+type SheetDescriptionProps = Readonly<
+  React.ComponentProps<typeof SheetPrimitive.Description>
+>;
+
+function SheetDescription({ className, ...props }: SheetDescriptionProps) {
   return (
     <SheetPrimitive.Description
       data-slot="sheet-description"

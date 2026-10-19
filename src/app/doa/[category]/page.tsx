@@ -6,13 +6,13 @@ import { Items } from '@/components/items';
 import { getCategory } from '@/data/categories';
 import { doas } from '@/data/doas';
 
-type PageProps = Readonly<{
+type DoaPageProps = Readonly<{
   params: Promise<{ category: string }>;
 }>;
 
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: DoaPageProps): Promise<Metadata> {
   const { category } = await params;
   const entry = getCategory('doa', category);
   if (!entry) notFound();
@@ -27,7 +27,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function DoaPage({ params }: PageProps) {
+export default async function DoaPage({ params }: DoaPageProps) {
   const { category } = await params;
   const entry = getCategory('doa', category);
   if (!entry) notFound();
