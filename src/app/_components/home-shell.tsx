@@ -67,7 +67,7 @@ export function HomeShell() {
 
             {/* Dzikir */}
             <div className="flex gap-4">
-              <h2 className="sr-only">Kumpulan Dzikir</h2>
+              <h2 className="sr-only">Kumpulan dzikir</h2>
               {toc
                 .filter(({ category }) => category === 'dzikir')
                 .map(content => {
@@ -79,7 +79,7 @@ export function HomeShell() {
 
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
-                      <AspectRatio asChild ratio={1 / 1}>
+                      <AspectRatio asChild ratio={1}>
                         <div
                           className={cn(
                             bgClass,
@@ -100,14 +100,14 @@ export function HomeShell() {
           <div className="flex flex-col gap-4 sm:landscape:flex-1">
             {/* Dua */}
             <div className="flex gap-4">
-              <h2 className="sr-only">Kumpulan Doa</h2>
+              <h2 className="sr-only">Kumpulan doa</h2>
               {toc
                 .filter(({ category }) => category === 'doa')
                 .map(content => {
                   const { id, title, link } = content;
                   return (
                     <Link key={id} href={link} title={title} className="flex-1">
-                      <AspectRatio asChild ratio={1 / 1}>
+                      <AspectRatio asChild ratio={1}>
                         <div className="shadow-glass bg-card/50 flex flex-col items-center justify-center gap-2 rounded-4xl border border-white/50 backdrop-blur-xs dark:border-white/30">
                           {Icons[id]}
                           <h3 className="text-sm font-bold">{title}</h3>
@@ -121,7 +121,7 @@ export function HomeShell() {
             {/* Selected Dua */}
             <div className="bg-card/50 shadow-glass relative flex flex-col gap-4 rounded-4xl border border-white/50 p-4 backdrop-blur-xs sm:flex-1 dark:border-white/30">
               <div className="flex items-center justify-between gap-2">
-                <h2 className="font-bold">Doa Pilihan</h2>
+                <h2 className="font-bold">Doa pilihan</h2>
                 <div className="flex items-center gap-2">
                   <Button
                     aria-label="Ganti doa"

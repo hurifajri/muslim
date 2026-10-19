@@ -5,22 +5,32 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
-function Popover(props: React.ComponentProps<typeof PopoverPrimitive.Root>) {
+type PopoverProps = Readonly<
+  React.ComponentProps<typeof PopoverPrimitive.Root>
+>;
+
+function Popover(props: PopoverProps) {
   return <PopoverPrimitive.Root data-slot="popover" {...props} />;
 }
 
-function PopoverTrigger(
-  props: React.ComponentProps<typeof PopoverPrimitive.Trigger>
-) {
+type PopoverTriggerProps = Readonly<
+  React.ComponentProps<typeof PopoverPrimitive.Trigger>
+>;
+
+function PopoverTrigger(props: PopoverTriggerProps) {
   return <PopoverPrimitive.Trigger data-slot="popover-trigger" {...props} />;
 }
+
+type PopoverContentProps = Readonly<
+  React.ComponentProps<typeof PopoverPrimitive.Content>
+>;
 
 function PopoverContent({
   className,
   align = 'center',
   sideOffset = 4,
   ...props
-}: React.ComponentProps<typeof PopoverPrimitive.Content>) {
+}: PopoverContentProps) {
   return (
     <PopoverPrimitive.Portal>
       <PopoverPrimitive.Content

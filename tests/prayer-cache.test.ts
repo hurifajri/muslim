@@ -8,6 +8,31 @@ import { memoryStorage, prayerResponse } from './fixtures';
 
 const city = { mode: 'city', city: 'bogor', country: 'ID' } as const;
 
+test('server cache age is preserved when saving and reading the offline copy', async t => {
+  Object.defineProperty(globalThis, 'window', {
+    value: { localStorage: memoryStorage() },
+    configurable: true,
+  });
+  const fetchedAt = Date.parse('2026-10-13T01:00:00Z');
+  t.mock.method(globalThis, 'fetch', async () =>
+    Response.json(prayerResponse(), {
+      headers: { 'X-Prayer-Fetched-At': String(fetchedAt) },
+    })
+  );
+  const online = await fetchAladhanTimings(city, '2026-10-13');
+  assert.equal(online.fetchedAt, fetchedAt);
+  assert.equal(online.cached, false);
+  t.mock.method(
+    globalThis,
+    'fetch',
+    async () => new Response(null, { status: 429 })
+  );
+  const offline = await fetchAladhanTimings(city, '2026-10-13');
+  assert.equal(offline.fetchedAt, fetchedAt);
+  assert.equal(offline.cached, true);
+  assert.deepEqual(offline.response, online.response);
+});
+
 test('offline fallback preserves original date and never leaks another city', async t => {
   t.mock.method(globalThis, 'fetch', async () => {
     throw new Error('offline');

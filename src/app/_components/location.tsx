@@ -11,6 +11,14 @@ import { useEffect, useRef, useState } from 'react';
 
 import { Button } from '@/components/ui/button';
 import {
+  Combobox,
+  ComboboxContent,
+  ComboboxInput,
+  ComboboxItem,
+  ComboboxList,
+  useComboboxAnchor,
+} from '@/components/ui/combobox';
+import {
   Dialog,
   DialogContent,
   DialogFooter,
@@ -25,12 +33,13 @@ import {
   DrawerTitle,
 } from '@/components/ui/drawer';
 import {
-  InputGroup,
-  InputGroupAddon,
-  InputGroupButton,
-  InputGroupInput,
-} from '@/components/ui/input-group';
-import { Item, ItemContent, ItemGroup, ItemTitle } from '@/components/ui/item';
+  Field,
+  FieldDescription,
+  FieldError,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
+import { InputGroupAddon, InputGroupButton } from '@/components/ui/input-group';
 import { Label } from '@/components/ui/label';
 import { useLocationSearch } from '@/hooks/use-location-search';
 import { useIsMobile } from '@/hooks/use-mobile';
@@ -50,6 +59,10 @@ import { LocationTime } from './location-time';
 
 type GeoState = 'idle' | 'loading' | 'error';
 
+type SelectedLocation = LocationSuggestion & {
+  source: 'saved' | 'search' | 'geolocation';
+};
+
 export type LocationProps = Readonly<{
   isOpen: boolean;
   onClose: () => void;
@@ -57,16 +70,37 @@ export type LocationProps = Readonly<{
 
 // ─── Shared Form Body ─────────────────────────────────────────────────────────
 
+function LocationAttribution() {
+  return (
+    <p className="text-muted-foreground text-xs">
+      Data lokasi ©{' '}
+      <a
+        href="https://www.openstreetmap.org/copyright"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="underline underline-offset-4"
+      >
+        OpenStreetMap contributors
+      </a>
+    </p>
+  );
+}
+
 type LocationFormProps = Readonly<{
   isMobile?: boolean;
+  resultsOpen: boolean;
+  onResultsOpenChange: (open: boolean) => void;
+  popupContainer: React.RefObject<HTMLDivElement | null>;
   query: string;
   suggestions: LocationSuggestion[];
-  selected: LocationSuggestion | null;
+  selected: SelectedLocation | null;
   selectedTimeZone?: string;
   isSearching: boolean;
   searchError: boolean;
+  searchErrorMessage: string;
   isEmpty: boolean;
   onRetry: () => void;
+  onSearch: () => void;
   geoState: GeoState;
   geoError: string;
   inputRef: React.RefObject<HTMLInputElement | null>;
@@ -78,14 +112,19 @@ type LocationFormProps = Readonly<{
 
 function LocationForm({
   isMobile = false,
+  resultsOpen,
+  onResultsOpenChange,
+  popupContainer,
   query,
   suggestions,
   selected,
   selectedTimeZone,
   isSearching,
   searchError,
+  searchErrorMessage,
   isEmpty,
   onRetry,
+  onSearch,
   geoState,
   geoError,
   inputRef,
@@ -94,107 +133,184 @@ function LocationForm({
   onClear,
   onUseGeolocation,
 }: LocationFormProps) {
-  const showDropdown = suggestions.length > 0 && !selected;
+  const anchor = useComboboxAnchor();
+  const showResults =
+    resultsOpen && !selected && !searchError && suggestions.length > 0;
+  const submitSearch = () => {
+    onResultsOpenChange(true);
+    inputRef.current?.focus();
+    onSearch();
+  };
 
   return (
-    <div className={cn('flex flex-col gap-3', isMobile && 'p-4')}>
-      {/* Search input */}
-      <div className="flex flex-col gap-1.5">
-        <Label htmlFor="city-search">Lokasi</Label>
-        <InputGroup>
-          <InputGroupAddon align="inline-start">
-            {isSearching ? (
-              <LoaderIcon className="size-4 animate-spin" />
-            ) : (
-              <SearchIcon className="size-4" />
-            )}
-          </InputGroupAddon>
-
-          <InputGroupInput
-            id="city-search"
-            ref={inputRef}
-            placeholder="Cari kota…"
-            value={query}
-            autoComplete="off"
-            onChange={e => onQueryChange(e.target.value)}
-          />
-
-          {query && (
-            <InputGroupAddon align="inline-end">
-              <InputGroupButton
-                type="button"
-                size="icon-sm"
-                variant="ghost"
-                onClick={onClear}
-                aria-label="Hapus pencarian"
-              >
-                <XIcon className="size-4" />
-              </InputGroupButton>
-            </InputGroupAddon>
-          )}
-        </InputGroup>
-
-        {/* Suggestions dropdown */}
-        {showDropdown && (
-          <ItemGroup className="mt-1 max-h-48 gap-0! overflow-y-auto rounded-2xl">
-            {suggestions.map(s => (
-              <Item
-                key={s.placeId}
-                role="button"
-                tabIndex={0}
-                variant="default"
-                size="xs"
-                onClick={() => onSelect(s)}
-                onKeyDown={e => {
-                  if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    onSelect(s);
+    <div className={cn('flex flex-col gap-3', isMobile ? 'p-4' : '-m-1 p-1')}>
+      <form
+        onSubmit={event => {
+          event.preventDefault();
+          submitSearch();
+        }}
+      >
+        <FieldGroup className="gap-1.5">
+          <Field className="gap-1.5" data-invalid={searchError}>
+            <FieldLabel id="city-search-label" htmlFor="city-search">
+              Lokasi
+            </FieldLabel>
+            <Combobox<LocationSuggestion>
+              items={selected ? [selected] : suggestions}
+              value={selected}
+              inputValue={query}
+              filter={null}
+              open={showResults}
+              onOpenChange={onResultsOpenChange}
+              itemToStringLabel={item => item.displayName}
+              isItemEqualToValue={(item, value) =>
+                item.placeId === value.placeId
+              }
+              onInputValueChange={(value, details) => {
+                if (details.reason !== 'input-change') return;
+                onResultsOpenChange(false);
+                onQueryChange(value);
+              }}
+              onValueChange={value => {
+                if (!value) return;
+                onResultsOpenChange(false);
+                onSelect(value);
+                inputRef.current?.focus();
+              }}
+            >
+              <div ref={anchor}>
+                <ComboboxInput
+                  id="city-search"
+                  ref={inputRef}
+                  showTrigger={false}
+                  placeholder="Cari kota…"
+                  autoComplete="off"
+                  maxLength={120}
+                  aria-labelledby="city-search-label"
+                  aria-describedby={
+                    searchError
+                      ? 'city-search-hint city-search-error'
+                      : 'city-search-hint'
                   }
-                }}
+                  aria-invalid={searchError}
+                >
+                  <InputGroupAddon align="inline-start" asChild>
+                    <Label htmlFor="city-search" aria-hidden>
+                      {isSearching ? (
+                        <LoaderIcon aria-hidden className="animate-spin" />
+                      ) : (
+                        <SearchIcon aria-hidden />
+                      )}
+                    </Label>
+                  </InputGroupAddon>
+                  <InputGroupAddon align="inline-end">
+                    {query && (
+                      <InputGroupButton
+                        type="button"
+                        size="icon-sm"
+                        variant="ghost"
+                        onClick={() => {
+                          onResultsOpenChange(false);
+                          onClear();
+                        }}
+                        aria-label="Hapus pencarian"
+                      >
+                        <XIcon aria-hidden />
+                      </InputGroupButton>
+                    )}
+                    <InputGroupButton
+                      type="submit"
+                      size="sm"
+                      disabled={
+                        Boolean(selected) ||
+                        query.trim().length < 2 ||
+                        isSearching
+                      }
+                    >
+                      Cari
+                    </InputGroupButton>
+                  </InputGroupAddon>
+                </ComboboxInput>
+              </div>
+              <ComboboxContent
+                id="city-search-results"
+                container={popupContainer}
+                anchor={anchor}
+                className="flex max-h-[min(16rem,var(--available-height))] min-w-0 flex-col"
               >
-                <ItemContent>
-                  <ItemTitle>{s.displayName}</ItemTitle>
-                </ItemContent>
-              </Item>
-            ))}
-          </ItemGroup>
-        )}
-
-        {searchError && (
-          <div role="alert" className="text-sm">
-            <p>Pencarian gagal. Periksa koneksi lalu coba lagi.</p>
-            <Button size="sm" variant="outline" onClick={onRetry}>
-              Coba lagi
-            </Button>
-          </div>
-        )}
-        {isEmpty && (
-          <output className="text-sm">
-            Kota tidak ditemukan. Coba nama lain.
-          </output>
-        )}
-        {/* Selected badge */}
-        {selected && (
-          <div className="flex flex-col gap-1">
-            <p className="flex items-center gap-1 text-xs">
-              <CheckIcon aria-hidden className="size-3 shrink-0" />
-              <span className="font-medium">{selected.displayName}</span>
-            </p>
-            <LocationTime
-              key={`${selected.city}:${selected.countryCode}`}
-              city={selected.city}
-              country={selected.countryCode}
-              timeZone={selectedTimeZone}
-            />
-          </div>
-        )}
-      </div>
-
-      {/* Geolocation button */}
+                <ComboboxList
+                  aria-label="Hasil pencarian lokasi"
+                  className="max-h-48 min-h-0 flex-1"
+                >
+                  {(suggestion: LocationSuggestion) => (
+                    <ComboboxItem key={suggestion.placeId} value={suggestion}>
+                      {suggestion.displayName}
+                    </ComboboxItem>
+                  )}
+                </ComboboxList>
+                <div className="shrink-0 px-3 pt-1 pb-2">
+                  <LocationAttribution />
+                </div>
+              </ComboboxContent>
+            </Combobox>
+            {showResults && (
+              <output className="sr-only">
+                {suggestions.length} lokasi ditemukan. Gunakan panah untuk
+                memilih, lalu tekan Enter.
+              </output>
+            )}
+            <FieldDescription id="city-search-hint" className="text-xs">
+              Ketik nama kota, lalu tekan Cari atau Enter.
+            </FieldDescription>
+            {searchError && (
+              <div className="flex flex-col items-start gap-1.5">
+                <FieldError id="city-search-error">
+                  {searchErrorMessage}
+                </FieldError>
+                <Button
+                  type="button"
+                  size="sm"
+                  variant="outline"
+                  onClick={() => {
+                    onResultsOpenChange(true);
+                    inputRef.current?.focus();
+                    onRetry();
+                  }}
+                >
+                  Coba lagi
+                </Button>
+              </div>
+            )}
+          </Field>
+          {isEmpty && (
+            <output className="text-sm">
+              Kota tidak ditemukan. Coba nama lain.
+            </output>
+          )}
+          {selected && (
+            <div className="flex flex-col gap-1">
+              <p className="flex items-center gap-1 text-xs">
+                <CheckIcon aria-hidden className="size-3 shrink-0" />
+                <span className="font-medium">{selected.displayName}</span>
+              </p>
+              <LocationTime
+                key={`${selected.city}:${selected.countryCode}`}
+                city={selected.city}
+                country={selected.countryCode}
+                timeZone={selectedTimeZone}
+              />
+              {selected.source === 'geolocation' && <LocationAttribution />}
+            </div>
+          )}
+        </FieldGroup>
+      </form>
       <Button
         type="button"
         variant="ghost"
-        onClick={onUseGeolocation}
+        onClick={() => {
+          onResultsOpenChange(false);
+          onUseGeolocation();
+        }}
         disabled={geoState === 'loading'}
         className="justify-start"
       >
@@ -205,8 +321,6 @@ function LocationForm({
         )}
         {geoState === 'loading' ? 'Mendeteksi lokasi…' : 'Gunakan lokasi saya'}
       </Button>
-
-      {/* Geo error */}
       {geoState === 'error' && (
         <p className="text-destructive text-xs">{geoError}</p>
       )}
@@ -227,13 +341,16 @@ export function Location({ isOpen, onClose }: LocationProps) {
   const [query, setQuery] = useState(() =>
     formatLocationLabel(savedCity, savedCountry)
   );
-  const [selected, setSelected] = useState<LocationSuggestion | null>({
+  const [selected, setSelected] = useState<SelectedLocation | null>({
+    source: 'saved',
     placeId: 0,
     displayName: formatLocationLabel(savedCity, savedCountry),
     city: formatCityName(savedCity),
     country: formatCountryName(savedCountry),
     countryCode: savedCountry.toUpperCase(),
   });
+  const [resultsOpen, setResultsOpen] = useState(false);
+  const popupContainer = useRef<HTMLDivElement>(null);
   const [geoState, setGeoState] = useState<GeoState>('idle');
   const [geoError, setGeoError] = useState('');
   const inputRef = useRef<HTMLInputElement>(null);
@@ -256,12 +373,17 @@ export function Location({ isOpen, onClose }: LocationProps) {
   };
   const handleQueryChange = (value: string) => {
     cancelGeolocation();
+    search.reset();
     setQuery(value);
     setSelected(null);
   };
-  const handleSelect = (suggestion: LocationSuggestion) => {
+  const handleSelect = (
+    suggestion: LocationSuggestion,
+    source: 'search' | 'geolocation' = 'search'
+  ) => {
     cancelGeolocation();
-    setSelected(suggestion);
+    search.reset();
+    setSelected({ ...suggestion, source });
     setQuery(suggestion.displayName);
   };
   const handleClear = () => {
@@ -272,9 +394,9 @@ export function Location({ isOpen, onClose }: LocationProps) {
     cancelGeolocation();
     onClose();
   };
-
   const handleUseGeolocation = () => {
     cancelGeolocation();
+    search.reset();
     if (!navigator.geolocation) {
       setGeoState('error');
       setGeoError('Browser tidak mendukung geolokasi.');
@@ -295,7 +417,7 @@ export function Location({ isOpen, onClose }: LocationProps) {
           );
           if (version !== geoVersion.current) return;
           if (!result) throw new Error('Kota tidak ditemukan.');
-          handleSelect(result);
+          handleSelect(result, 'geolocation');
         } catch {
           if (version !== geoVersion.current) return;
           setGeoState('error');
@@ -316,6 +438,15 @@ export function Location({ isOpen, onClose }: LocationProps) {
     );
   };
 
+  const handleEscapeKeyDown = (event: KeyboardEvent) => {
+    // Radix handles Escape before Base UI; dismiss the results before the modal.
+    if (resultsOpen && suggestions.length > 0 && !selected && !search.isError) {
+      event.preventDefault();
+      setResultsOpen(false);
+      inputRef.current?.focus();
+    }
+  };
+
   const handleSave = () => {
     if (!selected) return;
     setLocation({
@@ -327,11 +458,19 @@ export function Location({ isOpen, onClose }: LocationProps) {
 
   const formProps: LocationFormProps = {
     isMobile,
+    resultsOpen,
+    onResultsOpenChange: setResultsOpen,
+    popupContainer,
     query,
     suggestions,
     searchError: search.isError,
+    searchErrorMessage: search.errorMessage,
     isEmpty: search.isEmpty,
     onRetry: search.retry,
+    onSearch: () => {
+      cancelGeolocation();
+      search.submit();
+    },
     selected,
     selectedTimeZone:
       selected?.city.toLowerCase() === savedCity.toLowerCase() &&
@@ -362,12 +501,16 @@ export function Location({ isOpen, onClose }: LocationProps) {
           if (!open) handleClose();
         }}
       >
-        <DrawerContent>
-          <DrawerHeader className="pb-0">
-            <DrawerTitle className="text-left">Ubah Lokasi</DrawerTitle>
+        <DrawerContent
+          ref={popupContainer}
+          id="location-dialog"
+          onEscapeKeyDown={handleEscapeKeyDown}
+        >
+          <DrawerHeader className="shrink-0 pb-0">
+            <DrawerTitle className="text-left">Ubah lokasi</DrawerTitle>
           </DrawerHeader>
           <LocationForm {...formProps} />
-          <DrawerFooter className="pt-0">{saveButton}</DrawerFooter>
+          <DrawerFooter className="shrink-0 pt-0">{saveButton}</DrawerFooter>
         </DrawerContent>
       </Drawer>
     );
@@ -380,9 +523,13 @@ export function Location({ isOpen, onClose }: LocationProps) {
         if (!open) handleClose();
       }}
     >
-      <DialogContent>
+      <DialogContent
+        ref={popupContainer}
+        onEscapeKeyDown={handleEscapeKeyDown}
+        id="location-dialog"
+      >
         <DialogHeader>
-          <DialogTitle>Ubah Lokasi</DialogTitle>
+          <DialogTitle>Ubah lokasi</DialogTitle>
         </DialogHeader>
         <LocationForm {...formProps} />
         <DialogFooter>{saveButton}</DialogFooter>

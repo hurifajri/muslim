@@ -10,6 +10,9 @@ export const searchLocationsQueryOptions = (query: string) =>
     queryKey: ['nominatim-search', query],
     queryFn: ({ signal }) => fetchSearchLocations(query, signal),
     retry: false,
+    refetchOnWindowFocus: false,
+    refetchOnReconnect: false,
+    refetchOnMount: false,
     staleTime: 1000 * 60 * 60, // Cache for 1 hour
   });
 

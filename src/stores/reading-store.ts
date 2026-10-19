@@ -10,14 +10,12 @@ import {
   safeParse,
   string,
 } from 'valibot';
-import {
-  createJSONStorage,
-  persist,
-  type StateStorage,
-} from 'zustand/middleware';
+import { persist, type StateStorage } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
+import { createPersistStorage } from '@/lib/persist-storage';
 import { safeStorage } from '@/lib/safe-storage';
+import { withStorageLock } from '@/lib/storage-sync';
 
 const CountsSchema = record(string(), pipe(number(), integer(), minValue(0)));
 const SavedSchema = object({
@@ -33,25 +31,25 @@ type ReadingStore = {
   hydrated: boolean;
   favorites: Record<string, boolean>;
   undoSessions: Record<string, Record<string, number>>;
-  increment: (id: string, target?: number) => void;
-  reset: (id: string) => void;
-  undoReset: (id: string) => void;
-  toggleFavorite: (id: string) => void;
-  resetSession: (scope: string) => void;
-  undoSession: (scope: string) => void;
+  increment: (id: string, target?: number) => Promise<void>;
+  reset: (id: string) => Promise<void>;
+  undoReset: (id: string) => Promise<void>;
+  toggleFavorite: (id: string) => Promise<boolean>;
+  resetSession: (scope: string) => Promise<void>;
+  undoSession: (scope: string) => Promise<void>;
 };
 
 export function createReadingStore(storage: StateStorage = safeStorage) {
-  return createStore<ReadingStore>()(
+  const store = createStore<ReadingStore>()(
     persist(
-      set => ({
+      (): ReadingStore => ({
         counts: {},
         undoCounts: {},
         hydrated: false,
         favorites: {},
         undoSessions: {},
         increment: (id, target) =>
-          set(state => {
+          mutate(state => {
             const undoCounts = { ...state.undoCounts };
             const undoSessions = { ...state.undoSessions };
             delete undoCounts[id];
@@ -69,12 +67,12 @@ export function createReadingStore(storage: StateStorage = safeStorage) {
             };
           }),
         reset: id =>
-          set(state => ({
+          mutate(state => ({
             counts: { ...state.counts, [id]: 0 },
             undoCounts: { ...state.undoCounts, [id]: state.counts[id] ?? 0 },
           })),
         undoReset: id =>
-          set(state => {
+          mutate(state => {
             if (state.undoCounts[id] === undefined) return state;
             const undoCounts = { ...state.undoCounts };
             delete undoCounts[id];
@@ -83,15 +81,19 @@ export function createReadingStore(storage: StateStorage = safeStorage) {
               undoCounts,
             };
           }),
-        toggleFavorite: id =>
-          set(state => {
+        toggleFavorite: async id => {
+          let favorite = false;
+          await mutate(state => {
             const favorites = { ...state.favorites };
             if (favorites[id]) delete favorites[id];
             else favorites[id] = true;
+            favorite = favorites[id] ?? false;
             return { favorites };
-          }),
+          });
+          return favorite;
+        },
         resetSession: scope =>
-          set(state => {
+          mutate(state => {
             const snapshot = Object.fromEntries(
               Object.entries(state.counts).filter(([id]) =>
                 id.startsWith(`${scope}:`)
@@ -110,7 +112,7 @@ export function createReadingStore(storage: StateStorage = safeStorage) {
             };
           }),
         undoSession: scope =>
-          set(state => {
+          mutate(state => {
             if (!state.undoSessions[scope]) return state;
             const counts = { ...state.counts, ...state.undoSessions[scope] };
             const undoSessions = { ...state.undoSessions };
@@ -120,7 +122,7 @@ export function createReadingStore(storage: StateStorage = safeStorage) {
       }),
       {
         name: 'muslim-reading',
-        storage: createJSONStorage(() => storage),
+        storage: createPersistStorage(storage),
         skipHydration: true,
         partialize: ({ counts, undoCounts, favorites, undoSessions }) => ({
           counts,
@@ -129,10 +131,34 @@ export function createReadingStore(storage: StateStorage = safeStorage) {
           undoSessions,
         }),
         merge: (saved, current) => {
+          if (saved === undefined)
+            return {
+              ...current,
+              counts: {},
+              favorites: {},
+              undoCounts: {},
+              undoSessions: {},
+              hydrated: true,
+            };
           const parsed = safeParse(SavedSchema, saved);
-          return parsed.success ? { ...current, ...parsed.output } : current;
+          return {
+            ...current,
+            ...(parsed.success ? parsed.output : {}),
+            hydrated: true,
+          };
         },
       }
     )
   );
+
+  function mutate(
+    update: (state: ReadingStore) => Partial<ReadingStore>
+  ): Promise<void> {
+    // Reload inside the shared lock before applying an update, so stale tabs cannot overwrite each other.
+    return withStorageLock('muslim-reading', async () => {
+      await store.persist.rehydrate();
+      store.setState(update);
+    });
+  }
+  return store;
 }

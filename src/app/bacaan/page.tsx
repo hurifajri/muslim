@@ -6,14 +6,14 @@ import { Header } from '@/components/header';
 import { ReadingLibrary } from './reading-library';
 
 export const metadata: Metadata = {
-  title: 'Cari Bacaan dan Favorit',
+  title: 'Cari bacaan dan favorit',
   alternates: { canonical: '/bacaan' },
 };
 
 export default function ReadingsPage() {
   return (
     <main className="bg-background min-h-dvh p-4">
-      <Header title="Cari Bacaan" />
+      <Header title="Cari bacaan" />
       <Suspense
         fallback={
           <output className="mt-28 block text-sm">Memuat bacaan…</output>

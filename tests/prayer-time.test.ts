@@ -18,23 +18,31 @@ test('selected location date crosses midnight independently of UTC/device', () =
   );
 });
 
-test('city and coordinates both request an explicit dated schedule', () => {
+test('city and coordinates request the internal endpoint with an explicit date', () => {
   const city = new URL(
     getAladhanUrl(
       { mode: 'city', city: 'New York', country: 'US' },
       '2026-10-14'
-    )
+    ),
+    'https://muslim.example'
   );
-  assert.equal(city.pathname, '/v1/timingsByCity/14-10-2026');
+  assert.equal(city.origin, 'https://muslim.example');
+  assert.equal(city.pathname, '/api/prayer-times');
+  assert.equal(city.searchParams.get('mode'), 'city');
+  assert.equal(city.searchParams.get('date'), '2026-10-14');
   assert.equal(city.searchParams.get('city'), 'New York');
   assert.equal(city.searchParams.get('method'), '11');
   const gps = new URL(
     getAladhanUrl(
       { mode: 'coordinates', latitude: -6.6, longitude: 106.8 },
       '2026-10-14'
-    )
+    ),
+    'https://muslim.example'
   );
-  assert.equal(gps.pathname, '/v1/timings/14-10-2026');
+  assert.equal(gps.origin, 'https://muslim.example');
+  assert.equal(gps.pathname, '/api/prayer-times');
+  assert.equal(gps.searchParams.get('mode'), 'coordinates');
+  assert.equal(gps.searchParams.get('date'), '2026-10-14');
   assert.equal(gps.searchParams.get('latitude'), '-6.6');
 });
 

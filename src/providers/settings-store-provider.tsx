@@ -9,6 +9,7 @@ import {
 } from 'react';
 import { useStore } from 'zustand';
 
+import { subscribeToStorage, withStorageLock } from '@/lib/storage-sync';
 import {
   createSettingsStore,
   type SettingsStore,
@@ -29,7 +30,11 @@ export const SettingsStoreProvider = ({
 }: SettingsStoreProviderProps) => {
   const [store] = useState(() => createSettingsStore());
   useEffect(() => {
-    void store.persist.rehydrate();
+    const refresh = () => {
+      void withStorageLock('muslim-settings', () => store.persist.rehydrate());
+    };
+    refresh();
+    return subscribeToStorage('muslim-settings', refresh);
   }, [store]);
   return (
     <SettingsStoreContext.Provider value={store}>

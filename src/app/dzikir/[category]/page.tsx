@@ -6,13 +6,13 @@ import { Items } from '@/components/items';
 import { getCategory } from '@/data/categories';
 import { dzikirs } from '@/data/dzikirs';
 
-type PageProps = Readonly<{
+type DzikirPageProps = Readonly<{
   params: Promise<{ category: string }>;
 }>;
 
 export async function generateMetadata({
   params,
-}: PageProps): Promise<Metadata> {
+}: DzikirPageProps): Promise<Metadata> {
   const { category } = await params;
   const entry = getCategory('dzikir', category);
   if (!entry) notFound();
@@ -27,7 +27,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function DzikirPage({ params }: PageProps) {
+export default async function DzikirPage({ params }: DzikirPageProps) {
   const { category } = await params;
   const entry = getCategory('dzikir', category);
   if (!entry) notFound();

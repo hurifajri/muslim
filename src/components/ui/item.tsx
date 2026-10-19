@@ -5,9 +5,15 @@ import * as React from 'react';
 import { Separator } from '@/components/ui/separator';
 import { cn } from '@/lib/utils';
 
-function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
+type ItemGroupProps = Readonly<
+  React.ComponentProps<'div'> & { asChild?: boolean }
+>;
+
+function ItemGroup({ className, asChild = false, ...props }: ItemGroupProps) {
+  const Comp = asChild ? Slot.Root : 'div';
+
   return (
-    <div
+    <Comp
       role="list"
       data-slot="item-group"
       className={cn(
@@ -19,10 +25,9 @@ function ItemGroup({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function ItemSeparator({
-  className,
-  ...props
-}: React.ComponentProps<typeof Separator>) {
+type ItemSeparatorProps = Readonly<React.ComponentProps<typeof Separator>>;
+
+function ItemSeparator({ className, ...props }: ItemSeparatorProps) {
   return (
     <Separator
       data-slot="item-separator"
@@ -34,7 +39,7 @@ function ItemSeparator({
 }
 
 const itemVariants = cva(
-  'group/item flex w-full flex-wrap items-center rounded-2xl border text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-muted',
+  'group/item flex w-full flex-wrap items-center rounded-2xl border text-sm transition-colors duration-100 outline-none focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 [a]:transition-colors [a]:hover:bg-muted [button]:hover:bg-muted',
   {
     variants: {
       variant: {
@@ -55,14 +60,18 @@ const itemVariants = cva(
   }
 );
 
+type ItemProps = Readonly<
+  React.ComponentProps<'div'> &
+    VariantProps<typeof itemVariants> & { asChild?: boolean }
+>;
+
 function Item({
   className,
   variant = 'default',
   size = 'default',
   asChild = false,
   ...props
-}: React.ComponentProps<'div'> &
-  VariantProps<typeof itemVariants> & { asChild?: boolean }) {
+}: ItemProps) {
   const Comp = asChild ? Slot.Root : 'div';
   return (
     <Comp
@@ -92,11 +101,15 @@ const itemMediaVariants = cva(
   }
 );
 
+type ItemMediaProps = Readonly<
+  React.ComponentProps<'div'> & VariantProps<typeof itemMediaVariants>
+>;
+
 function ItemMedia({
   className,
   variant = 'default',
   ...props
-}: React.ComponentProps<'div'> & VariantProps<typeof itemMediaVariants>) {
+}: ItemMediaProps) {
   return (
     <div
       data-slot="item-media"
@@ -107,7 +120,9 @@ function ItemMedia({
   );
 }
 
-function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
+type ItemContentProps = Readonly<React.ComponentProps<'div'>>;
+
+function ItemContent({ className, ...props }: ItemContentProps) {
   return (
     <div
       data-slot="item-content"
@@ -120,7 +135,9 @@ function ItemContent({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
+type ItemTitleProps = Readonly<React.ComponentProps<'div'>>;
+
+function ItemTitle({ className, ...props }: ItemTitleProps) {
   return (
     <div
       data-slot="item-title"
@@ -133,7 +150,9 @@ function ItemTitle({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
+type ItemDescriptionProps = Readonly<React.ComponentProps<'p'>>;
+
+function ItemDescription({ className, ...props }: ItemDescriptionProps) {
   return (
     <p
       data-slot="item-description"
@@ -146,7 +165,9 @@ function ItemDescription({ className, ...props }: React.ComponentProps<'p'>) {
   );
 }
 
-function ItemActions({ className, ...props }: React.ComponentProps<'div'>) {
+type ItemActionsProps = Readonly<React.ComponentProps<'div'>>;
+
+function ItemActions({ className, ...props }: ItemActionsProps) {
   return (
     <div
       data-slot="item-actions"
@@ -156,7 +177,9 @@ function ItemActions({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function ItemHeader({ className, ...props }: React.ComponentProps<'div'>) {
+type ItemHeaderProps = Readonly<React.ComponentProps<'div'>>;
+
+function ItemHeader({ className, ...props }: ItemHeaderProps) {
   return (
     <div
       data-slot="item-header"
@@ -169,7 +192,9 @@ function ItemHeader({ className, ...props }: React.ComponentProps<'div'>) {
   );
 }
 
-function ItemFooter({ className, ...props }: React.ComponentProps<'div'>) {
+type ItemFooterProps = Readonly<React.ComponentProps<'div'>>;
+
+function ItemFooter({ className, ...props }: ItemFooterProps) {
   return (
     <div
       data-slot="item-footer"

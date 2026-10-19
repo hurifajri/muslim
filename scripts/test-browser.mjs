@@ -1,8 +1,14 @@
+// @ts-check
 import { spawnSync } from 'node:child_process';
 import { existsSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 import { build } from 'esbuild';
+
+import { testConsistency } from './test-browser-consistency.mjs';
+import { testErrorRecovery } from './test-browser-errors.mjs';
+import { testPersistence } from './test-browser-persistence.mjs';
+import { testPrayerProxy } from './test-browser-prayer.mjs';
 
 // Use the pinned project CLI, even when invoked directly with `node`.
 const localCli = fileURLToPath(
@@ -18,12 +24,13 @@ let browserStarted = false;
 if (process.env.CHROME_BIN)
   flags.push('--executable-path', process.env.CHROME_BIN);
 
+/** @param {...string} args */
 function browser(...args) {
   const result = spawnSync(binary, [...launcherArgs, ...flags, ...args], {
     encoding: 'utf8',
     timeout: 45_000,
   });
-  if (result.error?.code === 'ENOENT')
+  if (result.error && 'code' in result.error && result.error.code === 'ENOENT')
     throw new Error(
       'agent-browser tidak ditemukan. Jalankan pnpm install dan periksa path AGENT_BROWSER_BIN jika diatur.'
     );
@@ -33,13 +40,16 @@ function browser(...args) {
     );
   return result.stdout;
 }
+/** @param {string} body */
 const check = body =>
   browser('eval', `(async () => { ${body}; return true; })()`);
+/** @param {string} expression */
 const waitFor = expression => {
   try {
     return browser('wait', '--fn', expression);
   } catch (error) {
-    throw new Error(`Waiting for ${expression}: ${error.message}`);
+    const message = error instanceof Error ? error.message : String(error);
+    throw new Error(`Waiting for ${expression}: ${message}`, { cause: error });
   }
 };
 const countSelector = '#bacaan-dzikir-3-1';
@@ -200,7 +210,7 @@ try {
     'document.getElementById("reading-search")?.getBoundingClientRect().height > 0'
   );
   browser('fill', '#reading-search', 'Ayat Kursi');
-  browser('find', 'role', 'button', 'click', '--name', 'Favorit', '--exact');
+  browser('find', 'role', 'radio', 'click', '--name', 'Favorit', '--exact');
   waitFor('document.querySelectorAll("article").length === 1');
   check(
     "if (!document.querySelector('article a').getAttribute('href').includes('#bacaan-dzikir-2-1')) throw Error('Favorite link is incorrect')"
@@ -332,12 +342,12 @@ try {
   );
   browser('reload');
   waitFor(
-    `document.querySelectorAll('article').length === 1 && Array.from(document.querySelectorAll('button')).some(button => button.textContent === 'Favorit' && button.getAttribute('aria-pressed') === 'true')`
+    `document.querySelectorAll('article').length === 1 && Array.from(document.querySelectorAll('[role=radio]')).some(button => button.textContent === 'Favorit' && button.getAttribute('aria-checked') === 'true')`
   );
   browser(
     'find',
     'role',
-    'button',
+    'radio',
     'click',
     '--name',
     'Semua bacaan',
@@ -377,6 +387,7 @@ try {
     format: 'esm',
     platform: 'node',
   });
+  /** @type {typeof import('../src/data/doas')} */
   const { doas } = await import(
     `data:text/javascript;base64,${Buffer.from(outputFiles[0].text).toString('base64')}`
   );
@@ -577,6 +588,10 @@ try {
   console.log(
     'PASS: poster toasts follow their prayer, settings and dialog lifetime'
   );
+  testConsistency({ browser, check, waitFor, base });
+  await testPrayerProxy({ browser, check, waitFor, base });
+  testPersistence({ browser, check, waitFor, base });
+  await testErrorRecovery({ browser, check, waitFor });
 } catch (error) {
   if (browserStarted) {
     try {
@@ -587,6 +602,8 @@ try {
       url: location.href,
       online: navigator.onLine,
       dialog: document.querySelector('[role=dialog]')?.innerText,
+      prayerCard: document.querySelector('section[aria-label="Jadwal salat"]')?.innerText,
+      prayerRequests: window.__prayerRequests,
       controller: navigator.serviceWorker.controller?.scriptURL,
       workers: (await navigator.serviceWorker.getRegistrations()).map(registration => ({
         scope: registration.scope,
@@ -602,14 +619,17 @@ try {
       // Keep the original assertion error if the browser has already exited.
     }
   }
-  console.error(error.message);
+  console.error(
+    error instanceof Error ? (error.stack ?? error.message) : String(error)
+  );
   process.exitCode = 1;
 } finally {
   if (browserStarted) {
     try {
       browser('close');
     } catch (error) {
-      console.error(`Browser cleanup: ${error.message}`);
+      const message = error instanceof Error ? error.message : String(error);
+      console.error(`Browser cleanup: ${message}`);
     }
   }
 }

@@ -21,5 +21,8 @@
   "css.lint.unknownAtRules": "ignore",
   "css.lint.universalSelector": "ignore",
   "css.lint.importStatement": "ignore",
+  "json.schemaDownload.trustedDomains": {
+    "https://ui.shadcn.com/": true
+  },
   "typescript.tsdk": "node_modules/typescript/lib"
 }

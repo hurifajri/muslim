@@ -3,8 +3,8 @@ import { test } from 'node:test';
 
 import { doas } from '@/data/doas';
 import { dzikirs } from '@/data/dzikirs';
-import { readings, searchReadings } from '@/lib/readings';
 import { getSessionProgress } from '@/lib/reading-session';
+import { readings, searchReadings } from '@/lib/readings';
 import { createReadingStore } from '@/stores/reading-store';
 import { createSettingsStore } from '@/stores/settings-store';
 
@@ -44,15 +44,15 @@ test('favorites persist and session reset/undo affects only chosen scope', async
   const storage = memoryStorage();
   const store = createReadingStore(storage);
   await store.persist.rehydrate();
-  store.getState().toggleFavorite('doa:1:1');
-  store.getState().increment('dzikir:pagi:2:1', 1);
-  store.getState().increment('dzikir:pagi:2:1', 1);
-  store.getState().increment('dzikir:petang:2:1', 1);
+  await store.getState().toggleFavorite('doa:1:1');
+  await store.getState().increment('dzikir:pagi:2:1', 1);
+  await store.getState().increment('dzikir:pagi:2:1', 1);
+  await store.getState().increment('dzikir:petang:2:1', 1);
   assert.equal(store.getState().counts['dzikir:pagi:2:1'], 1);
-  store.getState().resetSession('dzikir:pagi');
+  await store.getState().resetSession('dzikir:pagi');
   assert.equal(store.getState().counts['dzikir:pagi:2:1'], 0);
   assert.equal(store.getState().counts['dzikir:petang:2:1'], 1);
-  store.getState().undoSession('dzikir:pagi');
+  await store.getState().undoSession('dzikir:pagi');
   assert.equal(store.getState().counts['dzikir:pagi:2:1'], 1);
   const reloaded = createReadingStore(storage);
   await reloaded.persist.rehydrate();
@@ -73,7 +73,7 @@ test('old settings retain preferences and acquire independent bounded font sizes
   assert.equal(store.getState().settings.counter, false);
   assert.equal(store.getState().settings.clickSound, true);
   assert.equal(store.getState().fontSizes.arabic, 24);
-  store.getState().setFontSize('arabic', 1000);
+  await store.getState().setFontSize('arabic', 1000);
   assert.equal(store.getState().fontSizes.arabic, 48);
   assert.equal(store.getState().fontSizes.translation, 16);
   const reloaded = createSettingsStore(undefined, storage);

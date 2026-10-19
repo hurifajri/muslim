@@ -21,8 +21,12 @@ const serwist = new Serwist({
     {
       // API freshness/fallback is managed by the dated, validated application cache.
       matcher: ({ url }) =>
-        url.origin !== self.location.origin &&
-        /\/(?:timings(?:ByCity)?(?:\/|$)|search$|reverse$)/.test(url.pathname),
+        url.pathname.startsWith('/api/location/') ||
+        url.pathname === '/api/prayer-times' ||
+        (url.origin !== self.location.origin &&
+          /\/(?:timings(?:ByCity)?(?:\/|$)|search$|reverse$)/.test(
+            url.pathname
+          )),
       handler: new NetworkOnly(),
     },
     ...defaultCache,

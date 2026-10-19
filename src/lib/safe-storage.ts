@@ -1,28 +1,62 @@
-import type { StateStorage } from 'zustand/middleware';
+type BrowserStorage = Pick<Storage, 'getItem' | 'setItem' | 'removeItem'>;
 
-// Private browsing / full storage must not prevent reading or counting.
-export const safeStorage = {
-  getItem: (name: string) => {
-    try {
-      return typeof window === 'undefined'
-        ? null
-        : window.localStorage.getItem(name);
-    } catch {
-      return null;
-    }
-  },
-  setItem: (name: string, value: string) => {
-    try {
-      window.localStorage.setItem(name, value);
-    } catch {
-      // In-memory state remains usable when persistence is unavailable.
-    }
-  },
-  removeItem: (name: string) => {
-    try {
-      window.localStorage.removeItem(name);
-    } catch {
-      // Storage is optional.
-    }
-  },
-} satisfies StateStorage;
+/** Keep failed keys in memory for this page lifetime; never flush stale data later. */
+export function createSafeStorage(
+  getStorage: () => BrowserStorage | undefined
+) {
+  const memory = new Map<string, string>();
+  const temporary = new Set<string>();
+  const listeners = new Set<() => void>();
+  const markTemporary = (key: string) => {
+    if (temporary.has(key)) return;
+    temporary.add(key);
+    listeners.forEach(listener => listener());
+  };
+
+  return {
+    getItem(key: string) {
+      if (!temporary.has(key)) {
+        try {
+          const storage = getStorage();
+          if (storage) {
+            const value = storage.getItem(key);
+            if (value === null) memory.delete(key);
+            else memory.set(key, value);
+          }
+        } catch {
+          markTemporary(key);
+        }
+      }
+      return memory.get(key) ?? null;
+    },
+    setItem(key: string, value: string) {
+      memory.set(key, value);
+      if (temporary.has(key)) return;
+      try {
+        getStorage()?.setItem(key, value);
+      } catch {
+        markTemporary(key);
+      }
+    },
+    removeItem(key: string) {
+      memory.delete(key);
+      if (temporary.has(key)) return;
+      try {
+        getStorage()?.removeItem(key);
+      } catch {
+        markTemporary(key);
+      }
+    },
+    subscribe(listener: () => void) {
+      listeners.add(listener);
+      return () => {
+        listeners.delete(listener);
+      };
+    },
+    isTemporary: (key: string) => temporary.has(key),
+  };
+}
+
+export const safeStorage = createSafeStorage(() =>
+  typeof window === 'undefined' ? undefined : window.localStorage
+);

@@ -31,14 +31,6 @@
     1px 1px 0 #fff;
 }
 
-@utility scrollbar-auto {
-  overflow-y: auto;
-  scrollbar-width: none; /* Firefox */
-  &::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Edge */
-  }
-}
-
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);

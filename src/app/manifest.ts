@@ -17,9 +17,9 @@ export default async function manifest(): Promise<MetadataRoute.Manifest> {
     COLOR_PALETTES.find(p => p.id === DEFAULT_PALETTE)!;
 
   return {
-    name: 'Muslim • Jadwal Sholat, Dzikir, dan Doa',
+    name: 'Muslim • Jadwal salat, dzikir, dan doa',
     short_name: 'Muslim',
-    description: 'Jadwal sholat, dzikir, dan doa harian.',
+    description: 'Jadwal salat, dzikir, dan doa harian.',
     start_url: '/',
     display: 'standalone',
     background_color: palette.backgroundColor,
