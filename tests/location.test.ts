@@ -66,7 +66,9 @@ test('search removes duplicate city/country results and uses the common Jakarta 
     globalThis,
     'fetch',
     async (url: string, init?: RequestInit) => {
-      const params = new URL(url).searchParams;
+      const request = new URL(url, 'https://muslim.example');
+      assert.equal(request.pathname, '/api/location/search');
+      const params = request.searchParams;
       assert.equal(params.get('featureType'), 'city');
       assert.equal(params.get('namedetails'), '1');
       assert.equal(params.get('accept-language'), 'id,en');
@@ -115,7 +117,9 @@ test('geolocation uses city-level lookup and the same compact label as search', 
     globalThis,
     'fetch',
     async (url: string, init?: RequestInit) => {
-      const params = new URL(url).searchParams;
+      const request = new URL(url, 'https://muslim.example');
+      assert.equal(request.pathname, '/api/location/reverse');
+      const params = request.searchParams;
       assert.equal(params.get('zoom'), '10');
       assert.equal(params.get('namedetails'), '1');
       assert.equal(params.get('accept-language'), 'id,en');

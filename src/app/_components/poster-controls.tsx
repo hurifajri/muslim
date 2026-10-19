@@ -8,7 +8,12 @@ import {
   CarouselContent,
   CarouselItem,
 } from '@/components/ui/carousel';
-import { Label } from '@/components/ui/label';
+import {
+  Field,
+  FieldDescription,
+  FieldGroup,
+  FieldLabel,
+} from '@/components/ui/field';
 import { Slider } from '@/components/ui/slider';
 import { Switch } from '@/components/ui/switch';
 import { cn } from '@/lib/utils';
@@ -19,36 +24,42 @@ import {
   type PosterOptions,
 } from './poster-options';
 
-type Props = {
+type PosterBackgroundsProps = Readonly<{
   options: PosterOptions;
   onChange: (change: Partial<PosterOptions>) => void;
-};
+}>;
+
+type PosterControlsProps = Readonly<
+  PosterBackgroundsProps & { maxFontSize: number }
+>;
 
 export function PosterControls({
   options,
   maxFontSize,
   onChange,
-}: Props & { maxFontSize: number }) {
+}: PosterControlsProps) {
   const toggles = [
     ['showTitle', 'Judul'],
     ['showArabic', 'Teks Arab'],
     ['showTranslation', 'Terjemahan'],
-    ['textOutline', 'Garis Tepi Teks'],
+    ['textOutline', 'Garis tepi teks'],
   ] as const;
   return (
-    <div className="flex flex-col gap-4">
+    <FieldGroup className="gap-4">
       {toggles.map(([key, label]) => (
-        <div key={key} className="flex items-center justify-between gap-4">
-          <Label htmlFor={`poster-${key}`}>{label}</Label>
+        <Field key={key} orientation="horizontal" className="gap-4">
+          <FieldLabel htmlFor={`poster-${key}`}>{label}</FieldLabel>
           <Switch
             id={`poster-${key}`}
             checked={options[key]}
             onCheckedChange={value => onChange({ [key]: value })}
           />
-        </div>
+        </Field>
       ))}
-      <div className="flex flex-col gap-2">
-        <Label htmlFor="poster-font">Ukuran teks · {options.fontSize} px</Label>
+      <Field className="gap-2">
+        <FieldLabel htmlFor="poster-font">
+          Ukuran teks · {options.fontSize} px
+        </FieldLabel>
         <Slider
           id="poster-font"
           aria-label="Ukuran teks poster"
@@ -60,13 +71,15 @@ export function PosterControls({
           step={1}
           onValueChange={([fontSize]) => onChange({ fontSize })}
         />
-        <p id="poster-font-hint" className="text-muted-foreground text-xs">
+        <FieldDescription id="poster-font-hint" className="text-xs">
           Acuan teks Arab pada hasil poster. Maks. {maxFontSize} px agar isi
           tetap muat.
-        </p>
-      </div>
-      <div className="flex flex-col gap-3">
-        <Label htmlFor="poster-opacity">Latar teks · {options.opacity}%</Label>
+        </FieldDescription>
+      </Field>
+      <Field>
+        <FieldLabel htmlFor="poster-opacity">
+          Latar teks · {options.opacity}%
+        </FieldLabel>
         <Slider
           id="poster-opacity"
           aria-label="Kegelapan latar teks"
@@ -76,12 +89,15 @@ export function PosterControls({
           step={1}
           onValueChange={([opacity]) => onChange({ opacity })}
         />
-      </div>
-    </div>
+      </Field>
+    </FieldGroup>
   );
 }
 
-export function PosterBackgrounds({ options, onChange }: Props) {
+export function PosterBackgrounds({
+  options,
+  onChange,
+}: PosterBackgroundsProps) {
   const [carouselApi, setCarouselApi] = useState<CarouselApi>();
 
   return (
@@ -93,7 +109,11 @@ export function PosterBackgrounds({ options, onChange }: Props) {
     >
       <CarouselContent className="-ms-2 p-1">
         {BACKGROUNDS.map((bg, index) => (
-          <CarouselItem key={bg} className="basis-auto ps-2">
+          <CarouselItem
+            key={bg}
+            aria-label={`Latar ${index + 1} dari ${BACKGROUNDS.length}`}
+            className="basis-auto ps-2"
+          >
             <Button
               variant="ghost"
               aria-label={`Pilih latar belakang ${index + 1}`}

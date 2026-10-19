@@ -3,9 +3,11 @@
 // Since QueryClientProvider relies on useContext under the hood, we have to put 'use client' on top
 import {
   environmentManager,
+  onlineManager,
   QueryClient,
   QueryClientProvider,
 } from '@tanstack/react-query';
+import { useEffect } from 'react';
 
 function makeQueryClient() {
   return new QueryClient({
@@ -43,6 +45,12 @@ export function QueryProvider({ children }: QueryProviderProps) {
   //       suspend because React will throw away the client on the initial
   //       render if it suspends and there is no boundary
   const queryClient = getQueryClient();
+
+  useEffect(() => {
+    // Query starts online by default. An offline reload must establish the
+    // actual initial state so the next online event can trigger a refetch.
+    onlineManager.setOnline(navigator.onLine);
+  }, []);
 
   return (
     <QueryClientProvider client={queryClient}>{children}</QueryClientProvider>

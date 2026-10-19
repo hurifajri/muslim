@@ -7,11 +7,16 @@ import {
   OctagonXIcon,
   TriangleAlertIcon,
 } from 'lucide-react';
-import { Toaster as Sonner, type ToasterProps } from 'sonner';
+import {
+  Toaster as Sonner,
+  type ToasterProps as SonnerToasterProps,
+} from 'sonner';
 
 import { buttonVariants } from '@/components/ui/button';
 import { COLOR_PALETTES } from '@/data/color-palettes';
 import { usePaletteStore } from '@/providers/palette-store-provider';
+
+type ToasterProps = Readonly<SonnerToasterProps>;
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const paletteId = usePaletteStore(state => state.paletteId);

@@ -12,17 +12,19 @@ import {
   type PosterOptions,
 } from './poster-options';
 
+type PosterPreviewProps = Readonly<{
+  doa: RandomDoa;
+  options: PosterOptions;
+  posterRef: Ref<HTMLDivElement>;
+  onMaxFontSizeChange: (maximum: number) => void;
+}>;
+
 export function PosterPreview({
   doa,
   options,
   posterRef,
   onMaxFontSizeChange,
-}: {
-  doa: RandomDoa;
-  options: PosterOptions;
-  posterRef: Ref<HTMLDivElement>;
-  onMaxFontSizeChange: (maximum: number) => void;
-}) {
+}: PosterPreviewProps) {
   const frameRef = useRef<HTMLDivElement>(null);
   const areaRef = useRef<HTMLDivElement>(null);
   const textRef = useRef<HTMLDivElement>(null);

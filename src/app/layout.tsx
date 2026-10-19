@@ -7,6 +7,7 @@ import { cookies } from 'next/headers';
 
 import { InstallPrompt } from '@/components/install-prompt';
 import { RouteBackground } from '@/components/route-background';
+import { StorageNotice } from '@/components/storage-notice';
 import { Toaster } from '@/components/ui/sonner';
 import { COLOR_PALETTES, DEFAULT_PALETTE } from '@/data/color-palettes';
 import { env } from '@/env';
@@ -39,11 +40,11 @@ const amiri = Amiri({
 export const metadata: Metadata = {
   metadataBase: new URL(env.NEXT_PUBLIC_APP_URL),
   title: {
-    default: 'Muslim • Jadwal Sholat, Dzikir, dan Doa',
+    default: 'Muslim • Jadwal salat, dzikir, dan doa',
     template: '%s | Muslim',
   },
   description:
-    'Aplikasi web harian untuk jadwal sholat, dzikir pagi petang, dan kumpulan doa sehari-hari umat Muslim.',
+    'Aplikasi web harian untuk jadwal salat, dzikir pagi petang, dan kumpulan doa sehari-hari umat Muslim.',
   applicationName: 'Muslim',
   authors: [{ name: 'Jadi Dev' }],
   generator: 'Next.js',
@@ -68,15 +69,15 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     siteName: 'Muslim App',
-    title: 'Muslim • Jadwal Sholat, Dzikir, dan Doa',
+    title: 'Muslim • Jadwal salat, dzikir, dan doa',
     description:
-      'Aplikasi web harian untuk jadwal sholat, dzikir pagi petang, dan kumpulan doa sehari-hari umat Muslim.',
+      'Aplikasi web harian untuk jadwal salat, dzikir pagi petang, dan kumpulan doa sehari-hari umat Muslim.',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Muslim • Jadwal Sholat, Dzikir, dan Doa',
+    title: 'Muslim • Jadwal salat, dzikir, dan doa',
     description:
-      'Aplikasi web harian untuk jadwal sholat, dzikir pagi petang, dan kumpulan doa sehari-hari umat Muslim.',
+      'Aplikasi web harian untuk jadwal salat, dzikir pagi petang, dan kumpulan doa sehari-hari umat Muslim.',
   },
   icons: {
     icon: '/favicon.ico',
@@ -144,6 +145,7 @@ export default async function RootLayout({ children }: RootLayoutProps) {
                   >
                     {children}
                     <Toaster />
+                    <StorageNotice />
                   </SerwistProvider>
                   <InstallPrompt />
                 </ReadingStoreProvider>

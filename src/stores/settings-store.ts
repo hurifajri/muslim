@@ -1,12 +1,10 @@
 import { safeParse } from 'valibot';
-import {
-  createJSONStorage,
-  persist,
-  type StateStorage,
-} from 'zustand/middleware';
+import { persist, type StateStorage } from 'zustand/middleware';
 import { createStore } from 'zustand/vanilla';
 
+import { createPersistStorage } from '@/lib/persist-storage';
 import { safeStorage } from '@/lib/safe-storage';
+import { withStorageLock } from '@/lib/storage-sync';
 import {
   DEFAULT_FONT_SIZES,
   FONT_SIZE_RANGES,
@@ -19,16 +17,16 @@ import {
 export type { SettingKey, SettingsState };
 
 export const SETTINGS_CONFIG: { name: SettingKey; label: string }[] = [
-  { name: 'counter', label: 'Tombol Hitung' },
-  { name: 'clickSound', label: 'Bunyi Klik' },
+  { name: 'counter', label: 'Tombol hitung' },
+  { name: 'clickSound', label: 'Bunyi klik' },
   { name: 'translation', label: 'Terjemahan' },
   { name: 'transliteration', label: 'Transliterasi' },
   { name: 'benefits', label: 'Keutamaan' },
 ];
 
 export type SettingsActions = {
-  setSettings: (name: SettingKey, isActive: boolean) => void;
-  setFontSize: (name: FontSizeKey, size: number) => void;
+  setSettings: (name: SettingKey, isActive: boolean) => Promise<void>;
+  setFontSize: (name: FontSizeKey, size: number) => Promise<void>;
 };
 
 export type SettingsStore = SettingsState & SettingsActions;
@@ -48,12 +46,12 @@ export const createSettingsStore = (
   initState: SettingsState = defaultInitState,
   storage: StateStorage = safeStorage
 ) => {
-  return createStore<SettingsStore>()(
+  const store = createStore<SettingsStore>()(
     persist(
-      set => ({
+      () => ({
         ...initState,
         setFontSize: (name, size) =>
-          set(state => ({
+          mutate(state => ({
             fontSizes: {
               ...state.fontSizes,
               [name]: Number.isFinite(size)
@@ -65,7 +63,7 @@ export const createSettingsStore = (
             },
           })),
         setSettings: (name, isActive) =>
-          set(state => ({
+          mutate(state => ({
             settings: {
               ...state.settings,
               [name]: isActive,
@@ -74,9 +72,11 @@ export const createSettingsStore = (
       }),
       {
         name: 'muslim-settings',
-        storage: createJSONStorage(() => storage),
+        storage: createPersistStorage(storage),
         skipHydration: true,
         merge: (persistedState, currentState) => {
+          if (persistedState === undefined)
+            return { ...currentState, ...initState };
           const parsed = safeParse(SettingsStateSchema, persistedState);
           if (!parsed.success) return currentState;
 
@@ -92,4 +92,15 @@ export const createSettingsStore = (
       }
     )
   );
+
+  function mutate(
+    update: (state: SettingsStore) => Partial<SettingsStore>
+  ): Promise<void> {
+    // Reload inside the shared lock before applying an update, preserving preferences changed in another tab.
+    return withStorageLock('muslim-settings', async () => {
+      await store.persist.rehydrate();
+      store.setState(update);
+    });
+  }
+  return store;
 };

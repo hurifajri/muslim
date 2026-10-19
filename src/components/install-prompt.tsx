@@ -3,6 +3,8 @@
 import { DownloadIcon, ShareIcon, SquarePlusIcon, XIcon } from 'lucide-react';
 import { useEffect, useState, useSyncExternalStore } from 'react';
 
+import { safeStorage } from '@/lib/safe-storage';
+
 import { Button } from './ui/button';
 
 interface BeforeInstallPromptEvent extends Event {
@@ -28,7 +30,7 @@ function getIsStandalone() {
 }
 
 function getIsDismissed() {
-  const dismissedAt = localStorage.getItem('installPromptDismissedAt');
+  const dismissedAt = safeStorage.getItem('installPromptDismissedAt');
   if (!dismissedAt) return false;
   const dismissedTime = Number.parseInt(dismissedAt, 10);
   return Date.now() - dismissedTime < SEVEN_DAYS_IN_MS;
@@ -45,11 +47,11 @@ export function InstallPrompt() {
 
   useEffect(() => {
     // Clean up expired dismissal from localStorage
-    const dismissedAt = localStorage.getItem('installPromptDismissedAt');
+    const dismissedAt = safeStorage.getItem('installPromptDismissedAt');
     if (dismissedAt) {
       const dismissedTime = Number.parseInt(dismissedAt, 10);
       if (Date.now() - dismissedTime >= SEVEN_DAYS_IN_MS) {
-        localStorage.removeItem('installPromptDismissedAt');
+        safeStorage.removeItem('installPromptDismissedAt');
       }
     }
 
@@ -70,7 +72,7 @@ export function InstallPrompt() {
   const handleInstall = async () => {
     if (!deferredPrompt) return;
     try {
-      deferredPrompt.prompt();
+      await deferredPrompt.prompt();
       await deferredPrompt.userChoice;
     } catch {
       // prompt() can throw if already called or dismissed
@@ -86,14 +88,16 @@ export function InstallPrompt() {
 
   const handleDismiss = () => {
     setIsDismissed(true);
-    localStorage.setItem('installPromptDismissedAt', Date.now().toString());
+    safeStorage.setItem('installPromptDismissedAt', Date.now().toString());
   };
 
   return (
     <div className="fixed right-0 bottom-0 left-0 z-50 p-4 pb-[max(1rem,env(safe-area-inset-bottom))]">
       <div className="bg-card border-border relative flex flex-col gap-2 rounded-4xl border p-4 sm:flex-row sm:items-center sm:justify-between">
         <div className="flex flex-col gap-2">
-          <h3 className="text-card-foreground font-bold">Install Muslim App</h3>
+          <h3 className="text-card-foreground font-bold">
+            Pasang aplikasi Muslim
+          </h3>
           {isIOS ? (
             <p className="text-card-foreground flex flex-wrap items-center text-sm">
               Tekan tombol&nbsp;{' '}
@@ -111,7 +115,7 @@ export function InstallPrompt() {
             </p>
           ) : (
             <p className="text-card-foreground text-sm">
-              Install untuk akses cepat. Halaman yang sudah dibuka dapat dibaca
+              Pasang untuk akses cepat. Halaman yang sudah dibuka dapat dibaca
               offline.
             </p>
           )}
@@ -121,7 +125,7 @@ export function InstallPrompt() {
             onClick={handleInstall}
             className="w-full shrink-0 gap-2 sm:w-auto"
           >
-            <DownloadIcon className="size-4" /> Install
+            <DownloadIcon data-icon="inline-start" /> Pasang
           </Button>
         )}
         <Button
@@ -131,7 +135,7 @@ export function InstallPrompt() {
           onClick={handleDismiss}
         >
           <XIcon />
-          <span className="sr-only">Close</span>
+          <span className="sr-only">Tutup</span>
         </Button>
       </div>
     </div>

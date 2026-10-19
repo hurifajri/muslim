@@ -15,6 +15,13 @@ export function readingAnchor(
 ) {
   return `bacaan-${collection}-${parentId}-${childId}`;
 }
+export function readingProgressId(
+  scope: string,
+  parentId: number,
+  childId: number
+) {
+  return `${scope}:${parentId}:${childId}`;
+}
 export function readingHref(
   collection: Collection,
   category: string,

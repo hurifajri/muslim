@@ -1,6 +1,5 @@
 import { array, parse } from 'valibot';
 
-import { env } from '@/env';
 import {
   formatCityName,
   formatCountryName,
@@ -53,12 +52,14 @@ export async function fetchSearchLocations(
     'accept-language': 'id,en',
   });
 
-  const res = await fetch(
-    `${env.NEXT_PUBLIC_NOMINATIM_API_URL}/search?${params}`,
-    { signal }
-  );
+  const res = await fetch(`/api/location/search?${params}`, { signal });
 
-  if (!res.ok) throw new Error(`Pencarian lokasi gagal (${res.status}).`);
+  if (!res.ok)
+    throw new Error(
+      res.status === 429
+        ? 'Pencarian terlalu cepat. Tunggu sebentar lalu coba lagi.'
+        : `Pencarian lokasi gagal (${res.status}).`
+    );
 
   const results = parse(array(NominatimResultSchema), await res.json());
 
@@ -87,10 +88,7 @@ export async function fetchReverseGeocode(
     zoom: '10',
     'accept-language': 'id,en',
   });
-  const res = await fetch(
-    `${env.NEXT_PUBLIC_NOMINATIM_API_URL}/reverse?${params}`,
-    { signal }
-  );
+  const res = await fetch(`/api/location/reverse?${params}`, { signal });
   if (!res.ok) throw new Error(`Pencarian koordinat gagal (${res.status}).`);
   const data = parse(NominatimResultSchema, await res.json());
   return toSuggestion(data);

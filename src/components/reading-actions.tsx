@@ -7,25 +7,34 @@ import { toast } from 'sonner';
 
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
+import { safeStorage } from '@/lib/safe-storage';
 import { useReadingStore } from '@/providers/reading-store-provider';
 
-export function ReadingActions({ id, href }: { id: string; href: string }) {
+type ReadingActionsProps = Readonly<{ id: string; href: string }>;
+
+export function ReadingActions({ id, href }: ReadingActionsProps) {
   const router = useRouter();
   const favorite = useReadingStore(state => state.favorites[id] ?? false);
   const hydrated = useReadingStore(state => state.hydrated);
   const toggleFavorite = useReadingStore(state => state.toggleFavorite);
   const [manualLink, setManualLink] = useState('');
   const copyToastId = `reading-link-copy:${id}`;
-  const changeFavorite = () => {
-    toggleFavorite(id);
-    toast.success(favorite ? 'Dihapus dari favorit.' : 'Disimpan ke favorit.', {
+  const changeFavorite = async () => {
+    const saved = await toggleFavorite(id);
+    const temporary = safeStorage.isTemporary('muslim-reading');
+    const notify = temporary ? toast.message : toast.success;
+    const savedMessage = temporary
+      ? 'Ditambahkan ke favorit sesi ini.'
+      : 'Disimpan ke favorit.';
+    const message = saved ? savedMessage : 'Dihapus dari favorit.';
+    notify(message, {
       id: `reading-favorite:${id}`,
-      action: favorite
-        ? null
-        : {
+      action: saved
+        ? {
             label: 'Lihat favorit',
             onClick: () => router.push('/bacaan?tab=favorit'),
-          },
+          }
+        : null,
     });
   };
   const copyLink = async () => {
@@ -48,7 +57,7 @@ export function ReadingActions({ id, href }: { id: string; href: string }) {
           aria-label={favorite ? 'Hapus dari favorit' : 'Simpan ke favorit'}
           aria-pressed={favorite}
           disabled={!hydrated}
-          onClick={changeFavorite}
+          onClick={() => void changeFavorite()}
         >
           <HeartIcon fill={favorite ? 'currentColor' : 'none'} />
         </Button>

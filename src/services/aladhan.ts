@@ -1,46 +1,30 @@
-import { parse } from 'valibot';
-
-import { env } from '@/env';
 import { readPrayerCache, writePrayerCache } from '@/lib/prayer-cache';
-import { isTimeZone, scheduleDate } from '@/lib/prayer-time';
-import {
-  AladhanResponseSchema,
-  type AladhanTimingsByLocationParams,
-} from '@/schemas/praying-time';
+import { parsePrayerResponse } from '@/lib/prayer-response';
+import { isTimeZone } from '@/lib/prayer-time';
+import type { AladhanTimingsByLocationParams } from '@/schemas/praying-time';
 
 /**
- * Fetches prayer timings from the Aladhan API.
+ * Requests prayer timings through the same-origin Aladhan proxy.
  * Supports both city-based and coordinates-based lookup.
  */
 export function getAladhanUrl(
   params: AladhanTimingsByLocationParams,
   date: string
 ) {
-  const baseUrl = env.NEXT_PUBLIC_ALADHAN_API_URL;
-  const method = params.method ?? 11;
-  const adjustment = params.adjustment ?? 0;
-
-  let url: string;
-
+  const searchParams = new URLSearchParams({
+    mode: params.mode,
+    date,
+    method: String(params.method ?? 11),
+    adjustment: String(params.adjustment ?? 0),
+  });
   if (params.mode === 'city') {
-    const searchParams = new URLSearchParams({
-      city: params.city,
-      country: params.country,
-      method: String(method),
-      adjustment: String(adjustment),
-    });
-    url = `${baseUrl}/timingsByCity/${date.split('-').reverse().join('-')}?${searchParams}`;
+    searchParams.set('city', params.city);
+    searchParams.set('country', params.country);
   } else {
-    const searchParams = new URLSearchParams({
-      latitude: String(params.latitude),
-      longitude: String(params.longitude),
-      method: String(method),
-      adjustment: String(adjustment),
-    });
-    url = `${baseUrl}/timings/${date.split('-').reverse().join('-')}?${searchParams}`;
+    searchParams.set('latitude', String(params.latitude));
+    searchParams.set('longitude', String(params.longitude));
   }
-
-  return url;
+  return `/api/prayer-times?${searchParams}`;
 }
 
 export async function fetchAladhanTimings(
@@ -60,21 +44,17 @@ export async function fetchAladhanTimings(
       signal: controller.signal,
     });
     if (!res.ok) throw new Error(`Aladhan API error: ${res.status}`);
-    const response = parse(AladhanResponseSchema, await res.json());
-    if (
-      response.code !== 200 ||
-      !response.data ||
-      !isTimeZone(response.data.meta.timezone) ||
-      scheduleDate(response.data.date.gregorian) !== date
-    ) {
-      throw new Error('Jadwal yang diterima tidak sesuai tanggal permintaan.');
-    }
-    const fetchedAt = Date.now();
-    await writePrayerCache(params, response, fetchedAt);
+    const response = parsePrayerResponse(await res.json(), date);
+    const upstreamFetchedAt = Number(res.headers.get('X-Prayer-Fetched-At'));
+    const fetchedAt =
+      Number.isSafeInteger(upstreamFetchedAt) && upstreamFetchedAt > 0
+        ? upstreamFetchedAt
+        : Date.now();
+    writePrayerCache(params, response, fetchedAt);
     return { response, fetchedAt, cached: false };
   } catch (error) {
     if (signal?.aborted) throw error;
-    const saved = await readPrayerCache(params, date);
+    const saved = readPrayerCache(params, date);
     if (saved && isTimeZone(saved.response.data!.meta.timezone))
       return { ...saved, cached: true };
     throw error;

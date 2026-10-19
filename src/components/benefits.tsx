@@ -20,6 +20,17 @@ type BenefitsProps = Readonly<{
   onClose: () => void;
 }>;
 
+type BenefitsContentProps = Readonly<{ benefits: Benefit[] }>;
+
+function BenefitsContent({ benefits }: BenefitsContentProps) {
+  return benefits.map(benefit => (
+    <div key={benefit.id} className="flex flex-col gap-2">
+      <p className="text-base">{benefit.translation}</p>
+      <p className="text-sm">{` [${benefit.narrator}]`}</p>
+    </div>
+  ));
+}
+
 export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
   const { isMobile } = useIsMobile();
 
@@ -31,12 +42,7 @@ export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
             <DrawerTitle className="text-left">Keutamaan {title}</DrawerTitle>
           </DrawerHeader>
           <div className="flex flex-col gap-4 overflow-y-auto p-4">
-            {benefits.map(benefit => (
-              <div key={benefit.id} className="flex flex-col gap-2">
-                <p className="text-base">{benefit.translation}</p>
-                <p className="text-sm">{` [${benefit.narrator}]`}</p>
-              </div>
-            ))}
+            <BenefitsContent benefits={benefits} />
           </div>
         </DrawerContent>
       </Drawer>
@@ -50,12 +56,7 @@ export function Benefits({ benefits, title, isOpen, onClose }: BenefitsProps) {
           <DialogTitle>Keutamaan {title}</DialogTitle>
         </DialogHeader>
         <div className="flex flex-col gap-4">
-          {benefits.map(benefit => (
-            <div key={benefit.id} className="flex flex-col gap-2">
-              <p className="text-base">{benefit.translation}</p>
-              <p className="text-sm">{` [${benefit.narrator}]`}</p>
-            </div>
-          ))}
+          <BenefitsContent benefits={benefits} />
         </div>
       </DialogContent>
     </Dialog>

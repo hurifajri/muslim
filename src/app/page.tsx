@@ -7,7 +7,7 @@ export const metadata: Metadata = { alternates: { canonical: '/' } };
 export default function HomePage() {
   return (
     <>
-      <h1 className="sr-only">Muslim • Jadwal Sholat, Dzikir, dan Doa</h1>
+      <h1 className="sr-only">Muslim • Jadwal salat, dzikir, dan doa</h1>
       <HomeShell />
     </>
   );

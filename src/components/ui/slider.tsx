@@ -5,6 +5,8 @@ import * as React from 'react';
 
 import { cn } from '@/lib/utils';
 
+type SliderProps = Readonly<React.ComponentProps<typeof SliderPrimitive.Root>>;
+
 function Slider({
   className,
   defaultValue,
@@ -16,16 +18,12 @@ function Slider({
   'aria-describedby': ariaDescribedBy,
   'aria-valuetext': ariaValueText,
   ...props
-}: React.ComponentProps<typeof SliderPrimitive.Root>) {
-  const _values = React.useMemo(
-    () =>
-      Array.isArray(value)
-        ? value
-        : Array.isArray(defaultValue)
-          ? defaultValue
-          : [min, max],
-    [value, defaultValue, min, max]
-  );
+}: SliderProps) {
+  const _values = React.useMemo(() => {
+    if (Array.isArray(value)) return value;
+    if (Array.isArray(defaultValue)) return defaultValue;
+    return [min, max];
+  }, [value, defaultValue, min, max]);
 
   return (
     <SliderPrimitive.Root
