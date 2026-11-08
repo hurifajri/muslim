@@ -58,9 +58,11 @@ const checkReadingHighlight = () =>
   check(`const target = document.getElementById(location.hash.slice(1));
     if (!target) throw Error('Reading fragment has no matching element');
     const style = getComputedStyle(target);
-    if (style.padding !== '16px' || !style.boxShadow.includes('0px 0px 0px 2px')) throw Error('Linked reading is missing its ring or padding');
+    if (style.padding !== '16px' || style.margin !== '2px' || !style.boxShadow.includes('0px 0px 0px 2px')) throw Error('Linked reading is missing its ring or spacing');
     for (const reading of document.querySelectorAll('[id^="bacaan-"]')) {
-      if (reading !== target && getComputedStyle(reading).padding !== '0px') throw Error('Previous reading kept its highlight');
+      if (reading === target) continue;
+      const readingStyle = getComputedStyle(reading);
+      if (readingStyle.margin !== '0px' || readingStyle.boxShadow !== 'none') throw Error('Previous reading kept its highlight');
     }`);
 // The preview scale is updated by a ResizeObserver, so wait for it to settle after a resize.
 const waitForPosterScale = () =>

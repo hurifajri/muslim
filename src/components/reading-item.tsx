@@ -39,9 +39,10 @@ export const ReadingItem = memo(function ReadingItem({
     <div
       id={entry.anchor}
       className={cn(
-        'flex scroll-mt-[calc(7rem+env(safe-area-inset-top))] flex-col gap-4 rounded-xl',
-        highlighted === null && 'target:ring-primary target:p-4 target:ring-2',
-        highlighted && 'ring-primary p-4 ring-2'
+        'flex scroll-mt-[calc(7rem+env(safe-area-inset-top))] flex-col gap-4 p-4',
+        highlighted === null &&
+          'target:ring-primary target:m-0.5 target:ring-2',
+        highlighted && 'ring-primary m-0.5 ring-2'
       )}
     >
       <ReadingActions id={entry.id} href={entry.href} />
