@@ -6,7 +6,7 @@
     { "type": "feat", "section": "Features" },
     { "type": "fix", "section": "Bug Fixes" },
     { "type": "perf", "section": "Performance Improvements" },
-    { "type": "refactor", "section": "Code Refactoring" },
+    { "type": "refactor", "section": "Code Refactoring", "hidden": true },
     { "type": "revert", "section": "Reverts" },
     { "type": "docs", "section": "Documentation", "hidden": true },
     { "type": "style", "section": "Styles", "hidden": true },
