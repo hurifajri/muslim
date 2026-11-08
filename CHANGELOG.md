@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.1](https://github.com/hurifajri/muslim/compare/v2.1.0...v2.1.1) (2026-11-08)
+
+
+### Bug Fixes
+
+* refine reading item highlight spacing and rounded corners ([#69](https://github.com/hurifajri/muslim/issues/69)) ([ec2bf59](https://github.com/hurifajri/muslim/commit/ec2bf59a5299711b56c3e752cd5f3ba3b221bb4b))
+
 ## [2.1.0](https://github.com/hurifajri/muslim/compare/v2.0.0...v2.1.0) (2026-11-08)
 
 
