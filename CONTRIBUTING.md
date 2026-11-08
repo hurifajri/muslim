@@ -1,11 +1,18 @@
 # Contributing
 
-## Branching
+## Branching (trunk-based)
 
-- `main` — stable, release branch. Every push/merge here triggers an automatic release.
-- `dev` — integration branch. Work lands here first.
-- `feat/*`, `fix/*`, `chore/*`, `docs/*` — short-lived branches, opened as PRs into `dev`.
-- Release by merging `dev` → `main` (use a **merge commit** or **squash with a conventional title**).
+- `main` is the only long-lived branch: always stable, every merge triggers an automatic release.
+- Work happens in short-lived branches created **from `main`**: `feat/*`, `fix/*`, `chore/*`, `docs/*`.
+- Open a PR into `main`, wait for the `Checks` and `Commitlint` status checks, then **squash merge**.
+  The PR title becomes the commit message, so it must be a Conventional Commit.
+- The branch is deleted after merge. Contributors without write access use a fork.
+
+```bash
+git switch main && git pull
+git switch -c feat/my-feature
+# ...commit, push, open PR into main
+```
 
 ## Commits ([Conventional Commits](https://www.conventionalcommits.org))
 
@@ -22,7 +29,6 @@
 
 Fully automatic via [semantic-release](https://semantic-release.gitbook.io) on push to `main`:
 version bump in `package.json`, `CHANGELOG.md` update, `vX.Y.Z` git tag and GitHub Release.
-The bot commit `chore(release): X.Y.Z [skip ci]` is pushed back to `main`; afterwards merge `main` into `dev`
-to keep versions in sync. Preview with `pnpm release:dry`.
+The bot commit `chore(release): X.Y.Z [skip ci]` is pushed back to `main`. Preview with `pnpm release:dry`.
 
 > If `main` has branch protection, allow GitHub Actions to bypass it for the release commit.
