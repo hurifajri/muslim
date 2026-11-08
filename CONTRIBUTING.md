@@ -18,13 +18,13 @@ git switch -c feat/my-feature
 
 `<type>(<scope>)?: <subject>` — enforced locally (husky + commitlint) and on PRs.
 
-| Type                                            | Version bump | Changelog |
-| ----------------------------------------------- | ------------ | --------- |
-| `feat`                                          | minor        | yes       |
-| `fix`                                           | patch        | yes       |
-| `perf`, `refactor`, `revert`                    | none         | yes       |
-| `docs`, `style`, `test`, `build`, `ci`, `chore` | none         | no        |
-| `!` after type or `BREAKING CHANGE:` footer     | major        | yes       |
+| Type                                                        | Version bump | Changelog |
+| ----------------------------------------------------------- | ------------ | --------- |
+| `feat`                                                      | minor        | yes       |
+| `fix`                                                       | patch        | yes       |
+| `perf`, `revert`                                            | none         | yes       |
+| `refactor`, `docs`, `style`, `test`, `build`, `ci`, `chore` | none         | no        |
+| `!` after type or `BREAKING CHANGE:` footer                 | major        | yes       |
 
 ## Releases
 
