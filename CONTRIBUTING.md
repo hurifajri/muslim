@@ -26,6 +26,12 @@ git switch -c feat/my-feature
 | `refactor`, `docs`, `style`, `test`, `build`, `ci`, `chore` | none         | no        |
 | `!` after type or `BREAKING CHANGE:` footer                 | major        | yes       |
 
+## Compatibility & UI Copy
+
+- **Stored user data:** Preserve backwards compatibility for existing browser cookies (`muslim-location`, `muslim-palette`) and `localStorage` keys (`muslim-settings`, `muslim-reading`) so updates never break saved locations, themes, progress, or favorites.
+- **UI copy:** Keep Indonesian interface labels in consistent sentence case while leaving proper names and reading content intact.
+- **Error boundaries:** Keep [`src/app/error.tsx`](src/app/error.tsx) and [`src/app/global-error.tsx`](src/app/global-error.tsx) independent of app providers and `env` validation so recovery actions always render.
+
 ## Content & Transliteration Guidelines
 
 - **Sources & IDs:** Arabic texts, translations, and `narrator` references follow the cited sources in [`src/data/sources.ts`](src/data/sources.ts). Any addition or correction must include a verifiable reference and **preserve existing reading IDs** so saved progress and favorites stay linked.

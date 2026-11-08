@@ -122,7 +122,7 @@ If Google Chrome is already installed locally, you can skip downloading Chrome f
 CHROME_BIN='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' pnpm test:browser
 ```
 
-`TEST_BASE_URL`, `AGENT_BROWSER_BIN`, and `CHROME_BIN` can override the target server and executable paths.
+`TEST_BASE_URL`, `AGENT_BROWSER_BIN`, and `CHROME_BIN` can override the target server and executable paths. Browser test modules (`scripts/test-browser*.mjs`) use `@ts-check` with [`scripts/browser-test-types.d.ts`](scripts/browser-test-types.d.ts) so `pnpm check` type-checks them alongside application code.
 
 The CI workflow in [Checks](.github/workflows/check.yml) runs on every push and pull request using Node 24: frozen install, `next typegen`, `pnpm check`, `pnpm test`, `pnpm build --webpack`, and `pnpm test:browser`.
 
@@ -132,6 +132,7 @@ The CI workflow in [Checks](.github/workflows/check.yml) runs on every push and 
 - Location search composes shadcn's official `Combobox` (powered by `@base-ui/react`) inside a Radix dialog/drawer (`Enter` confirms or triggers Search; `Escape` closes floating results before the modal).
 - Settings use a theme-aware `ScrollArea` whose scrollbar adapts to the active palette.
 - Component props follow `type ComponentNameProps = Readonly<{ ... }>`, and primitive wrappers inherit props via `Readonly<React.ComponentProps<typeof Primitive>>`.
+- Interface copy follows Indonesian sentence case; [`src/app/error.tsx`](src/app/error.tsx) and [`src/app/global-error.tsx`](src/app/global-error.tsx) render without app providers or `env` configuration so retry and home recovery stay available.
 - Reading sequence order is centralized in [`src/lib/reading-sequence.ts`](src/lib/reading-sequence.ts); repetition targets apply only to progress calculations. Audio recitation playback is not implemented yet (optional counter click sound is available in Settings).
 
 ## Contributing
@@ -147,9 +148,8 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a pull request:
 
 ## Documentation & Sources
 
-- [Contributing Guide](CONTRIBUTING.md) — branching workflow, Conventional Commits, content guidelines, and automated `release-please` releases
+- [Contributing Guide](CONTRIBUTING.md) — branching workflow, Conventional Commits, compatibility & content guidelines, and automated `release-please` releases
 - [Changelog](CHANGELOG.md) — release history and notable updates
-- [Specification](docs/SPEC.md) — behavioral specification, invariants, and bug-fix log
 - **Reading Sources:** Listed in [`src/data/sources.ts`](src/data/sources.ts) and inside the app's Settings drawer.
 
 ## License
