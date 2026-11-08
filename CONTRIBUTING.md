@@ -2,7 +2,7 @@
 
 ## Branching (trunk-based)
 
-- `main` is the only long-lived branch: always stable, every merge triggers an automatic release.
+- `main` is the only long-lived branch: always stable, every merge updates the automated Release PR.
 - Work happens in short-lived branches created **from `main`**: `feat/*`, `fix/*`, `chore/*`, `docs/*`.
 - Open a PR into `main`, wait for the `Checks` and `Commitlint` status checks, then **squash merge**.
   The PR title becomes the commit message, so it must be a Conventional Commit.
@@ -18,17 +18,19 @@ git switch -c feat/my-feature
 
 `<type>(<scope>)?: <subject>` — enforced locally (husky + commitlint) and on PRs.
 
-| Type                                            | Version bump |
-| ----------------------------------------------- | ------------ |
-| `feat`                                          | minor        |
-| `fix`, `perf`, `refactor`, `revert`             | patch        |
-| `docs`, `style`, `test`, `build`, `ci`, `chore` | none         |
-| `!` after type or `BREAKING CHANGE:` footer     | major        |
+| Type                                            | Version bump | Changelog |
+| ----------------------------------------------- | ------------ | --------- |
+| `feat`                                          | minor        | yes       |
+| `fix`                                           | patch        | yes       |
+| `perf`, `refactor`, `revert`                    | none         | yes       |
+| `docs`, `style`, `test`, `build`, `ci`, `chore` | none         | no        |
+| `!` after type or `BREAKING CHANGE:` footer     | major        | yes       |
 
 ## Releases
 
-Fully automatic via [semantic-release](https://semantic-release.gitbook.io) on push to `main`:
-version bump in `package.json`, `CHANGELOG.md` update, `vX.Y.Z` git tag and GitHub Release.
-The bot commit `chore(release): X.Y.Z [skip ci]` is pushed back to `main`. Preview with `pnpm release:dry`.
+Automated via [release-please](https://github.com/googleapis/release-please) on push to `main`:
 
-> If `main` has branch protection, allow GitHub Actions to bypass it for the release commit.
+1. When releasable commits land on `main`, the Release workflow opens or updates a Release PR (`chore(main): release X.Y.Z`) that updates `package.json`, `.release-please-manifest.json`, and `CHANGELOG.md`.
+2. Merging (squash) that Release PR creates the `vX.Y.Z` git tag and GitHub Release automatically.
+
+> Requires "Allow GitHub Actions to create and approve pull requests" in repository Actions settings. If `main` requires status checks or CodeQL on PRs, either configure a `RELEASE_PLEASE_TOKEN` PAT secret or close and reopen the Release PR once to trigger checks.
