@@ -4,6 +4,8 @@
   "private": true,
   "packageManager": "pnpm@11.22.0",
   "scripts": {
+    "prepare": "husky",
+    "release:dry": "semantic-release --dry-run --no-ci",
     "test": "node scripts/test.mjs",
     "test:browser": "node scripts/test-browser.mjs",
     "test:browser:install": "agent-browser install",
@@ -48,6 +50,10 @@
     "zustand": "^5.0.14"
   },
   "devDependencies": {
+    "@commitlint/cli": "^21.2.4",
+    "@commitlint/config-conventional": "^21.2.4",
+    "@semantic-release/changelog": "^7.0.0",
+    "@semantic-release/git": "^11.0.1",
     "@serwist/turbopack": "^9.5.12",
     "@tanstack/eslint-plugin-query": "^5.101.4",
     "@types/node": "26.1.2",
@@ -56,14 +62,17 @@
     "@typescript-eslint/eslint-plugin": "^8.66.0",
     "@typescript-eslint/parser": "^8.66.0",
     "agent-browser": "0.39.1",
+    "conventional-changelog-conventionalcommits": "^10.4.1",
     "esbuild": "^0.28.2",
     "eslint": "^9.39.5",
     "eslint-config-next": "^16.3.0",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-simple-import-sort": "^14.0.0",
     "eslint-plugin-unused-imports": "^4.4.1",
+    "husky": "^9.1.7",
     "prettier": "3.9.6",
     "prettier-plugin-tailwindcss": "^0.8.1",
+    "semantic-release": "^25.0.9",
     "serwist": "^9.5.12",
     "typescript": "^6.0.3"
   }
