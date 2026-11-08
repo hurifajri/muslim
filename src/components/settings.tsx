@@ -162,7 +162,9 @@ export function Settings({ isOpen, onClose }: SettingsProps) {
             <span className="text-sm">Tentang aplikasi</span>
             <div className="flex items-center justify-between">
               <span className="text-xs">Versi</span>
-              <span className="text-xs">2.0.0</span>
+              <span className="text-xs">
+                {process.env.NEXT_PUBLIC_APP_VERSION}
+              </span>
             </div>
           </div>
           <div className="flex flex-col gap-1">
