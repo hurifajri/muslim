@@ -26,6 +26,12 @@ git switch -c feat/my-feature
 | `refactor`, `docs`, `style`, `test`, `build`, `ci`, `chore` | none         | no        |
 | `!` after type or `BREAKING CHANGE:` footer                 | major        | yes       |
 
+## Content & Transliteration Guidelines
+
+- **Sources & IDs:** Arabic texts, translations, and `narrator` references follow the cited sources in [`src/data/sources.ts`](src/data/sources.ts). Any addition or correction must include a verifiable reference and **preserve existing reading IDs** so saved progress and favorites stay linked.
+- **Indonesian transliteration:** Use `aa/ii/uu` for long vowels, `sy/kh/dz/ts/zh` for consonants, apostrophes for _hamzah_/_ain_, and _waqaf_ endings at sentence ends. Transliteration is a reading aid only; pronunciation and _tajwid_ follow the Arabic text and qualified teachers.
+- **Automated check:** `pnpm test` ([`tests/content.test.ts`](tests/content.test.ts)) verifies that every reading includes non-empty Arabic, translation, and transliteration.
+
 ## Releases
 
 Automated via [release-please](https://github.com/googleapis/release-please) on push to `main`:

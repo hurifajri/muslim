@@ -66,4 +66,4 @@ Review focus: stale cached dates, location changes during requests, malformed st
 - [x] Add isolated countdown with dated tomorrow schedule and explicit unavailable state.
 - [x] Run all checks and production browser tests; inspect final diff and document practical offline limitations.
 
-Verification evidence and environment limits: [results](../../verification.md).
+Verification evidence and environment limits: see [docs/SPEC.md](../../SPEC.md) and [Checks](../../../.github/workflows/check.yml).

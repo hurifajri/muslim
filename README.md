@@ -82,6 +82,12 @@ Configuration is centralized and validated with Valibot in [`src/env.ts`](src/en
 - **Location search & reverse geocoding (`/api/location/search`, `/api/location/reverse`):** Searches run only after explicit Search/Enter submission (no autocomplete on typing). Endpoints identify the app to the provider, deduplicate identical in-flight requests, cache up to 128 successful results per process for 1 hour, and share a 1-request/second process rate limit while honoring `Retry-After`.
 - **Multi-instance deployments:** Process caches and limiters are **not shared across instances**. When deploying multiple instances sharing an outbound IP (especially against public [Aladhan](https://community.islamic.network/d/2-is-there-a-rate-limit-on-the-apis) or [Nominatim](https://operations.osmfoundation.org/policies/nominatim/) endpoints), point `ALADHAN_API_URL` and `NOMINATIM_API_URL` to a shared caching/rate-limiting gateway and preserve OpenStreetMap attribution.
 
+### Offline Behavior & Local Storage
+
+- **Service worker & assets:** Active in production builds (`pnpm build && pnpm start`). Visited pages and static assets — including all 12 WebP poster backgrounds (under 2 MiB each, 4 MiB total budget) — are cached once opened online; unvisited pages require a connection.
+- **Prayer & location APIs:** `/api/prayer-times` and `/api/location/*` are `NetworkOnly` without service worker caching. On-device schedule fallback holds up to 12 validated dated responses (preserving `fetchedAt`); stale schedules display an explicit notice and never drive today's countdown. Reconnecting refreshes schedules without reloading the page.
+- **Persistence & cross-tab sync:** Reading progress, favorites, and settings stay in browser storage (`localStorage` and cookies). Same-origin tabs refresh on `storage`, `focus`, and `pageshow`, and serialize writes inside named Web Locks (within-tab queuing if Web Locks are unavailable). When storage is blocked or full, edits remain in memory for the current session with a warning toast and temporary status notice without overwriting durable data later.
+
 ## Scripts & Testing
 
 ### Quality Checks & Unit Tests
@@ -137,16 +143,13 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a pull request:
 - **Trunk-based branching:** `main` is the only long-lived branch. Create short-lived branches from `main` (`feat/*`, `fix/*`, `docs/*`, `chore/*`), or fork the repo if you don't have write access.
 - **Conventional Commits:** Commit messages and PR titles follow `<type>(<scope>)?: <subject>`, enforced locally by Husky + Commitlint and verified in CI.
 - **Checks before PR:** Make sure `pnpm check` and `pnpm test` pass before opening a pull request targeting `main`.
-- **Content changes:** When adding or correcting readings, cite authentic sources and preserve existing reading IDs so saved user progress and favorites remain linked (see [content notes](docs/content.md)).
+- **Content changes:** When adding or correcting readings, cite authentic sources and preserve existing reading IDs so saved user progress and favorites remain linked (see the [content guidelines](CONTRIBUTING.md#content--transliteration-guidelines)).
 
 ## Documentation & Sources
 
-- [Contributing Guide](CONTRIBUTING.md) — branching workflow, Conventional Commits, and automated `release-please` releases
+- [Contributing Guide](CONTRIBUTING.md) — branching workflow, Conventional Commits, content guidelines, and automated `release-please` releases
 - [Changelog](CHANGELOG.md) — release history and notable updates
 - [Specification](docs/SPEC.md) — behavioral specification, invariants, and bug-fix log
-- [Offline Behavior](docs/offline.md) — service worker caching and cross-tab storage synchronization (in Indonesian)
-- [Content & Transliteration Notes](docs/content.md) — transliteration guidelines and reading source references (in Indonesian)
-- [Verification Log](docs/verification.md) — automated checks and browser regression notes (in Indonesian)
 - **Reading Sources:** Listed in [`src/data/sources.ts`](src/data/sources.ts) and inside the app's Settings drawer.
 
 ## License
