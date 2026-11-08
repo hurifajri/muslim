@@ -67,7 +67,7 @@ export function Items({ items, scope }: ItemsProps) {
                 )}
               </div>
               <Separator />
-              <div className="flex flex-col gap-8 p-4 pb-8">
+              <div className="flex flex-col gap-8">
                 {readingsByParent.get(parent.id)?.map(entry => (
                   <ReadingItem
                     key={entry.id}
