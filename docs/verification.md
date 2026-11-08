@@ -1,6 +1,6 @@
 # Hasil verifikasi perubahan aplikasi
 
-Pemeriksaan terakhir dilakukan pada 19 Oktober 2026, melanjutkan verifikasi 13–18 Oktober. Seluruh tugas T1–T23 pada [spesifikasi](../SPEC.md) selesai di workspace ini. Audio bacaan dan versioning tetap untuk fase berikutnya.
+Pemeriksaan terakhir dilakukan pada 19 Oktober 2026, melanjutkan verifikasi 13–18 Oktober. Seluruh tugas T1–T23 pada [spesifikasi](SPEC.md) selesai di workspace ini. Audio bacaan dan versioning tetap untuk fase berikutnya.
 
 ## Pemeriksaan otomatis
 

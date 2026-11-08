@@ -8,7 +8,7 @@
 
 **Tech Stack:** Next 16.3, React 19, TypeScript 6, shadcn/Radix, Node test runner, agent-browser.
 
-**Spec:** User's 19 October review; existing behavior in `SPEC.md`.
+**Spec:** User's 19 October review; existing behavior in `docs/SPEC.md`.
 
 ## Constraints and review focus
 

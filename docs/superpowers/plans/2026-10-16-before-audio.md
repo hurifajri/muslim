@@ -8,7 +8,7 @@
 
 **Tech Stack:** Next 16.3, React 19, Zustand, Valibot, shadcn/Radix, Sonner, Node tests, agent-browser.
 
-**Spec:** `SPEC.md` and the five priorities approved in this conversation.
+**Spec:** `docs/SPEC.md` and the five priorities approved in this conversation.
 
 ## Constraints
 

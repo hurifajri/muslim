@@ -3,7 +3,7 @@
 **Goal:** Implement the accepted audit sequentially, keeping existing content and preferences.
 **Architecture:** Small time/date and persistence modules; query-driven remote data; local-only reading state. Shared category and reading identities support sessions, favorites and links.
 **Tech stack:** Next 16.3, React 19, Zustand, TanStack Query, Valibot, Serwist, Node test runner and esbuild.
-**Spec:** [SPEC.md](../../../SPEC.md)
+**Spec:** [docs/SPEC.md](../../SPEC.md)
 
 ## Constraints and verification
 

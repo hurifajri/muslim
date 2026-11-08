@@ -143,7 +143,7 @@ Please read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a pull request:
 
 - [Contributing Guide](CONTRIBUTING.md) — branching workflow, Conventional Commits, and automated `release-please` releases
 - [Changelog](CHANGELOG.md) — release history and notable updates
-- [Specification](SPEC.md) — behavioral specification, invariants, and bug-fix log
+- [Specification](docs/SPEC.md) — behavioral specification, invariants, and bug-fix log
 - [Offline Behavior](docs/offline.md) — service worker caching and cross-tab storage synchronization (in Indonesian)
 - [Content & Transliteration Notes](docs/content.md) — transliteration guidelines and reading source references (in Indonesian)
 - [Verification Log](docs/verification.md) — automated checks and browser regression notes (in Indonesian)
