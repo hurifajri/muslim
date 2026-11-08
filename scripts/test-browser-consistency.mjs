@@ -358,7 +358,12 @@ export function testConsistency({ browser, check, waitFor, base }) {
       browser('press', 'PageDown');
       waitFor(`document.querySelector('[data-slot=scroll-area-viewport]').scrollTop > 0 &&
         Boolean(document.querySelector('[data-slot=scroll-area-scrollbar][data-state=visible]'))`);
-      check(`const thumb = document.querySelector('[data-slot=scroll-area-thumb]');
+      // Radix hides (and unmounts) the thumb after a delay; nudge the scroll position and read it in the same tick.
+      check(`const viewport = document.querySelector('[data-slot=scroll-area-viewport]');
+        viewport.scrollTop += 1;
+        let thumb;
+        for (let attempt = 0; attempt < 100 && !(thumb = document.querySelector('[data-slot=scroll-area-thumb]')); attempt++) await new Promise(resolve => setTimeout(resolve, 20));
+        if (!thumb) throw Error('Scrollbar thumb did not appear');
         const color = getComputedStyle(thumb).backgroundColor;
         if (color === 'rgba(0, 0, 0, 0)') throw Error('Scrollbar thumb is invisible');
         if (window.__previousThumbColor === color) throw Error('Scrollbar did not follow the active theme');
