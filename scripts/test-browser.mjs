@@ -62,8 +62,16 @@ const checkReadingHighlight = () =>
     for (const reading of document.querySelectorAll('[id^="bacaan-"]')) {
       if (reading !== target && getComputedStyle(reading).padding !== '0px') throw Error('Previous reading kept its highlight');
     }`);
-const checkPosterFont = () =>
-  check(`const preview = document.querySelector('[role=dialog] fieldset [data-slot="aspect-ratio"]');
+// The preview scale is updated by a ResizeObserver, so wait for it to settle after a resize.
+const waitForPosterScale = () =>
+  waitFor(`(() => {
+    const preview = document.querySelector('[role=dialog] fieldset [data-slot="aspect-ratio"]');
+    const scale = parseFloat(preview?.style.getPropertyValue('--poster-preview-scale'));
+    return Math.abs(scale * 1080 - preview.offsetWidth) < 0.5;
+  })()`);
+const checkPosterFont = () => {
+  waitForPosterScale();
+  return check(`const preview = document.querySelector('[role=dialog] fieldset [data-slot="aspect-ratio"]');
     const arabic = preview.querySelector('[lang=ar]');
     const slider = document.querySelector('[role=slider][aria-label="Ukuran teks poster"]');
     const style = getComputedStyle(arabic);
@@ -78,6 +86,7 @@ const checkPosterFont = () =>
       const box = text.getBoundingClientRect();
       if (box.top < bounds.top || box.bottom > bounds.bottom || box.left < bounds.left || box.right > bounds.right) throw Error('Poster text is clipped at its maximum size');
     }`);
+};
 
 try {
   if (!customBinary && !existsSync(localCli))
