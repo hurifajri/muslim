@@ -64,3 +64,7 @@ CHROME_BIN='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' pnpm t
 Jika lingkungan membatasi port subprocess Turbopack, `pnpm exec next build --webpack` dapat dipakai untuk pemeriksaan alternatif. Build masih memerlukan akses Google Fonts untuk font aplikasi.
 
 Lihat [hasil verifikasi](docs/verification.md), [perilaku offline](docs/offline.md), [catatan transliterasi](docs/content.md), dan [spesifikasi perubahan](SPEC.md).
+
+## License
+
+[PolyForm Noncommercial 1.0.0](LICENSE): free to use, modify, and share for any non-commercial purpose. Commercial use is not permitted.

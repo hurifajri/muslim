@@ -40,3 +40,9 @@ public/fallback-*.js
 
 # typescript
 *.tsbuildinfo
+
+# AI agent tooling
+/.agent/
+/.claude/
+/.gemini/
+/.remember/
