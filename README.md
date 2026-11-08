@@ -1,70 +1,156 @@
 # Muslim
 
-Jadwal salat, dzikir, dan doa dengan progres bacaan serta favorit yang tersimpan di perangkat.
+A free, ad-free Progressive Web App (PWA) for daily Muslim worship — featuring location-based prayer times, morning and evening _dhikr_, curated daily _duas_, reading progress tracking, and shareable dua posters.
+
+**Built for the Ummah, free for non-commercial use, and open to everyone who wants to contribute.**
+
+## About
+
+**Muslim** is a fast, distraction-free companion for daily worship across mobile and desktop devices. Your reading progress, favorites, and preferences stay locally on your device — with no accounts, no tracking, and no ads.
+
+### Who Is It For?
+
+- **Everyday Muslims** looking for a clean, reliable place to check daily prayer times, track the countdown to the next prayer, view the Hijri date, and read morning/evening _dhikr_ and daily _duas_.
+- **Indonesian-speaking readers & learners** — the app interface, translations, transliterations, repetition notes, and scholarly references (_Keutamaan_) are currently presented in Indonesian alongside Arabic script (`Amiri`).
+- **Travelers & offline-first users** who want an installable PWA that keeps visited reading pages cached offline and supports searching cities worldwide.
+- **Open-source contributors** — developers, UI/UX designers, accessibility advocates, translators, and Islamic content reviewers who want to build something beneficial together for the Ummah.
+
+## Features
+
+- **Prayer Times & Countdown**
+  - Daily schedule for the five obligatory prayers (_Fajr_, _Dhuhr_, _Asr_, _Maghrib_, _Isha_) with a live countdown to the next prayer (including tomorrow's _Fajr_ after _Isha_).
+  - Location-aware timezone calculation, side-by-side device and location clocks, Gregorian and Hijri dates, and dated offline fallback schedules.
+  - Manual city search (OpenStreetMap Nominatim) or one-tap browser geolocation.
+- **Morning & Evening Dhikr + Daily Duas**
+  - **Morning & Evening Dhikr:** _Zikir Pagi_ (`/dzikir/pagi`) and _Zikir Petang_ (`/dzikir/petang`).
+  - **Daily Duas:** _Doa Al-Qur'an_ (`/doa/quran`), _Doa Nabi_ (`/doa/nabi`), and _Doa Salat_ (`/doa/salat`).
+  - Proper right-to-left Arabic script, Indonesian translations, toggleable transliterations, repetition guidance, and _hadith_/source references.
+- **Interactive Counter & Guided Sessions**
+  - Per-reading repetition counter with optional Web Audio click sound, reset, and undo.
+  - Guided session tracker (`completed/total` readings), one-click "Continue session" navigation, and cross-tab state synchronization using browser Web Locks.
+- **Reading Library, Search & Favorites**
+  - Search across titles, categories, Arabic text, translations, transliterations, and narrators at `/bacaan`.
+  - Filter by favorites and copy shareable deep links directly to any reading item.
+- **Shareable Dua Poster Generator**
+  - Create `1080 × 1920` JPEG posters from curated _duas_ with 12 pre-cached backgrounds and controls for text visibility, outline, Arabic font size, and backdrop opacity, ready to download or share natively.
+- **Themes, Typography & Offline PWA**
+  - 8 flower-inspired light and dark color palettes (defaulting to _Melati_ / Jasmine), persisted in cookies and synced with the PWA manifest.
+  - Independent Arabic and translation font-size sliders plus toggles for counter, click sound, translation, transliteration, and benefits.
+  - Installable PWA powered by Serwist service worker caching for visited pages and static assets.
+
+## Tech Stack
+
+- **Framework:** [Next.js](https://nextjs.org) 16 (App Router), [React](https://react.dev) 19, [TypeScript](https://www.typescriptlang.org)
+- **UI & Styling:** [Tailwind CSS](https://tailwindcss.com) v4, [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), [Base UI](https://base-ui.com), [Lucide](https://lucide.dev)
+- **State, Validation & Data:** [Zustand](https://zustand-demo.pmnd.rs), [TanStack Query](https://tanstack.com/query), [Valibot](https://valibot.dev)
+- **PWA & Media:** [Serwist](https://serwist.pages.dev), [html-to-image](https://github.com/bubkoo/html-to-image), [Embla Carousel](https://www.embla-carousel.com)
+- **Tooling & Release:** pnpm, ESLint, Prettier, Husky, Commitlint, `esbuild` + Node test runner, `agent-browser`, Release Please
+
+## Getting Started
+
+### Prerequisites
+
+- **Node.js** 24+
+- **pnpm** (`packageManager` in [`package.json`](package.json) specifies `pnpm@11.22.0`)
+
+### Local Setup
 
 ```sh
 pnpm install
+cp .env.example .env.local
+pnpm exec next typegen # Once on a fresh checkout or after removing .next
 pnpm dev
 ```
 
-Konfigurasi wajib di `.env.local`: `NEXT_PUBLIC_APP_URL`, `ALADHAN_API_URL` (misalnya `https://api.aladhan.com/v1`), dan `NOMINATIM_API_URL` (misalnya `https://nominatim.openstreetmap.org`); lihat `.env.example`. Atur variabel yang sama pada lingkungan deployment. Kedua URL penyedia harus memakai nama privat tersebut; nama lama dengan awalan `NEXT_PUBLIC_` tidak lagi dibaca dan tidak ada URL fallback.
+Open [http://localhost:3000](http://localhost:3000) in your browser.
 
-Konfigurasi dipusatkan di `src/env.ts`; URL penyedia divalidasi dengan Valibot dan hanya dapat diakses melalui `env` di server. Konfigurasi yang hilang, kosong, atau berupa URL tidak valid langsung ditolak.
+### Environment Variables
 
-Jadwal salat diambil melalui `/api/prayer-times`, dengan tanggal `YYYY-MM-DD` yang mengikuti zona waktu lokasi terpilih. Server memvalidasi parameter dan respons, menggabungkan request identik, serta menyimpan maksimal 256 jadwal selama satu jam. Kunci cache mencakup mode pencarian, kota/negara atau koordinat, tanggal, metode perhitungan, dan penyesuaian kalender. Waktu pengambilan asli diteruskan ke cache perangkat; respons gagal atau bertanggal salah tidak disimpan. Timeout penyedia enam detik memberi waktu bagi fallback perangkat sebelum timeout klien delapan detik.
+Configure these variables in `.env.local` (see [`.env.example`](.env.example)) and in your deployment environment:
 
-Request Aladhan yang belum tersimpan dibatasi menjadi delapan per jendela berjalan satu detik dalam satu proses. Cache tetap dapat dibaca saat pembatasan aktif; `Retry-After` penyedia menunda request baru dari proses tersebut. Cache dan limiter ini **tidak dibagi antar-instance**. Jika deployment memakai beberapa instance dengan IP keluar yang sama, arahkan `ALADHAN_API_URL` ke gateway dengan cache/limiter bersama. [Aladhan membatasi trafik berdasarkan IP sumber](https://community.islamic.network/d/2-is-there-a-rate-limit-on-the-apis); batas lokal tidak menjamin kuota untuk seluruh deployment.
+| Variable              | Scope  | Example                               | Description                                                                |
+| --------------------- | ------ | ------------------------------------- | -------------------------------------------------------------------------- |
+| `NEXT_PUBLIC_APP_URL` | Client | `http://localhost:3000`               | Public base URL of the app (also sent in Nominatim `User-Agent` requests). |
+| `ALADHAN_API_URL`     | Server | `https://api.aladhan.com/v1`          | Server-only Aladhan API base URL for prayer schedules.                     |
+| `NOMINATIM_API_URL`   | Server | `https://nominatim.openstreetmap.org` | Server-only Nominatim API base URL for city search and reverse geocoding.  |
 
-Pencarian kota dijalankan setelah tombol Cari/Enter melalui `/api/location/search`; geolokasi memakai `/api/location/reverse`. Endpoint server memvalidasi parameter, mengidentifikasi aplikasi ke penyedia, menggabungkan request identik, menyimpan maksimal 128 hasil selama satu jam, dan membatasi search/reverse bersama menjadi satu request per detik dalam satu proses. Kegagalan tidak dicache dan `Retry-After` penyedia dihormati. Isikan `NEXT_PUBLIC_APP_URL` dengan alamat aplikasi yang sebenarnya.
+Configuration is centralized and validated with Valibot in [`src/env.ts`](src/env.ts). Provider URLs must use these server-only names (no legacy `NEXT_PUBLIC_` fallbacks or defaults exist); missing, empty, or invalid URLs fail fast.
 
-Jika memakai `https://nominatim.openstreetmap.org`, ikuti [kebijakan Nominatim](https://operations.osmfoundation.org/policies/nominatim/): tanpa autocomplete, maksimal satu request per detik untuk seluruh aplikasi, dan atribusi OpenStreetMap. **Limiter lokal tidak terdistribusi.** Deployment dengan beberapa proses/instance atau fungsi serverless harus mengarahkan `NOMINATIM_API_URL` ke gateway bersama yang menerapkan cache dan batas global, atau ke penyedia dengan kapasitas yang sesuai; jangan mengandalkan limiter per proses untuk membatasi trafik seluruh deployment.
+### API Proxy, Caching & Rate Limits
 
-## Komponen
+- **Prayer times (`/api/prayer-times`):** Fetches dated schedules (`YYYY-MM-DD`) matching the selected location's timezone. The server validates inputs and responses, deduplicates concurrent requests, caches up to 256 schedules per process for 1 hour (preserving original `fetchedAt` timestamps), and limits uncached upstream calls to 8 starts per rolling second while honoring `Retry-After`. A 6-second provider timeout leaves headroom for client-side cached fallback before the 8-second client timeout.
+- **Location search & reverse geocoding (`/api/location/search`, `/api/location/reverse`):** Searches run only after explicit Search/Enter submission (no autocomplete on typing). Endpoints identify the app to the provider, deduplicate identical in-flight requests, cache up to 128 successful results per process for 1 hour, and share a 1-request/second process rate limit while honoring `Retry-After`.
+- **Multi-instance deployments:** Process caches and limiters are **not shared across instances**. When deploying multiple instances sharing an outbound IP (especially against public [Aladhan](https://community.islamic.network/d/2-is-there-a-rate-limit-on-the-apis) or [Nominatim](https://operations.osmfoundation.org/policies/nominatim/) endpoints), point `ALADHAN_API_URL` and `NOMINATIM_API_URL` to a shared caching/rate-limiting gateway and preserve OpenStreetMap attribution.
 
-Gunakan komponen bersama dari `src/components/ui`. Pencarian lokasi memakai `Combobox` resmi shadcn, yang membutuhkan `@base-ui/react`, di dalam dialog/drawer Radix. Input tetap memakai `InputGroup`; hasil menggunakan pilihan combobox yang mengambang dan dapat digulir, dengan atribusi di bawah daftar. Panah menyorot pilihan, Enter memilih, dan Escape menutup hasil terlebih dahulu sebelum dialog/drawer. Pencarian hanya dikirim melalui Cari/Enter. Pengaturan menggunakan `ScrollArea` dengan scrollbar warna tema yang muncul saat digulir dan menghilang ketika berhenti.
+## Scripts & Testing
 
-Props komponen memakai `type NamaComponentProps = Readonly<{ ... }>`; wrapper UI tetap mewarisi props primitive melalui `Readonly<React.ComponentProps<typeof Primitive>>`. `Readonly` membatasi perubahan properti pada level TypeScript, bukan melakukan freeze objek saat runtime.
-
-## Pemeriksaan
+### Quality Checks & Unit Tests
 
 ```sh
-pnpm exec next typegen # Sekali pada checkout baru atau setelah menghapus .next
-pnpm check
-pnpm test
-pnpm build
+pnpm check       # Runs ESLint, Prettier format check, and TypeScript check (read-only)
+pnpm fix         # Auto-fixes ESLint and Prettier issues
+pnpm test        # Runs unit and integration tests (Node 24+ and esbuild)
+pnpm build       # Builds the production app (use --webpack if Turbopack ports are restricted)
 ```
 
-`pnpm check` menjalankan lint, pemeriksaan format, dan TypeScript tanpa memperbaiki kode. Gunakan `pnpm fix` untuk perbaikan otomatis, atau `pnpm lint:fix` / `pnpm format:fix` secara terpisah. `pnpm check:packages` hanya menampilkan pembaruan dependency; `pnpm update:packages` mengubah versi di manifest. Generasi tipe Next dilakukan terpisah karena dapat memperbarui `next-env.d.ts`.
+- `pnpm check` and `pnpm format` inspect without modifying files; `pnpm lint:fix` and `pnpm format:fix` run targeted auto-fixes.
+- `pnpm check:packages` lists outdated dependencies; `pnpm update:packages` updates manifest versions.
+- Note: Production builds require network access to Google Fonts (`Outfit` and `Amiri`).
 
-Workflow [Checks](.github/workflows/check.yml) menjalankan pemeriksaan pada push/pull request dengan Node 24 dan versi pnpm dari `packageManager`: frozen install, generasi tipe, check, tes unit, build Webpack, dan regresi browser. Server serta sesi browser tes dibersihkan setelah selesai; workflow tidak melakukan deployment.
+### Browser Regression Tests
 
-Tes unit menggunakan Node 24+ dan esbuild. Tes browser menggunakan versi `agent-browser` yang dipasang melalui dev dependency proyek; instalasi global tidak diperlukan. Unduh Chrome untuk pengujian sekali, lalu jalankan build production dan server lokal:
+Browser regressions use the project-pinned `agent-browser` dev dependency (no global install needed). Download Chrome for Testing once, start a production server, and run the suite:
 
 ```sh
 pnpm install
-pnpm test:browser:install # Sekali untuk mengunduh Chrome for Testing
+pnpm test:browser:install # Once to download Chrome for Testing
 pnpm build
 pnpm start --hostname 127.0.0.1 --port 3100
-# Terminal lain:
+# In another terminal:
 pnpm test:browser
 ```
 
-`TEST_BASE_URL`, `AGENT_BROWSER_BIN`, dan `CHROME_BIN` dapat mengatur alamat server serta lokasi executable. Tes membuat sesi browser sendiri, memeriksa reload/offline/reconnect, favorit dan riwayat filter, sorotan tautan bacaan, ekspor JPEG, pencarian lokasi melalui keyboard/pointer, serta pemasangan saat penyimpanan diblokir. Respons geocoder dan jadwal pada skenario interaksi memakai fixture; cache dan limiter server diuji terpisah lewat `pnpm test`. Regresi jadwal juga memeriksa bahwa service worker tidak memberikan salinan API lama ketika offline. Profil browser pengguna tidak digunakan.
-
-Regresi tambahan mencakup perubahan bersamaan pada dua tab, status penyimpanan sementara, dan interaksi pemulihan error tanpa provider aplikasi. Urutan semua bacaan dipusatkan di `src/lib/reading-sequence.ts`; target repetisi hanya dipakai saat menghitung progres. Pemutaran audio belum diimplementasikan.
-
-Jika Chrome sudah terpasang, unduhan browser dapat dilewati dengan menentukan executable, misalnya pada macOS:
+If Google Chrome is already installed locally, you can skip downloading Chrome for Testing by setting `CHROME_BIN` (for example on macOS):
 
 ```sh
 CHROME_BIN='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' pnpm test:browser
 ```
 
-`ENOENT` menunjukkan executable tidak ditemukan. Jalankan `pnpm install` dan hapus atau betulkan `AGENT_BROWSER_BIN` jika pernah diatur. Pesan `Server belum siap` berarti server production pada `TEST_BASE_URL` belum dapat diakses.
+`TEST_BASE_URL`, `AGENT_BROWSER_BIN`, and `CHROME_BIN` can override the target server and executable paths.
 
-Jika lingkungan membatasi port subprocess Turbopack, `pnpm exec next build --webpack` dapat dipakai untuk pemeriksaan alternatif. Build masih memerlukan akses Google Fonts untuk font aplikasi.
+The CI workflow in [Checks](.github/workflows/check.yml) runs on every push and pull request using Node 24: frozen install, `next typegen`, `pnpm check`, `pnpm test`, `pnpm build --webpack`, and `pnpm test:browser`.
 
-Lihat [hasil verifikasi](docs/verification.md), [perilaku offline](docs/offline.md), [catatan transliterasi](docs/content.md), dan [spesifikasi perubahan](SPEC.md).
+## UI & Code Conventions
+
+- Shared UI primitives live in `src/components/ui`.
+- Location search composes shadcn's official `Combobox` (powered by `@base-ui/react`) inside a Radix dialog/drawer (`Enter` confirms or triggers Search; `Escape` closes floating results before the modal).
+- Settings use a theme-aware `ScrollArea` whose scrollbar adapts to the active palette.
+- Component props follow `type ComponentNameProps = Readonly<{ ... }>`, and primitive wrappers inherit props via `Readonly<React.ComponentProps<typeof Primitive>>`.
+- Reading sequence order is centralized in [`src/lib/reading-sequence.ts`](src/lib/reading-sequence.ts); repetition targets apply only to progress calculations. Audio recitation playback is not implemented yet (optional counter click sound is available in Settings).
+
+## Contributing
+
+Anyone is welcome to contribute — whether you fix a bug, refine UI/accessibility, improve documentation, add localization, or verify Islamic content and references.
+
+Please read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a pull request:
+
+- **Trunk-based branching:** `main` is the only long-lived branch. Create short-lived branches from `main` (`feat/*`, `fix/*`, `docs/*`, `chore/*`), or fork the repo if you don't have write access.
+- **Conventional Commits:** Commit messages and PR titles follow `<type>(<scope>)?: <subject>`, enforced locally by Husky + Commitlint and verified in CI.
+- **Checks before PR:** Make sure `pnpm check` and `pnpm test` pass before opening a pull request targeting `main`.
+- **Content changes:** When adding or correcting readings, cite authentic sources and preserve existing reading IDs so saved user progress and favorites remain linked (see [content notes](docs/content.md)).
+
+## Documentation & Sources
+
+- [Contributing Guide](CONTRIBUTING.md) — branching workflow, Conventional Commits, and automated `release-please` releases
+- [Changelog](CHANGELOG.md) — release history and notable updates
+- [Specification](SPEC.md) — behavioral specification, invariants, and bug-fix log
+- [Offline Behavior](docs/offline.md) — service worker caching and cross-tab storage synchronization (in Indonesian)
+- [Content & Transliteration Notes](docs/content.md) — transliteration guidelines and reading source references (in Indonesian)
+- [Verification Log](docs/verification.md) — automated checks and browser regression notes (in Indonesian)
+- **Reading Sources:** Listed in [`src/data/sources.ts`](src/data/sources.ts) and inside the app's Settings drawer.
 
 ## License
 
-[PolyForm Noncommercial 1.0.0](LICENSE): free to use, modify, and share for any non-commercial purpose. Commercial use is not permitted.
+Released under the [PolyForm Noncommercial License 1.0.0](LICENSE) (`PolyForm-Noncommercial-1.0.0`).
+
+Free to use, modify, and share for any **non-commercial purpose** — including personal worship, charitable, educational, and community use. Commercial use is not permitted.
