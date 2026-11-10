@@ -185,9 +185,9 @@ Please read our [Contributing Guide](CONTRIBUTING.md) for full details on our tr
 ## 📚 Islamic Sources & Credits
 
 All *dhikr* and *dua* readings are cited from trusted, authentic references:
-- **Zikir Pagi & Petang:** [Rumaysho.com](https://rumaysho.com) (Ust. Muhammad Abduh Tuasikal)
+- **Zikir Pagi & Petang:** [Rumaysho.com](https://rumaysho.com)
 - **Doa Al-Qur'an:** [Muslim.or.id](https://muslim.or.id)
-- **Doa Nabi:** [KonsultasiSyariah.com](https://konsultasisyariah.com) (Ust. Ammi Nur Baits)
+- **Doa Nabi:** [KonsultasiSyariah.com](https://konsultasisyariah.com)
 - **Doa Salat:** [Rumaysho.com](https://rumaysho.com)
 - **Upstream APIs:** [Aladhan Prayer Times API](https://aladhan.com) and [OpenStreetMap Nominatim](https://nominatim.openstreetmap.org)
 
