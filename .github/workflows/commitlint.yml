@@ -2,14 +2,27 @@ name: Commitlint
 
 on:
   pull_request:
+    branches:
+      - main
+    types:
+      - opened
+      - synchronize
+      - reopened
+      - edited
 
 permissions:
   contents: read
+
+concurrency:
+  group: commitlint-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   commitlint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
+    env:
+      HUSKY: '0'
     steps:
       - uses: actions/checkout@v7
         with:
@@ -21,9 +34,11 @@ jobs:
         with:
           cache: true
       - run: pnpm install --frozen-lockfile
-      - name: Lint commits
-        run: pnpm exec commitlint --from ${{ github.event.pull_request.base.sha }} --to ${{ github.event.pull_request.head.sha }}
-      - name: Lint PR title
+      - name: Validate PR commits and title
         env:
-          TITLE: ${{ github.event.pull_request.title }}
-        run: echo "$TITLE" | pnpm exec commitlint
+          BASE_SHA: ${{ github.event.pull_request.base.sha }}
+          HEAD_SHA: ${{ github.event.pull_request.head.sha }}
+          PR_TITLE: ${{ github.event.pull_request.title }}
+        run: |
+          pnpm exec commitlint --from "$BASE_SHA" --to "$HEAD_SHA" --verbose
+          printf '%s\n' "$PR_TITLE" | pnpm exec commitlint --verbose
