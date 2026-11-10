@@ -1,159 +1,203 @@
 # Muslim
 
-A free, ad-free Progressive Web App (PWA) for daily Muslim worship — featuring location-based prayer times, morning and evening _dhikr_, curated daily _duas_, reading progress tracking, and shareable dua posters.
+<p align="center">
+  <strong>A modern, ad-free Progressive Web App (PWA) for daily Muslim worship.</strong><br>
+  Built for the Ummah — free for non-commercial use, privacy-focused, and open source.
+</p>
 
-**Built for the Ummah, free for non-commercial use, and open to everyone who wants to contribute.**
+<p align="center">
+  <a href="#features">Features</a> •
+  <a href="#getting-started">Quick Start</a> •
+  <a href="docs/architecture.md">Architecture</a> •
+  <a href="CONTRIBUTING.md">Contributing</a> •
+  <a href="#license">License</a>
+</p>
 
-## About
+<p align="center">
+  <img src="https://img.shields.io/github/actions/workflow/status/hurifajri/muslim/check.yml?branch=main&label=Checks&logo=github" alt="Build Status" />
+  <img src="https://img.shields.io/badge/License-PolyForm%20Noncommercial-blue.svg" alt="License" />
+  <img src="https://img.shields.io/badge/Next.js-16-black?logo=next.js" alt="Next.js" />
+  <img src="https://img.shields.io/badge/React-19-blue?logo=react" alt="React" />
+  <img src="https://img.shields.io/badge/PWA-Ready-orange?logo=pwa" alt="PWA" />
+</p>
 
-**Muslim** is a fast, distraction-free companion for daily worship across mobile and desktop devices. Your reading progress, favorites, and preferences stay locally on your device — with no accounts, no tracking, and no ads.
+---
 
-### Who Is It For?
+## 🌟 Why Muslim?
 
-- **Everyday Muslims** looking for a clean, reliable place to check daily prayer times, track the countdown to the next prayer, view the Hijri date, and read morning/evening _dhikr_ and daily _duas_.
-- **Indonesian-speaking readers & learners** — the app interface, translations, transliterations, repetition notes, and scholarly references (_Keutamaan_) are currently presented in Indonesian alongside Arabic script (`Amiri`).
-- **Travelers & offline-first users** who want an installable PWA that keeps visited reading pages cached offline and supports searching cities worldwide.
-- **Open-source contributors** — developers, UI/UX designers, accessibility advocates, translators, and Islamic content reviewers who want to build something beneficial together for the Ummah.
+- 🚫 **100% Free & Distraction-Free:** No advertisements, no paywalls, and no sponsored promotions.
+- 🔒 **Privacy-First:** No accounts, no logins, and zero tracking or analytics. All favorites, counter history, and preferences stay on your device.
+- ⚡ **Offline-Ready (PWA):** Installable on iOS, Android, and Desktop. Visited reading pages and dated prayer schedules remain accessible offline.
+- 📖 **Authentic Islamic Sources:** Curated morning/evening *dhikr* and daily *duas* with authentic hadith/scholarly references, proper right-to-left Arabic script (`Amiri`), Indonesian translations, and transliterations.
 
-## Features
+---
 
-- **Prayer Times & Countdown**
-  - Daily schedule for the five obligatory prayers (_Fajr_, _Dhuhr_, _Asr_, _Maghrib_, _Isha_) with a live countdown to the next prayer (including tomorrow's _Fajr_ after _Isha_).
-  - Location-aware timezone calculation, side-by-side device and location clocks, Gregorian and Hijri dates, and dated offline fallback schedules.
-  - Manual city search (OpenStreetMap Nominatim) or one-tap browser geolocation.
-- **Morning & Evening Dhikr + Daily Duas**
-  - **Morning & Evening Dhikr:** _Zikir Pagi_ (`/dzikir/pagi`) and _Zikir Petang_ (`/dzikir/petang`).
-  - **Daily Duas:** _Doa Al-Qur'an_ (`/doa/quran`), _Doa Nabi_ (`/doa/nabi`), and _Doa Salat_ (`/doa/salat`).
-  - Proper right-to-left Arabic script, Indonesian translations, toggleable transliterations, repetition guidance, and _hadith_/source references.
-- **Interactive Counter & Guided Sessions**
-  - Per-reading repetition counter with optional Web Audio click sound, reset, and undo.
-  - Guided session tracker (`completed/total` readings), one-click "Continue session" navigation, and cross-tab state synchronization using browser Web Locks.
-- **Reading Library, Search & Favorites**
-  - Search across titles, categories, Arabic text, translations, transliterations, and narrators at `/bacaan`.
-  - Filter by favorites and copy shareable deep links directly to any reading item.
-- **Shareable Dua Poster Generator**
-  - Create `1080 × 1920` JPEG posters from curated _duas_ with 12 pre-cached backgrounds and controls for text visibility, outline, Arabic font size, and backdrop opacity, ready to download or share natively.
-- **Themes, Typography & Offline PWA**
-  - 8 flower-inspired light and dark color palettes (defaulting to _Melati_ / Jasmine), persisted in cookies and synced with the PWA manifest.
-  - Independent Arabic and translation font-size sliders plus toggles for counter, click sound, translation, transliteration, and benefits.
-  - Installable PWA powered by Serwist service worker caching for visited pages and static assets.
+## ✨ Features
 
-## Tech Stack
+- **🕌 Prayer Times & Live Countdown**
+  - Accurate schedule for the five daily prayers (*Fajr*, *Dhuhr*, *Asr*, *Maghrib*, *Isha*) based on location.
+  - Live countdown to the next upcoming prayer (seamlessly rolls over to tomorrow's *Fajr* after *Isha*).
+  - Dual device and location clocks, Hijri & Gregorian dates, and dated offline fallback schedules.
+  - One-tap browser geolocation or manual city search via OpenStreetMap Nominatim.
 
-- **Framework:** [Next.js](https://nextjs.org) 16 (App Router), [React](https://react.dev) 19, [TypeScript](https://www.typescriptlang.org)
-- **UI & Styling:** [Tailwind CSS](https://tailwindcss.com) v4, [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), [Base UI](https://base-ui.com), [Lucide](https://lucide.dev)
-- **State, Validation & Data:** [Zustand](https://zustand-demo.pmnd.rs), [TanStack Query](https://tanstack.com/query), [Valibot](https://valibot.dev)
-- **PWA & Media:** [Serwist](https://serwist.pages.dev), [html-to-image](https://github.com/bubkoo/html-to-image), [Embla Carousel](https://www.embla-carousel.com)
-- **Tooling & Release:** pnpm, ESLint, Prettier, Husky, Commitlint, `esbuild` + Node test runner, `agent-browser`, Release Please
+- **📿 Morning & Evening Dhikr + Daily Duas**
+  - **Dhikr:** *Zikir Pagi* (`/dzikir/pagi`) and *Zikir Petang* (`/dzikir/petang`).
+  - **Duas:** *Doa Al-Qur'an* (`/doa/quran`), *Doa Nabi* (`/doa/nabi`), and *Doa Salat* (`/doa/salat`).
+  - Rich reading presentation: Arabic typography, transliteration, Indonesian translation, and scholarly benefits (*Keutamaan*).
 
-## Getting Started
+- **🔢 Interactive Counter & Guided Sessions**
+  - Per-item repetition counter with optional Web Audio click sounds, reset, and undo.
+  - Guided session tracker (`completed/total` items), "Continue session" navigation, and cross-tab state synchronization.
+
+- **🔍 Reading Library & Bookmarks**
+  - Full-text search across titles, Arabic text, translations, transliterations, and narrators (`/bacaan`).
+  - Filter by saved favorites and copy deep links directly to specific readings.
+
+- **🎨 Shareable Dua Poster Generator**
+  - Generate high-resolution `1080 × 1920` JPEG posters for Instagram Stories or status updates.
+  - 12 curated floral and nature backgrounds with customizable typography, text visibility, text outline, and backdrop opacity.
+
+- **🌸 Themes & Typography Customization**
+  - 8 flower-inspired color palettes (defaulting to *Melati* / Jasmine) in both light and dark modes.
+  - Independent font-size sliders for Arabic and Indonesian translations.
+
+---
+
+## 🛠️ Tech Stack
+
+| Category | Technologies |
+| :--- | :--- |
+| **Framework & Core** | [Next.js](https://nextjs.org) 16 (App Router), [React](https://react.dev) 19, [TypeScript](https://www.typescriptlang.org) |
+| **Styling & Components**| [Tailwind CSS](https://tailwindcss.com) v4, [shadcn/ui](https://ui.shadcn.com), [Radix UI](https://www.radix-ui.com), [Base UI](https://base-ui.com), [Lucide Icons](https://lucide.dev) |
+| **State & Data** | [Zustand](https://zustand-demo.pmnd.rs), [TanStack Query](https://tanstack.com/query), [Valibot](https://valibot.dev) |
+| **PWA & Offline** | [Serwist](https://serwist.pages.dev) Service Worker, Web Locks API |
+| **Media & Animation** | [html-to-image](https://github.com/bubkoo/html-to-image), [Embla Carousel](https://www.embla-carousel.com) |
+| **Testing & CI** | Node test runner, `esbuild`, `agent-browser` (Chrome for Testing), GitHub Actions |
+
+---
+
+## 🚀 Getting Started
 
 ### Prerequisites
 
-- **Node.js** 24+
-- **pnpm** (`packageManager` in [`package.json`](package.json) specifies `pnpm@11.22.0`)
+- **Node.js** `24+`
+- **pnpm** `11.22+` (configured in `packageManager`)
 
-### Local Setup
+### Installation & Local Setup
 
-```sh
-pnpm install
-cp .env.example .env.local
-pnpm exec next typegen # Once on a fresh checkout or after removing .next
-pnpm dev
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/hurifajri/muslim.git
+   cd muslim
+   ```
+
+2. **Install dependencies:**
+   ```bash
+   pnpm install
+   ```
+
+3. **Set up environment variables:**
+   ```bash
+   cp .env.example .env.local
+   ```
+
+4. **Generate Next.js route types & start dev server:**
+   ```bash
+   pnpm exec next typegen
+   pnpm dev
+   ```
+
+5. Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+---
+
+## ⚙️ Environment Variables
+
+Configure these in `.env.local` (validated via [Valibot](https://valibot.dev) in [`src/env.ts`](src/env.ts)):
+
+| Variable | Scope | Default / Example | Purpose |
+| :--- | :--- | :--- | :--- |
+| `NEXT_PUBLIC_APP_URL` | Client & Server | `http://localhost:3000` | Base URL used for metadata, PWA manifests, and provider User-Agent headers. |
+| `ALADHAN_API_URL` | Server-only | `https://api.aladhan.com/v1` | Upstream base URL for prayer times calculation. |
+| `NOMINATIM_API_URL` | Server-only | `https://nominatim.openstreetmap.org` | Upstream base URL for location search and reverse geocoding. |
+
+> ℹ️ *For in-depth details on proxy caching, upstream rate limits, and multi-instance deployment recommendations, see [docs/architecture.md](docs/architecture.md).*
+
+---
+
+## 🧪 Scripts & Quality Checks
+
+```bash
+# Code quality & type safety
+pnpm check              # Runs ESLint, Prettier check, and TypeScript check (tsc --noEmit)
+pnpm fix                # Auto-fixes linting and formatting issues
+
+# Unit & integration tests
+pnpm test               # Runs unit and content verification test suite
+
+# Browser regression tests
+pnpm test:browser:install # One-time setup to download Chrome for Testing
+pnpm test:browser         # Runs end-to-end browser regression tests
+
+# Production build
+pnpm build              # Builds optimized Next.js app
+pnpm start              # Runs production server
 ```
 
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+---
 
-### Environment Variables
+## 📁 Project Structure
 
-Configure these variables in `.env.local` (see [`.env.example`](.env.example)) and in your deployment environment:
-
-| Variable              | Scope  | Example                               | Description                                                                |
-| --------------------- | ------ | ------------------------------------- | -------------------------------------------------------------------------- |
-| `NEXT_PUBLIC_APP_URL` | Client | `http://localhost:3000`               | Public base URL of the app (also sent in Nominatim `User-Agent` requests). |
-| `ALADHAN_API_URL`     | Server | `https://api.aladhan.com/v1`          | Server-only Aladhan API base URL for prayer schedules.                     |
-| `NOMINATIM_API_URL`   | Server | `https://nominatim.openstreetmap.org` | Server-only Nominatim API base URL for city search and reverse geocoding.  |
-
-Configuration is centralized and validated with Valibot in [`src/env.ts`](src/env.ts). Provider URLs must use these server-only names (no legacy `NEXT_PUBLIC_` fallbacks or defaults exist); missing, empty, or invalid URLs fail fast.
-
-### API Proxy, Caching & Rate Limits
-
-- **Prayer times (`/api/prayer-times`):** Fetches dated schedules (`YYYY-MM-DD`) matching the selected location's timezone. The server validates inputs and responses, deduplicates concurrent requests, caches up to 256 schedules per process for 1 hour (preserving original `fetchedAt` timestamps), and limits uncached upstream calls to 8 starts per rolling second while honoring `Retry-After`. A 6-second provider timeout leaves headroom for client-side cached fallback before the 8-second client timeout.
-- **Location search & reverse geocoding (`/api/location/search`, `/api/location/reverse`):** Searches run only after explicit Search/Enter submission (no autocomplete on typing). Endpoints identify the app to the provider, deduplicate identical in-flight requests, cache up to 128 successful results per process for 1 hour, and share a 1-request/second process rate limit while honoring `Retry-After`.
-- **Multi-instance deployments:** Process caches and limiters are **not shared across instances**. When deploying multiple instances sharing an outbound IP (especially against public [Aladhan](https://community.islamic.network/d/2-is-there-a-rate-limit-on-the-apis) or [Nominatim](https://operations.osmfoundation.org/policies/nominatim/) endpoints), point `ALADHAN_API_URL` and `NOMINATIM_API_URL` to a shared caching/rate-limiting gateway and preserve OpenStreetMap attribution.
-
-### Offline Behavior & Local Storage
-
-- **Service worker & assets:** Active in production builds (`pnpm build && pnpm start`). Visited pages and static assets — including all 12 WebP poster backgrounds (under 2 MiB each, 4 MiB total budget) — are cached once opened online; unvisited pages require a connection.
-- **Prayer & location APIs:** `/api/prayer-times` and `/api/location/*` are `NetworkOnly` without service worker caching. On-device schedule fallback holds up to 12 validated dated responses (preserving `fetchedAt`); stale schedules display an explicit notice and never drive today's countdown. Reconnecting refreshes schedules without reloading the page.
-- **Persistence & cross-tab sync:** Reading progress, favorites, and settings stay in browser storage (`localStorage` and cookies). Same-origin tabs refresh on `storage`, `focus`, and `pageshow`, and serialize writes inside named Web Locks (within-tab queuing if Web Locks are unavailable). When storage is blocked or full, edits remain in memory for the current session with a warning toast and temporary status notice without overwriting durable data later.
-
-## Scripts & Testing
-
-### Quality Checks & Unit Tests
-
-```sh
-pnpm check       # Runs ESLint, Prettier format check, and TypeScript check (read-only)
-pnpm fix         # Auto-fixes ESLint and Prettier issues
-pnpm test        # Runs unit and integration tests (Node 24+ and esbuild)
-pnpm build       # Builds the production app (use --webpack if Turbopack ports are restricted)
+```
+muslim/
+├── docs/                   # Architectural blueprints & deep technical notes
+├── public/                 # Static assets, web app manifests, and poster backgrounds
+├── src/
+│   ├── app/                # Next.js App Router (pages, layouts, and API proxies)
+│   ├── components/         # Reusable UI primitives and domain components
+│   ├── data/               # Islamic datasets (dhikr, duas, categories, sources)
+│   ├── hooks/              # Custom React hooks (location, dates, prayer time)
+│   ├── lib/                # Utility helpers, storage sync, and client caches
+│   ├── providers/          # React context and store providers
+│   ├── queries/            # TanStack Query query hooks
+│   ├── schemas/            # Valibot validation schemas
+│   ├── services/           # Upstream API clients (Aladhan & Nominatim)
+│   ├── stores/             # Zustand persistent state stores
+│   └── styles/             # Global CSS and Tailwind v4 themes
+└── tests/                  # Unit, content integrity, and browser test suites
 ```
 
-- `pnpm check` and `pnpm format` inspect without modifying files; `pnpm lint:fix` and `pnpm format:fix` run targeted auto-fixes.
-- `pnpm check:packages` lists outdated dependencies; `pnpm update:packages` updates manifest versions.
-- Note: Production builds require network access to Google Fonts (`Outfit` and `Amiri`).
+---
 
-### Browser Regression Tests
+## 🤝 Contributing
 
-Browser regressions use the project-pinned `agent-browser` dev dependency (no global install needed). Download Chrome for Testing once, start a production server, and run the suite:
+Contributions are welcome! Whether you are a software engineer, UI/UX designer, or an Islamic content reviewer, your help is appreciated.
 
-```sh
-pnpm install
-pnpm test:browser:install # Once to download Chrome for Testing
-pnpm build
-pnpm start --hostname 127.0.0.1 --port 3100
-# In another terminal:
-pnpm test:browser
-```
+### Ways to Contribute
+- **Code & UI:** Fix bugs, enhance accessibility (a11y), or optimize performance.
+- **Islamic Content Verification:** Check Arabic harakat, verify translations, or submit authentic hadith references.
+- **Localization:** Help translate the interface into other languages.
 
-If Google Chrome is already installed locally, you can skip downloading Chrome for Testing by setting `CHROME_BIN` (for example on macOS):
+Please read our [Contributing Guide](CONTRIBUTING.md) for full details on our trunk-based git workflow, Conventional Commits standard, and pull request checklist.
 
-```sh
-CHROME_BIN='/Applications/Google Chrome.app/Contents/MacOS/Google Chrome' pnpm test:browser
-```
+---
 
-`TEST_BASE_URL`, `AGENT_BROWSER_BIN`, and `CHROME_BIN` can override the target server and executable paths. Browser test modules (`scripts/test-browser*.mjs`) use `@ts-check` with [`scripts/browser-test-types.d.ts`](scripts/browser-test-types.d.ts) so `pnpm check` type-checks them alongside application code.
+## 📚 Islamic Sources & Credits
 
-The CI workflow in [Checks](.github/workflows/check.yml) runs on every push and pull request using Node 24: frozen install, `next typegen`, `pnpm check`, `pnpm test`, `pnpm build --webpack`, and `pnpm test:browser`.
+All *dhikr* and *dua* readings are cited from trusted, authentic references:
+- **Zikir Pagi & Petang:** [Rumaysho.com](https://rumaysho.com) (Ust. Muhammad Abduh Tuasikal)
+- **Doa Al-Qur'an:** [Muslim.or.id](https://muslim.or.id)
+- **Doa Nabi:** [KonsultasiSyariah.com](https://konsultasisyariah.com) (Ust. Ammi Nur Baits)
+- **Doa Salat:** [Rumaysho.com](https://rumaysho.com)
+- **Upstream APIs:** [Aladhan Prayer Times API](https://aladhan.com) and [OpenStreetMap Nominatim](https://nominatim.openstreetmap.org)
 
-## UI & Code Conventions
+For individual hadith references and book citations, see [`src/data/sources.ts`](src/data/sources.ts) or open the in-app **Settings > Sumber Bacaan**.
 
-- Shared UI primitives live in `src/components/ui`.
-- Location search composes shadcn's official `Combobox` (powered by `@base-ui/react`) inside a Radix dialog/drawer (`Enter` confirms or triggers Search; `Escape` closes floating results before the modal).
-- Settings use a theme-aware `ScrollArea` whose scrollbar adapts to the active palette.
-- Component props follow `type ComponentNameProps = Readonly<{ ... }>`, and primitive wrappers inherit props via `Readonly<React.ComponentProps<typeof Primitive>>`.
-- Interface copy follows Indonesian sentence case; [`src/app/error.tsx`](src/app/error.tsx) and [`src/app/global-error.tsx`](src/app/global-error.tsx) render without app providers or `env` configuration so retry and home recovery stay available.
-- Reading sequence order is centralized in [`src/lib/reading-sequence.ts`](src/lib/reading-sequence.ts); repetition targets apply only to progress calculations. Audio recitation playback is not implemented yet (optional counter click sound is available in Settings).
+---
 
-## Contributing
+## 📄 License
 
-Anyone is welcome to contribute — whether you fix a bug, refine UI/accessibility, improve documentation, add localization, or verify Islamic content and references.
+This project is licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)** (`PolyForm-Noncommercial-1.0.0`).
 
-Please read [CONTRIBUTING.md](CONTRIBUTING.md) before sending a pull request:
-
-- **Trunk-based branching:** `main` is the only long-lived branch. Create short-lived branches from `main` (`feat/*`, `fix/*`, `docs/*`, `chore/*`), or fork the repo if you don't have write access.
-- **Conventional Commits:** Commit messages and PR titles follow `<type>(<scope>)?: <subject>`, enforced locally by Husky + Commitlint and verified in CI.
-- **Checks before PR:** Make sure `pnpm check` and `pnpm test` pass before opening a pull request targeting `main`.
-- **Content changes:** When adding or correcting readings, cite authentic sources and preserve existing reading IDs so saved user progress and favorites remain linked (see the [content guidelines](CONTRIBUTING.md#content--transliteration-guidelines)).
-
-## Documentation & Sources
-
-- [Contributing Guide](CONTRIBUTING.md) — branching workflow, Conventional Commits, compatibility & content guidelines, and automated `release-please` releases
-- [Changelog](CHANGELOG.md) — release history and notable updates
-- **Reading Sources:** Listed in [`src/data/sources.ts`](src/data/sources.ts) and inside the app's Settings drawer.
-
-## License
-
-Released under the [PolyForm Noncommercial License 1.0.0](LICENSE) (`PolyForm-Noncommercial-1.0.0`).
-
-Free to use, modify, and share for any **non-commercial purpose** — including personal worship, charitable, educational, and community use. Commercial use is not permitted.
+- ✅ **Free for the Ummah:** You are completely free to use, run, modify, and share this software for **non-commercial purposes** — including personal worship, mosques, non-profit dakwah, and educational use.
+- ❌ **No Commercial Exploitation:** Commercial use, monetizing, paywalling, or selling this application is strictly prohibited.
