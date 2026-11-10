@@ -23,7 +23,7 @@
 
 ---
 
-## 🌟 Why Muslim?
+## Why Muslim?
 
 - 🚫 **100% Free & Distraction-Free:** No advertisements, no paywalls, and no sponsored promotions.
 - 🔒 **Privacy-First:** No accounts, no logins, and zero tracking or analytics. All favorites, counter history, and preferences stay on your device.
@@ -32,7 +32,7 @@
 
 ---
 
-## ✨ Features
+## Features
 
 - **🕌 Prayer Times & Live Countdown**
   - Accurate schedule for the five daily prayers (*Fajr*, *Dhuhr*, *Asr*, *Maghrib*, *Isha*) based on location.
@@ -63,7 +63,7 @@
 
 ---
 
-## 🛠️ Tech Stack
+## Tech Stack
 
 | Category | Technologies |
 | :--- | :--- |
@@ -76,7 +76,7 @@
 
 ---
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -111,7 +111,7 @@
 
 ---
 
-## ⚙️ Environment Variables
+## Environment Variables
 
 Configure these in `.env.local` (validated via [Valibot](https://valibot.dev) in [`src/env.ts`](src/env.ts)):
 
@@ -125,7 +125,7 @@ Configure these in `.env.local` (validated via [Valibot](https://valibot.dev) in
 
 ---
 
-## 🧪 Scripts & Quality Checks
+## Scripts & Quality Checks
 
 ```bash
 # Code quality & type safety
@@ -146,7 +146,7 @@ pnpm start              # Runs production server
 
 ---
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 muslim/
@@ -169,7 +169,7 @@ muslim/
 
 ---
 
-## 🤝 Contributing
+## Contributing
 
 Contributions are welcome! Whether you are a software engineer, UI/UX designer, or an Islamic content reviewer, your help is appreciated.
 
@@ -182,7 +182,7 @@ Please read our [Contributing Guide](CONTRIBUTING.md) for full details on our tr
 
 ---
 
-## 📚 Islamic Sources & Credits
+## Islamic Sources & Credits
 
 All *dhikr* and *dua* readings are cited from trusted, authentic references:
 - **Zikir Pagi & Petang:** [Rumaysho.com](https://rumaysho.com)
@@ -195,7 +195,7 @@ For individual hadith references and book citations, see [`src/data/sources.ts`]
 
 ---
 
-## 📄 License
+## License
 
 This project is licensed under the **[PolyForm Noncommercial License 1.0.0](LICENSE)** (`PolyForm-Noncommercial-1.0.0`).
 
