@@ -2,7 +2,7 @@
 
 <p align="center">
   <strong>A modern, ad-free Progressive Web App (PWA) for daily Muslim worship.</strong><br>
-  Built for the Ummah — free for non-commercial use, privacy-focused, and open source.
+  Built for the Ummah — free for non-commercial use, privacy-focused, and source-available.
 </p>
 
 <p align="center">

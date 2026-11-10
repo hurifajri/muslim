@@ -1,6 +1,6 @@
 # Contributing to Muslim
 
-Thank you for your interest in contributing to **Muslim**! This project is an ad-free, non-commercial, open-source web application built for the Ummah. Every contribution — whether it is reporting a bug, improving UI and accessibility, verifying Arabic text and hadith references, or contributing code — is a valuable community service (*amal jariyah*).
+Thank you for your interest in contributing to **Muslim**! This project is an ad-free, non-commercial, source-available web application built for the Ummah. Every contribution — whether it is reporting a bug, improving UI and accessibility, verifying Arabic text and hadith references, or contributing code — is a valuable community service (*amal jariyah*).
 
 ---
 
