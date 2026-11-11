@@ -9,6 +9,12 @@ export function testPersistence({ browser, check, waitFor, base }) {
   /** @param {number} id */
   const isFavorite = id =>
     `document.querySelector('${favorite(id)}')?.getAttribute('aria-pressed') === 'true'`;
+  const clickIncrement = () => {
+    check(
+      `document.querySelector('${increment}').scrollIntoView({ block: 'center' })`
+    );
+    browser('click', increment);
+  };
   /** @param {number} id */
   const clickFavorite = id => {
     check(
@@ -48,12 +54,12 @@ export function testPersistence({ browser, check, waitFor, base }) {
       window.__releaseReadingLock = resolve;
     }));`);
     waitFor(`typeof window.__releaseReadingLock === 'function'`);
-    browser('click', increment);
-    browser('click', increment);
+    clickIncrement();
+    clickIncrement();
     clickFavorite(2);
     browser('tab', 'persistence-b');
-    browser('click', increment);
-    browser('click', increment);
+    clickIncrement();
+    clickIncrement();
     clickFavorite(3);
     browser('tab', 'persistence-a');
     check('window.__releaseReadingLock()');
@@ -74,7 +80,7 @@ export function testPersistence({ browser, check, waitFor, base }) {
     waitFor(`${count} === '0/3'`);
     browser('tab', 'persistence-b');
     waitFor(`${count} === '0/3'`);
-    browser('click', increment);
+    clickIncrement();
     browser('tab', 'persistence-a');
     waitFor(
       `${count} === '1/3' && !document.body.textContent.includes('Batalkan reset sesi')`
@@ -140,11 +146,11 @@ export function testPersistence({ browser, check, waitFor, base }) {
         return original.call(this, key, value);
       };
       window.__restoreStorage = () => { Storage.prototype.setItem = original; };`);
-    browser('click', increment);
+    clickIncrement();
     waitFor(
       `document.querySelector('[data-sonner-toast][data-type="warning"]')?.textContent.includes('Perubahan hanya berlaku selama sesi ini.')`
     );
-    browser('click', increment);
+    clickIncrement();
     clickFavorite(2);
     waitFor(
       `${count} === '2/3' && ${isFavorite(2)} && document.body.textContent.includes('Progres dan favorit hanya berlaku selama sesi ini')`
@@ -163,7 +169,7 @@ export function testPersistence({ browser, check, waitFor, base }) {
     check(`window.__restoreStorage(); window.dispatchEvent(new Event('focus'));
       if (window.__warningCount !== 1) throw Error('Storage warning did not appear exactly once: ' + window.__warningCount);
       if (window.__storageErrors.length) throw Error('Storage rejection escaped: ' + window.__storageErrors);`);
-    browser('click', increment);
+    clickIncrement();
     waitFor(`${count} === '3/3'`);
     check(
       `if (localStorage.getItem('muslim-reading') !== window.__savedReading || localStorage.getItem('muslim-settings') !== window.__savedSettings) throw Error('Temporary data overwrote durable data after recovery');`
