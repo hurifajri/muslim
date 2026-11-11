@@ -1,5 +1,12 @@
 # Changelog
 
+## [2.1.2](https://github.com/hurifajri/muslim/compare/v2.1.1...v2.1.2) (2026-11-11)
+
+
+### Bug Fixes
+
+* **readme:** remove emoji prefixes from headings to fix anchor links ([#77](https://github.com/hurifajri/muslim/issues/77)) ([c55111c](https://github.com/hurifajri/muslim/commit/c55111ce10348a66de69e1ef97a3c9ff1377cbd4))
+
 ## [2.1.1](https://github.com/hurifajri/muslim/compare/v2.1.0...v2.1.1) (2026-11-08)
 
 
